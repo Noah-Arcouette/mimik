@@ -8,7 +8,6 @@ main (void)
 
 /*
 
- - Buffered Reading/Writing
  - Dictionary
  - Window
  - History

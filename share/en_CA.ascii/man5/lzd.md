@@ -47,10 +47,10 @@ struct LZD_Stream_Header
     char magic[4];          // "LZD\0"
     unsigned char revision; // 0
     char dictionary[256];   // the name of the dictionary, may be NULL for the preset
-    unsigned char diction;  // length of a dictionary code word, in bytes
-    unsigned char offset;   // length of an offset, in bytes
-    unsigned char length;   // length of a length, in bytes
-    unsigned char history;  // length of a history offset, in bytes
+    unsigned char diction;  // length of a dictionary code word, in bits
+    unsigned char offset;   // length of an offset, in bits
+    unsigned char length;   // length of a length, in bits
+    unsigned char history;  // length of a history offset, in bits
 };
 ```
 
@@ -78,12 +78,12 @@ The dictionary selection shall give an index into the dictionary. The dictionary
 
 Unless otherwise stated, the size of each number category shall be:
 
-| Category | Size, in bytes |
-| -------- | -------------- |
-|  diction | 1              |
-|  offset  | 2              |
-|  length  | 1              |
-|  history | 2              |
+| Category | Size, in bits |
+| -------- | ------------- |
+|  diction | 8             |
+|  offset  | 16            |
+|  length  | 8             |
+|  history | 12            |
 
 Unless otherwise stated, all numbers shall be encoded as such:
 
