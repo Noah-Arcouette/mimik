@@ -2,17 +2,17 @@
 #define __LIB_LZ_DUAL_H__
 #include <stddef.h>
 
-struct LZD_Options
+struct LZD_Stream_Header
 {
-    unsigned char off;
-    unsigned char len;
-    unsigned char dct;
-    unsigned char hst;
+    char magic[4];          // "LZD\0"
+    unsigned char revision; // 0
+    char dictionary[256];   // the name of the dictionary, may be NULL for the preset
+    unsigned char diction;  // length of a dictionary code word, in bits
+    unsigned char offset;   // length of an offset, in bits
+    unsigned char length;   // length of a length, in bits
+    unsigned char history;  // length of a history offset, in bits
 };
-int LZD_dumpOptions (struct LZD_Options,         unsigned char *buff, size_t size);
-int LZD_readOptions (struct LZD_Options *, const unsigned char *buff, size_t size);
-
-unsigned char *LZD_compress   (struct LZD_Options, const unsigned char *buff, size_t size, int *outsize);
-unsigned char *LZD_decompress (struct LZD_Options, const unsigned char *buff, size_t size, int *outsize);
+unsigned char *LZD_compress   (struct LZD_Stream_Header, const unsigned char *buff, size_t size, int *outsize);
+unsigned char *LZD_decompress (struct LZD_Stream_Header, const unsigned char *buff, size_t size, int *outsize);
 
 #endif
