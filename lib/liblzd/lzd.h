@@ -2,7 +2,23 @@
 #define __LIB_LZ_DUAL_H__
 #include <stddef.h>
 
-struct LZD_Stream_Header
+#define LZD_MATCH_TYPE_DICTION 0
+struct LZD_Match
+{
+    size_t        size;
+    unsigned char type;
+    union
+    {
+        size_t hst;
+        size_t dct;
+        struct
+        {
+            size_t off;
+            size_t len;
+        };
+    };
+};
+struct __attribute__((__packed__)) LZD_Stream_Header
 {
     char magic[4];          // "LZD\0"
     unsigned char revision; // 0
@@ -12,7 +28,12 @@ struct LZD_Stream_Header
     unsigned char length;   // length of a length, in bits
     unsigned char history;  // length of a history offset, in bits
 };
-unsigned char *LZD_compress   (struct LZD_Stream_Header, const unsigned char *buff, size_t size, int *outsize);
-unsigned char *LZD_decompress (struct LZD_Stream_Header, const unsigned char *buff, size_t size, int *outsize);
+unsigned char *LZD_compress   (struct LZD_Stream_Header, const unsigned char *buff, size_t size, size_t *outsize);
+unsigned char *LZD_decompress (struct LZD_Stream_Header, const unsigned char *buff, size_t size, size_t *outsize);
+
+int  startDictionary (struct LZD_Stream_Header); // start the dictionary
+void stopDictionary  (void);                     // stop the dictionary
+void findDictionary  (unsigned char *find);      // target sequence *find*
+int  matchDictionary (struct LZD_Match *);       // find next match in the dictionary
 
 #endif
