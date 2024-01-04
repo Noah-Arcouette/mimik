@@ -1,0 +1,6 @@
+include_rules
+
+: foreach *.c |> !cc |> %B.o
+
+# test binary
+: *.o |> !ccld |> $(DIST)/usr/lib/liblzd
