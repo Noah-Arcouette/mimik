@@ -1,4 +1,5 @@
 #include "lzd.h"
+#include "cyclic.h"
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
@@ -44,16 +45,12 @@ findWindow (unsigned char *find)
     sidx   = 0;
 }
 
-// cyclic buffer to allow fast head appending
-#define WINDOW_INDEX(i) (       (i + head) % wsize)
-#define WINDOW_ROLL(s)  (head = (head - s) % wsize)
-
 int
 matchWindow (struct LZD_Match *match)
 {
     for (; (widx+sidx)<wsize; widx++)
     {
-        if (window[WINDOW_INDEX(widx+sidx)] == search[sidx])
+        if (window[CYC_INDEX(widx+sidx,head,wsize)] == search[sidx])
         {
             // set match
             match->type  = LZD_MATCH_TYPE_WINDOW;
@@ -69,10 +66,10 @@ matchWindow (struct LZD_Match *match)
 int
 pushWindow (unsigned char *buff, size_t size)
 {
-    WINDOW_ROLL(size);
+    head = CYC_ROLL(head,size,wsize);
     for (size_t i = 0; i<size; i++)
     {
-        window[WINDOW_INDEX(i)] = buff[i];
+        window[CYC_INDEX(i,head,wsize)] = buff[i];
     }
 
     return 0;
