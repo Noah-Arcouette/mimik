@@ -46,7 +46,6 @@ key (unsigned char *buff, size_t size)
         i ^= rand();
     }
 
-    return 0;
     return i % SIZE;
 }
 
