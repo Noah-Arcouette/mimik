@@ -41,7 +41,6 @@ main (void)
 
 /*
 
- - History
  - Matching
  - Move-To-Front
  - Encoding

@@ -1,6 +1,12 @@
 include_rules
 
-: foreach *.c |> !cc |> %B.o
+ifeq (@(LIB_LZD),y)
+: foreach *.c |> !cc |> %B.o {obj}
 
-# test binary
-: *.o |> !ccld -lm |> $(DIST)/usr/lib/liblzd
+: {obj} |> !ldso -lc -lm |> $(DIST)/usr/lib/liblzd.so
+
+ifeq (@(BUILD_STATIC),y)
+: {obj} |> !ar |> $(DIST)/usr/lib/liblzd.a
+endif
+
+endif
