@@ -16,6 +16,12 @@ CYC_UINDEX (size_t index, size_t head, size_t size)
 }
 
 static inline size_t
+CYC_UROLL (size_t head, size_t amount, size_t size)
+{
+    return (head-amount) % size;
+}
+
+static inline size_t
 CYC_ROLL (size_t head, size_t amount, size_t size)
 {
     return (head+amount) % size;

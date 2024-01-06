@@ -17,48 +17,24 @@ main (void)
         .history = 16
     };
 
-    if (startHistory(header))
-    {
-        printf("Failed to initialize history.\n");
-        return 1;
-    }
+    startWindow(header);
 
-    if (pushHistory("Hello, world!", 14))
-    {
-        printf("Failed to push to history.\n");
-        return 1;
-    }
-    if (pushHistory("Hi, world!", 11))
-    {
-        printf("Failed to push to history.\n");
-        return 1;
-    }
-    if (pushHistory("Hell", 4))
-    {
-        printf("Failed to push to history.\n");
-        return 1;
-    }
-    if (pushHistory("Hello", 5))
-    {
-        printf("Failed to push to history.\n");
-        return 1;
-    }
-
-    findHistory("Hello, world!", 14);
-
+    pushWindow("hi", 2);
+    pushWindow("hillo", 5);
+    pushWindow("hallo", 5);
+    pushWindow("ho", 2);
+    findWindow("hillo", 5);
     struct LZD_Match match;
-    int              end;
-    do
-    {
-        end = matchHistory(&match);
+    matchWindow(&match);
+    printf("%ld %ld\n", match.size, match.index);
+    matchWindow(&match);
+    printf("%ld %ld\n", match.size, match.index);
+    matchWindow(&match);
+    printf("%ld %ld\n", match.size, match.index);
+    matchWindow(&match);
+    printf("%ld %ld\n", match.size, match.index);
 
-        if (match.size)
-        {
-            printf("[%ld] %ld\n", match.index, match.size);
-        }
-    } while (end);
-
-    stopHistory();
+    stopWindow();
 
     return 0;
 }

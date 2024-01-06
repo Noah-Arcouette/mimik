@@ -73,11 +73,12 @@ matchWindow (struct LZD_Match *match)
 int
 pushWindow (unsigned char *buff, size_t size)
 {
-    head = CYC_ROLL(head,size,wsize);
+    head = CYC_UROLL(head,size,wsize);
     for (size_t i = 0; i<size; i++)
     {
         window[CYC_INDEX(i,head,wsize)] = buff[i];
     }
+    printf("%ld: %s\n", head, window+head);
 
     return 0;
 }
