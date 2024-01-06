@@ -2,43 +2,63 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "hashtab.h"
 #include "lzd.h"
-
-#define SIZE 0xff+1
 
 int
 main (void)
 {
-    srand(time(0));
-    ks = rand();
+    struct LZD_Stream_Header header = {
+        .magic = "LZD",
+        .revision = 0,
+        .dictionary = "",
+        .diction = 8,
+        .offset = 12,
+        .length = 8,
+        .history = 16
+    };
 
-    struct entry *entries    = malloc(sizeof(struct entry) * SIZE);
-    struct entry **hashtable = malloc(sizeof(struct entry *)*SIZE);
-
-    for (int i = 0; i<SIZE; i++)
+    if (startHistory(header))
     {
-        entries[i].buff = (unsigned char*)NULL;
-        entries[i].size = 0;
-        entries[i].next = (struct entry*)NULL;
-        hashtable[i]    = (struct entry*)NULL;
+        printf("Failed to initialize history.\n");
+        return 1;
     }
 
-    entries[0].buff = (unsigned char*)"hi";
-    entries[0].size = 3;
-    entries[1].buff = (unsigned char*)"hello";
-    entries[1].size = 6;
-    entries[2].buff = (unsigned char*)"potato";
-    entries[2].size = 6;
+    if (pushHistory("Hello, world!", 14))
+    {
+        printf("Failed to push to history.\n");
+        return 1;
+    }
+    if (pushHistory("Hi, world!", 11))
+    {
+        printf("Failed to push to history.\n");
+        return 1;
+    }
+    if (pushHistory("Hell", 4))
+    {
+        printf("Failed to push to history.\n");
+        return 1;
+    }
+    if (pushHistory("Hello", 5))
+    {
+        printf("Failed to push to history.\n");
+        return 1;
+    }
 
-    hadd(hashtable, &entries[0], SIZE);
-    hadd(hashtable, &entries[1], SIZE);
-    hadd(hashtable, &entries[2], SIZE);
-    hremove(hashtable, entries[0], SIZE);
-    hremove(hashtable, entries[1], SIZE);
-    hremove(hashtable, entries[5], SIZE);
+    findHistory("Hello, world!", 14);
 
-    printf("%s\n", hsearch(hashtable, entries[2].buff, entries[2].size, SIZE)->buff);
+    struct LZD_Match match;
+    int              end;
+    do
+    {
+        end = matchHistory(&match);
+
+        if (match.size)
+        {
+            printf("[%ld] %ld\n", match.index, match.size);
+        }
+    } while (end);
+
+    stopHistory();
 
     return 0;
 }

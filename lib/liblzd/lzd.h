@@ -4,6 +4,7 @@
 
 #define LZD_MATCH_TYPE_DICTION 0
 #define LZD_MATCH_TYPE_WINDOW  1
+#define LZD_MATCH_TYPE_HISTORY 2
 struct LZD_Match
 {
     size_t        size;
@@ -25,14 +26,20 @@ unsigned char *LZD_decompress (struct LZD_Stream_Header, const unsigned char *bu
 
 int  startDictionary (struct LZD_Stream_Header);
 void stopDictionary  (void);
-void findDictionary  (unsigned char *find);
+void findDictionary  (unsigned char *find, size_t findSize);
 int  matchDictionary (struct LZD_Match *);
 
 int  startWindow (struct LZD_Stream_Header);
 void stopWindow  (void);
-void findWindow  (unsigned char *find);
+void findWindow  (unsigned char *find, size_t findSize);
 int  matchWindow (struct LZD_Match *);
 int  pushWindow  (unsigned char *buff, size_t size);
+
+int  startHistory (struct LZD_Stream_Header);
+void stopHistory  (void);
+void findHistory  (unsigned char *find, size_t findSize);
+int  matchHistory (struct LZD_Match *);
+int  pushHistory  (unsigned char *buff, size_t size);
 
 
 #endif

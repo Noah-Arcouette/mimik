@@ -12,7 +12,7 @@ static size_t         head;
 int
 startWindow (struct LZD_Stream_Header header)
 {
-    wsize  = pow(2, header.offset)+pow(2, header.length);
+    wsize  = pow(2, header.offset)+pow(2, header.length)+1;
     head   = 0;
     window = malloc(wsize);
 
@@ -36,13 +36,15 @@ stopWindow (void)
 static unsigned char *search;
 static size_t         widx; // index into the window
 static size_t         sidx; // index into the search, the character to find
+static size_t         ssize;
 
 void
-findWindow (unsigned char *find)
+findWindow (unsigned char *find, size_t findSize)
 {
     search = find;
     widx   = 0;
     sidx   = 0;
+    ssize  = findSize;
 }
 
 int
@@ -50,6 +52,11 @@ matchWindow (struct LZD_Match *match)
 {
     for (; (widx+sidx)<wsize; widx++)
     {
+        if (sidx >= ssize)
+        {
+            return 1;
+        }
+        
         if (window[CYC_INDEX(widx+sidx,head,wsize)] == search[sidx])
         {
             // set match
