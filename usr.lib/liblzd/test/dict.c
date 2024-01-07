@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define TITLE(x) printf("liblzd/%s %d: ", __FILE__, __LINE__)
+
 int
 main (void)
 {
@@ -18,7 +20,8 @@ main (void)
 
     if (startDictionary(header))
     {
-        puts("liblzd/diction 21: Failed to start dictionary of size 8");
+        TITLE();
+        puts("Failed to start dictionary of size 8");
         return 1;
     }
 
@@ -29,17 +32,20 @@ main (void)
     struct LZD_Match match;
     if (!matchDictionary(&match))
     {
-        puts("liblzd/diction 32: Matches multiple zeros");
+        TITLE();
+        puts("Matches multiple zeros");
         err = 1;
     }
     if (match.size != 1)
     {
-        puts("liblzd/diction 37: Cannot match zero, or match many zeros");
+        TITLE();
+        puts("Cannot match zero, or match many zeros");
         err = 1;
     }
     if (match.index)
     {
-        puts("liblzd/diction 42: Mismatches zero");
+        TITLE();
+        puts("Mismatches zero");
         err = 1;
     }
 
@@ -47,17 +53,20 @@ main (void)
     findDictionary((unsigned char *)"\xff\xff\xff\xff", 4);
     if (!matchDictionary(&match))
     {
-        puts("liblzd/diction 51: Matches multiple 255s");
+        TITLE();
+        puts("Matches multiple 255s");
         err = 1;
     }
     if (match.size != 1)
     {
-        puts("liblzd/diction 56: Cannot match 255, or match many 255s");
+        TITLE();
+        puts("Cannot match 255, or match many 255s");
         err = 1;
     }
     if (match.index != 0xff)
     {
-        puts("liblzd/diction 61: Mismatches 255");
+        TITLE();
+        puts("Mismatches 255");
         err = 1;
     }
 
@@ -65,17 +74,20 @@ main (void)
     findDictionary((unsigned char *)"\x77\x77\x77\x77", 4);
     if (!matchDictionary(&match))
     {
-        puts("liblzd/diction 68: Matches multiple 77s");
+        TITLE();
+        puts("Matches multiple 77s");
         err = 1;
     }
     if (match.size != 1)
     {
-        puts("liblzd/diction 73: Cannot match 77, or match many 77s");
+        TITLE();
+        puts("Cannot match 77, or match many 77s");
         err = 1;
     }
     if (match.index != 0x77)
     {
-        puts("liblzd/diction 78: Mismatches 77");
+        TITLE();
+        puts("Mismatches 77");
         err = 1;
     }
 
@@ -83,10 +95,12 @@ main (void)
 
     if (err)
     {
-        puts("liblzd/diction:\tInconsistent!");
+        TITLE();
+        puts("\tInconsistent!");
         return err;
     }
 
-    puts("liblzd/diction:\tConsistent");
+    TITLE();
+    puts("\tConsistent");
     return 0;
 }

@@ -1,6 +1,8 @@
 #include "../string.h"
 #include <stdio.h>
 
+#define TITLE(x) printf("libc/%s %d: ", __FILE__, __LINE__)
+
 int
 main (void)
 {
@@ -10,43 +12,50 @@ main (void)
     char *x = strpbrk(buff, "tr");
     if (!x)
     {
-        puts("libc/strpbrk 13: Cannot find match");
+        TITLE();
+        puts("Cannot find match");
         err = 1;
     }
     else if (x != buff+1)
     {
-        puts("libc/strpbrk 18: Finds wrong match");
+        TITLE();
+        puts("Finds wrong match");
         err = 1;
     }
 
     x = strpbrk(buff, "lw");
     if (x)
     {
-        puts("libc/strpbrk 25: Mismatches");
+        TITLE();
+        puts("Mismatches");
         err = 1;
     }
 
     x = strpbrk("", "String");
     if (x)
     {
-        puts("libc/strpbrk 32: Matches on nothing");
+        TITLE();
+        puts("Matches on nothing");
         err = 1;
     }
 
     x = strpbrk(buff, "");
     if (x)
     {
-        puts("libc/strpbrk 39: Matches nothing");
+        TITLE();
+        puts("Matches nothing");
         err = 1;
     }
 
     if (err)
     {
-        puts("libc/strpbrk:\tInconsistent!");
+        TITLE();
+        puts("\tInconsistent!");
     }
     else
     {
-        puts("libc/strpbrk:\tConsistent");
+        TITLE();
+        puts("\tConsistent");
     }
     return err;
 }

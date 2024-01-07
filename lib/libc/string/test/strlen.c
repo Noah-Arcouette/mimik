@@ -1,6 +1,8 @@
 #include "../string.h"
 #include <stdio.h>
 
+#define TITLE(x) printf("libc/%s %d: ", __FILE__, __LINE__)
+
 int
 main (void)
 {
@@ -8,22 +10,26 @@ main (void)
     
     if (strlen("TEST") != 4)
     {
-        puts("libc/strlen 11: Does not compute the length of a string");
+        TITLE();
+        puts("Does not compute the length of a string");
         err = 1;
     }
     if (strlen(""))
     {
-        puts("libc/strlen 16: Does not compute the length of an empty string");
+        TITLE();
+        puts("Does not compute the length of an empty string");
         err = 1;
     }
 
     if (!err)
     {
-        puts("libc/strlen:\tConsistent");
+        TITLE();
+        puts("\tConsistent");
     }
     else
     {
-        puts("libc/strlen:\tInconsistent!");
+        TITLE();
+        puts("\tInconsistent!");
     }
     return err;
 }

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "../string.h"
 
+#define TITLE(x) printf("libc/%s %d: ", __FILE__, __LINE__)
+
 int
 main (void)
 {
@@ -9,43 +11,50 @@ main (void)
     char *x = memchr(buff, 'S', 12);
     if (!x)
     {
-        puts("libc/memchr 12: Does not find first character match");
+        TITLE();
+        puts("Does not find first character match");
         err = 1;
     }
     else if (x != buff)
     {
-        puts("libc/memchr 17: Mismatches on first character match");
+        TITLE();
+        puts("Mismatches on first character match");
         err = 1;
     }
 
     x = memchr(buff, (char)0, 13);
     if (!x)
     {
-        puts("libc/memchr 24: Does not find last character match");
+        TITLE();
+        puts("Does not find last character match");
         err = 1;
     }
     else if (x != buff+12)
     {
-        puts("libc/memchr 29: Mismatches on last character match");
+        TITLE();
+        puts("Mismatches on last character match");
         err = 1;
     }
 
     x = memchr(buff, 'r', 12);
     if (!x)
     {
-        puts("libc/memchr 36: Does not find character");
+        TITLE();
+        puts("Does not find character");
         err = 1;
     }
     else if (x != buff+2)
     {
-        puts("libc/memchr 41: Mismatches");
+        TITLE();
+        puts("Mismatches");
         err = 1;
     }
 
     x = memchr(buff, '=', 12);
     if (x)
     {
-        puts("libc/memchr 48: Matches on nothing");
+        TITLE();
+        puts("Matches on nothing");
         err = 1;
     }
 
@@ -53,22 +62,26 @@ main (void)
     x = memchr(buff, '!', 13);
     if (!x)
     {
-        puts("libc/memchr 56: Does not find character after 0");
+        TITLE();
+        puts("Does not find character after 0");
         err = 1;
     }
     else if (x != buff+11)
     {
-        puts("libc/memchr 61: Mismatches past 0");
+        TITLE();
+        puts("Mismatches past 0");
         err = 1;
     }
 
     if (err)
     {
-        puts("libc/memchr:\tInconsistent!");
+        TITLE();
+        puts("\tInconsistent!");
     }
     else
     {
-        puts("libc/memchr:\tConsistent");
+        TITLE();
+        puts("\tConsistent");
     }
     return err;
 }
