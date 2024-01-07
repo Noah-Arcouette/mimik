@@ -1260,4 +1260,32 @@ wchar.h
 wctype.h
 wordexp.h
 
+ == needed ==
+ = for static chrooting of the current system build
+
 stack smash protection
+ctr0.o
+
+stdio.h:
+    fprintf
+    printf
+    puts
+    setbuf
+    fopen
+    fread
+    fwrite
+    fclose
+string.h:
+    strerror
+    strcmp
+    strcpy
+errno.h
+unistd.h:
+    link
+    unlink
+nl_types.h:
+    catopen
+    catgets
+    catclose
+signal.h:
+    signal
