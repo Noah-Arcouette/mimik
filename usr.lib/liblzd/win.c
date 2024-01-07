@@ -54,6 +54,7 @@ matchWindow (struct LZD_Match *match)
     {
         if (sidx >= ssize)
         {
+            match->size = 0;
             return 1;
         }
         
@@ -67,6 +68,7 @@ matchWindow (struct LZD_Match *match)
         }
         sidx = 0;
     }
+    match->size = 0;
     return 1;
 }
 
@@ -78,7 +80,6 @@ pushWindow (unsigned char *buff, size_t size)
     {
         window[CYC_INDEX(i,head,wsize)] = buff[i];
     }
-    printf("%ld: %s\n", head, window+head);
 
     return 0;
 }

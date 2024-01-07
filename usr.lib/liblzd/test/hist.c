@@ -41,7 +41,6 @@ main (void)
 
     int err = 0;
 
-    // test first character
     struct LZD_Match match;
 
     pushHistory(STRING0, STRING0_SIZE);
