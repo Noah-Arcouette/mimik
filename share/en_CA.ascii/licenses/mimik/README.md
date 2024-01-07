@@ -13,8 +13,6 @@ Mimik uses [Tup](https://gittup.org/tup) for its build system.
 
 Just run:
 
-`$ tup init`
-
 `$ tup`
 
 The system should be built into the `./dist/` directory. All configuration is done in `tup.config`.
