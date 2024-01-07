@@ -25,7 +25,7 @@ stopDictionary (void)
 static unsigned char *search;
 
 void
-findDictionary (unsigned char *find, size_t findSize)
+findDictionary (unsigned char *find, size_t)
 {
     search = find;
 }

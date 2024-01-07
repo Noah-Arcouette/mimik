@@ -41,5 +41,6 @@ void findHistory  (unsigned char *find, size_t findSize);
 int  matchHistory (struct LZD_Match *);
 int  pushHistory  (unsigned char *buff, size_t size);
 
+// match... will return zero on last match, don't ask why
 
 #endif

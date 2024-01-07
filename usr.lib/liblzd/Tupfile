@@ -3,14 +3,14 @@ include_rules
 ifeq (@(LIB_LZD),y)
 : foreach *.c |> !cc |> %B.o {obj}
 
-: {obj} |> !ldso -lc -lm |> $(DIST)/usr/lib/liblzd.so <liblzd>
+: {obj} |> !ldso -lc -lm |> $(DIST)/usr/lib/liblzd.so ../<liblzd>
 
 ifeq (@(BUILD_INCLUDES),y)
-: lzd.h |> !mv |> $(DIST)/usr/include/lzd.h <liblzd>
+: lzd.h |> !mv |> $(DIST)/usr/include/lzd.h ../<liblzd>
 endif
 
 ifeq (@(BUILD_STATIC),y)
-: {obj} |> !ar |> $(DIST)/usr/lib/liblzd.a <liblzd>
+: {obj} |> !ar |> $(DIST)/usr/lib/liblzd.a ../<liblzd>
 endif
 
 endif
