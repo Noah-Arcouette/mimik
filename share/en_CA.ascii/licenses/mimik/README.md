@@ -1,6 +1,6 @@
 # Mimik System Tree
 
-Mimik System Tree, or Mimik for short, is a implementation of a POSIX-Like operating system, as well as many other free to use data. All under the same license and with the same goal.
+Mimik System Tree, or Mimik for short, is an implementation of a POSIX-Like operating system, as well as many other free to use data. All under the same license and with the same goal.
 
 ## Goal
 
