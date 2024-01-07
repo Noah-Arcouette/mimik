@@ -8,7 +8,7 @@ ifeq (@(STATIC),y)
 LIB=$(DIST)/usr/lib/liblzd.a
 endif
 
-: foreach *.c | ../../<liblzd> |> !ccld $(LIB) -I$(DIST)/usr/include/ |> $(DIST)/usr/test/liblzd/%B
+: foreach *.c | ../../<liblzd> |> !ccld $(LIB) -lm -I$(DIST)/usr/include/ |> $(DIST)/usr/test/liblzd/%B
 
 endif
 endif
