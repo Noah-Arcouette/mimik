@@ -1264,7 +1264,7 @@ wordexp.h
  = for static chrooting of the current system build
 
 stack smash protection
-ctr0.o
+crt0.o
 
 stdio.h:
     fprintf
