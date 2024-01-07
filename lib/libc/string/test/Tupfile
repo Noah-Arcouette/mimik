@@ -1,5 +1,9 @@
 include_rules
 
+# This isn't that bad, but it links to the users libc
+# In the future, as libc comes to completion, 
+#   all binaries will link to the distribution libraries
+#   and we'll find a way for dependencies to work
 ifeq (@(LIB_C),y)
 ifeq (@(BUILD_TESTS),y)
 : foreach *.c |> !ccld -fno-builtin |> $(DIST)/usr/test/libc/%B

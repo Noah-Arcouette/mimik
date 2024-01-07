@@ -1,6 +1,11 @@
+# Dirs
+DIST:=$(TUP_CWD)/dist/
+
 # C99
 CFLAGS+=-Wall -Wextra -std=c99 -fPIC
 CC:=cc
+# adding -L$(DIST)/lib... and -I$(DIST)/usr/include/ is sort of required,
+#   but the system is not ready for that yet so bear with us
 
 # Archive
 AR:=ar
@@ -32,9 +37,6 @@ endif
 ifeq (@(STATIC),y)
 CFLAGS+=-static
 endif
-
-# Dirs
-DIST:=$(TUP_CWD)/dist/
 
 
 # Rules
