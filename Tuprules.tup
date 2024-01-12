@@ -1,5 +1,5 @@
 # C99
-CFLAGS+=-Wall -Wextra -std=c99 -fPIC
+CFLAGS+=-Wall -Wextra -std=c99 -fPIC -D_POSIX_C_SOURCE=200809L
 CC:=cc
 
 # Archive

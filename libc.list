@@ -1270,7 +1270,6 @@ stdio.h:
     fprintf
     printf
     puts
-    fflush
     fopen
     fread
     fwrite
@@ -1285,6 +1284,8 @@ unistd.h:
     link
     unlink
     lseek
+    pwrite
+    exit
 fcntl.h:
     fcntl
 nl_types.h:
