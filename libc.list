@@ -1277,6 +1277,9 @@ stdio.h:
     fread
     fwrite
     fclose
+stdlib.h:
+    malloc
+    free
 string.h:
     strerror
     strcmp
@@ -1285,6 +1288,7 @@ errno.h
 unistd.h:
     link
     unlink
+    lseek
 nl_types.h:
     catopen
     catgets
