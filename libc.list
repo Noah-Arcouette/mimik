@@ -1269,7 +1269,6 @@ crt0.o
 stdio.h:
     fprintf
     printf
-    puts
     fopen
     fread
     fwrite
@@ -1294,3 +1293,5 @@ nl_types.h:
     catclose
 signal.h:
     signal
+stdarg.h
+stddef.h

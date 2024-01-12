@@ -13,7 +13,7 @@ fflush - Flush the contents of a stream buffer, part of libc
 ```C
 #include <stdio.h>
 
-int fflush (FILE *restrict stream);
+int fflush (FILE *stream);
 ```
 
 
