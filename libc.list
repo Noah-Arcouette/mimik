@@ -1270,9 +1270,7 @@ stdio.h:
     fprintf
     printf
     puts
-    setbuf
-    setvbuf
-    fdopen
+    fflush
     fopen
     fread
     fwrite
@@ -1282,13 +1280,13 @@ stdlib.h:
     free
 string.h:
     strerror
-    strcmp
-    strcpy
 errno.h
 unistd.h:
     link
     unlink
     lseek
+fcntl.h:
+    fcntl
 nl_types.h:
     catopen
     catgets
