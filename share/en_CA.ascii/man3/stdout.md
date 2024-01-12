@@ -19,7 +19,7 @@ extern FILE *stdout;
 
 # Description
 
-*stdout* shall be the, functional, result of `fdopen(STDOUT_FILENO, "w")`. *stdout* shall be line-buffered, unless otherwise stated. *stdout* shall be user for application output, or output that shall be included in a given pipeline.
+*stdout* shall be opened for writing and be line-buffered, unless otherwise stated. *stdout* shall be user for application output, or output that shall be included in a given pipeline.
 
 
 # Environment Variables

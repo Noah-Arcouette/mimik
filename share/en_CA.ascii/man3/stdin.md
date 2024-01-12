@@ -19,7 +19,7 @@ extern FILE *stdin;
 
 # Description
 
-*stdin* shall be the, functional, result of `fdopen(STDIN_FILENO, "r")`. *stdin* shall be fully-buffered, unless otherwise stated. *stdin* shall be used for buffer input to the given application: the input section of a pipeline, a file, or user input.
+*stdin* shall be opened for reading and be fully-buffered, unless otherwise stated. *stdin* shall be used for buffer input to the given application: the input section of a pipeline, a file, or user input.
 
 
 # Environment Variables

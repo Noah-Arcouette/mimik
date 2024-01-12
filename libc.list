@@ -1271,6 +1271,8 @@ stdio.h:
     printf
     puts
     setbuf
+    setvbuf
+    fdopen
     fopen
     fread
     fwrite

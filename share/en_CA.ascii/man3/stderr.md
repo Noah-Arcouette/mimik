@@ -19,7 +19,7 @@ extern FILE *stderr;
 
 # Description
 
-*stderr* shall be the, functional, result of `fdopen(STDERR_FILENO, "rw")`. *stderr* shall be non-buffered, unless otherwise stated. *stderr* shall be used for diagnostic messages, or messages that need not be included in a given pipeline.
+*stderr* shall be opened for updating and non-buffered, unless otherwise stated. *stderr* shall be used for diagnostic messages, or messages that need not be included in a given pipeline.
 
 
 # Environment Variables

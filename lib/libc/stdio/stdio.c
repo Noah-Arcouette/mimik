@@ -1,63 +1,21 @@
 #include "stdio.h"
 #include <unistd.h>
 
-#ifdef BUFSIZ
-static char _stdin_buff[BUFSIZ];
-static FILE _stdin_file = {
-    .fildes = STDIN_FILENO,
-    .flags  = _FILE_FLAG_OP_READ | _FILE_FLAG_FILDES | _FILE_FLAG_BUFFERED | _FILE_FLAG_NO_CLOSE,
-    .seek   = 0,
+FILE *stdin;
+FILE *stdout;
+FILE *stderr;
+size_t __stdio_file_bitmap;
 
-    .buffuse = 0,
-    .buffsz  = sizeof(_stdin_buff),
-    .buff    = _stdin_buff
-};
-FILE *stdin = &_stdin_file;
-#else
-static FILE _stdin_file = {
-    .fildes = STDIN_FILENO,
-    .flags  = _FILE_FLAG_OP_READ | _FILE_FLAG_FILDES | _FILE_FLAG_NO_CLOSE,
-    .seek   = 0,
+void
+__init_stdio (void)
+{
+    __stdio_file_bitmap = 0; // nothing is in use
+    stdin = fdopen(STDIN_FILENO, "r");
+    setvbuf(stdin, (char*)NULL, _IOFBF, BUFSIZ);
 
-    .buffuse = 0,
-    .buffsz  = 0,
-    .buff    = (char*)NULL
-};
-FILE *stdin = &_stdin_file;
-#endif
+    stdout = fdopen(STDOUT_FILENO, "w");
+    setvbuf(stdout, (char*)NULL, _IOLBF, BUFSIZ);
 
-#ifdef BUFSIZ
-static char _stdout_buff[BUFSIZ];
-static FILE _stdout_file = {
-    .fildes = STDOUT_FILENO,
-    .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_LINE_BUFFERED | _FILE_FLAG_BUFFERED | _FILE_FLAG_NO_CLOSE,
-    .seek   = 0,
-
-    .buffuse = 0,
-    .buffsz  = sizeof(_stdout_buff),
-    .buff    = _stdout_buff
-};
-FILE *stdout = &_stdout_file;
-#else
-static FILE _stdout_file = {
-    .fildes = STDOUT_FILENO,
-    .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_NO_CLOSE,
-    .seek   = 0,
-
-    .buffuse = 0,
-    .buffsz  = 0,
-    .buff    = (char*)NULL
-};
-FILE *stdout = &_stdout_file;
-#endif
-
-static FILE _stderr_file = {
-    .fildes = STDERR_FILENO,
-    .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_NO_CLOSE,
-    .seek   = 0,
-
-    .buffuse = 0,
-    .buffsz  = 0,
-    .buff    = (char*)NULL
-};
-FILE *stderr = &_stderr_file;
+    stderr = fdopen(STDERR_FILENO, "r+");
+    setvbuf(stderr, (char*)NULL, _IONBF, BUFSIZ);
+}
