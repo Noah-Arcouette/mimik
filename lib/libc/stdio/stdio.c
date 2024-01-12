@@ -1,9 +1,10 @@
 #include "stdio.h"
+#include <unistd.h>
 
 #ifdef BUFSIZ
 static char _stdin_buff[BUFSIZ];
 static FILE _stdin_file = {
-    .fildes = 0,
+    .fildes = STDIN_FILENO,
     .flags  = _FILE_FLAG_OP_READ | _FILE_FLAG_FILDES | _FILE_FLAG_BUFFERED | _FILE_FLAG_NO_CLOSE,
     .seek   = 0,
 
@@ -14,7 +15,7 @@ static FILE _stdin_file = {
 FILE *stdin = &_stdin_file;
 #else
 static FILE _stdin_file = {
-    .fildes = 0,
+    .fildes = STDIN_FILENO,
     .flags  = _FILE_FLAG_OP_READ | _FILE_FLAG_FILDES | _FILE_FLAG_NO_CLOSE,
     .seek   = 0,
 
@@ -28,7 +29,7 @@ FILE *stdin = &_stdin_file;
 #ifdef BUFSIZ
 static char _stdout_buff[BUFSIZ];
 static FILE _stdout_file = {
-    .fildes = 0,
+    .fildes = STDOUT_FILENO,
     .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_BUFFERED | _FILE_FLAG_NO_CLOSE,
     .seek   = 0,
 
@@ -39,7 +40,7 @@ static FILE _stdout_file = {
 FILE *stdout = &_stdout_file;
 #else
 static FILE _stdout_file = {
-    .fildes = 0,
+    .fildes = STDOUT_FILENO,
     .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_NO_CLOSE,
     .seek   = 0,
 
@@ -53,7 +54,7 @@ FILE *stdout = &_stdout_file;
 #ifdef BUFSIZ
 static char _stderr_buff[BUFSIZ];
 static FILE _stderr_file = {
-    .fildes = 0,
+    .fildes = STDERR_FILENO,
     .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_BUFFERED | _FILE_FLAG_NO_CLOSE,
     .seek   = 0,
 
@@ -64,7 +65,7 @@ static FILE _stderr_file = {
 FILE *stderr = &_stderr_file;
 #else
 static FILE _stderr_file = {
-    .fildes = 0,
+    .fildes = STDERR_FILENO,
     .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_NO_CLOSE,
     .seek   = 0,
 
