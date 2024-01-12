@@ -5,6 +5,7 @@ FILE *stdin;
 FILE *stdout;
 FILE *stderr;
 size_t __stdio_file_bitmap;
+FILE   __stdio_files[FOPEN_MAX];
 
 void
 __init_stdio (void)
