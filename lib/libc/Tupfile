@@ -2,7 +2,8 @@ include_rules
 
 ifeq (@(LIB_C),y)
 
-: foreach ./string/*.c |> !cc |> ./%B.o {obj}
+: foreach ./string/*.c                  |> !cc |> ./%B.o {obj}
+: foreach ./stdio/*.c | ./stdio/stdio.h |> !cc |> ./%B.o {obj}
 
 : {obj} |> !ldso |> $(DIST)/lib/libc.so
 

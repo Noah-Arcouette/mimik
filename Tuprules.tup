@@ -45,6 +45,7 @@ DIST:=$(TUP_CWD)/dist/
 !ldso   = |> $(LD) $(LDFLAGS) --shared %f -o %o   |>
 !ar     = |> $(AR) rcs $(ARFLAGS) %o %f           |>
 !cc     = |> $(CC) $(CFLAGS) -c -o %o %f          |>
+!varsed = |> tup varsed %f %o                     |>
 
 ifeq (@(COMPRESS_TEXT),y)
 !txtdst = |> fold -s -w 80 %f | compress -kc > %o |>
