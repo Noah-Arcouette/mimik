@@ -8,7 +8,7 @@ fwrite (const void *restrict buf, size_t itemsz, size_t items, FILE *restrict st
     {
         for (size_t i = 0; i<itemsz; i++)
         {
-            if (fputc(*(unsigned char *)buf, stream))
+            if (fputc(*(unsigned char *)buf, stream) == EOF)
             {
                 return item;
             }

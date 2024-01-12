@@ -1271,7 +1271,7 @@ stdio.h:
     printf
     fopen
     fread
-    fwrite
+    fputc
     fclose
 stdlib.h:
     malloc
