@@ -30,7 +30,7 @@ FILE *stdin = &_stdin_file;
 static char _stdout_buff[BUFSIZ];
 static FILE _stdout_file = {
     .fildes = STDOUT_FILENO,
-    .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_BUFFERED | _FILE_FLAG_NO_CLOSE,
+    .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_LINE_BUFFERED | _FILE_FLAG_BUFFERED | _FILE_FLAG_NO_CLOSE,
     .seek   = 0,
 
     .buffuse = 0,
@@ -51,19 +51,6 @@ static FILE _stdout_file = {
 FILE *stdout = &_stdout_file;
 #endif
 
-#ifdef BUFSIZ
-static char _stderr_buff[BUFSIZ];
-static FILE _stderr_file = {
-    .fildes = STDERR_FILENO,
-    .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_BUFFERED | _FILE_FLAG_NO_CLOSE,
-    .seek   = 0,
-
-    .buffuse = 0,
-    .buffsz  = sizeof(_stderr_buff),
-    .buff    = _stderr_buff
-};
-FILE *stderr = &_stderr_file;
-#else
 static FILE _stderr_file = {
     .fildes = STDERR_FILENO,
     .flags  = _FILE_FLAG_OP_WRITE | _FILE_FLAG_FILDES | _FILE_FLAG_NO_CLOSE,
@@ -74,4 +61,3 @@ static FILE _stderr_file = {
     .buff    = (char*)NULL
 };
 FILE *stderr = &_stderr_file;
-#endif
