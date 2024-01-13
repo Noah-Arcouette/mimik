@@ -230,7 +230,6 @@ fchmodat
 fchmod
 fchownat
 fchown
-fclose
 fcntl
 fdatasync
 fdetach
@@ -238,7 +237,6 @@ fdimf
 fdim
 fdiml
 fdopendir
-fdopen
 feclearexcept
 fegetenv
 fegetexceptflag
@@ -253,7 +251,6 @@ fesetround
 fetestexcept
 feupdateenv
 fexecve
-fflush
 ffs
 fgetc
 fgetpos
@@ -285,8 +282,6 @@ fork
 fpathconf
 fpclassify
 fprintf
-fputc
-fputs
 fputwc
 fputws
 fread
@@ -315,7 +310,6 @@ funlockfile
 futimens
 fwide
 fwprintf
-fwrite
 fwscanf
 gai_strerror
 getaddrinfo
@@ -546,12 +540,7 @@ mbsnrtowcs
 mbsrtowcs
 mbstowcs
 mbtowc
-memccpy
-memchr
-memcmp
-memcpy
 memmove
-memset
 mkdirat
 mkdir
 mkdtemp
@@ -822,7 +811,6 @@ putc_unlocked
 putenv
 putmsg
 putpmsg
-puts
 pututxline
 putwchar
 putwc
@@ -901,7 +889,6 @@ sem_wait
 send
 sendmsg
 sendto
-setbuf
 setegid
 setenv
 seteuid
@@ -928,7 +915,6 @@ setsockopt
 setstate
 setuid
 setutxent
-setvbuf
 shmat
 shmctl
 shmdt

@@ -5,6 +5,8 @@ ifeq (@(LIB_C),y)
 : foreach ./string/*.c                  |> !cc |> ./%B.o {obj}
 : foreach ./stdio/*.c | ./stdio/stdio.h |> !cc |> ./%B.o {obj}
 
+: crt0.c | ./stdio/stdio.h |> !cc |> $(DIST)/usr/lib/%B.o
+
 : {obj} |> !ldso |> $(DIST)/lib/libc.so
 
 ifeq (@(BUILD_STATIC),y)
