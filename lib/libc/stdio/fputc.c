@@ -20,6 +20,7 @@ fputc (int c, FILE *stream)
         }
     }
 
+    stream->flags |= _FILE_FLAG_LAST_WRITE;
     stream->buff[stream->buffuse++] = (unsigned char)c;
     if (stream->buffuse >= stream->buffsz)
     {
