@@ -29,8 +29,11 @@ fclose (FILE *stream)
         free(stream->buff);
     }
 
-    lseek(stream->fildes, 0, SEEK_END);
-    close(stream->fildes);
+    if (stream->flags & _FILE_FLAG_FILDES)
+    {
+        lseek(stream->fildes, 0, SEEK_END);
+        close(stream->fildes);
+    }
     
     stream->flags = 0;
 
