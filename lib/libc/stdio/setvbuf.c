@@ -18,6 +18,9 @@ setvbuf (FILE *restrict stream, char *restrict buf, int type, size_t size)
         fflush(stream);
         free(stream->buff);
 
+        // don't deallocate on close
+        stream->flags |= _FILE_FLAG_BUFF_SET;
+        
         // add new buffer
         stream->buffsz = size;
         stream->buff   = buf;
@@ -51,7 +54,7 @@ setvbuf (FILE *restrict stream, char *restrict buf, int type, size_t size)
             return -1;
         }
 
-        stream->flags &= ~(_FILE_FLAG_BUFFERED | _FILE_FLAG_LINE_BUFFERED);   
+        stream->flags &= ~_FILE_FLAG_LINE_BUFFERED;
         stream->flags |= _FILE_FLAG_BUFFERED;
         break;
     case _IOLBF:
@@ -60,9 +63,8 @@ setvbuf (FILE *restrict stream, char *restrict buf, int type, size_t size)
             errno = ENOMEM;
             return -1;
         }
-
-        stream->flags &= ~(_FILE_FLAG_BUFFERED | _FILE_FLAG_LINE_BUFFERED);   
-        stream->flags |= _FILE_FLAG_LINE_BUFFERED;
+  
+        stream->flags |= _FILE_FLAG_LINE_BUFFERED | _FILE_FLAG_BUFFERED;
         break;
     case _IONBF:
         if (stream->buff)
