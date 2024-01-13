@@ -5,7 +5,7 @@ This manual is part of the Mimik System Tree, other implementations may differ. 
 
 # Name
 
-fputc - Write string to stdout, part of libc
+fclose - Disassociate stream, part of libc
 
 
 # Synopsis
@@ -13,7 +13,7 @@ fputc - Write string to stdout, part of libc
 ```C
 #include <stdio.h>
 
-int fputc (int c, FILE *stream);
+int fclose (FILE *stream);
 ```
 
 
