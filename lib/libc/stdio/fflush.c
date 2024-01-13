@@ -35,10 +35,13 @@ fflush (FILE *stream)
     // flush read buffer
     if (stream->flags & _FILE_FLAG_LAST_READ)
     {
-        off_t seek = lseek(stream->fildes, 0, SEEK_END);
-        if (seek >= 0)
+        if (stream->flags & _FILE_FLAG_FILDES)
         {
-            stream->seek = seek;
+            off_t seek = lseek(stream->fildes, 0, SEEK_END);
+            if (seek >= 0)
+            {
+                stream->seek = seek;
+            }
         }
 
         stream->buffuse = 0;
