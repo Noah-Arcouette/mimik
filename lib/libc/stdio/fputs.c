@@ -18,5 +18,5 @@ puts (const char *s)
     {
         return EOF;
     }
-    return 0;
+    return fwrite("\n", sizeof(char), 1, stdout);
 }
