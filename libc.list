@@ -1249,7 +1249,6 @@ wordexp.h
  == needed ==
  = for static chrooting of the current system build
 
-stack smash protection
 crt0.o
 
 stdio.h:
@@ -1260,9 +1259,10 @@ stdio.h:
 stdlib.h:
     malloc
     free
+    abort
+stdint.h
 string.h:
     strerror
-errno.h
 unistd.h:
     link
     unlink
