@@ -1,5 +1,7 @@
-#include "../string.h"
+#include <string.h>
 #include <stdio.h>
+
+void *memccpy (void *, const void *, int, size_t);
 
 int
 main (void)
