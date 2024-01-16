@@ -1,7 +1,7 @@
 #ifndef __LIBC_UNISTD_H__
 #define __LIBC_UNISTD_H__
 
-// arch/<kernel>-<arch>/unlink.asm
+// unistd/unlink.c
 int unlink (const char *);
 
 #endif

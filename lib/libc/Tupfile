@@ -4,10 +4,11 @@ ifeq (@(LIB_C),y)
 
 : foreach ./string/*.c                   |> !cc |> ./%B.o {obj}
 : foreach ./stdio/*.c | ./stdio/stdio.h  |> !cc |> ./%B.o {obj}
+: foreach ./unistd/*.c                   |> !cc |> ./%B.o {obj}
 : errno.c                                |> !cc |> ./%B.o {obj}
 : smash.c                                |> !cc |> ./%B.o {obj}
-: foreach ./arch/@(KERNEL)-@(ARCH)/*.asm |> !as |> ./%B.o {obj}
-: foreach ./arch/@(KERNEL)-@(ARCH)/*.c   |> !cc |> ./%B.o {obj}
+: foreach ./arch/@(KERNEL)-@(ARCH)/*.asm |> !as |> ./sys_%B.o {obj}
+: foreach ./arch/@(KERNEL)-@(ARCH)/*.c   |> !cc |> ./sys_%B.o {obj}
 
 : crt0.c | ./stdio/stdio.h |> !cc |> $(DIST)/usr/lib/%B.o
 : errno.h |> !mv |> $(DIST)/usr/include/%f
