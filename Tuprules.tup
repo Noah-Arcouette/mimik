@@ -1,5 +1,9 @@
+# Assembler
+AS:=nasm
+ASFLAGS+=-felf64
+
 # C99
-CFLAGS+=-Wall -Wextra -std=c99 -fPIC -D_POSIX_C_SOURCE=200809L
+CFLAGS+=-m64 -Wall -Wextra -std=c99 -fPIC -D_POSIX_C_SOURCE=200809L
 CC:=cc
 
 # Archive
@@ -20,9 +24,11 @@ endif
 ifeq (@(RELEASE),y)
 CFLAGS+=-s -O2
 LDFLAGS+=-s -O2 --gc-sections
+ASFLAGS+=-O2
 else
 CFLAGS+=-g -O0
 LDFLAGS+=-O0
+ASFLAGS+=-g -O0
 endif
 
 ifeq (@(RESILIENT),y)
@@ -46,6 +52,7 @@ DIST:=$(TUP_CWD)/dist/
 !ar     = |> $(AR) rcs $(ARFLAGS) %o %f           |>
 !cc     = |> $(CC) $(CFLAGS) -c -o %o %f          |>
 !varsed = |> tup varsed %f %o                     |>
+!as     = |> $(AS) $(ASFLAGS) -o %o %f            |>
 
 ifeq (@(COMPRESS_TEXT),y)
 !txtdst = |> fold -s -w 80 %f | compress -kc > %o |>
