@@ -3,11 +3,6 @@
 #include <stddef.h>
 #include <locale.h>
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
 // string/strcmp.c
 int 
 strcmp (const char *s1, const char *s2);
@@ -74,9 +69,5 @@ memchr (const void *s, int c, size_t n);
 // string/memccpy.c
 void *
 memccpy (void *restrict dst, const void *restrict src, int c, size_t n);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

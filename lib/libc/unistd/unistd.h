@@ -4,4 +4,7 @@
 // unistd/unlink.c
 int unlink (const char *);
 
+// unistd/link.c
+int link (const char *old, const char *new);
+
 #endif
