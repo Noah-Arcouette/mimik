@@ -1,6 +1,6 @@
 #include <unistd.h>
-#include "../arch/system.h"
 #include <errno.h>
+#include "syscall.h"
 
 int
 link (const char *src, const char *dst)
@@ -19,5 +19,5 @@ link (const char *src, const char *dst)
         return -1;
     }
 
-    return __system_link(src, dst);
+    return (int)__syscall2(0x56, (long)src, (long)dst);
 }

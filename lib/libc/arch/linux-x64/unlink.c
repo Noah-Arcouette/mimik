@@ -1,6 +1,6 @@
 #include <unistd.h>
-#include "../arch/system.h"
 #include <errno.h>
+#include "syscall.h"
 
 int
 unlink (const char *path)
@@ -13,5 +13,11 @@ unlink (const char *path)
     }
 #endif
 
-    return __system_unlink(path);
+    if (!*path)
+    {
+        errno = ENOENT;
+        return -1;
+    }
+
+    return (int)__syscall1(0x57, (long)path);
 }
