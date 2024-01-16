@@ -1265,7 +1265,6 @@ string.h:
     strerror
 unistd.h:
     link
-    unlink
     lseek
     pwrite
     exit

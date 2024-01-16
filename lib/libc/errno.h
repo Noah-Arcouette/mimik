@@ -2,7 +2,7 @@
 #define __LIB_C_ERRNO_H__
 extern int errno;
 #   define E2BIG            2
-#   define EACCESS          3
+#   define EACCES           3
 #   define EADDRINUSE       4
 #   define EAFNOSUPPORT     5
 #   define EAGAIN           6

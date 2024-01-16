@@ -7,6 +7,7 @@ ifeq (@(LIB_C),y)
 : errno.c                                |> !cc |> ./%B.o {obj}
 : smash.c                                |> !cc |> ./%B.o {obj}
 : foreach ./arch/@(KERNEL)-@(ARCH)/*.asm |> !as |> ./%B.o {obj}
+: foreach ./arch/@(KERNEL)-@(ARCH)/*.c   |> !cc |> ./%B.o {obj}
 
 : crt0.c | ./stdio/stdio.h |> !cc |> $(DIST)/usr/lib/%B.o
 : errno.h |> !mv |> $(DIST)/usr/include/%f

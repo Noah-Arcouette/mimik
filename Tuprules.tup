@@ -33,6 +33,7 @@ endif
 
 ifeq (@(RESILIENT),y)
 CFLAGS+=-D RESILIENT
+ASFLAGS+=-D RESILIENT
 endif
 
 ifeq (@(STATIC),y)

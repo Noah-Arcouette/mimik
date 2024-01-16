@@ -25,7 +25,7 @@ extern int errno;
 
 Argument list is too long.
 
-## EACCESS
+## EACCES
 
 Permission denied.
 
