@@ -14,7 +14,7 @@
 int unlink (const char *);
 
 // unistd/link.c
-int link (const char *old, const char *new);
+int link (const char *src, const char *dst);
 
 // null
 off_t   lseek  (int, off_t, int);

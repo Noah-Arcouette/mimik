@@ -12,4 +12,3 @@ __system_link:
     mov rax, 0x56
     syscall
     ret
-

@@ -3,15 +3,21 @@
 #include <errno.h>
 
 int
-link (const char *old, const char *new)
+link (const char *src, const char *dst)
 {
 #ifdef RESILIENT
-    if (!old || !new)
+    if (!src || !dst)
     {
         errno = EFAULT;
         return -1;
     }
 #endif
 
-    return __system_link(old, new);
+    if (!*src || !*dst)
+    {
+        errno = ENOENT;
+        return -1;
+    }
+
+    return __system_link(src, dst);
 }

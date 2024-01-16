@@ -7,6 +7,6 @@ All architectures must define these constructs
 #define __INTERNAL_LIB_C_SYSTEM_H__
 
 int __system_unlink (const char *);
-int __system_link   (const char *old, const char *new);
+int __system_link   (const char *src, const char *dst);
 
 #endif

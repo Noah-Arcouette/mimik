@@ -63,6 +63,10 @@ Permissions does not allow unlinking of *path*.
 
 *path* resides on a read-only file system.
 
+## EFAULT
+
+*path* is NULL.
+
 
 # Extended Description
 
