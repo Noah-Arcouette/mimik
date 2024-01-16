@@ -2,7 +2,7 @@
 
 section .text
 global __syscall1
-__syscal1:
+__syscall1:
     push rdi
 
     mov rax, rdi
@@ -13,7 +13,7 @@ __syscal1:
     ret
 
 global __syscall2
-__syscal2:
+__syscall2:
     push rdi
     push rsi
 
