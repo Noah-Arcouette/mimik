@@ -1,6 +1,8 @@
 #include <unistd.h>
 #include <errno.h>
-#include "syscall.h"
+#define LINUX_X64_ONLY
+#   include "syscall.h"
+#undef LINUX_X64_ONLY
 
 int
 link (const char *src, const char *dst)
@@ -19,5 +21,5 @@ link (const char *src, const char *dst)
         return -1;
     }
 
-    return (int)__syscall2(0x56, (long)src, (long)dst);
+    return (int)__syscall2(SYS_LINK, (long)src, (long)dst);
 }

@@ -1,6 +1,8 @@
 #include <unistd.h>
 #include <errno.h>
-#include "syscall.h"
+#define LINUX_X64_ONLY
+#   include "syscall.h"
+#undef LINUX_X64_ONLY
 
 int
 unlink (const char *path)
@@ -19,5 +21,5 @@ unlink (const char *path)
         return -1;
     }
 
-    return (int)__syscall1(0x57, (long)path);
+    return (int)__syscall1(SYS_UNLINK, (long)path);
 }

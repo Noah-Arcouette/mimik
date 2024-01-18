@@ -20,6 +20,9 @@ int link (const char *src, const char *dst);
 // arch/lseek.c
 off_t lseek (int fildes, off_t, int whence);
 
+// arch/exit.c
+void _exit (int status);
+
 // null
 int     close  (int);
 ssize_t pwrite (int, const void *, size_t, off_t);
