@@ -1,5 +1,5 @@
 #include <unistd.h>
-// #define LINUX_X64_ONLY
+#define LINUX_X64_ONLY
 #   include "syscall.h"
 #undef LINUX_X64_ONLY
 
