@@ -1260,12 +1260,13 @@ stdlib.h:
     malloc
     free
     abort
+    exit
+    atexit
 stdint.h
 string.h:
     strerror
 unistd.h:
     pwrite
-    exit
 fcntl.h:
     fcntl
 nl_types.h:
