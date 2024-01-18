@@ -70,7 +70,7 @@ Permissions does not allow unlinking of *path*.
 
 # Extended Description
 
-There is no extended description.
+The *unlink* function is implemented by the system, not necessarily the C standard library.
 
 
 # Future Directions
@@ -92,3 +92,5 @@ Copyright (c) 2001-2018 IEEE and The Open Group
 [link](link.3) - Create a hard-link
 
 [rmdir](rmdir.3) - Facilitate the unlinking of a directory
+
+[unlink](unlink.2) - The system implementation details of `unlink`

@@ -1264,7 +1264,6 @@ stdint.h
 string.h:
     strerror
 unistd.h:
-    lseek
     pwrite
     exit
 fcntl.h:

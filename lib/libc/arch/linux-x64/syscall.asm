@@ -25,3 +25,20 @@ __syscall2:
     pop rsi
     pop rdi
     ret
+
+global __syscall3
+__syscall3:
+    push rdi
+    push rsi
+    push rdx
+
+    mov rax, rdi
+    mov rdi, rsi
+    mov rsi, rdx
+    mov rdx, r10
+    syscall
+
+    pop rdx
+    pop rsi
+    pop rdi
+    ret

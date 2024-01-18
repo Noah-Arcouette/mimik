@@ -77,7 +77,7 @@ The underlying file system is read-only.
 
 # Extended Description
 
-There is no extended description.
+The *unlink* function is implemented by the system, not necessarily the C standard library.
 
 
 # Future Directions
@@ -101,3 +101,5 @@ Copyright (c) 2001-2018 IEEE and The Open Group
 [rename](rename.3) - Rename a file system entry
 
 [symlink](symlink.3) - Create a symbolic link
+
+[unlink](unlink.2) - The system implementation details of `unlink`
