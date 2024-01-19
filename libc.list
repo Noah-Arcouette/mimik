@@ -1251,6 +1251,9 @@ wordexp.h
 
 crt0.o
 
+linux implementation is very broken right now, 
+    errno value translation layer. yeah, fun.
+
 stdio.h:
     fprintf
     printf
