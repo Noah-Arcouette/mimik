@@ -3,7 +3,6 @@ FD_ISSET
 FD_SET
 FD_ZERO
 _Exit
-_exit
 _longjmp
 _setjmp
 _tolower
@@ -46,7 +45,6 @@ atanh
 atanhl
 atan
 atanl
-atexit
 atof
 atoi
 atol
@@ -210,7 +208,6 @@ execlp
 execve
 execv
 execvp
-exit
 exp2f
 exp2
 exp2l
@@ -490,7 +487,6 @@ lgammaf
 lgamma
 lgammal
 linkat
-link
 lio_listio
 listen
 llabs
@@ -529,7 +525,6 @@ lroundf
 lround
 lroundl
 lsearch
-lseek
 lstat
 malloc
 mblen
@@ -1072,7 +1067,6 @@ uname
 ungetc
 ungetwc
 unlinkat
-unlink
 unlockpt
 unsetenv
 uselocale
