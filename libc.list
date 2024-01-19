@@ -1249,7 +1249,7 @@ stdio.h:
     fprintf
     printf
     fopen
-    fread
+    fgetc
 stdlib.h:
     malloc
     free
