@@ -27,7 +27,7 @@ void _exit (int status);
 
 *_exit* shall quit the current process without further delay. This entails: No internal buffers shall be flushed, no internally allocated data shall be free, no exit-time functions shall be called, et cetera. *_exit* shall quit, at the operating system level, the current process.
 
-Multiple call to *_exit* shall never occur.
+Multiple calls to *_exit* shall never occur.
 
 **Warning: Data loss will occur if this function is used in most to all cases, please use `void exit (int status);`**
 

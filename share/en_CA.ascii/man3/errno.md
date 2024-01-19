@@ -45,6 +45,58 @@ File system entry, or its constituent entries, are invalid or do not exist.
 
 The operation will cause an overflow, or exceed a set maximum.
 
+## EPERM(8)
+
+Current permissions disallow action.
+
+## EACCES(9)
+
+Insufficient permissions for actions.
+
+## EDQUOT(10)
+
+Resource quota would be exceeded.
+
+## EEXIST(11)
+
+Resource already exists.
+
+## EIO(12)
+
+Resource action, input-output, error.
+
+## EMLINK(13)
+
+Hard-link maximum, for given the resource, reached.
+
+## ENAMETOOLONG(14)
+
+Resource name would exceed the given limit.
+
+## ENOSPC(15)
+
+Underlying resource capacity is at its maximum.
+
+## ENOTDIR(16)
+
+A path, or one of its constituent parts, is not a directory but is required to be.
+
+## EROFS(17)
+
+Write action would occur to a read-only resource.
+
+## EXDEV(18)
+
+Mono-resource action is trying to span multiple resources; commonly a cross-device hard-link.
+
+## ENOSYS(19)
+
+Action not implemented by the system.
+
+## EUNKNOWN(20)
+
+An unknown error occurred, or cannot be represented.
+
 
 # Environment Variables
 
