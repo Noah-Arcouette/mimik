@@ -11,10 +11,12 @@ int atexit (void (*func)(void));
 extern void (*__at_exit_funcs[ATEXIT_MAX])(void);
 extern size_t __at_exit_amount;
 
+// stdlib/exit.c
+void exit (int status);
+
 // null
 void *malloc (size_t);
 void  free   (void *);
-void  exit   (int);
 void  abort  (void);
 
 #endif
