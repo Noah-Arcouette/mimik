@@ -9,6 +9,12 @@ size_t __at_exit_amount = 0;
 int 
 atexit (void (*func)(void))
 {
+    if (!func)
+    {
+        errno = EFAULT;
+        return -1;
+    }
+
     if (__at_exit_amount >= ATEXIT_MAX)
     {
         errno = ERANGE;
