@@ -1262,7 +1262,6 @@ stdlib.h:
     abort
     exit
     atexit
-stdint.h
 string.h:
     strerror
 unistd.h:
@@ -1275,5 +1274,3 @@ nl_types.h:
     catclose
 signal.h:
     signal
-stdarg.h
-stddef.h

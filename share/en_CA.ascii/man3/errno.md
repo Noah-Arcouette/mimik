@@ -41,6 +41,10 @@ Maximum streams already open.
 
 File system entry, or its constituent entries, are invalid or do not exist.
 
+## ERANGE(7)
+
+The operation will cause an overflow, or exceed a set maximum.
+
 
 # Environment Variables
 
