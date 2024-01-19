@@ -1261,7 +1261,6 @@ stdlib.h:
     free
     abort
     exit
-    atexit
 string.h:
     strerror
 unistd.h:

@@ -66,3 +66,5 @@ Copyright (c) 2001-2018 IEEE and The Open Group
 # See Also
 
 [exit](exit.3) - Quit the current process
+
+[sysconf](sysconf.3) - Get relevant system configuration options
