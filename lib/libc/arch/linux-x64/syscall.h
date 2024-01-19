@@ -26,4 +26,7 @@ long __syscall3 (long nr, long r0, long r1, long r2);
 #define SYS_ENOTDIR      -20
 #define SYS_EROFS        -30
 #define SYS_EXDEV        -18
+#define SYS_ELOOP        -40
+#define SYS_EISDIR       -21
+#define SYS_EBUSY        -16
 #endif

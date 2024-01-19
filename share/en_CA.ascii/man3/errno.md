@@ -97,6 +97,18 @@ Action not implemented by the system.
 
 An unknown error occurred, or cannot be represented.
 
+## EBUSY(21)
+
+Actions is trying to be applied to a busy resource, and requires isolated access to the resource.
+
+## ELOOP(22)
+
+Resource, commonly symbolic links, resolution depth exceeded.
+
+## EISDIR(23)
+
+Actions may not be applied to a directory.
+
 
 # Environment Variables
 

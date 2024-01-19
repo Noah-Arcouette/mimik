@@ -20,4 +20,7 @@ extern int errno;
 #define EXDEV        18
 #define ENOSYS       19
 #define EUNKNOWN     20
+#define EBUSY        21
+#define ELOOP        22
+#define EISDIR       23
 #endif
