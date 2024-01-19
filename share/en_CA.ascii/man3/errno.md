@@ -121,6 +121,10 @@ Underlying resource does not exist.
 
 Resource does not have seek action.
 
+## EINTR(27)
+
+Action interrupted.
+
 
 # Environment Variables
 

@@ -7,6 +7,7 @@
 #define SYS_LINK   0x56
 #define SYS_UNLINK 0x57
 #define SYS_LSEEK  0x08
+#define SYS_CLOSE  0x03
 
 long __syscall1 (long nr, long r0);
 long __syscall2 (long nr, long r0, long r1);
@@ -34,4 +35,5 @@ long __syscall3 (long nr, long r0, long r1, long r2);
 #define SYS_ENXIO         -6
 #define SYS_EOVERFLOW    -75
 #define SYS_ESPIPE       -29
+#define SYS_EINTR         -4
 #endif

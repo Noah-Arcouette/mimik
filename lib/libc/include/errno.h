@@ -27,4 +27,5 @@ extern int errno;
 #define ENXIO        25
 #define EOVERFLOW    ERANGE
 #define ESPIPE       26
+#define EINTR        27
 #endif

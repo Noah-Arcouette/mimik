@@ -11,10 +11,10 @@
 #define STDOUT_FILENO 1
 #define STDERR_FILENO 2
 
-// unistd/unlink.c
+// arch/unlink.c
 int unlink (const char *);
 
-// unistd/link.c
+// arch/link.c
 int link (const char *src, const char *dst);
 
 // arch/lseek.c
@@ -23,8 +23,10 @@ off_t lseek (int fildes, off_t, int whence);
 // arch/exit.c
 void _exit (int status);
 
+// arch/close.c
+int close (int fildes);
+
 // null
-int     close  (int);
 ssize_t pwrite (int, const void *, size_t, off_t);
 
 #endif
