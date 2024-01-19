@@ -29,4 +29,9 @@ long __syscall3 (long nr, long r0, long r1, long r2);
 #define SYS_ELOOP        -40
 #define SYS_EISDIR       -21
 #define SYS_EBUSY        -16
+#define SYS_EBADF         -9
+#define SYS_EINVAL       -22
+#define SYS_ENXIO         -6
+#define SYS_EOVERFLOW    -75
+#define SYS_ESPIPE       -29
 #endif

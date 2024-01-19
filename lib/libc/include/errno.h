@@ -23,4 +23,8 @@ extern int errno;
 #define EBUSY        21
 #define ELOOP        22
 #define EISDIR       23
+#define EBADF        24
+#define ENXIO        25
+#define EOVERFLOW    ERANGE
+#define ESPIPE       26
 #endif

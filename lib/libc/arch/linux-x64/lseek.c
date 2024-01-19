@@ -27,5 +27,33 @@ lseek (int fildes, off_t offset, int whence)
         break;
     }
 
-    return (off_t)__syscall3(SYS_LSEEK, (long)fildes, (long)offset, (long)whence);
+    off_t ret = (off_t)__syscall3(SYS_LSEEK, (long)fildes, (long)offset, (long)whence);
+
+    if (ret < 0)
+    {
+        switch (ret)
+        {
+            case SYS_EBADF:
+                errno = EBADF;
+                break;
+            case SYS_EINVAL:
+                errno = EINVAL;
+                break;
+            case SYS_ENXIO:
+                errno = ENXIO;
+                break;
+            case SYS_EOVERFLOW:
+                errno = EOVERFLOW;
+                break;
+            case SYS_ESPIPE:
+                errno = ESPIPE;
+                break;
+            default:
+                errno = EUNKNOWN;
+                break;
+        }
+
+        return (off_t)-1;
+    }
+    return 0;
 }

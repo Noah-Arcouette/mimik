@@ -41,7 +41,7 @@ Maximum streams already open.
 
 File system entry, or its constituent entries, are invalid or do not exist.
 
-## ERANGE(7)
+## ERANGE / EOVERFLOW (7)
 
 The operation will cause an overflow, or exceed a set maximum.
 
@@ -108,6 +108,18 @@ Resource, commonly symbolic links, resolution depth exceeded.
 ## EISDIR(23)
 
 Actions may not be applied to a directory.
+
+## EBADF(24)
+
+Resource, commonly file, descriptor invalid.
+
+## ENXIO(25)
+
+Underlying resource does not exist.
+
+## ESPIPE(26)
+
+Resource does not have seek action.
 
 
 # Environment Variables
