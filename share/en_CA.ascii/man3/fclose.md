@@ -31,6 +31,17 @@ Environment variables shall not be consider or modified by this function.
 
 *fclose* shall set errno and return EOF.
 
+## EINVAL
+
+*stream* is not currently in use.
+
+## EFAULT, *Resilient Builds Only*
+
+*stream* is NULL, resilient builds only.
+
+
+## Others
+
 Refer to [fflush](fflush.3) for errno information.
 
 

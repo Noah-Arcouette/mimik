@@ -40,6 +40,10 @@ Environment variables shall not be consider or modified by this function.
 
 *stream* or *type* is invalid.
 
+## EFAULT, *Resilient Builds Only*
+
+*stream* is NULL.
+
 ## ENOMEM
 
 No enough memory for buffering option, or memory allocated has failed.

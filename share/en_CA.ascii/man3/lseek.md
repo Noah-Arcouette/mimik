@@ -38,21 +38,13 @@ Environment variables shall not be consider or modified by this function.
 
 Negative one shall be return and errno set.
 
-## EBADF
-
-The *fildes* argument is not an open file descriptor.
-
 ## EINVAL
 
 The *whence* value is unsupported, or the returning offset will be negative.
 
-## EOVERFLOW
+## Others
 
-The returned offset will cause a signed integer over-flow.
-
-## ESPIPE
-
-The *fildes* argument is a pipe, FIFO, or socket.
+Refer to [lseek](lseek.2).
 
 
 # Extended Description

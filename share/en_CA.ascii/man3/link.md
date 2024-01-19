@@ -30,49 +30,17 @@ Environment variables shall not be consider or modified by this function.
 
 Negative one shall be return and errno set.
 
-## EACCES
-
-Process does not have access for a directory or devices under *src* or *dst*.
-
-## EEXIST
-
-*dst* exists.
-
-## ELOOP
-
-Symbolic link resolution create a loop.
-
-## EMLINK
-
-Max hard-links to *src* have been reached, `LINK_MAX`.
-
-## ENAMETOOLONG
-
-*src* or *dst* exceeds the maximum file name size, `NAME_MAX`.
-
-## ENOENT / ENOTDIR
-
-A component directory of either *src* or *dst* failed to resolve or is not a directory. Or *src* or *dst* is an empty string.
-
-## ENOSPC
-
-Not enough space on the underlying disk.
-
-## EPERM
-
-Permission failure on creating hard-link *dst*. *src* may be a directory and the implementation, or system, does not allow hard-links to directories.
-
-## EROFS
-
-The underlying file system is read-only.
-
-## EXDEV
-
-*src* and *dst* are on separate disks.
-
-## EFAULT
+## EFAULT, *Resilient Builds Only*
 
 *src* or *dst* is NULL.
+
+## ENOENT
+
+*src* or *dst* do not refer to valid file system entries.
+
+## Others
+
+Refer to [link](link.2).
 
 
 # Extended Description

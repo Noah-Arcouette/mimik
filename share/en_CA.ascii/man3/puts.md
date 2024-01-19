@@ -31,7 +31,7 @@ Environment variables shall not be consider or modified by this function.
 
 *puts* shall set errno and return EOF.
 
-For errno refer to [fputc](fputc.3).
+For errno refer to [fwrite](fwrite.3).
 
 
 # Extended Description

@@ -31,25 +31,13 @@ Environment variables shall not be consider or modified by this function.
 
 *fputc* shall set errno and return EOF.
 
-## EINVAL
+## EFAULT, *Resilient Build Only*
 
-*stream* is invalid.
+*stream* is NULL.
 
-## ENOMEM
+## Others
 
-No enough memory for writing.
-
-## EFBIG
-
-Writing will exceed the file limit.
-
-## ENOSPC
-
-No space left of underlying device.
-
-## EBADF
-
-Underlying file descriptor is invalid.
+Refer to [fflush](fflush.3).
 
 
 # Extended Description

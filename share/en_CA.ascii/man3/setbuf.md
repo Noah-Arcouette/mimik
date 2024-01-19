@@ -29,7 +29,7 @@ Environment variables shall not be consider or modified by this function.
 
 # Errors
 
-The value of errno is un-specified.
+Refer to [setvbuf](setvbuf.3).
 
 
 # Extended Description

@@ -42,23 +42,19 @@ Environment variables shall not be consider or modified by this function.
 
 ## EINVAL
 
-The *mode* values are invalid.
+The *mode* value(s) are invalid.
 
 ## ENOMEM
 
-Not enough memory for the allocated buffer.
+No enough memory for internal stream buffer.
 
-## EMFILE
+## ENFILE
 
-The max amount of file stream have been opened, `FOPEN_MAX`.
+Maximum streams open, FOPEN_MAX.
 
-## EBADF
+## Others
 
-The *fildes* argument is not a valid file descriptor.
-
-## ESPIPE
-
-The *fildes* argument is a pipeline and append have been set in *mode*.
+Refer to [lseek](lseek.3) and [fcntl](fcntl.3).
 
 
 # Extended Description

@@ -31,41 +31,17 @@ Environment variables shall not be consider or modified by this function.
 
 Negative one shall be return and errno set.
 
-## EACCES
-
-The program does not have the proper access to unlink *path*.
-
-## EBUSY
-
-*path* is currently in use.
-
-## ELOOP
-
-A loop exists in symbolic link resolution.
-
-## ENAMETOOLONG
-
-*path* is over the system file path limit, `NAME_MAX`.
-
 ## ENOENT
 
-*path* does not exist.
+*path* does not refer to a valid file system entry.
 
-## ENOTDIR
-
-A component of *path* is not resolvable, an attempt to enter a non-directory entry.
-
-## EPERM
-
-Permissions does not allow unlinking of *path*.
-
-## EROFS
-
-*path* resides on a read-only file system.
-
-## EFAULT
+## EFAULT, *Resilient Builds Only*
 
 *path* is NULL.
+
+## Others
+
+Refer to [unlink](unlink.2).
 
 
 # Extended Description

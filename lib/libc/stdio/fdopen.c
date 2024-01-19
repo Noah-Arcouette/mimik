@@ -102,6 +102,6 @@ fdopen (int fildes, const char *mode)
         }
     }
 
-    errno = EMFILE;
+    errno = ENFILE;
     return (FILE *)NULL;
 }

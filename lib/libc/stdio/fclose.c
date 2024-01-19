@@ -9,7 +9,7 @@ fclose (FILE *stream)
 #ifdef RESILIENT
     if (!stream)
     {
-        errno = EINVAL;
+        errno = EFAULT;
         return EOF;
     }
 #endif

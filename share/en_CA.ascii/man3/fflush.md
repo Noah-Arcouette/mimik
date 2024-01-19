@@ -33,23 +33,11 @@ Environment variables shall not be consider or modified by this function.
 
 ## EINVAL
 
-*stream* is invalid.
+*stream* is currently not in use.
 
-## ENOMEM
+## Others
 
-No enough memory for writing.
-
-## EFBIG
-
-Writing will exceed the file limit.
-
-## ENOSPC
-
-No space left of underlying device.
-
-## EBADF
-
-Underlying file descriptor is invalid.
+Refer to [pwrite](pwrite.3).
 
 
 # Extended Description

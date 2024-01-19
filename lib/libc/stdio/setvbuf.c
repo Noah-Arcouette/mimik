@@ -6,7 +6,15 @@
 int 
 setvbuf (FILE *restrict stream, char *restrict buf, int type, size_t size)
 {
-    if (!stream || !(stream->flags & _FILE_FLAG_IN_USE))
+#ifdef RESILIENT
+    if (!stream)
+    {
+        errno = EFAULT;
+        return -1;
+    }
+#endif
+
+    if (!(stream->flags & _FILE_FLAG_IN_USE))
     {
         errno = EINVAL;
         return -1;
