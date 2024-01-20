@@ -2,15 +2,15 @@ include_rules
 
 ifeq (@(LIB_C),y)
 
-: foreach ./string/*.c                                          |> !cc -I./include/ |> ./%B.o {obj}
-: foreach ./stdio/*.c  | ./include/stdio.h ./include/limits.h   |> !cc -I./include/ |> ./%B.o {obj}
-: foreach ./stdlib/*.c | ./include/limits.h                     |> !cc -I./include/ |> ./%B.o {obj}
-: errno.c                                                       |> !cc -I./include/ |> ./%B.o {obj}
-: smash.c | ./include/limits.h                                  |> !cc -I./include/ |> ./%B.o {obj}
-: foreach ./arch/@(KERNEL)-@(ARCH)/*.asm                        |> !as -I./include/ |> ./%B.o {obj}
-: foreach ./arch/@(KERNEL)-@(ARCH)/*.c                          |> !cc -I./include/ |> ./%B.o {obj}
-
-: crt0.c | ./include/stdio.h ./include/limits.h |> !cc -I./include |> $(DIST)/usr/lib/%B.o
+: foreach ./string/*.c                                          |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
+: foreach ./stdio/*.c  | ./include/stdio.h ./include/limits.h   |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
+: foreach ./stdlib/*.c | ./include/limits.h                     |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
+: foreach ./unistd/*.c                                          |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
+: errno.c                                                       |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
+: smash.c | ./include/limits.h                                  |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
+: foreach ./arch/@(KERNEL)-@(ARCH)/*.c                          |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
+: crt0.c | ./include/stdio.h ./include/limits.h                 |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> $(DIST)/usr/lib/%B.o
+: foreach ./arch/@(KERNEL)-@(ARCH)/*.asm                        |> !as                                                               |> ./%B.o {obj}
 
 : {obj} |> !ldso |> $(DIST)/lib/libc.so
 

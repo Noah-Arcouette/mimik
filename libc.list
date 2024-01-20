@@ -1256,7 +1256,7 @@ stdlib.h:
 string.h:
     strerror
 unistd.h:
-    pwrite
+    write
     pread
 fcntl.h:
     fcntl

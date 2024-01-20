@@ -1,12 +1,13 @@
 #include <unistd.h>
 #include <errno.h>
 #define LINUX_X64_ONLY
-#   include "syscall.h"
+#   include <sys/syscall.h>
 #undef LINUX_X64_ONLY
 
 off_t
 lseek (int fildes, off_t offset, int whence)
 {
+    int callWhence;
     switch (whence)
     {
     case SEEK_SET:
@@ -15,10 +16,14 @@ lseek (int fildes, off_t offset, int whence)
             errno = EINVAL;
             return -1;
         }
+        callWhence = 0;
 
         break;
     case SEEK_CUR:
+        callWhence = 1;
+        break;
     case SEEK_END:
+        callWhence = 2;
         break;
     default:
         errno = EINVAL;
@@ -27,7 +32,7 @@ lseek (int fildes, off_t offset, int whence)
         break;
     }
 
-    off_t ret = (off_t)__syscall3(SYS_LSEEK, (long)fildes, (long)offset, (long)whence);
+    off_t ret = (off_t)__syscall3(SYS_LSEEK, (long)fildes, (long)offset, (long)callWhence);
 
     if (ret < 0)
     {

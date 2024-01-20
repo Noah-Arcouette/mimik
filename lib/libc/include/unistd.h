@@ -26,8 +26,11 @@ void _exit (int status);
 // arch/close.c
 int close (int fildes);
 
+// unistd/pwrite.c
+ssize_t pwrite (int fildes, const void *buf, size_t, off_t);
+
 // null
-ssize_t pwrite (int, const void *, size_t, off_t);
-ssize_t pread  (int,       void *, size_t, off_t);
+ssize_t pread (int,       void *, size_t, off_t);
+ssize_t write (int, const void *, size_t);
 
 #endif
