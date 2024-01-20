@@ -27,12 +27,6 @@ fflush (FILE *stream)
         return EOF;
     }
 
-    // nothing to do
-    if (!(stream->flags & (_FILE_FLAG_BUFFERED | _FILE_FLAG_LINE_BUFFERED)) || !stream->buffuse)
-    {
-        return 0;
-    }
-
     // flush read buffer
     if (stream->flags & _FILE_FLAG_LAST_READ)
     {
@@ -57,13 +51,17 @@ fflush (FILE *stream)
             return 0;
         }
 
-        if (write(stream->fildes, stream->buff, stream->buffuse) != (ssize_t)stream->buffuse)
+        if (stream->flags & _FILE_FLAG_BUFFERED)
         {
-            stream->flags |= _FILE_FLAG_ERROR;
-            return EOF;
+            if (write(stream->fildes, stream->buff, stream->buffuse) != (ssize_t)stream->buffuse)
+            {
+                stream->flags |= _FILE_FLAG_ERROR;
+                return EOF;
+            }
+
+            stream->buffuse = 0;
         }
 
-        stream->buffuse = 0;
         stream->flags  &= ~_FILE_FLAG_LAST_WRITE;
         return 0;
     }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <errno.h>
+#include <unistd.h>
 
 int 
 fputc (int c, FILE *stream)
@@ -21,13 +22,30 @@ fputc (int c, FILE *stream)
     }
 
     stream->flags |= _FILE_FLAG_LAST_WRITE;
-    stream->buff[stream->buffuse++] = (unsigned char)c;
-    if (stream->buffuse >= stream->buffsz)
+
+    if (stream->flags & _FILE_FLAG_BUFFERED)
     {
-        if (fflush(stream) == EOF)
+        stream->buff[stream->buffuse++] = (unsigned char)c;
+
+        if (
+            ((stream->flags & _FILE_FLAG_LINE_BUFFERED) && (c == '\n')) ||
+            (stream->buffuse >= stream->buffsz)
+        )
         {
+            if (fflush(stream) == EOF)
+            {
+                return EOF;
+            }
+        }
+    }
+    else // not buffered
+    {
+        if (write(stream->fildes, &c, 1) < 0) // write one character
+        {
+            stream->flags |= _FILE_FLAG_ERROR;
             return EOF;
         }
     }
+
     return c;
 }

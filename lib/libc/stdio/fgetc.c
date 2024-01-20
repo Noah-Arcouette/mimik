@@ -28,23 +28,46 @@ fgetc (FILE *stream)
     }
 
     stream->flags |= _FILE_FLAG_LAST_READ;
-    if (!stream->buffuse)
+
+    // implementing line-buffering has no benefit for reading
+
+    // full buffering
+    if (stream->flags & _FILE_FLAG_BUFFERED)
     {
-        // fill buffer
-        ssize_t amountRead = read(stream->fildes, stream->buff, stream->buffsz);
-        if (amountRead < 0)
+        if (!stream->buffuse)
         {
-            stream->flags |= _FILE_FLAG_ERROR;
-            return EOF;
+            // fill buffer
+            ssize_t amountRead = read(stream->fildes, stream->buff, stream->buffsz);
+            if (amountRead < 0)
+            {
+                stream->flags |= _FILE_FLAG_ERROR;
+                return EOF;
+            }
+            
+            if (!amountRead) // zero is returned on EOF
+            {
+                stream->flags |= _FILE_FLAG_EOF;
+                // buffuse is already zero
+                return EOF;
+            }
+            stream->buffuse = (size_t)amountRead; // partial reads will not crash fgetc
         }
-        
-        if ((size_t)amountRead != stream->buffsz)
-        {
-            stream->flags |= _FILE_FLAG_EOF;
-        }
-        stream->buffuse = (size_t)amountRead;
+
+        // return next item
+        return (int)stream->buff[--stream->buffuse];
     }
 
-    // return next item
-    return (int)stream->buff[--stream->buffuse];
+    // no buffering
+    int ret;
+    switch (read(stream->fildes, &ret, 1))
+    {
+        case 1:
+            return ret;
+        case 0:
+            stream->flags |= _FILE_FLAG_EOF;
+            return EOF;
+        default:
+            stream->flags |= _FILE_FLAG_ERROR; // could also be EOF
+            return EOF;
+    }
 }
