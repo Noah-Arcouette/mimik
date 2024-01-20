@@ -5,7 +5,7 @@ This manual is part of the Mimik System Tree, other implementations may differ. 
 
 # Name
 
-fputc - Write character to stream, part of libc
+fgetc - Read character from stream, part of libc
 
 
 # Synopsis
@@ -13,13 +13,13 @@ fputc - Write character to stream, part of libc
 ```C
 #include <stdio.h>
 
-int fputc (int c, FILE *stream);
+int fgetc (FILE *stream);
 ```
 
 
 # Description
 
-*fputc* shall write *c*, interpreted as an **unsigned char**, to *stream*. *fputc* shall return *c* on success, and EOF on error.
+*fgetc* shall read one character from *stream* and return it as an `int`. *fgetc* shall return EOF on error.
 
 
 # Environment Variables
@@ -29,20 +29,24 @@ Environment variables shall not be consider or modified by this function.
 
 # Errors
 
-*fputc* shall set errno and return EOF.
+*fgetc* shall set errno and return EOF.
 
 ## EFAULT, *Resilient Build Only*
 
 *stream* is NULL.
 
+## EOVERFLOW
+
+*stream* is at EOF.
+
 ## Others
 
-Refer to [fflush](fflush.3).
+Refer to [fflush](fflush.3) and [pread](pread.3).
 
 
 # Extended Description
 
-*fputc* shall write to the stream's buffer, and shall flush if needed.
+There is no extended description.
 
 
 # Future Directions
@@ -61,4 +65,4 @@ Copyright (c) 2001-2018 IEEE and The Open Group
 
 # See Also
 
-[fputs](fputs.3) - Write string to stream
+[fgets](fgets.3) - Read buffer from stream

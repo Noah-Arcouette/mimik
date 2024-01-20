@@ -1249,7 +1249,6 @@ stdio.h:
     fprintf
     printf
     fopen
-    fgetc
 stdlib.h:
     malloc
     free
@@ -1258,6 +1257,7 @@ string.h:
     strerror
 unistd.h:
     pwrite
+    pread
 fcntl.h:
     fcntl
 nl_types.h:

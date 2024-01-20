@@ -28,5 +28,6 @@ int close (int fildes);
 
 // null
 ssize_t pwrite (int, const void *, size_t, off_t);
+ssize_t pread  (int,       void *, size_t, off_t);
 
 #endif
