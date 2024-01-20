@@ -34,6 +34,7 @@ fgetc (FILE *stream)
         ssize_t amountRead = pread(stream->fildes, stream->buff, stream->buffsz, stream->seek);
         if (amountRead < 0)
         {
+            stream->flags |= _FILE_FLAG_ERROR;
             return EOF;
         }
 

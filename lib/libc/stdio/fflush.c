@@ -23,6 +23,7 @@ fflush (FILE *stream)
     if (!(stream->flags & _FILE_FLAG_IN_USE))
     {
         errno = EINVAL;
+        stream->flags |= _FILE_FLAG_ERROR;
         return EOF;
     }
 

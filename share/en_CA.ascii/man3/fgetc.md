@@ -19,7 +19,7 @@ int fgetc (FILE *stream);
 
 # Description
 
-*fgetc* shall read one character from *stream* and return it as an `int`. *fgetc* shall return EOF on error.
+*fgetc* shall read one character from *stream* and return it as an `int`. *fgetc* shall return EOF on error. *fgetc* shall flush the buffer, by means of [fflush](fflush.3), if it was in use for writing; which inturn seeks to EOF, user must seek between interleaved *fgetc* and *fputc* operations.
 
 
 # Environment Variables

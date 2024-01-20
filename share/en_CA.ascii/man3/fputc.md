@@ -19,7 +19,7 @@ int fputc (int c, FILE *stream);
 
 # Description
 
-*fputc* shall write *c*, interpreted as an **unsigned char**, to *stream*. *fputc* shall return *c* on success, and EOF on error.
+*fputc* shall write *c*, interpreted as an **unsigned char**, to *stream*. *fputc* shall return *c* on success, and EOF on error. *fputc* shall flush the buffer, by means of [fflush](fflush.3), if it was in use for reading.
 
 
 # Environment Variables
