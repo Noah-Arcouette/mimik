@@ -38,15 +38,13 @@ fflush (FILE *stream)
     {
         if (stream->flags & _FILE_FLAG_FILDES)
         {
-            off_t seek = lseek(stream->fildes, 0, SEEK_END);
-            if (seek >= 0)
+            if (lseek(stream->fildes, 0, SEEK_END) >= 0)
             {
-                stream->seek = seek;
+                stream->flags |= _FILE_FLAG_EOF;
             }
         }
 
         stream->buffuse = 0;
-        stream->flags  |= _FILE_FLAG_EOF;
         stream->flags  &= ~_FILE_FLAG_LAST_READ;
         return 0;
     }
@@ -59,13 +57,12 @@ fflush (FILE *stream)
             return 0;
         }
 
-        if (pwrite(stream->fildes, stream->buff, stream->buffuse, stream->seek) != (ssize_t)stream->buffuse)
+        if (write(stream->fildes, stream->buff, stream->buffuse) != (ssize_t)stream->buffuse)
         {
             stream->flags |= _FILE_FLAG_ERROR;
             return EOF;
         }
 
-        stream->seek   += stream->buffuse;
         stream->buffuse = 0;
         stream->flags  &= ~_FILE_FLAG_LAST_WRITE;
         return 0;

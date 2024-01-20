@@ -30,7 +30,7 @@ int close (int fildes);
 ssize_t pwrite (int fildes, const void *buf, size_t, off_t);
 
 // null
-ssize_t pread (int,       void *, size_t, off_t);
+ssize_t  read (int,       void *, size_t);
 ssize_t write (int, const void *, size_t);
 
 #endif

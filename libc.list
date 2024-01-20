@@ -1257,7 +1257,7 @@ string.h:
     strerror
 unistd.h:
     write
-    pread
+    read
 fcntl.h:
     fcntl
 nl_types.h:

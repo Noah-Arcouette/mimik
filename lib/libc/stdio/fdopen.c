@@ -14,7 +14,6 @@ fdopen (int fildes, const char *mode)
     }
 
     short flags = _FILE_FLAG_IN_USE | _FILE_FLAG_FILDES | _FILE_FLAG_BUFFERED;
-    off_t seek = 0;
 
     while (*mode)
     {
@@ -30,8 +29,7 @@ fdopen (int fildes, const char *mode)
             flags |= _FILE_FLAG_OP_WRITE | _FILE_FLAG_OP_READ;
             break;
         case 'a':
-            seek = lseek(fildes, 0, SEEK_END);
-            if (seek < 0)
+            if (lseek(fildes, 0, SEEK_END) < 0)
             {
                 return (FILE *)NULL;
             }
@@ -84,7 +82,6 @@ fdopen (int fildes, const char *mode)
             // open file
             __stdio_files[i].flags  = flags;
             __stdio_files[i].fildes = fildes;
-            __stdio_files[i].seek   = seek;
 
             __stdio_files[i].buffsz  = BUFSIZ;
             __stdio_files[i].buffuse = 0;

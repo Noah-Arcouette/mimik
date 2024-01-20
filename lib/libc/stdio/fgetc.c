@@ -13,12 +13,6 @@ fgetc (FILE *stream)
     }
 #endif
 
-    if (stream->flags & _FILE_FLAG_EOF)
-    {
-        errno = EOVERFLOW;
-        return EOF;
-    }
-
     if (stream->flags & _FILE_FLAG_LAST_WRITE)
     {
         if (fflush(stream) == EOF)
@@ -27,19 +21,22 @@ fgetc (FILE *stream)
         }
     }
 
+    if (stream->flags & _FILE_FLAG_EOF)
+    {
+        errno = EOVERFLOW;
+        return EOF;
+    }
+
     stream->flags |= _FILE_FLAG_LAST_READ;
     if (!stream->buffuse)
     {
         // fill buffer
-        ssize_t amountRead = pread(stream->fildes, stream->buff, stream->buffsz, stream->seek);
+        ssize_t amountRead = read(stream->fildes, stream->buff, stream->buffsz);
         if (amountRead < 0)
         {
             stream->flags |= _FILE_FLAG_ERROR;
             return EOF;
         }
-
-        // push read/write head
-        stream->seek += stream->buffsz;
         
         if ((size_t)amountRead != stream->buffsz)
         {
