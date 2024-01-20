@@ -1252,7 +1252,6 @@ stdio.h:
 stdlib.h:
     malloc
     free
-    abort
 string.h:
     strerror
 unistd.h:
