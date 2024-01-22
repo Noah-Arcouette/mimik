@@ -29,10 +29,10 @@ int close (int fildes);
 // arch/write.c
 ssize_t write (int fildes, const void *buf, size_t);
 
+// arch/read.c
+ssize_t read (int fildes, void *buf, size_t);
+
 // unistd/pwrite.c
 ssize_t pwrite (int fildes, const void *buf, size_t, off_t);
-
-// null
-ssize_t read (int, void *, size_t);
 
 #endif

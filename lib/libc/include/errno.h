@@ -32,4 +32,7 @@ extern int errno;
 #define EFBIG        29
 #define EDESTADDRREQ 30
 #define EAGAIN       31
+#define ENOBUFS      32
+#define ECONNRESET   33
+#define EBADMSG      34
 #endif

@@ -141,6 +141,18 @@ No destination address.
 
 Resource temporarily unavailable, try again.
 
+## ENOBUFS(32)
+
+Buffer full.
+
+## ECONNRESET(33)
+
+Connection externally reset.
+
+## EBADMSG(34)
+
+Malformed message.
+
 
 # Environment Variables
 

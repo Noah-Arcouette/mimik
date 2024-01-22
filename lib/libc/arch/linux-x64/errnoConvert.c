@@ -61,6 +61,12 @@ __errnoConvert (int error)
         return EFBIG;
     case SYS_EPIPE:
         return EPIPE;
+    case SYS_EBADMSG:
+        return EBADMSG;
+    case SYS_ECONNRESET:
+        return ECONNRESET;
+    case SYS_ENOBUFS:
+        return ENOBUFS;
     default:
         return EUNKNOWN;
     }

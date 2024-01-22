@@ -10,6 +10,7 @@
 #define SYS_LSEEK  0x08
 #define SYS_CLOSE  0x03
 #define SYS_WRITE  0x01
+#define SYS_READ   0x00
 
 long __syscall1 (long nr, long r0);
 long __syscall2 (long nr, long r0, long r1);
@@ -43,6 +44,9 @@ long __syscall3 (long nr, long r0, long r1, long r2);
 #define SYS_EWOULDBLOCK  SYS_EAGAIN
 #define SYS_EDESTADDRREQ -89
 #define SYS_EAGAIN       -11
+#define SYS_ENOBUFS     -105
+#define SYS_ECONNRESET  -104
+#define SYS_EBADMSG      -74
 
 int
 __errnoConvert (int error);
