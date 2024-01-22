@@ -153,6 +153,14 @@ Connection externally reset.
 
 Malformed message.
 
+## ENOTCONN(35)
+
+Socket not connected.
+
+## ETIMEDOUT(36)
+
+Transaction timed-out.
+
 
 # Environment Variables
 

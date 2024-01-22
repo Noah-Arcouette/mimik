@@ -67,6 +67,10 @@ __errnoConvert (int error)
         return ECONNRESET;
     case SYS_ENOBUFS:
         return ENOBUFS;
+    case SYS_ENOTCONN:
+        return ENOTCONN;
+    case SYS_ETIMEDOUT:
+        return ETIMEDOUT;
     default:
         return EUNKNOWN;
     }

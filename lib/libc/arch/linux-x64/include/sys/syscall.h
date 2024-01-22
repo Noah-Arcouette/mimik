@@ -47,6 +47,8 @@ long __syscall3 (long nr, long r0, long r1, long r2);
 #define SYS_ENOBUFS     -105
 #define SYS_ECONNRESET  -104
 #define SYS_EBADMSG      -74
+#define SYS_ETIMEDOUT   -110
+#define SYS_ENOTCONN    -107
 
 int
 __errnoConvert (int error);

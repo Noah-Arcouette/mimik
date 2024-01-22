@@ -35,4 +35,6 @@ extern int errno;
 #define ENOBUFS      32
 #define ECONNRESET   33
 #define EBADMSG      34
+#define ENOTCONN     35
+#define ETIMEDOUT    36
 #endif
