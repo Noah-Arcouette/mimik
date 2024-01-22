@@ -1255,7 +1255,6 @@ stdlib.h:
 string.h:
     strerror
 unistd.h:
-    read
 fcntl.h:
     fcntl
 nl_types.h:
