@@ -6,5 +6,5 @@
 void
 _exit (int status)
 {
-    (void)__syscall1(SYS_EXIT, (long)(status&0xff));
+    (void)__syscall1(SYS_EXIT, status&0xff);
 }

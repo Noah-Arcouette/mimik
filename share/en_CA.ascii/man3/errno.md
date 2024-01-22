@@ -125,6 +125,22 @@ Resource does not have seek action.
 
 Action interrupted.
 
+## EPIPE(28)
+
+Broken pipe.
+
+## EFBIG(29)
+
+Resource to large.
+
+## EDESTADDRREQ(30)
+
+No destination address.
+
+## EAGAIN(31)
+
+Resource temporarily unavailable, try again.
+
 
 # Environment Variables
 

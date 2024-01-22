@@ -32,32 +32,11 @@ lseek (int fildes, off_t offset, int whence)
         break;
     }
 
-    off_t ret = (off_t)__syscall3(SYS_LSEEK, (long)fildes, (long)offset, (long)callWhence);
+    off_t ret = (off_t)__syscall3(SYS_LSEEK, fildes, offset, callWhence);
 
     if (ret < 0)
     {
-        switch (ret)
-        {
-            case SYS_EBADF:
-                errno = EBADF;
-                break;
-            case SYS_EINVAL:
-                errno = EINVAL;
-                break;
-            case SYS_ENXIO:
-                errno = ENXIO;
-                break;
-            case SYS_EOVERFLOW:
-                errno = EOVERFLOW;
-                break;
-            case SYS_ESPIPE:
-                errno = ESPIPE;
-                break;
-            default:
-                errno = EUNKNOWN;
-                break;
-        }
-
+        errno = __errnoConvert(ret);
         return (off_t)-1;
     }
     return 0;

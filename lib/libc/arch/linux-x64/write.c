@@ -1,32 +1,32 @@
 #include <unistd.h>
-#include <errno.h>
 #define LINUX_X64_ONLY
 #   include <sys/syscall.h>
 #undef LINUX_X64_ONLY
+#include <errno.h>
 
-int
-link (const char *src, const char *dst)
+ssize_t 
+write (int fildes, const void *buf, size_t size)
 {
 #ifdef RESILIENT
-    if (!src || !dst)
+    if (!buf)
     {
         errno = EFAULT;
         return -1;
     }
 #endif
 
-    if (!*src || !*dst)
+    if (size > SSIZE_MAX)
     {
-        errno = ENOENT;
+        errno = ERANGE;
         return -1;
     }
 
-    int ret = (int)__syscall2(SYS_LINK, (long)src, (long)dst);
+    ssize_t ret = __syscall3(SYS_WRITE, fildes, (long)buf, size);
 
     if (ret < 0)
     {
         errno = __errnoConvert(ret);
         return -1;
     }
-    return 0;
+    return ret;
 }

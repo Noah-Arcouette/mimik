@@ -28,4 +28,8 @@ extern int errno;
 #define EOVERFLOW    ERANGE
 #define ESPIPE       26
 #define EINTR        27
+#define EPIPE        28
+#define EFBIG        29
+#define EDESTADDRREQ 30
+#define EAGAIN       31
 #endif
