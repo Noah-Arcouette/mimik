@@ -41,6 +41,8 @@ Signaling:
         Ex: SIGALARM, SIGINT
 
 ```C
+// Context 0 is the kernel
+
 // Context
 //   current context
 ctx_t current (void);
@@ -58,6 +60,8 @@ int send (ctx_t, struct message, int ready); // ( ready=1 ) return if recipient 
 int recv (ctx_t *, struct message *);
 //   receive from a certain context
 int recvfrom (ctx_t, struct message *, int ready); // ( ready=1 ) return if context isn't sending
+//   await kernel message, and pass execution to context
+int recvkern (ctx_t, struct message *); // useful for device interrupts: queue the driver ( shared memory ), await kernel interrupt, execute the driver
 //   send and receive
 int sendrecv (ctx_t, struct message, struct message *resp); // send message then await response from same context, making it ready will additional call
 //   destroy out-going message
