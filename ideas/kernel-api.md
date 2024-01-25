@@ -1,6 +1,6 @@
 Kernel:
     Contexts:
-        Fibers: CPU Context ( registers )
+        CPU Context ( registers )
         Use memory capabilities for paging
         Messages:
             Out-Going, pass execution time to awaiting context
@@ -29,11 +29,16 @@ System Daemons:
 The current context only leaves execution if it wants or if it has no choice
 
 System Call:
-    Kernel will message the system call to the give context
+    Kernel will message the system call handler to the give context
     OR, handle it itself
 
 User-type contexts map all syscalls to server instead of the kernel:
     This allows for arbitrary ABI to be implemented on the same OS, Ex: Linux-Syscall-Server, Mac-Syscall-Server, Windows-WhatEver-Server
+
+Signaling:
+    The process manager will need to create a separate thread to handle all signals
+    Some signals will fail it client isn't ready:
+        Ex: SIGALARM, SIGINT
 
 ```C
 // Context
@@ -46,28 +51,22 @@ ctx_t fork (ctx_t);
 //   kill context removing all grants and destroying the out-going message
 int kill (ctx_t);
 
-// Fibers
-//   Create new fiber and call function, setting the new fiber to the current fiber
-int splice  (ctx_t, void *, ...);
-//   Exit fiber, killing context or releasing to next fiber
-int end     (ctx_t);
-//   Release to next fiber
-int release (ctx_t);
-
 // Messages
 //   send message passing execution to receiver context ( no choice )
-int send (ctx_t, struct message);
-//   receive message from any-one
+int send (ctx_t, struct message, int ready); // ( ready=1 ) return if recipient client isn't ready
+//   receive message from any-one, giving up execution
 int recv (ctx_t *, struct message *);
 //   receive from a certain context
-int recvfrom (ctx_t, struct message *);
-//    destroy out-going message
+int recvfrom (ctx_t, struct message *, int ready); // ( ready=1 ) return if context isn't sending
+//   send and receive
+int sendrecv (ctx_t, struct message, struct message *resp); // send message then await response from same context, making it ready will additional call
+//   destroy out-going message
 int destroy (ctx_t);
 
 // Capabilities
 //   register new capability attaching it the current context
-//      on interrupt message this process, passing execution
-//      on kernel system call message this process, passing execution
+//      on interrupt message this process, passing execution ( ready=1 )
+//      on kernel system call message this process in behalf of the caller, passing execution
 //      attach memory page to process context
 //      allow access to port ( Port I/O )
 //      allow system call mapping
