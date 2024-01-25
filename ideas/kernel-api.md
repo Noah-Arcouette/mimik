@@ -41,12 +41,10 @@ Signaling:
         Ex: SIGALARM, SIGINT
 
 ```C
-// Context 0 is the kernel
-
 // Context
 //   current context
 ctx_t current (void);
-//   switch to other context, returning to current fiber
+//   switch to other context, context -1 switches to system's choice
 int cswitch (ctx_t); // may return unexpectedly if there are multiple cpu threads
 //   fork, execution stays in the current context
 ctx_t fork (ctx_t);
@@ -54,18 +52,14 @@ ctx_t fork (ctx_t);
 int kill (ctx_t);
 
 // Messages
-//   send message passing execution to receiver context ( no choice )
-int send (ctx_t, struct message, int ready); // ( ready=1 ) return if recipient client isn't ready
-//   receive message from any-one, giving up execution
-int recv (ctx_t *, struct message *);
-//   receive from a certain context
-int recvfrom (ctx_t, struct message *, int ready); // ( ready=1 ) return if context isn't sending
-//   await kernel message, and pass execution to context
-int recvkern (ctx_t, struct message *); // useful for device interrupts: queue the driver ( shared memory ), await kernel interrupt, execute the driver
-//   send and receive
-int sendrecv (ctx_t, struct message, struct message *resp); // send message then await response from same context, making it ready will additional call
-//   destroy out-going message
-int destroy (ctx_t);
+//   send message to context if ready, and pass execution to context
+int send     (            ctx_t, struct message,                       int ready);
+//   receive message from context if ready, and pass execution to *pass*; context of -1 receives from anyone, context 0 receives from kernel
+int recv     (ctx_t pass, ctx_t,                 struct message *,     int ready);
+//   send message to context if ready, await response, and pass execution
+int sendrecv (            ctx_t, struct message, struct message *resp, int ready);
+//   destroy all context's messages
+int destroy  (ctx_t);
 
 // Capabilities
 //   register new capability attaching it the current context
