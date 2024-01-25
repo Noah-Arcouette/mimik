@@ -79,4 +79,9 @@ int stat (cap_t, struct capability *);
 int attach (ctx_t, cap_t);
 //   detach capability from context
 int detach (ctx_t, cap_t);
+
+
+// all system calls are like this
+// system call are just aliases for mapped contexts, via sendrecv
+void syscall (int number, struct message send, struct message *recv);
 ```
