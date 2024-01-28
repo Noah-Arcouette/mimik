@@ -1,4 +1,4 @@
-#include "../string.h"
+#include <string.h>
 #include <stdio.h>
 
 #define TITLE(x) printf("libc/%s %d: ", __FILE__, __LINE__)

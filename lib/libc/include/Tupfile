@@ -1,0 +1,13 @@
+include_rules
+
+ifeq (@(LIB_C),y)
+ : foreach *.conf |> !varsed |> %B
+else
+ifeq (@(BUILD_INCLUDES),y)
+ : foreach *.conf |> !varsed |> %B
+endif
+endif
+
+ifeq (@(BUILD_INCLUDES),y)
+ : foreach *.h |> !mv |> $(DIST)/usr/include/%b
+endif

@@ -1,0 +1,76 @@
+# Prologue
+
+This manual is part of the Mimik System Tree, other implementations may differ. Some compatibility with existing standards may be met but to do not expect any.
+
+
+# Name
+
+write - Write data to file descriptor, part of libc and the System
+
+
+# Synopsis
+
+```C
+#include <unistd.h>
+
+ssize_t write (int fildes, const char *buf, size_t size);
+```
+
+
+# Description
+
+*write* shall attempt to write *size* bytes of data from *buf* to file descriptor *fildes*. *write* shall return the actual amount of bytes written, or negative one on error.
+
+The data shall be written at the read-write head. The read-write head shall be incremented by the amount of bytes written.
+
+
+# Environment Variables
+
+Environment variables shall not be consider or modified by this function.
+
+
+# Errors
+
+Negative one shall be return and errno set.
+
+## EFAULT, *Resilient Builds Only*
+
+*buf* is NULL.
+
+## ERANGE
+
+*size* is greater then the maximum return value, `SSIZE_MAX`.
+
+## Others
+
+Refer to [write](write.2).
+
+
+# Extended Description
+
+The *write* function is implemented by the system, not necessarily the C standard library.
+
+A write to a file descriptor thats read-write head is beyond its end may cause it to be extended.
+
+
+# Future Directions
+
+There are no future directions.
+
+
+# Compliance
+
+This function shall comply with:
+
+The Open Group Base Specifications Issue 7, 2018 edition
+IEEE Std 1003.1-2017 (Revision of IEEE Std 1003.1-2008)
+Copyright (c) 2001-2018 IEEE and The Open Group
+
+
+# See Also
+
+[open](open.3) - Open a new file descriptor
+
+[fwrite](fwrite.3) - Buffered file writing
+
+[write](write.2) - System implementation details for *write*

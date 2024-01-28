@@ -1,6 +1,6 @@
 admin
 alias
-ar(.ar,.tar,.pax,.cpio)
+ar
 asa
 at
 awk
@@ -86,7 +86,8 @@ od
 paste
 patch
 pathchk
-pax -> ar.pax
+pax
+tar
 pr
 printf
 prs

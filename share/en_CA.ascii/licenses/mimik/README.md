@@ -1,6 +1,6 @@
 # Mimik System Tree
 
-Mimik System Tree, or Mimik for short, is a implementation of a POSIX-Like operating system, as well as many other free to use data. All under the same license and with the same goal.
+Mimik System Tree, or Mimik for short, is an implementation of a POSIX-Like operating system, as well as many other free to use data. All under the same license and with the same goal.
 
 ## Goal
 
@@ -12,8 +12,6 @@ The goal of Mimik is to provide a completely free, and open, collection of every
 Mimik uses [Tup](https://gittup.org/tup) for its build system.
 
 Just run:
-
-`$ tup init`
 
 `$ tup`
 

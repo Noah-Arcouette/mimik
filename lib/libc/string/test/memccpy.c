@@ -1,7 +1,9 @@
-#include "../string.h"
+#include <string.h>
 #include <stdio.h>
 
 #define TITLE(x) printf("libc/%s %d: ", __FILE__, __LINE__)
+
+void *memccpy (void *, const void *, int, size_t);
 
 int
 main (void)

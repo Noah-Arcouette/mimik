@@ -1,0 +1,5 @@
+include_rules
+
+ifeq (@(BUILD_INCLUDES),y)
+ : foreach ./sys/*.h |> !mv |> $(DIST)/usr/include/sys/%b
+endif
