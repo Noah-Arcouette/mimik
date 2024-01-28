@@ -1,48 +1,48 @@
 Reserved
 Group:
-    Superblock:
-        Magic
-        Version
-        OS
-        OEM
-        Bits
+	Superblock:
+		Magic
+		Version
+		OS
+		OEM
+		Bits
 
-        Entry sections per group
-        Data sections per group
-        Max amount of groups
-        Current amount of groups
+		Entry sections per group
+		Data sections per group
+		Max amount of groups
+		Current amount of groups
 
-        Group growth size
+		Group growth size
 
-        Starting index size
-        Index growth size
+		Starting index size
+		Index growth size
 
-        Last mount time
-        Last written time
+		Last mount time
+		Last written time
 
-        Amount of time since last fsck
-        Amount of mounts before forced fsck
-        File system state: mounted, dirty, clean
-        Error management: ignore, fsck and retry, read-only, panic
+		Amount of time since last fsck
+		Amount of mounts before forced fsck
+		File system state: mounted, dirty, clean
+		Error management: ignore, fsck and retry, read-only, panic
 
-        Root's first child
+		Root's first child
 
-        Volume Name
-        Volume UUID
+		Volume Name
+		Volume UUID
 
-        Flags: final-group, CHS, Stated-Time
-    Entry Section: ( times by the amount of entry sections per group )
-        Bitmap ( 1 sector )
-        INodes
+		Flags: final-group, CHS, Stated-Time
+	Entry Section: ( times by the amount of entry sections per group )
+		Bitmap ( 1 sector )
+		INodes
 
-        Bitmap ( 1 sector )
-        Hierarchy
-    Data Section: ( times by the amount of data sections per group )
-        Bitmap ( 1 sector )
-        Indexes
+		Bitmap ( 1 sector )
+		Hierarchy
+	Data Section: ( times by the amount of data sections per group )
+		Bitmap ( 1 sector )
+		Indexes
 
-        Bitmap ( 1 sector )
-        Data
+		Bitmap ( 1 sector )
+		Data
 
 *entry 0 is nothing
 *entry 1 is root
@@ -51,34 +51,34 @@ Group:
 *inode 0 is nothing
 
 Hierarchy: 
-    Parent
-    Left Sibling
-    Right Sibling
-    INode
+	Parent
+	Left Sibling
+	Right Sibling
+	INode
 
-    Name
+	Name
 
 INode:
-    Hard link count
+	Hard link count
 
-    Access time
-    Modify time
-    Create time
+	Access time
+	Modify time
+	Create time
 
-    File mode: Read, Write, Execute, Set UID, Set GID, Shred
-    User ID
-    Group ID
+	File mode: Read, Write, Execute, Set UID, Set GID, Shred
+	User ID
+	Group ID
 
-    Type: DIR FILE CHAR-DEVICE BLOCK-DEVICE FIFO SOFT-LINK
+	Type: DIR FILE CHAR-DEVICE BLOCK-DEVICE FIFO SOFT-LINK
 
-    DIR: Hierarchical Entry
+	DIR: Hierarchical Entry
 
-    FILE: Index-Start, Indexes
-    FILE: Blocks, Backset
+	FILE: Index-Start, Indexes
+	FILE: Blocks, Backset
 
-    FIFO/BLOCK-DEVICE/CHAR-DEVICE: Major, Minor
+	FIFO/BLOCK-DEVICE/CHAR-DEVICE: Major, Minor
 
-    SOFT-LINK: Block
+	SOFT-LINK: Block
 
 
 create path inode
@@ -103,69 +103,69 @@ defragfs
 
 
 Simple Archive Format:
-    Reserved(2 sectors)
-    Entry:
-        256: Path
+	Reserved(2 sectors)
+	Entry:
+		256: Path
 
-        8: Modify time
-        8: Create time
+		8: Modify time
+		8: Create time
 
-        2: File mode: (Read, Write, Execute)x3, Set UID, Set GID, Shred
-        8: User ID
-        32: User Name
-        8: Group ID
-        32: Group Name
+		2: File mode: (Read, Write, Execute)x3, Set UID, Set GID, Shred
+		8: User ID
+		32: User Name
+		8: Group ID
+		32: Group Name
 
-        1: Type: TERMINATOR(0) DIR(1) FILE(2) CHAR-DEVICE(3) BLOCK-DEVICE(4) FIFO(5) SOFT-LINK(6) HARD-LINK(8)
+		1: Type: TERMINATOR(0) DIR(1) FILE(2) CHAR-DEVICE(3) BLOCK-DEVICE(4) FIFO(5) SOFT-LINK(6) HARD-LINK(8)
 
-        10: [
-            0: TERMINATOR/DIR/FIFO/SOFT-LINK/HARD-LINK
+		10: [
+			0: TERMINATOR/DIR/FIFO/SOFT-LINK/HARD-LINK
 
-            10: FILE: Blocks(8), Backset(2)
+			10: FILE: Blocks(8), Backset(2)
 
-            10: BLOCK-DEVICE/CHAR-DEVICE: Major(8), Minor(2)
-        ]
+			10: BLOCK-DEVICE/CHAR-DEVICE: Major(8), Minor(2)
+		]
 
-        4: Magic = "SAF\0"
-        4: Version-Major = 1
-        2: Version-Minor = 0
+		4: Magic = "SAF\0"
+		4: Version-Major = 1
+		2: Version-Minor = 0
 
-        137: reserved
-    Data:
-        link name /
-        file data
+		137: reserved
+	Data:
+		link name /
+		file data
 
 struct entry {
-    char path[256];
+	char path[256];
 
-    long mtime;
-    long ctime;
+	long mtime;
+	long ctime;
 
-    unsigned short mode;
+	unsigned short mode;
 
-    unsigned long uid;
-             char uname[32];
-    unsigned long gid;
-             char gname[32];
+	unsigned long uid;
+			 char uname[32];
+	unsigned long gid;
+			 char gname[32];
 
-    unsigned char type;
+	unsigned char type;
 
-    union {
-        struct file {
-            unsigned long  blocks;
-            unsigned short backset;
-        };
-        struct device {
-            unsigned long  major;
-            unsigned short minor;
-        };
-    };
+	union {
+		struct file {
+			unsigned long  blocks;
+			unsigned short backset;
+		};
+		struct device {
+			unsigned long  major;
+			unsigned short minor;
+		};
+	};
 
-             char  magic[4];
-    unsigned int   versionMajor;
-    unsigned short versionMinor;
+			 char  magic[4];
+	unsigned int   versionMajor;
+	unsigned short versionMinor;
 
-    unsigned char reserved[137];
+	unsigned char reserved[137];
 } __packed__;
 
 Enter a C compatible environment
