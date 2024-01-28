@@ -2,7 +2,7 @@ include_rules
 
 ifeq (@(LIB_C),y)
 
-: foreach ./string/*.c                                          |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
+: foreach ./string/*.c | ./include/stdio.h ./include/limits.h   |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
 : foreach ./stdio/*.c  | ./include/stdio.h ./include/limits.h   |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
 : foreach ./stdlib/*.c | ./include/limits.h                     |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}
 : foreach ./unistd/*.c                                          |> !cc -fno-builtin -I./include/ -I./arch/@(KERNEL)-@(ARCH)/include/ |> ./%B.o {obj}

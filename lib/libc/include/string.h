@@ -2,6 +2,7 @@
 #define __LIBC_STRING_H__
 #include <stddef.h>
 #include <locale.h>
+#include <nl_types.h>
 
 // string/strcmp.c
 int 
@@ -69,5 +70,18 @@ memchr (const void *s, int c, size_t n);
 // string/memccpy.c
 void *
 memccpy (void *restrict dst, const void *restrict src, int c, size_t n);
+
+// string/strerror.c
+char *
+strerror (int error);
+
+// string/string.c
+void
+__init_string (void);
+
+void
+__fini_string (void);
+
+extern nl_catd __errno_catd;
 
 #endif

@@ -972,7 +972,6 @@ strcoll
 strcoll_l
 strcspn
 strdup
-strerror
 strerror_l
 strerror_r
 strfmon
@@ -1252,8 +1251,6 @@ stdio.h:
 stdlib.h:
     malloc
     free
-string.h:
-    strerror
 unistd.h:
     getlogin
 sys/utsname.h:

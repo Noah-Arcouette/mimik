@@ -19,8 +19,7 @@ struct nl_catalogue
         int    set;
         int    message;
         off_t  index; // into data
-    } table[.entries];
-    char data [];
+    } table[];
 };
 
 // void
