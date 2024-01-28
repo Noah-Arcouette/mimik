@@ -10,16 +10,16 @@ size_t nl_ent_index (int set, int message); // index into table
 
 struct nl_catalogue
 {
-    char          magic[4]; // "MCAT"
-    unsigned char rev; // 0
+	char          magic[4]; // "MCAT"
+	unsigned char rev; // 0
 
-    size_t entries;
-    struct
-    {
-        int    set;
-        int    message;
-        off_t  index; // into data
-    } table[];
+	size_t entries;
+	struct
+	{
+		int    set;
+		int    message;
+		off_t  index; // into data
+	} table[];
 };
 
 // void

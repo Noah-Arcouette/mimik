@@ -7,25 +7,25 @@
 int
 main (void)
 {
-    if (startMtf())
-    {
-        TITLE();
-        puts("Failed to initialize move-to-front transform");
-        return 1;
-    }
+	if (startMtf())
+	{
+		TITLE();
+		puts("Failed to initialize move-to-front transform");
+		return 1;
+	}
 
-    assert(encodeMtf(10) == 10);
-    assert(encodeMtf( 1) ==  2);
-    assert(encodeMtf(32) == 32);
-    assert(encodeMtf( 2) ==  4);
-    assert(encodeMtf( 1) ==  2);
-    assert(encodeMtf( 8) == 10);
-    assert(encodeMtf( 8) ==  0);
-    assert(encodeMtf( 8) ==  0);
-    assert(encodeMtf( 1) ==  1);
+	assert(encodeMtf(10) == 10);
+	assert(encodeMtf( 1) ==  2);
+	assert(encodeMtf(32) == 32);
+	assert(encodeMtf( 2) ==  4);
+	assert(encodeMtf( 1) ==  2);
+	assert(encodeMtf( 8) == 10);
+	assert(encodeMtf( 8) ==  0);
+	assert(encodeMtf( 8) ==  0);
+	assert(encodeMtf( 1) ==  1);
 
-    stopMtf();
+	stopMtf();
 
-    TITLE();
-    puts("\tConsistent");
+	TITLE();
+	puts("\tConsistent");
 }

@@ -3,6 +3,6 @@
 
 int 
 main (void) {
-    puts(getlogin());
-    return 0;
+	puts(getlogin());
+	return 0;
 }

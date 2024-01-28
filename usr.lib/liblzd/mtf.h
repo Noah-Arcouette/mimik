@@ -8,47 +8,47 @@ static unsigned char* list;
 static int
 startMtf ()
 {
-    list = (unsigned char*)malloc(256*sizeof(unsigned char));
-    if (!list)
-    {
-        return 1;
-    }
+	list = (unsigned char*)malloc(256*sizeof(unsigned char));
+	if (!list)
+	{
+		return 1;
+	}
 
-    for (int i = 0; i<256; i++)
-    {
-        list[i] = i;
-    }
+	for (int i = 0; i<256; i++)
+	{
+		list[i] = i;
+	}
 
-    return 0;
+	return 0;
 }
 
 static int
 encodeMtf (int in)
 {
-    // transform
-    int buff;
-    for (int i = 0; i<256; i++)
-    {
-        if (list[i] == in)
-        {
-            for (int j = i-1; j+1; j--)
-            {
-                buff      = list[j];
-                list[j]   = list[j+1];
-                list[j+1] = buff;
-            }
+	// transform
+	int buff;
+	for (int i = 0; i<256; i++)
+	{
+		if (list[i] == in)
+		{
+			for (int j = i-1; j+1; j--)
+			{
+				buff      = list[j];
+				list[j]   = list[j+1];
+				list[j+1] = buff;
+			}
 
-            return i;
-        }
-    }
+			return i;
+		}
+	}
 
-    return -1;
+	return -1;
 }
 
 static void
 stopMtf ()
 {
-    free(list);
+	free(list);
 }
 
 #endif

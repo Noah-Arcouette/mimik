@@ -24,41 +24,41 @@ The system should be built into the `./dist/` directory. All configuration is do
 /boot/ ; Work required for the boot-loader to function, kernel may or may not be here
 /bin/ ; Executable binaries required for the system to come up
 /sbin/ ; Same as the above /bin/, but requires root privileges
-    init ; The initial system, the first process started after the kernel is up
+	init ; The initial system, the first process started after the kernel is up
 /lib/ ; Libraries required for the system to come up
 /lib<arch>/ ; Same as the above /lib/, but for multi-architecture systems
 /usr/ ; Work not required for the system to come up
-    bin/ ; Executable binaries shipped with the distribution
-    sbin/ ; Same as the above bin, but requires root privileges
-    lib/ ; Libraries shipped with the distribution
-    lib<arch> /; Same as the above lib, but for multi-architecture systems
-    libexec/ ; Binaries designed to be ran by other programs, not users
-    include/ ; System include files
-    src/<project>/ ; System source code files
-    config/<project>/ ; System build time configuration files
-    share/ ; Architecture independent work
-        locale/<locale>/ ; Locale selectable work
-            man/ ; Manual pages
-                man1/ ; Utilities
-                man2/ ; ABIs
-                man3/ ; Library APIs
-                man4/ ; Special files / Device files
-                man5/ ; File formats and conventions
-                man6/ ; Games and screensavers
-                man7/ ; Miscellanea
-                man8/ ; System administrative utilities
-            manp/ ; POSIX manual pages
-                ; same structure as the above man directory
-            messages/<application>.cat ; Message catalogues
-            licenses/<project>/... ; Licensing and project information
-        test/<application>/<function> ; Unit tests, as scripts
-    test/<application>/<function> ; Unit tests, as binaries
+	bin/ ; Executable binaries shipped with the distribution
+	sbin/ ; Same as the above bin, but requires root privileges
+	lib/ ; Libraries shipped with the distribution
+	lib<arch> /; Same as the above lib, but for multi-architecture systems
+	libexec/ ; Binaries designed to be ran by other programs, not users
+	include/ ; System include files
+	src/<project>/ ; System source code files
+	config/<project>/ ; System build time configuration files
+	share/ ; Architecture independent work
+		locale/<locale>/ ; Locale selectable work
+			man/ ; Manual pages
+				man1/ ; Utilities
+				man2/ ; ABIs
+				man3/ ; Library APIs
+				man4/ ; Special files / Device files
+				man5/ ; File formats and conventions
+				man6/ ; Games and screensavers
+				man7/ ; Miscellanea
+				man8/ ; System administrative utilities
+			manp/ ; POSIX manual pages
+				; same structure as the above man directory
+			messages/<application>.cat ; Message catalogues
+			licenses/<project>/... ; Licensing and project information
+		test/<application>/<function> ; Unit tests, as scripts
+	test/<application>/<function> ; Unit tests, as binaries
 /etc/ ; System-wide configuration
-    opt/ ; System-wide configuration for optional packages
-    skel/ ; The base for a new user's /home/
+	opt/ ; System-wide configuration for optional packages
+	skel/ ; The base for a new user's /home/
 /var/ ; Variable sized data
-    opt/ ; Variable sized data for optional packages
-    log/ ; Application log files
+	opt/ ; Variable sized data for optional packages
+	log/ ; Application log files
 /opt/ ; Same structure as /usr/, but for optional, installed, packages
 /home/<user>/ ; User data
 /root/ ; Same structure as the above /home/<user>/, but for the root user

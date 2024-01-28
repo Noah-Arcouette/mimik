@@ -44,13 +44,13 @@ All sizes must be pre-agreed. The stream shall be a series of: identifiers, base
 ```C
 struct LZD_Stream_Header
 {
-    char magic[4];          // "LZD\0"
-    unsigned char revision; // 0
-    char dictionary[256];   // the name of the dictionary, may be NULL for the preset
-    unsigned char diction;  // length of a dictionary code word, in bits
-    unsigned char offset;   // length of an offset, in bits
-    unsigned char length;   // length of a length, in bits
-    unsigned char history;  // length of a history offset, in bits
+	char magic[4];          // "LZD\0"
+	unsigned char revision; // 0
+	char dictionary[256];   // the name of the dictionary, may be NULL for the preset
+	unsigned char diction;  // length of a dictionary code word, in bits
+	unsigned char offset;   // length of an offset, in bits
+	unsigned char length;   // length of a length, in bits
+	unsigned char history;  // length of a history offset, in bits
 };
 ```
 

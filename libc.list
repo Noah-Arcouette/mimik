@@ -1245,21 +1245,21 @@ wordexp.h
 crt0.o
 
 stdio.h:
-    fprintf
-    printf
-    fopen
+	fprintf
+	printf
+	fopen
 stdlib.h:
-    malloc
-    free
+	malloc
+	free
 unistd.h:
-    getlogin
+	getlogin
 sys/utsname.h:
-    uname
+	uname
 fcntl.h:
-    fcntl
+	fcntl
 nl_types.h:
-    catopen
-    catgets
-    catclose
+	catopen
+	catgets
+	catclose
 signal.h:
-    signal
+	signal

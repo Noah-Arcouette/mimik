@@ -7,12 +7,12 @@
 int
 close (int fildes)
 {
-    int ret = (int)__syscall1(SYS_CLOSE, fildes);
+	int ret = (int)__syscall1(SYS_CLOSE, fildes);
 
-    if (ret < 0)
-    {
-        errno = __errnoConvert(ret);
-        return -1;
-    }
-    return 0;
+	if (ret < 0)
+	{
+		errno = __errnoConvert(ret);
+		return -1;
+	}
+	return 0;
 }

@@ -7,10 +7,10 @@ int main (void);
 void
 _start (void)
 {
-    __init_stdio();
-    __init_string();
+	__init_stdio();
+	__init_string();
 
-    exit(main());
+	exit(main());
 
-    __fini_string();
+	__fini_string();
 }

@@ -7,98 +7,98 @@
 FILE *
 fdopen (int fildes, const char *mode)
 {
-    if (!mode)
-    {
-        errno = EINVAL;
-        return (FILE *)NULL;
-    }
+	if (!mode)
+	{
+		errno = EINVAL;
+		return (FILE *)NULL;
+	}
 
-    short flags = _FILE_FLAG_IN_USE | _FILE_FLAG_FILDES | _FILE_FLAG_BUFFERED;
+	short flags = _FILE_FLAG_IN_USE | _FILE_FLAG_FILDES | _FILE_FLAG_BUFFERED;
 
-    while (*mode)
-    {
-        switch (*mode)
-        {
-        case 'r':
-            flags |= _FILE_FLAG_OP_READ;
-            break;
-        case 'w':
-            flags |= _FILE_FLAG_OP_WRITE;
-            break;
-        case '+':
-            flags |= _FILE_FLAG_OP_WRITE | _FILE_FLAG_OP_READ;
-            break;
-        case 'a':
-            if (lseek(fildes, 0, SEEK_END) < 0)
-            {
-                return (FILE *)NULL;
-            }
-            flags |= _FILE_FLAG_OP_APPEND | _FILE_FLAG_OP_WRITE;
-            break;
-        case 't':
-            flags |= _FILE_FLAG_TEMPORARY;
-            break;
-        case 'b':
-            break;
-        default:
-            errno = EINVAL;
-            return (FILE *)NULL;
-        }
+	while (*mode)
+	{
+		switch (*mode)
+		{
+		case 'r':
+			flags |= _FILE_FLAG_OP_READ;
+			break;
+		case 'w':
+			flags |= _FILE_FLAG_OP_WRITE;
+			break;
+		case '+':
+			flags |= _FILE_FLAG_OP_WRITE | _FILE_FLAG_OP_READ;
+			break;
+		case 'a':
+			if (lseek(fildes, 0, SEEK_END) < 0)
+			{
+				return (FILE *)NULL;
+			}
+			flags |= _FILE_FLAG_OP_APPEND | _FILE_FLAG_OP_WRITE;
+			break;
+		case 't':
+			flags |= _FILE_FLAG_TEMPORARY;
+			break;
+		case 'b':
+			break;
+		default:
+			errno = EINVAL;
+			return (FILE *)NULL;
+		}
 
-        mode++;
-    }
+		mode++;
+	}
 
-    if ((flags & _FILE_FLAG_OP_READ) && (flags & _FILE_FLAG_OP_WRITE))
-    {
-        if (fcntl(fildes, F_SETFL, O_RDWR) < 0)
-        {
-            return (FILE *)NULL;
-        }
-    }
-    else if (flags & _FILE_FLAG_OP_READ)
-    {
-        if (fcntl(fildes, F_SETFL, O_RDONLY) < 0)
-        {
-            return (FILE *)NULL;
-        }
-    }
-    else if (flags & _FILE_FLAG_OP_WRITE)
-    {
-        if (fcntl(fildes, F_SETFL, O_WRONLY) < 0)
-        {
-            return (FILE *)NULL;
-        }
-    }
-    else
-    {
-        errno = EINVAL;
-        return (FILE *)NULL;
-    }
+	if ((flags & _FILE_FLAG_OP_READ) && (flags & _FILE_FLAG_OP_WRITE))
+	{
+		if (fcntl(fildes, F_SETFL, O_RDWR) < 0)
+		{
+			return (FILE *)NULL;
+		}
+	}
+	else if (flags & _FILE_FLAG_OP_READ)
+	{
+		if (fcntl(fildes, F_SETFL, O_RDONLY) < 0)
+		{
+			return (FILE *)NULL;
+		}
+	}
+	else if (flags & _FILE_FLAG_OP_WRITE)
+	{
+		if (fcntl(fildes, F_SETFL, O_WRONLY) < 0)
+		{
+			return (FILE *)NULL;
+		}
+	}
+	else
+	{
+		errno = EINVAL;
+		return (FILE *)NULL;
+	}
 
-    for (size_t i = 0; i<FOPEN_MAX; i++)
-    {
-        if (!(__stdio_files[i].flags & _FILE_FLAG_IN_USE))
-        {
-            // open file
-            __stdio_files[i].flags  = flags;
-            __stdio_files[i].fildes = fildes;
+	for (size_t i = 0; i<FOPEN_MAX; i++)
+	{
+		if (!(__stdio_files[i].flags & _FILE_FLAG_IN_USE))
+		{
+			// open file
+			__stdio_files[i].flags  = flags;
+			__stdio_files[i].fildes = fildes;
 
-            __stdio_files[i].buffsz  = BUFSIZ;
-            __stdio_files[i].buffuse = 0;
-            __stdio_files[i].buff    = (char*)malloc(sizeof(char) * BUFSIZ);
+			__stdio_files[i].buffsz  = BUFSIZ;
+			__stdio_files[i].buffuse = 0;
+			__stdio_files[i].buff    = (char*)malloc(sizeof(char) * BUFSIZ);
 
-            if (__stdio_files[i].buff)
-            {
-                // remove entry
-                __stdio_files[i].flags = 0;
+			if (__stdio_files[i].buff)
+			{
+				// remove entry
+				__stdio_files[i].flags = 0;
 
-                errno = ENOMEM;
-                return (FILE *)NULL;
-            }
-            return &__stdio_files[i];
-        }
-    }
+				errno = ENOMEM;
+				return (FILE *)NULL;
+			}
+			return &__stdio_files[i];
+		}
+	}
 
-    errno = ENFILE;
-    return (FILE *)NULL;
+	errno = ENFILE;
+	return (FILE *)NULL;
 }
