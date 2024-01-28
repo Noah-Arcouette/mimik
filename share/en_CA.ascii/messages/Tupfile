@@ -1,8 +1,0 @@
-include_rules
-DIR=/usr/share/locale/en_CA.ascii/messages/
-
-ifeq (@(BUILD_MESSAGES),y)
-ifeq (@(LOCALE_EN_CA_ASCII),y)
-: foreach *.msg |> !gencat |> $(DIST)$(DIR)/%B.cat
-endif
-endif
