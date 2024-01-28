@@ -65,7 +65,6 @@ ln
 locale
 localedef
 logger
-logname
 lp
 ls
 m4
