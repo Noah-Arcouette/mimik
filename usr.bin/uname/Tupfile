@@ -1,0 +1,5 @@
+include_rules
+
+ifeq (@(USR_BIN_UNAME),y)
+: uname.c |> !ccld |> $(DIST)/usr/bin/uname
+endif

@@ -1255,6 +1255,9 @@ stdlib.h:
 string.h:
     strerror
 unistd.h:
+    getlogin
+sys/utsname.h:
+    uname
 fcntl.h:
     fcntl
 nl_types.h:

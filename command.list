@@ -133,7 +133,6 @@ type
 ulimit
 umask
 unalias
-uname
 uncompress(.lzw,.lzma,.xz,.gzip,.bzip2,.lzd)
 unexpand
 unget
