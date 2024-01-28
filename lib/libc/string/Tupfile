@@ -1,5 +1,0 @@
-include_rules
-
-ifeq (@(BUILD_INCLUDES),y)
- : foreach *.h |> !mv |> $(DIST)/usr/include/%b
-endif
