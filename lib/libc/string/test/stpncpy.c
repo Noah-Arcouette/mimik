@@ -1,6 +1,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#define TITLE(x) printf("libc/%s %d: ", __FILE__, __LINE__)
+
 int
 main (void)
 {
@@ -9,36 +11,42 @@ main (void)
     char *x = stpncpy(buff, "TEST!", 6);
     if (strcmp(buff, "TEST!"))
     {
-        puts("libc/stpncpy 12: Does not copy to empty dst");
+        TITLE();
+        puts("Does not copy to empty dst");
         err = 1;
     }
     if (x != buff+5)
     {
-        puts("libc/stpncpy 17: Does not return end of dst on empty dst");
+        TITLE();
+        puts("Does not return end of dst on empty dst");
         err = 1;
     }
 
     x = stpncpy(buff, "TEST2!", 7);
     if (strcmp(buff, "TEST2!"))
     {
-        puts("libc/stpncpy 24: Does not copy to dst");
+        TITLE();
+        puts("Does not copy to dst");
         err = 1;
     }
     if (x != buff+6)
     {
-        puts("libc/stpncpy 29: Does not return end of dst");
+        TITLE();
+        puts("Does not return end of dst");
         err = 1;
     }
 
     x = stpncpy(buff, "", 1);
     if (strcmp(buff, ""))
     {
-        puts("libc/stpncpy 36: Does not clear src on empty dst");
+        TITLE();
+        puts("Does not clear src on empty dst");
         err = 1;
     }
     if (x != buff+0)
     {
-        puts("libc/stpncpy 41: Does not return end of dst on empty src");
+        TITLE();
+        puts("Does not return end of dst on empty src");
         err = 1;
     }
 
@@ -46,22 +54,26 @@ main (void)
     x = stpncpy(buff, "yy", 1);
     if (strcmp(buff, "yxx"))
     {
-        puts("libc/stpncpy 49: Fixed sized src does not copy properly");
+        TITLE();
+        puts("Fixed sized src does not copy properly");
         err = 1;
     }
     if (x != buff+1) 
     {
-        puts("libc/stpncpy 54: Does not return end of dst on fixed sized src");
+        TITLE();
+        puts("Does not return end of dst on fixed sized src");
         err = 1;
     }
 
     if (!err)
     {
-        puts("libc/strncpy:\tConsistent");
+        TITLE();
+        puts("\tConsistent");
     }
     else
     {
-        puts("libc/strncpy:\tInconsistent!");
+        TITLE();
+        puts("\tInconsistent!");
     }
     return err;
 }

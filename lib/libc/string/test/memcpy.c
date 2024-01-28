@@ -1,6 +1,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#define TITLE(x) printf("libc/%s %d: ", __FILE__, __LINE__)
+
 int
 main (void)
 {
@@ -9,36 +11,42 @@ main (void)
     char *x = memcpy(buff, "TEST!", 6);
     if (strcmp(buff, "TEST!"))
     {
-        puts("libc/memcpy 12: Does not copy to empty dst");
+        TITLE();
+        puts("Does not copy to empty dst");
         err = 1;
     }
     if (x != buff)
     {
-        puts("libc/memcpy 17: Does not return dst on empty dst");
+        TITLE();
+        puts("Does not return dst on empty dst");
         err = 1;
     }
 
     x = memcpy(buff, "TEST2!", 7);
     if (strcmp(buff, "TEST2!"))
     {
-        puts("libc/memcpy 24: Does not copy to dst");
+        TITLE();
+        puts("Does not copy to dst");
         err = 1;
     }
     if (x != buff)
     {
-        puts("libc/memcpy 29: Does not return dst");
+        TITLE();
+        puts("Does not return dst");
         err = 1;
     }
 
     x = memcpy(buff, "", 1);
     if (strcmp(buff, ""))
     {
-        puts("libc/memcpy 36: Does not clear src on empty dst");
+        TITLE();
+        puts("Does not clear src on empty dst");
         err = 1;
     }
     if (x != buff)
     {
-        puts("libc/memcpy 41: Does not return dst on empty src");
+        TITLE();
+        puts("Does not return dst on empty src");
         err = 1;
     }
 
@@ -46,22 +54,26 @@ main (void)
     x = memcpy(buff, "yy", 1);
     if (strcmp(buff, "yxx"))
     {
-        puts("libc/memcpy 49: Fixed sized src does not copy properly");
+        TITLE();
+        puts("Fixed sized src does not copy properly");
         err = 1;
     }
     if (x != buff) 
     {
-        puts("libc/memcpy 54: Does not return dst on fixed sized src");
+        TITLE();
+        puts("Does not return dst on fixed sized src");
         err = 1;
     }
 
     if (!err)
     {
-        puts("libc/memcpy:\tConsistent");
+        TITLE();
+        puts("\tConsistent");
     }
     else
     {
-        puts("libc/memcpy:\tInconsistent!");
+        TITLE();
+        puts("\tInconsistent!");
     }
     return err;
 }
