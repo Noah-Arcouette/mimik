@@ -1,0 +1,6 @@
+include_rules
+
+ifeq (@(USR_BIN_LOGNAME),y)
+: logname.c |> !ccld            |> $(DIST)/usr/bin/logname
+:           |> ln -s logname %o |> $(DIST)/usr/bin/whoami
+endif
