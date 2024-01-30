@@ -27,7 +27,7 @@ The *false* utility shall not parse any options.
 
 ## error
 
-Error will be the returned exit status as a positive integer.
+*error* will be the returned exit status; interpreted as a positive integer.
 
 
 # Environment Variables
@@ -68,7 +68,7 @@ There are no output files produced by this utility.
 
 # Exit Status
 
-The exit status shall always be non-zero, or the interpreted value of error if given.
+The exit status shall always be one, or the interpreted value of *error* if given.
 
 
 # Extended Description
