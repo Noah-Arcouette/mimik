@@ -4,25 +4,25 @@
 int
 printf (const char *fmt, ...)
 {
-    va_list vargs;
-    va_start(vargs, fmt);
+	va_list vargs;
+	va_start(vargs, fmt);
 
-    int ret = vfprintf(stdout, fmt, vargs);
+	int ret = vfprintf(stdout, fmt, vargs);
 
-    va_end(vargs);
+	va_end(vargs);
 
-    return ret;
+	return ret;
 }
 
 int
 fprintf (FILE *restrict file, const char *restrict fmt, ...)
 {
-    va_list vargs;
-    va_start(vargs, fmt);
+	va_list vargs;
+	va_start(vargs, fmt);
 
-    int ret = vfprintf(file, fmt, vargs);
+	int ret = vfprintf(file, fmt, vargs);
 
-    va_end(vargs);
+	va_end(vargs);
 
-    return ret;
+	return ret;
 }
