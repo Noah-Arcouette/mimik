@@ -1249,6 +1249,7 @@ stdio.h:
 stdlib.h:
 	malloc
 	free
+	atoi
 unistd.h:
 	getlogin
 sys/utsname.h:
