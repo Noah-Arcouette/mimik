@@ -2,4 +2,4 @@ $quote "
 $set 1
 
 $ FAILED
-$ 1 "%s: Failed to unlink file `%s', errno %d: %s\n"
+$ 1 "%s %d: Failed to unlink file `%s', error %s\n"

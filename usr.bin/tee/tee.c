@@ -22,9 +22,9 @@
 #endif
 
 #define DEFAULT_SELF "/usr/bin/tee"
-#define CAT_ERROR "%s: Cannot open current locale message catalogue, errno %d: %s\n"
+#define CAT_ERROR "%s %d: Cannot open current locale message catalogue, error %s\n"
 #define UNKNOWN_OPTION "%s: Unknown option `-%c'\n"
-#define CANNOT_OPEN "%s: Cannot open file `%s' for writing, errno %d: %s\n"
+#define CANNOT_OPEN "%s %d: Cannot open file `%s' for writing, error %s\n"
 
 
 int 
@@ -98,7 +98,7 @@ main (const int argc, const char **argv)
 		// check if it opened
 		if (!file[files])
 		{
-			fprintf(stderr, catgets(catd, 1, 2, CANNOT_OPEN), self, argv[i], errno, strerror(errno));
+			fprintf(stderr, catgets(catd, 1, 2, CANNOT_OPEN), self, errno, argv[i], strerror(errno));
 			flags |= FLAG_ERROR;
 			continue;
 		}

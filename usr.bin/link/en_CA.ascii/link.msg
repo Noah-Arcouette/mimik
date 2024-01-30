@@ -5,4 +5,4 @@ $ ARG_ERROR
 1 "%s: Not enough, or to much, arguments\n"
 
 $ LINK_ERROR 
-2 "%s: Link failed, errno %d: %s\n"
+2 "%s %d: Link failed, error %s\n"
