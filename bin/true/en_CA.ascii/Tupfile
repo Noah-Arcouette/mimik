@@ -1,0 +1,10 @@
+include_rules
+DIR=/usr/share/locale/en_CA.ascii/man/man1/
+
+ifeq (@(BIN_TRUE),y)
+ifeq (@(BUILD_MANUALS),y)
+ifeq (@(LOCALE_EN_CA_ASCII),y)
+: foreach *.md |> !txtdst |> $(DIST)$(DIR)%b$(COMP_END)
+endif
+endif
+endif

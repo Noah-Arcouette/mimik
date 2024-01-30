@@ -1,0 +1,17 @@
+include_rules
+MAN=/usr/share/locale/en_CA.ascii/man/man1/
+MSG=/usr/share/locale/en_CA.ascii/messages/
+
+ifeq (@(BIN_FALSE),y)
+ifeq (@(LOCALE_EN_CA_ASCII),y)
+
+ifeq (@(BUILD_MANUALS),y)
+: foreach *.md |> !txtdst |> $(DIST)$(MAN)%b$(COMP_END)
+endif
+
+ifeq (@(BUILD_MESSAGES),y)
+: foreach *.msg |> !gencat |> $(DIST)$(MSG)%B.cat
+endif
+
+endif
+endif
