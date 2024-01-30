@@ -1245,8 +1245,6 @@ wordexp.h
 crt0.o
 
 stdio.h:
-	fprintf
-	printf
 	fopen
 stdlib.h:
 	malloc
