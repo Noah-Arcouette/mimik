@@ -15,7 +15,7 @@ true - Exits truthfully
 
 # Description
 
-The `true` utility shall exit truthfully.
+The *true* utility shall exit truthfully.
 
 
 # Options
