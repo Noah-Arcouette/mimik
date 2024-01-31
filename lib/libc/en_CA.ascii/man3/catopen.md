@@ -5,13 +5,13 @@ This manual is part of the Mimik System Tree, other implementations may differ. 
 
 # Name
 
-stderr - The standard error stream, part of libc
+catopen - Open new catalogue descriptor, part of libc
 
 
 # Synopsis
 
 ```C
-#include <.h>
+#include <nl_types.h>
 
 nl_catd catopen (const char *name, int flag);
 ```
@@ -19,7 +19,7 @@ nl_catd catopen (const char *name, int flag);
 
 # Description
 
-*catopen* shall open a new catalogue descriptor for use in `catgets`. The catalogue name shall be *name*. If *flag* is set to `NL_CAT_LOCALE` then the environment variable `LC_MESSAGES` shall be used instead of the environment variable `LANG` for the current locale; *flag* of `0` shall use `LANG`.
+*catopen* shall open a new catalogue descriptor for use in `catgets`. The catalogue name shall be *name*. If *flag* is set to `NL_CAT_LOCALE` then the environment variable `LC_MESSAGES` shall be used instead of the environment variable `LANG` for the current locale; *flag* of `0` shall use `LANG`. *catopen* shall return the open catalogue descriptor.
 
 
 # Environment Variables
