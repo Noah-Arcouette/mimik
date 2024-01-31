@@ -9,14 +9,14 @@ The goal of Mimik is to provide a completely free, and open, collection of every
 
 # Configuration
 
-Mimik uses kconfig, usually called kconfig-frontends on linux distributions. Use this to generate a `.config` file. Also do not forget to add `*.config*` to your global git-ignore since all ignore files are auto generated in Mimik.
+Mimik uses [kconfig](https://github.com/gittup/kconfig) for configuration. Run `./menuconfig` or `./oldconfig` to generate the proper configuration files. If you are a developer make sure to add `*.config*` to your global git ignore.
 
 
 # Building
 
-Mimik uses [Tup](gittup.org/tup), so make sure you have it installed. To build Mimik us the provided script.
+Mimik uses [Tup](gittup.org/tup) as the build system. Just run:
 
-`$ ./scripts/build.sh`
+`$ tup`
 
 
 # Distribution Tree Organization
