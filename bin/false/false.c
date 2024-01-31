@@ -21,10 +21,21 @@ checkInt (const char *s)
 int 
 main (int argc, const char **argv)
 {
+#ifdef RESILIENT
+	const char *self = "/bin/false";
+
+	if (argc > 0)
+	{
+		self = argv[0];
+	}
+#else
+	const char *self = argv[0];
+#endif
+
 	nl_catd catd = catopen("false", 0);
 	if (catd == (nl_catd)-1)
 	{
-		fprintf(stderr, "%s %d: failed to open catalogue, error %s", argv[0], errno, strerror(errno));
+		fprintf(stderr, "%s %d: failed to open catalogue, error %s", self, errno, strerror(errno));
 	}
 
 	for (int i = 1; i<argc; i++)
@@ -34,7 +45,7 @@ main (int argc, const char **argv)
 			catclose(catd);
 			return atoi(argv[i]);
 		}
-		fprintf(stderr, catgets(catd, 1, 1, "%s: argument `%s' is not a positive integer\n"), argv[0], argv[i]);
+		fprintf(stderr, catgets(catd, 1, 1, "%s: argument `%s' is not a positive integer\n"), self, argv[i]);
 	}
 
 	catclose(catd);
