@@ -9,7 +9,7 @@ The goal of Mimik is to provide a completely free, and open, collection of every
 
 # Configuration
 
-Mimik uses kconfig, usually called kconfig-frontends on linux distributions. Use this to generate a `.config` file.
+Mimik uses kconfig, usually called kconfig-frontends on linux distributions. Use this to generate a `.config` file. Also do not forget to add `*.config*` to your global git-ignore since all ignore files are auto generated in Mimik.
 
 
 # Building
