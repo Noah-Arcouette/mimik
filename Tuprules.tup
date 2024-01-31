@@ -129,7 +129,7 @@ FOLD:=@(FOLD)
 
 ifeq (@(COMPRESS_TEXT),y)
 !txtdst = |> $(FOLD) -s %f | $(COMP) $(COMPFLAGS) -kc > %o |>
-COMP_END=.z
+COMP_END=@(COMP_ENDING)
 else
 !txtdst = |> $(FOLD) -s %f > %o |>
 COMP_END=

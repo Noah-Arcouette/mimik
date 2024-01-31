@@ -33,6 +33,10 @@ config COMP
 config COMP_FLAGS
 	string "Compressor flags"
 
+config COMP_ENDING
+	string "Compressed file suffix"
+	default ".gz"
+
 endif
 
 menuconfig LOCALE
