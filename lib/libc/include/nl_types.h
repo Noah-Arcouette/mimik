@@ -22,9 +22,13 @@ struct nl_catalogue
 	} table[];
 };
 
-// void
-nl_catd catopen  (const char *name, int flags);
-int     catclose (nl_catd);
-char   *catgets  (nl_catd, int set, int message, const char *def);
+// nls/catopen.c
+nl_catd catopen (const char *name, int flags);
+
+// nls/catclose.c
+int catclose (nl_catd);
+
+// nls/catgets.c
+char *catgets (nl_catd, int set, int message, const char *def);
 
 #endif
