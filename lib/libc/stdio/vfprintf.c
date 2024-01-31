@@ -9,22 +9,19 @@ __vfprint_int(FILE *file, int num)
 	{
 		if (fputc(num + '0', file) == EOF)
 		{
-			return 1;
+			return -1;
 		}
+		return 1;
 	}
-	else
-	{
-		if (__vfprint_int(file, num/10))
-		{
-			return 1;
-		}
 
-		if (fputc((num%10)+'0', file) == EOF)
-		{
-			return 1;
-		}
+	int ret = __vfprint_int(file, num/10)+1;
+
+	if (fputc((num%10)+'0', file) == EOF)
+	{
+		return -1;
 	}
-	return 0;
+
+	return ret+1;
 }
 
 int
@@ -32,6 +29,8 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 {
 	va_list vargs;
 	va_copy(vargs, ap);
+	int amt = 0;
+	int hld;
 
 	// int cont;
 	while (*fmt)
@@ -54,8 +53,9 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 						size_t len = strlen(str);
 						if (fwrite(str, len, 1, file) != len)
 						{
-							return 1;
+							return -1;
 						}
+						amt+=len;
 						// cont = 0;
 						break;
 					case 'c':
@@ -63,8 +63,9 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 
 						if (fputc(chr, file) == EOF)
 						{
-							return 1;
+							return -1;
 						}
+						amt++;
 						// cont = 0;
 						break;
 					case 'd':
@@ -74,23 +75,28 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 						{
 							if (fputc('-', file) == EOF)
 							{
-								return 1;
+								return -1;
 							}
+							amt++;
 							num *= -1;
 						}
 
-						if (__vfprint_int(file, num) == EOF)
+
+						hld = __vfprint_int(file, num);
+						if (hld < 0)
 						{
-							return 1;
+							return -1;
 						}
+						amt+=hld;
 
 						// cont = 0;
 						break;
 					default:
 						if (fputc('%', file) == EOF)
 						{
-							return 1;
+							return -1;
 						}
+						amt++;
 						// cont = 0;
 						break;
 				}
@@ -99,11 +105,12 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 		else
 		{
 			fputc(*fmt, file);
+			amt++;
 		}
 
 		fmt++;
 	}
 	va_end(vargs);
 
-	return 0;
+	return amt;
 }
