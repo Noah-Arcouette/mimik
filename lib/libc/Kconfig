@@ -4,7 +4,7 @@ menuconfig LIB_C
 
 if LIB_C
 
-menu "stdio.h"
+#menu "stdio.h"
 
 config LIB_C_STDIO_BUFSIZ
 	int "Default file i/o buffer size"
@@ -14,14 +14,22 @@ config LIB_C_STDIO_FOPEN_MAX
 	int "Maximum open file streams"
 	default 8
 
-endmenu
+#endmenu
 
-menu "stdlib.h"
+#menu "stdlib.h"
 
 config LIB_C_LIMITS_ATEXIT_MAX
 	int "Maximum atexit callbacks functions"
 	default 32
 
-endmenu
+#endmenu
+
+#menu "nl_types.h"
+
+config LIB_C_NLS
+	bool "National language support"
+	default y
+
+#endmenu
 
 endif
