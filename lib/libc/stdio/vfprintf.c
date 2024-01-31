@@ -53,7 +53,8 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 						size_t len = strlen(str);
 						if (fwrite(str, len, 1, file) != len)
 						{
-							return -1;
+							amt = -1;
+							goto end;
 						}
 						amt+=len;
 						// cont = 0;
@@ -63,7 +64,8 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 
 						if (fputc(chr, file) == EOF)
 						{
-							return -1;
+							amt = -1;
+							goto end;
 						}
 						amt++;
 						// cont = 0;
@@ -75,7 +77,8 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 						{
 							if (fputc('-', file) == EOF)
 							{
-								return -1;
+								amt = -1;
+								goto end;
 							}
 							amt++;
 							num *= -1;
@@ -85,7 +88,8 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 						hld = __vfprint_int(file, num);
 						if (hld < 0)
 						{
-							return -1;
+							amt = -1;
+							goto end;
 						}
 						amt+=hld;
 
@@ -94,7 +98,8 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 					default:
 						if (fputc('%', file) == EOF)
 						{
-							return -1;
+							amt = -1;
+							goto end;
 						}
 						amt++;
 						// cont = 0;
@@ -110,6 +115,7 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 
 		fmt++;
 	}
+end:
 	va_end(vargs);
 
 	return amt;
