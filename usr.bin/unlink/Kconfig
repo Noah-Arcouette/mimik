@@ -1,0 +1,3 @@
+config USR_BIN_UNLINK
+	bool "Distribute the unlink utility"
+	default y

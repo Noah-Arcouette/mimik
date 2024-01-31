@@ -1,0 +1,9 @@
+menu "Non-Necessary User-Land (/usr/bin/)"
+
+source "./usr.bin/link/Kconfig"
+source "./usr.bin/logname/Kconfig"
+source "./usr.bin/tee/Kconfig"
+source "./usr.bin/uname/Kconfig"
+source "./usr.bin/unlink/Kconfig"
+
+endmenu

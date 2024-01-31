@@ -2,7 +2,7 @@ include_rules
 MAN=/usr/share/locale/en_CA.ascii/man/man1/
 
 ifeq (@(BIN_ECHO),y)
-ifeq (@(BUILD_MANUALS),y)
+ifeq (@(BUILD_MANUAL_1),y)
 ifeq (@(LOCALE_EN_CA_ASCII),y)
 : foreach *.md |> !txtdst |> $(DIST)$(MAN)%b$(COMP_END)
 endif

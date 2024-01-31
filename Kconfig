@@ -1,0 +1,139 @@
+mainmenu "Mimik ( Alpha )"
+
+menu "Binaries"
+
+source "./bin/Kconfig"
+source "./usr.bin/Kconfig"
+
+config STATIC
+	bool "Statically link binaries"
+	default y
+
+endmenu
+
+source "./share/Kconfig"
+
+menu "Libraries"
+
+source "./lib/Kconfig"
+source "./usr.lib/Kconfig"
+
+config BUILD_INCLUDES
+	bool "Distribute library headers"
+	default y
+
+config BUILD_STATIC
+	bool "Build static libraries, as-well as share libraries"
+	default y
+
+config BUILD_TESTS
+	bool "Build library unit tests"
+	default y
+
+endmenu
+
+menu "Build Options"
+
+config STACKSMASH
+	bool "Build with stack smash protection"
+	default y
+
+config RESILIENT
+	bool "Build in excessive resiliency"
+	default y
+
+config PIC
+	bool "Compile as Position Independent Code"
+	default y
+
+choice OPTIMIZATION
+	bool "Optimizations"
+	default DEBUG
+
+config DEBUG
+	bool "Build as debug"
+
+config RELEASE
+	bool "Build as release"
+
+config SMALL
+	bool "Build with -Os"
+
+config SPEED
+	bool "Build with -O3"
+
+endchoice
+
+menu "Toolchain"
+
+config AS
+	string "NASM compatible assembler"
+	default "nasm"
+
+config AS_FLAGS
+	string "Assembler flags"
+
+config CC
+	string "C99 compatible compiler"
+	default "c99"
+
+config C_FLAGS
+	string "C flags"
+	default "-Wall -Wextra"
+
+config LD
+	string "Linker"
+	default "ld"
+
+config LD_FLAGS
+	string "Linker flags"
+
+config AR
+	string "Library archiver"
+	default "ar"
+
+config AR_FLAGS
+	string "Archiver flags"
+
+comment "General Utilities"
+
+config GENCAT
+	string "Catalogue generator"
+	default "gencat"
+
+config COPY
+	string "Copy utility"
+	default "cp"
+
+config INSTALL
+	string "GNU Install"
+	default "install"
+
+config TUP
+	string "Tup build system"
+	default "tup"
+
+config FOLD
+	string "Fold utility"
+	default "fold -w 80"
+
+endmenu
+
+endmenu
+
+menu "Architecture"
+
+choice ARCH
+	bool "Architecture"
+	default ARCH_X64
+
+config ARCH_X64
+	bool "Intel x86-64"
+	
+endchoice
+
+endmenu
+
+config DIST
+	string "Distribution output directory, relative only"
+	default "./dist/"

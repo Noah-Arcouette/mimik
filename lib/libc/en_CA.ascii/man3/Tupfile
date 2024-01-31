@@ -3,7 +3,7 @@ MAN=/usr/share/locale/en_CA.ascii/man/man3/
 ifeq (@(LIB_C),y)
 ifeq (@(LOCALE_EN_CA_ASCII),y)
 
-ifeq (@(BUILD_MANUALS),y)
+ifeq (@(BUILD_MANUAL_3),y)
 : foreach *.md |> !txtdst |> $(DIST)$(MAN)%b$(COMP_END)
 endif
 

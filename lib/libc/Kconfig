@@ -1,0 +1,27 @@
+menuconfig LIB_C
+	bool "Distribute C standard library"
+	default y
+
+if LIB_C
+
+menu "stdio.h"
+
+config LIB_C_STDIO_BUFSIZ
+	int "Default file i/o buffer size"
+	default 2048
+
+config LIB_C_STDIO_FOPEN_MAX
+	int "Maximum open file streams"
+	default 8
+
+endmenu
+
+menu "stdlib.h"
+
+config LIB_C_LIMITS_ATEXIT_MAX
+	int "Maximum atexit callbacks functions"
+	default 32
+
+endmenu
+
+endif

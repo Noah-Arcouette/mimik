@@ -1,0 +1,51 @@
+menu "Architecture independent work (/usr/share/)"
+
+config BUILD_MESSAGES
+	bool "Distribute message catalogues"
+	default y
+
+config BUILD_LICENSES
+	bool "Distribute, optional, licenses (/usr/share/licenses/)"
+	default y
+
+config BUILD_MANUAL_1
+	bool "Distribute utility manuals (man1)"
+	default y
+
+config BUILD_MANUAL_3
+	bool "Distribute library manuals (man3)"
+	default y
+
+config BUILD_MANUAL_5
+	bool "Distribute format and convention manuals (man5)"
+	default y
+
+menuconfig COMPRESS_TEXT
+	bool "Compress textual data"
+	default n
+
+if COMPRESS_TEXT
+
+config COMP
+	string "Compressor"
+	default "gzip"
+
+config COMP_FLAGS
+	string "Compressor flags"
+
+endif
+
+menuconfig LOCALE
+	bool "Distribute locale data"
+	default y
+
+if LOCALE
+
+config LOCALE_EN_CA_ASCII
+	bool "Distribute ASCII Canadian English locale"
+	default y
+
+endif
+
+
+endmenu

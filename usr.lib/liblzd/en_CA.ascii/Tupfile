@@ -4,7 +4,7 @@ MAN=/usr/share/locale/en_CA.ascii/man/man5/
 ifeq (@(LIB_LZD),y)
 ifeq (@(LOCALE_EN_CA_ASCII),y)
 
-ifeq (@(BUILD_MANUALS),y)
+ifeq (@(BUILD_MANUAL_5),y)
 : foreach *.md |> !txtdst |> $(DIST)$(MAN)%b$(COMP_END)
 endif
 

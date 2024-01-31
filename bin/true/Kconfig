@@ -1,0 +1,3 @@
+config BIN_TRUE
+	bool "Distribute the true utility"
+	default y

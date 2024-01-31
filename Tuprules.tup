@@ -1,67 +1,137 @@
-# Dirs
-DIST:=$(TUP_CWD)/dist/
+DIST:=$(TUP_CWD)/@(DIST)
 
-# Assembler
-AS:=nasm
-ASFLAGS+=-felf64
+KERNEL:=linux
 
-# C99
-CFLAGS+=-m64 -Wall -Wextra -std=c99 -fPIC -D_POSIX_C_SOURCE=200809L
-CC:=cc
-# adding -L$(DIST)/lib... and -I$(DIST)/usr/include/ is sort of required,
-#   but the system is not ready for that yet so bear with us
+ifeq (@(ARCH_X64),y)
+ARCH=x64
+endif
 
-# Archive
-AR:=ar
-ARFLAGS+=
+# CC
+CC:=@(CC)
+CFLAGS:=@(C_FLAGS)
+CFLAGS+=-D_POSIX_C_SOURCE=200809L
 
-# Linker
-LD:=ld
-LDFLAGS+=
+ifeq (@(STACKSMASH),y)
+CFLAGS+=-fstack-protector
+endif
 
-ifeq (@(USE_LLVM),y)
-CFLAGS+=-fuse-ld=lld
-CC=clang
+ifeq (@(PIC),y)
+CFLAGS+=-fPIC
+endif
 
-LD=ld.lld
+ifeq (@(ARCH_X64),y)
+CFLAGS+=-m64
+endif
+
+ifeq (@(DEBUG),y)
+CFLAGS+=-g -O0
 endif
 
 ifeq (@(RELEASE),y)
-CFLAGS+=-s -O2
-LDFLAGS+=-s -O2 --gc-sections
-ASFLAGS+=-O2
-else
-CFLAGS+=-g -O0
-LDFLAGS+=-O0
-ASFLAGS+=-g -O0
+CFLAGS+=-O2
+endif
+
+ifeq (@(SMALL),y)
+CFLAGS+=-Os
+endif
+
+ifeq (@(SPEED),y)
+CFLAGS+=-O3
 endif
 
 ifeq (@(RESILIENT),y)
-CFLAGS+=-D RESILIENT
-ASFLAGS+=-D RESILIENT
+CFLAGS+=-DRESILIENT
 endif
 
 ifeq (@(STATIC),y)
 CFLAGS+=-static
 endif
 
+# Linker
+LD:=@(LD)
+LDFLAGS:=@(LD_FLAGS)
+
+ifeq (@(PIC),y)
+LDFLAGS+=-fPIC
+endif
+
+ifeq (@(RELEASE),y)
+LDFLAGS+=--gc-sections -O
+endif
+
+ifeq (@(SMALL),y)
+LDFLAGS+=--gc-sections -O
+endif
+
+ifeq (@(SPEED),y)
+LDFLAGS+=--gc-sections -O
+endif
+
+# Archive
+AR:=@(AR)
+ARFLAGS:=@(AR_FLAGS)
+
+# Assembler
+AS:=@(AS)
+ASFLAGS:=@(AS_FLAGS)
+
+ifeq (@(ARCH_X64),y)
+ASFLAGS+=-felf64
+endif
+
+ifeq (@(DEBUG),y)
+ASFLAGS+=-g -O0
+endif
+
+ifeq (@(RELEASE),y)
+ASFLAGS+=-Ox
+endif
+
+ifeq (@(SMALL),y)
+ASFLAGS+=-Ox
+endif
+
+ifeq (@(SPEED),y)
+ASFLAGS+=-Ox
+endif
+
+ifeq (@(RESILIENT),y)
+ASFLAGS+=-DRESILIENT
+endif
+
+# Compressor
+COMP:=@(COMP)
+COMPFLAGS:=@(COMP_FLAGS)
+
+ifeq (@(SMALL),y)
+COMPFLAGS+=--best
+endif
+
+
+# General
+GENCAT:=@(GENCAT)
+INSTALL:=@(INSTALL)
+COPY:=@(COPY)
+TUP:=@(TUP)
+FOLD:=@(FOLD)
+
 
 # Rules
 !ccld   = |> $(CC) $(CFLAGS) -o %o %f             |>
-!gencat = |> gencat %o %f                         |>
-!exmv   = |> install -Dm755 %f %o                 |>
-!mv     = |> cp %f %o                             |>
-!ldso   = |> $(LD) $(LDFLAGS) --shared %f -o %o   |>
+!gencat = |> $(GENCAT) %o %f                      |>
+!exmv   = |> $(INSTALL) -Dm755 %f %o              |>
+!mv     = |> $(COPY) %f %o                        |>
+!ldso   = |> $(LD) -shared $(LDFLAGS) %f -o %o    |>
 !ar     = |> $(AR) rcs $(ARFLAGS) %o %f           |>
 !cc     = |> $(CC) $(CFLAGS) -c -o %o %f          |>
-!varsed = |> tup varsed %f %o                     |>
+!varsed = |> $(TUP) varsed %f %o                  |>
 !as     = |> $(AS) $(ASFLAGS) -o %o %f            |>
 
 ifeq (@(COMPRESS_TEXT),y)
-!txtdst = |> fold -s -w 80 %f | compress -kc > %o |>
+!txtdst = |> $(FOLD) -s %f | $(COMP) $(COMPFLAGS) -kc > %o |>
 COMP_END=.z
 else
-!txtdst = |> fold -s -w 80 %f > %o |>
+!txtdst = |> $(FOLD) -s %f > %o |>
 COMP_END=
 endif
 

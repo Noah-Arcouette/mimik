@@ -1,0 +1,3 @@
+config LIB_LZD
+	bool "Distribute Lib LZ-Dual"
+	default y

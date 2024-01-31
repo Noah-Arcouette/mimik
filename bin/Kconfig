@@ -1,0 +1,8 @@
+menu "Bootup Necessary User-Land (/bin/)"
+
+source "./bin/cat/Kconfig"
+source "./bin/echo/Kconfig"
+source "./bin/true/Kconfig"
+source "./bin/false/Kconfig"
+
+endmenu

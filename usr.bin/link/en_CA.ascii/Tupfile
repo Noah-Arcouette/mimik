@@ -5,7 +5,7 @@ MSG=/usr/share/locale/en_CA.ascii/messages/
 ifeq (@(USR_BIN_LINK),y)
 ifeq (@(LOCALE_EN_CA_ASCII),y)
 
-ifeq (@(BUILD_MANUALS),y)
+ifeq (@(BUILD_MANUAL_1),y)
 : foreach *.md |> !txtdst |> $(DIST)$(MAN)%b$(COMP_END)
 endif
 

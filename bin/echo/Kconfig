@@ -1,0 +1,3 @@
+config BIN_ECHO
+	bool "Distribute the echo utility"
+	default y

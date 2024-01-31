@@ -1,0 +1,15 @@
+menuconfig USR_BIN_TEE
+	bool "Distribute the tee utility"
+	default y
+
+if USR_BIN_TEE
+
+config USR_BIN_TEE_MAX_FILES
+	int "Max output files"
+	default 13
+
+config USR_BIN_TEE_BUFF_SIZE
+	int "Amount to read-write at a time"
+	default 4096
+
+endif

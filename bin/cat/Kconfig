@@ -1,0 +1,13 @@
+menuconfig BIN_CAT
+	bool "Distribute the cat utility"
+	default y
+
+if BIN_CAT
+
+config BIN_CAT_BUFF_SIZE
+	int "Amount of read-write at a time"
+	default 4096
+	help
+		Set to 1 to disable all read-write buffering on cat
+
+endif

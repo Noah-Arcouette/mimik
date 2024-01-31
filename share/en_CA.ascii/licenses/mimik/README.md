@@ -9,6 +9,12 @@ The goal of Mimik is to provide a completely free, and open, collection of every
 
 # Building
 
+Mimik uses kconfig, usually called `kconfig-frontends` on linux distributions.
+
+`$ kconfig-mconf ./Kconfig`
+
+Make sure you save to `tup.config`.
+
 Mimik uses [Tup](https://gittup.org/tup) for its build system.
 
 Just run:

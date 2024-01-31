@@ -1,0 +1,5 @@
+menu "Non-Necessary Libraries (/usr/lib/)"
+
+source "./usr.lib/liblzd/Kconfig"
+
+endmenu

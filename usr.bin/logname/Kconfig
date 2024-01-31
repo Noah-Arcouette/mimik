@@ -1,0 +1,3 @@
+config USR_BIN_LOGNAME
+	bool "Distribute the logname/whoami utility"
+	default y

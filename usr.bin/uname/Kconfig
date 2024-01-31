@@ -1,0 +1,3 @@
+config USR_BIN_UNAME
+	bool "Distribute the uname utility"
+	default y

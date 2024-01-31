@@ -1,0 +1,5 @@
+menu "Boot Necessary Libraries (/lib/)"
+
+source ./lib/libc/Kconfig
+
+endmenu
