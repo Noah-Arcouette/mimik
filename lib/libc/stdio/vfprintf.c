@@ -42,6 +42,10 @@ vfprintf (FILE *restrict file, const char *restrict fmt, va_list ap)
 			// while (cont)
 			// {
 				fmt++;
+				if (!*fmt)
+				{
+					break;
+				}
 				switch (*fmt)
 				{
 					case 's':

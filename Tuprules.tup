@@ -24,19 +24,19 @@ CFLAGS+=-m64
 endif
 
 ifeq (@(DEBUG),y)
-CFLAGS+=-g -O0
+CFLAGS+=-g -O0 -DDEBUG
 endif
 
 ifeq (@(RELEASE),y)
-CFLAGS+=-O2
+CFLAGS+=-O2 -DRELEASE
 endif
 
 ifeq (@(SMALL),y)
-CFLAGS+=-Os
+CFLAGS+=-Os -DSMALL
 endif
 
 ifeq (@(SPEED),y)
-CFLAGS+=-O3
+CFLAGS+=-O3 -DSPEED
 endif
 
 ifeq (@(RESILIENT),y)
@@ -51,20 +51,20 @@ endif
 LD:=@(LD)
 LDFLAGS:=@(LD_FLAGS)
 
-ifeq (@(PIC),y)
-LDFLAGS+=-fPIC
+ifeq (@(DEBUG),y)
+LDFLAGS+=-O0
 endif
 
 ifeq (@(RELEASE),y)
-LDFLAGS+=--gc-sections -O
+LDFLAGS+=--gc-sections -O2
 endif
 
 ifeq (@(SMALL),y)
-LDFLAGS+=--gc-sections -O
+LDFLAGS+=--gc-sections -Os
 endif
 
 ifeq (@(SPEED),y)
-LDFLAGS+=--gc-sections -O
+LDFLAGS+=--gc-sections -O3
 endif
 
 # Archive
@@ -80,19 +80,19 @@ ASFLAGS+=-felf64
 endif
 
 ifeq (@(DEBUG),y)
-ASFLAGS+=-g -O0
+ASFLAGS+=-g -O0 -DDEBUG
 endif
 
 ifeq (@(RELEASE),y)
-ASFLAGS+=-Ox
+ASFLAGS+=-Ox -DRELEASE
 endif
 
 ifeq (@(SMALL),y)
-ASFLAGS+=-Ox
+ASFLAGS+=-Ox -DSMALL
 endif
 
 ifeq (@(SPEED),y)
-ASFLAGS+=-Ox
+ASFLAGS+=-Ox -DSPEED
 endif
 
 ifeq (@(RESILIENT),y)
@@ -121,7 +121,7 @@ FOLD:=@(FOLD)
 !gencat = |> $(GENCAT) %o %f                      |>
 !exmv   = |> $(INSTALL) -Dm755 %f %o              |>
 !mv     = |> $(COPY) %f %o                        |>
-!ldso   = |> $(LD) -shared $(LDFLAGS) %f -o %o    |>
+!ldso   = |> $(LD) --shared $(LDFLAGS) %f -o %o   |>
 !ar     = |> $(AR) rcs $(ARFLAGS) %o %f           |>
 !cc     = |> $(CC) $(CFLAGS) -c -o %o %f          |>
 !varsed = |> $(TUP) varsed %f %o                  |>
