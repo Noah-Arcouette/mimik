@@ -1262,3 +1262,9 @@ nl_types.h:
 	catclose
 signal.h:
 	signal
+errno.h
+limits.h
+stdarg.h
+stddef.h
+string.h
+sys/types.h
