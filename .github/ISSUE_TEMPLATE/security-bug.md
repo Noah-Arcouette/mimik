@@ -1,8 +1,8 @@
 ---
-name: Bug
-about: A disscovered bug.
-title: 'Bug: Example'
-labels: bug, good first issue
+name: Security Bug
+about: A security bug
+title: 'Security: Name'
+labels: bug, critical, good first issue, help wanted
 assignees: Noah-Arcouette
 
 ---
@@ -17,6 +17,8 @@ What part of the system is this part of, general name and/or specific directorie
 What is happening?
 
 What are the side-effects?
+
+How is this a security concern?
 
 
 # Reproduction

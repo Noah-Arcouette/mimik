@@ -1,9 +1,9 @@
 ---
-name: Feature / Enhancement
-about: A new feature or enhancement
-title: 'Feature: Example'
-labels: enhancement, feature, good first issue
-assignees: ''
+name: Enhancement
+about: A new enhancement
+title: 'Enhancement: Name'
+labels: enhancement, good first issue
+assignees: Noah-Arcouette
 
 ---
 
@@ -14,11 +14,9 @@ What part of the system is this part of, general name and/or specific directorie
 
 # Description
 
-What is the new feature, or enhancement?
+What is the enhancement?
 
 Why is it needed and what are the use cases?
-
-***Some enhancements are better reported as bugs***
 
 
 # Reason
