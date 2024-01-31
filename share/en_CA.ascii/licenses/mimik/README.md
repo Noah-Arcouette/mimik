@@ -7,21 +7,16 @@ Mimik System Tree, or Mimik for short, is an implementation of a POSIX-Like oper
 The goal of Mimik is to provide a completely free, and open, collection of everything someone would have on their computer. All of this work is designed to be objective, easy to use, for the user, and conforming to open source ideals. Compatibility with existing standards will hold, but new Mimik created standards are preferred.
 
 
+# Configuration
+
+Mimik uses kconfig, usually called kconfig-frontends on linux distributions. Use this to generate a `.config` file.
+
+
 # Building
 
-Mimik uses kconfig, usually called `kconfig-frontends` on linux distributions.
+Mimik uses [Tup](gittup.org/tup), so make sure you have it installed. To build Mimik us the provided script.
 
-`$ kconfig-mconf ./Kconfig`
-
-Make sure you save to `tup.config`.
-
-Mimik uses [Tup](https://gittup.org/tup) for its build system.
-
-Just run:
-
-`$ tup`
-
-The system should be built into the `./dist/` directory. All configuration is done in `tup.config`.
+`$ ./scripts/build.sh`
 
 
 # Distribution Tree Organization
