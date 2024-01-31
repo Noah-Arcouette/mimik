@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <limits.h>
+#define NL_CAT_LOCALE 1
 
 typedef FILE *nl_catd;
 
