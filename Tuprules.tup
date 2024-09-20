@@ -20,6 +20,8 @@ OBJCOPY:=@(OBJCOPY)
 LEX:=@(LEX)
 # Yacc
 YACC:=@(YACC)
+# Library Archivor
+AR:=@(AR)
 
 #
 # Flags
@@ -58,3 +60,5 @@ COMMONFLAGS+=-I$(ROOT)/include/
 # Text Distribute, allows for possible compression option in the future
 !txtdst = !cp
 TXTEND=
+# Host Archivor
+!host_ar = |> ^ HOST-AR %f -> %o^ $(AR) rcs %o %f |>

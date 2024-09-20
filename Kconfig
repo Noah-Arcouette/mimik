@@ -32,6 +32,10 @@ menu "Host Toolchain"
 	config YACC
 		string "Syntactical Analysisor"
 		default "yacc"
+
+	config AR
+		string "Library Archivor"
+		default "ar"
 endmenu
 
 choice ARCH
