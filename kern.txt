@@ -1,0 +1,45 @@
+
+Message Protocol:
+    Fork Message:
+        duplicate all data
+
+fork():
+ -> Fork all message channels
+
+execv():
+ -> Replace core image
+
+// setup paging
+// setup GDT
+// setup TSS
+// setup IDT
+// enable interrupts
+// setup system call stuff
+
+// Processes:
+// pid_t fork   (pid_t, struct ctx); // TSS
+// int   kill   (pid_t            ); // (IPI)
+// pid_t getpid (                 );
+
+// Context:
+// int push (pid_t, struct ctx   ); // TSS (IPI)
+// int drop (pid_t               ); // TSS (IPI)
+// int swch (pid_t to, pid_t from); // TSS (IPI)
+
+// Memory:
+// int   map (pid_t, void **virt, void **phys, perm_t, size_t pagesize); // Paging
+// int unmap (pid_t,  void *virt                                      ); // Paging (IPI)
+
+// Interrupts:
+// int cap (pid_t, vec_t, void *jump); // capture    : IDT (APIC)
+// int rqs (       vec_t            ); // relinquish : IDT (APIC)
+
+// int cnt (pid_t, void *jump); // control system calls
+// int rel (pid_t            ); // release back to system
+
+// Capabilities:
+// caps_t capget (pid_t        );
+// caps_t capset (pid_t, caps_t);
+
+// Architecture Dependent:
+// port i/o

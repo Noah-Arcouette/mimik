@@ -1,0 +1,41 @@
+include_rules
+
+ifeq (@(BOOT_X86_BIOS),y)
+
+ifeq (@(BOOT_X86_BIOS_OFF_FLOPPY),y)
+FLAGS=-DFLOPPY
+endif
+
+ifeq (@(BOOT_X86_BIOS_OFF_HDD),y)
+FLAGS=-DHDD
+endif
+
+FLAGS+=-DMAX_MAP=@(BOOT_X86_BIOS_MAX_MAP)
+
+ifeq (@(BOOT_X86_BIOS_LANG_EN_US_ASCII),y)
+: ./lang/en_US.ascii.h |> !cp |> ./lang.h
+endif
+
+FLAGS+=-ffreestanding -fno-builtin
+
+ifeq (@(BOOT_X86_BIOS_PART_MBR),y)
+: ./part/mbr.c | lang.h |> !cc $(FLAGS) -m16 |> ./obj/part/mbr.o {obj}
+endif
+
+ifeq (@(BOOT_X86_BIOS_FS_TAR),y)
+: ./fs/tar.c | lang.h |> !cc $(FLAGS) -DPAYLOAD=@(BOOT_PAYLOAD) -m16 |> ./obj/fs/tar.o {obj}
+endif
+
+: foreach ./boot/*.S   | lang.h |> !cc $(FLAGS)       |> ./obj/boot/%B.o {obj}
+: foreach ./strap/*.S  | lang.h |> !cc $(FLAGS)       |> ./obj/strap/%B.o {obj}
+: foreach ./*.c        | lang.h |> !cc $(FLAGS) -m16  |> ./obj/%B.o {obj}
+: {obj}                         |> !ld -Tbios.ld      |> bios.elf
+
+: bios.elf |> !objcopy -O binary --only-section=.boot   |> $(DIST)/boot/boot-sector.bin
+: bios.elf |> !objcopy -O binary --remove-section=.boot |> $(DIST)/boot/mbr-break.bin
+
+ifeq (@(BOOT_X86_BIOS_ELF),y)
+: bios.elf |> !cp |> $(DIST)/boot/bios.elf
+endif
+
+endif

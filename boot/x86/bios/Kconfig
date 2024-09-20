@@ -1,0 +1,47 @@
+
+menuconfig BOOT_X86_BIOS
+	bool "mbr-break.bin, boot-sector.bin"
+if BOOT_X86_BIOS
+	choice BOOT_X86_BIOS_OFF
+		bool "Boot off of"
+		default BOOT_X86_BIOS_OFF_UNKNOWN
+
+		config BOOT_X86_BIOS_OFF_HDD
+			bool "Hard Drive"
+
+		config BOOT_X86_BIOS_OFF_FLOPPY
+			bool "Floppy Drive"
+
+		config BOOT_X86_BIOS_OFF_UNKNOWN
+			bool "Unknown / Other: May not work on few buggy BIOS implementations"
+	endchoice
+
+	choice BOOT_X86_BIOS_LANG
+		bool "Language"
+
+		config BOOT_X86_BIOS_LANG_EN_US_ASCII
+			bool "US English ASCII"
+	endchoice
+
+	choice BOOT_X86_BIOS_PART
+		bool "Partition Type"
+
+		config BOOT_X86_BIOS_PART_MBR
+			bool "MBR, Master Boot Record"
+	endchoice
+
+	choice BOOT_X86_BIOS_FS
+		bool "File System Type"
+
+		config BOOT_X86_BIOS_FS_TAR
+			bool "TAr, Tape Archive"
+	endchoice
+
+	config BOOT_X86_BIOS_MAX_MAP
+		int "Max BIOS report memory maps"
+		default 24
+endif
+
+config BOOT_X86_BIOS_ELF
+	bool "bios.elf"
+	depends on BOOT_X86_BIOS

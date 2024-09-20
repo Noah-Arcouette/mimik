@@ -1,0 +1,11 @@
+
+menuconfig BOOT
+	bool "boot/"
+if BOOT
+	# change in the future to something like /boot/kernel+/boot/initramfs -> /boot/payload
+	config BOOT_PAYLOAD
+		string "Boot Payload"
+		default "./dist/boot/payload"
+
+	source "./boot/x86/Kconfig"
+endif

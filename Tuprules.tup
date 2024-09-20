@@ -1,0 +1,60 @@
+.gitignore
+
+# Distribution Directory
+DIST:=@(DIST)
+DIST=$(TUP_CWD)/$(DIST)/
+
+# Root Directory
+ROOT=$(TUP_CWD)
+
+#
+# Tool Chain
+#
+# C Compiler
+CC:=@(CC)
+# Linker
+LD:=@(LD)
+# Object Copy
+OBJCOPY:=@(OBJCOPY)
+# Lex
+LEX:=@(LEX)
+# Yacc
+YACC:=@(YACC)
+
+#
+# Flags
+#
+# Common Flags
+COMMONFLAGS+=@(COMMONFLAGS) -D_POSIX_C_SOURCE=200809
+# C Flags
+CFLAGS+=@(CFLAGS)
+# Linker Flags
+LDFLAGS+=@(LDFLAGS)
+
+ifeq (@(ARCH_X86),y)
+TARGETFLAGS+=-m32
+endif
+
+# includes
+COMMONFLAGS+=-I$(ROOT)/include/
+
+#
+# Rules
+#
+# C Compiler
+!cc = |> ^ CC %f -> %o^ $(CC) $(TARGETFLAGS) $(COMMONFLAGS) $(CFLAGS) -c -o %o %f |>
+!host_cc   = |> ^ HOST-CC %f -> %o^ $(CC) $(COMMONFLAGS) $(CFLAGS) -c -o %o %f |>
+!host_ccld = |> ^ HOST-CCLD %f -> %o^ $(CC) $(COMMONFLAGS) $(CFLAGS)    -o %o %f |>
+# Linker
+!ld = |> ^ LD %f -> %o^ $(LD) $(LDFLAGS) -o %o %f |>
+# Host Lex
+!host_lex = |> ^ HOST-LEX %f -> %o^ $(LEX) %f |> lex.yy.c
+# Host Yacc
+!host_yacc = |> ^ HOST-YACC %f -> %o^ $(YACC) -d -b y %f |> y.tab.c | y.tab.h
+# Copy
+!cp = | $(ROOT)/<toolchain> |> ^ CP %f -> %o^ $(ROOT)/toolchain/cp %f %o |>
+# Object Copy
+!objcopy = |> ^ OBJCOPY %f -> %o^ $(OBJCOPY) %f %o |>
+# Text Distribute, allows for possible compression option in the future
+!txtdst = !cp
+TXTEND=

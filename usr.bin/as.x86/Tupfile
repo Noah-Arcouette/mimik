@@ -1,0 +1,13 @@
+include_rules
+
+ifeq (@(ARCH_X86),y)
+: lexer.l  |> !host_lex  |>
+: parser.y |> !host_yacc |>
+
+: lex.yy.c | y.tab.h            |> !host_cc   |> ./obj/%B.o {obj}
+: emit.c   | y.tab.h            |> !host_cc   |> ./obj/%B.o {obj}
+: foreach *.c ^emit.c ^lex.yy.c |> !host_cc   |> ./obj/%B.o {obj}
+: {obj}                         |> !host_ccld |> $(ROOT)/toolchain/as.x86 | $(ROOT)/<toolchain>
+
+: test.s | $(ROOT)/<toolchain> |> $(ROOT)/toolchain/as.x86 < %f |>
+endif

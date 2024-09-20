@@ -1,0 +1,32 @@
+
+MMU-less
+
+fork -> Send fork to message channels, Remap all other pages, Redo the relocations
+
+Everything with fork must be PIE, lots and lots of PIE
+
+mmap:
+    Virt Phys | Outcome
+    ----------+---------
+    NULL NULL | get unused physical memory and return it as the virtual address
+    NULL Phys | return physical address, if possible, allowing for shared memory
+    Virt NULL | return physical address, if possible, NOT allowing for shared memory
+    Virt Phys | Same as NULL:Phys, but check that Virt = Phys
+
+
+
+Bounds Checking
+Double Free
+
+struct safeBuffer
+{
+    void  *ptr;
+    size_t size;
+    size_t refs;
+};
+
+buffer copy
+buffer free
+buffer allocate
+buffer read
+buffer write

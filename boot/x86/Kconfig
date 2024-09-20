@@ -1,0 +1,6 @@
+
+if ARCH_X86
+	menu "x86/"
+		source "./boot/x86/bios/Kconfig"
+	endmenu
+endif

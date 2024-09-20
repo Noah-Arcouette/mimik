@@ -1,0 +1,48 @@
+mainmenu "Mimik Alpha"
+
+menu "Host Toolchain"
+	config COMMONFLAGS
+		string "Common Compiler Flags"
+		default "-O0 -g -Wall -Wextra -fno-asynchronous-unwind-tables"
+
+	config CC
+		string "C17 Compiler"
+		default "clang -std=c17"
+
+	config CFLAGS
+		string "C Compiler Flags"
+		default ""
+
+	config LD
+		string "Linker"
+		default "ld.lld"
+
+	config LDFLAGS
+		string "Linker Flags"
+		default "-O0"
+
+	config OBJCOPY
+		string "Object Copy"
+		default "objcopy"
+
+	config LEX
+		string "Lexical Analysisor"
+		default "lex"
+
+	config YACC
+		string "Syntactical Analysisor"
+		default "yacc"
+endmenu
+
+choice ARCH
+	bool "Target Architecture"
+
+	config ARCH_X86
+		bool "Intel x86"
+endchoice
+
+config DIST
+	string "Relative Distribution Directory"
+	default "dist"
+
+source "./boot/Kconfig"

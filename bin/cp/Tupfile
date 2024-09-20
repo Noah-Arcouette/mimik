@@ -1,0 +1,4 @@
+include_rules
+
+# Toolchain Build
+: cp.c |> !host_ccld |> $(ROOT)/toolchain/cp | $(ROOT)/<toolchain>
