@@ -13,5 +13,7 @@ main (void)
 		printf("Error %d: %s", errno, strerror(errno));
 	}
 
+	sub_free(map);
+
     return 0;
 }
