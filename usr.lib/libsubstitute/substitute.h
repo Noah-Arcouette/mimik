@@ -33,6 +33,17 @@ struct sub_map
     };
 };
 
+// init.c
 struct sub_map *sub_init (void);
+
+// <nulls>
+void            sub_free (struct sub_map *);
+struct sub_map *sub_copy (struct sub_map *);
+
+int sub_del  (struct sub_map *restrict, const char *restrict key, size_t);
+int sub_set  (struct sub_map *restrict, const char *restrict key, size_t, const char *restrict value, size_t);
+int sub_comp (struct sub_map *restrict, const char *restrict key, size_t, int(*comp)(struct sub_map *restrict, const char *restrict, size_t, struct sub_out *restrict));
+
+int sub_find (struct sub_map *restrict, struct sub_out *restrict, int c);
 
 #endif
