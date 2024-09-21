@@ -53,6 +53,7 @@ extern struct sub_map *sub_copy (struct sub_map *);
 
 extern void sub_del (struct sub_map *restrict, const char *restrict key, size_t);
 
-extern int sub_find (struct sub_map *restrict, struct sub_out *restrict, int c);
+extern int sub_find   (struct sub_map *restrict, struct sub_out *restrict, int c); // -1/EOF to emit last match
+extern int sub_rewind (struct sub_map *restrict,                           int n); // go back n characters, -1 to fully reset
 
 #endif
