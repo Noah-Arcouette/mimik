@@ -6,4 +6,4 @@ include_rules
 
 : test.c       |> !host_cc |> ./obj/%B.o
 : ./obj/test.o $(ROOT)/toolchain/lib/libsubstitute.a |> !host_ccld |> test
-: test |> test libsubstitute |>
+: ./test | $(ROOT)/toolchain/lib/libsubstitute.a |> ./test libsubstitute |>

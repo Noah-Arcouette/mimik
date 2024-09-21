@@ -3,6 +3,16 @@
 #include <string.h>
 #include <stdio.h>
 
+#define __STR(x) #x
+#define STR(x) __STR(x)
+#define LINE STR(__LINE__)
+
+int
+testfunc (struct sub_map *restrict, const char *restrict, size_t, struct sub_out *restrict)
+{
+	return 0;
+}
+
 int
 main (void)
 {
@@ -10,7 +20,32 @@ main (void)
 
 	if (!map)
 	{
-		printf("Error %d: %s", errno, strerror(errno));
+		printf(LINE ": Error %d: %s", errno, strerror(errno));
+		return 1;
+	}
+
+	if (sub_set(map, "Hello", 5, "Hello, world!", 14))
+	{
+		printf(LINE ": Error %d: %s", errno, strerror(errno));
+		return 1;
+	}
+
+	if (sub_set(map, "Hi", 2, "Hello, world!", 14))
+	{
+		printf(LINE ": Error %d: %s", errno, strerror(errno));
+		return 1;
+	}
+
+	if (sub_comp(map, "Hey", 2, testfunc))
+	{
+		printf(LINE ": Error %d: %s", errno, strerror(errno));
+		return 1;
+	}
+
+	if (!sub_set(map, "ERROR", 5, NULL, 0))
+	{
+		printf(LINE ": Not allowed.\n");
+		return 1;
 	}
 
 	sub_free(map);
