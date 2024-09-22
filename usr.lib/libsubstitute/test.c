@@ -36,7 +36,7 @@ main (void)
 		return 1;
 	}
 
-	if (sub_comp(map, "Hey", 2, testfunc))
+	if (sub_comp(map, "Hey", 3, testfunc))
 	{
 		printf(LINE ": Error %d: %s", errno, strerror(errno));
 		return 1;

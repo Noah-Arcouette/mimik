@@ -42,8 +42,8 @@ program:
 	| program section
 	| program ALIGN VALUE NEWLINE { align($3.value); }
 
-	| program SYMBOL ':'           { newSymbol($2.string); free($2.string); }
-	| program DFILE STRING NEWLINE { newFile($3.string);   free($3.string); }
+	| program SYMBOL ':'           { newSymbol($2.string, MIO_SYMLIST_TYPE_ADDRESS); free($2.string); }
+	| program DFILE STRING NEWLINE { newSymbol($3.string, MIO_SYMLIST_TYPE_FILE   ); free($3.string); }
 
 	| program CODE16 NEWLINE { code = 16; }
 	| program CODE32 NEWLINE { code = 32; }

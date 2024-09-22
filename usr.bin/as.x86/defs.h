@@ -36,7 +36,7 @@ struct symbol
 
 	struct symbol *next;
 };
-extern void newSymbol (const char *);
+extern void newSymbol (const char *, int);
 
 // enterSection.c
 struct section
@@ -53,9 +53,6 @@ struct section
 	struct section *next;
 };
 extern void enterSection (const char *restrict, const char *restrict);
-
-// newFile.c
-extern void newFile (const char *);
 
 // globalSymbol.c
 extern void globalSymbol (const char *);

@@ -28,7 +28,7 @@ main (int argc, const char **argv)
 	// parser input
 	yyparse();
 
-	// free data structors
+	// free data structures
 	struct section *nextSection;
 	currentSection = firstSection;
 	while (currentSection)
@@ -47,10 +47,16 @@ main (int argc, const char **argv)
 			switch (currentSymbol->flags)
 			{
 			case MIO_SYMLIST_TYPE_FILE:
-				printf("\t\"%s\" %d\n", currentSymbol->name, currentSymbol->size);
+				printf("\t\"%s\" %zu\n", currentSymbol->name, currentSymbol->size);
+				break;
+			case MIO_SYMLIST_TYPE_BSS:
+				printf("\tb %s, %zu(%zuB)\n", currentSymbol->name, currentSymbol->size, currentSymbol->val);
+				break;
+			case MIO_SYMLIST_TYPE_ADDRESS:
+				printf("\tp %s, %zu(%zuB)\n", currentSymbol->name, currentSymbol->size, currentSymbol->val);
 				break;
 			default:
-				printf("\t?%s\n %d = %d", currentSymbol->name, currentSymbol->size, currentSymbol->val);
+				printf("\t?%s\n %zu(%zuB)\n", currentSymbol->name, currentSymbol->size, currentSymbol->val);
 				break;
 			}
 
