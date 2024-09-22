@@ -44,21 +44,27 @@ main (int argc, const char **argv)
 		{
 			nextSymbol = currentSymbol->next;
 
-			switch (currentSymbol->flags)
+			if (currentSymbol->flags & MIO_SYMLIST_GLOBAL)
+			{
+				printf("G ");
+			}
+
+			switch (currentSymbol->flags & MIO_SYMLIST_TYPE_MASK)
 			{
 			case MIO_SYMLIST_TYPE_FILE:
-				printf("\t\"%s\" %zu\n", currentSymbol->name, currentSymbol->size);
+				printf("\tf ");
 				break;
 			case MIO_SYMLIST_TYPE_BSS:
-				printf("\tb %s, %zu(%zuB)\n", currentSymbol->name, currentSymbol->size, currentSymbol->val);
+				printf("\tb ");
 				break;
 			case MIO_SYMLIST_TYPE_ADDRESS:
-				printf("\tp %s, %zu(%zuB)\n", currentSymbol->name, currentSymbol->size, currentSymbol->val);
+				printf("\tp ");
 				break;
 			default:
-				printf("\t?%s\n %zu(%zuB)\n", currentSymbol->name, currentSymbol->size, currentSymbol->val);
+				printf("\t? ");
 				break;
 			}
+			printf("%s %zu(%zuB)\n", currentSymbol->name, currentSymbol->val, currentSymbol->size);
 
 			free(currentSymbol->name);
 			free(currentSymbol);

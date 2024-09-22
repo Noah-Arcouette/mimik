@@ -2,12 +2,12 @@
 .section .bss, "brw"
 .file "init.S"
 
-.globl bootDisk
 bootDisk: .byte 0
+.globl bootDisk
 
 .section .boot.init, "x"
-.globl boot_init
 boot_init:
+.globl boot_init
 	xor %ax, %ax
 
 	mov %ax, %es
