@@ -46,7 +46,7 @@ newSymbol (const char *symbol, int type)
 
 	// initialize this symbol
 	nextSymbol->flags = type;
-	if ((type & MIO_SYMLIST_TYPE_ADDRESS) && (currentSection->flags & MIO_SECTION_FLAG_BSS))
+	if ((type == MIO_SYMLIST_TYPE_ADDRESS) && (currentSection->flags & MIO_SECTION_FLAG_BSS))
 	{
 		// push up address to BSS if in the bss section
 		nextSymbol->flags = MIO_SYMLIST_TYPE_BSS;
