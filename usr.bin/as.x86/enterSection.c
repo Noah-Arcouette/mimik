@@ -85,6 +85,14 @@ enterSection (const char *restrict section, const char *restrict flags)
 	}
 
 	// add into list
-	currentSection->next = firstSection;
+	if (firstSection)
+	{
+		struct section *tail = firstSection->next;
+		firstSection  ->next = currentSection;
+		currentSection->next = tail;
+		return;
+	}
+
+	currentSection->next = (struct section *)NULL;
 	firstSection         = currentSection;
 }
