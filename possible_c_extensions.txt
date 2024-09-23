@@ -1,0 +1,38 @@
+CM+
+
+C with Mimik Language Extension
+
+buffer.h
+vector.h
+
+for (int i = 0; i<10; i++) <== for (int i <> 0..10)
+int x = 1_000_000; ==> 1000000
+namespace mimik {..} ==> prefix all with `mimik_'
+
+group g
+{
+    bit x;
+    bit y;
+    field f
+    {
+        ONE,
+        TWO
+    };
+};
+==>
+#define _G_X      0b00000001
+#define _G_Y      0b00000010
+#define _G_F_MASK 0b00000100
+#define _G_F_ONE  0b00000000
+#define _G_F_TWO  0b00000100
+unsigned char g;
+
+// math operations on arrays, vector ops
+int[2] vector1 = { 1, 2 };
+int[2] vector2 = { 3, 4 };
+int[2] vector3 = vector1 * vector2;
+
+// test ==> "file_test.o"
+test {
+    ...
+};
