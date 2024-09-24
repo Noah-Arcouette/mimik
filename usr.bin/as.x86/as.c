@@ -73,8 +73,12 @@ main (int argc, const char **argv)
 		}
 
 		// free data
+		if (currentSection->stream)
+		{
+			fclose(currentSection->stream);
+			free(currentSection->buffer);
+		}
 		free(currentSection->name);
-		free(currentSection->byte);
 		free(currentSection);
 
 		currentSection = nextSection;

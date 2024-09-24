@@ -1,6 +1,7 @@
 #ifndef __DEFS_H__
 #define __DEFS_H__
 #include <stddef.h>
+#include <stdio.h>
 
 struct yystype
 {
@@ -44,9 +45,9 @@ struct section
 	char *name;
 	int   flags;
 
-	size_t         size;
-	size_t         bytes;
-	unsigned char *byte;
+	FILE  *stream;
+	size_t size;
+	char  *buffer;
 
 	struct symbol *firstSymbol;
 

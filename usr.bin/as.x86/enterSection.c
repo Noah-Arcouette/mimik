@@ -45,9 +45,12 @@ enterSection (const char *restrict section, const char *restrict flags)
 	}
 
 	// initialize section
-	currentSection->bytes       = 0;
-	currentSection->size        = 0;
-	currentSection->byte        = (unsigned char *)NULL;
+	currentSection->size   = 0;
+	currentSection->buffer = (char *)NULL;
+	currentSection->stream      = open_memstream(
+		&currentSection->buffer,
+		&currentSection->size
+	);
 	currentSection->firstSymbol = (struct symbol *)NULL;
 	currentSection->flags       = 0;
 
