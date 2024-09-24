@@ -49,6 +49,7 @@ enterSection (const char *restrict section, const char *restrict flags)
 	currentSection->size        = 0;
 	currentSection->byte        = (unsigned char *)NULL;
 	currentSection->firstSymbol = (struct symbol *)NULL;
+	currentSection->flags       = 0;
 
 	// assign name
 	currentSection->name = strdup(section);
