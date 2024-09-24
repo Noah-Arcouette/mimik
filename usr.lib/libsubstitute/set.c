@@ -85,7 +85,7 @@ set:
 
 			// remove afflicted node
 			lastMatch->flags = __SUB_TYPE_NONE; // don't free data
-			// sub_del(map, key, keysz); // delete node
+			sub_del(map, key, keysz); // delete node
 
 			errno = error; // restore errno
 			return 1; // error

@@ -36,6 +36,8 @@ main (void)
 		return 1;
 	}
 
+	sub_del(map, "Hi", 2);
+
 	if (sub_comp(map, "Hey", 3, testfunc))
 	{
 		printf(LINE ": Error %d: %s", errno, strerror(errno));
@@ -47,6 +49,19 @@ main (void)
 		printf(LINE ": Not allowed.\n");
 		return 1;
 	}
+
+
+	sub_del(map, "Hello",   5);
+	sub_del(map, "Hey",     3);
+	sub_del(map, "Nothing", 7);
+
+	if (sub_comp(map, "Hie", 3, testfunc))
+	{
+		printf(LINE ": Error %d: %s", errno, strerror(errno));
+		return 1;
+	}
+
+	sub_del(map, "Hie", 3);
 
 	sub_free(map);
 
