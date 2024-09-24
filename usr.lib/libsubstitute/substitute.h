@@ -55,9 +55,6 @@ extern int sub_comp (struct sub_map *restrict, const char *restrict key, size_t,
 // del.c
 extern void sub_del (struct sub_map *restrict, const char *restrict key, size_t);
 
-// rewind.c
-extern void sub_rewind (struct sub_map *, int n); // go back n characters, -1 to fully reset
-
 // <nulls>
 extern struct sub_map *sub_copy (struct sub_map *);
 
