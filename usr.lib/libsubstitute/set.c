@@ -51,13 +51,18 @@ __sub_set (struct sub_map *restrict map, const char *restrict key, size_t keysz,
 
 		// initialize
 		lastMatch->child->parent = lastMatch; // set parent
-		lastMatch->child->next   = tail; // set tail
 		// go down
 		lastMatch = lastMatch->child;
 		// continue initializing
-		lastMatch->child = (struct sub_map *)NULL;
-		lastMatch->key   = key[keyi];
-		lastMatch->flags = __SUB_TYPE_NONE;
+		if (tail)
+		{
+			tail->previous = lastMatch; // establish doubly linked list
+		}
+		lastMatch->next     = tail; // set tail
+		lastMatch->child    = (struct sub_map *)NULL;
+		lastMatch->previous = (struct sub_map *)NULL;
+		lastMatch->key      = key[keyi];
+		lastMatch->flags    = __SUB_TYPE_NONE;
 
 		keyi++; // next character in key
 	}
@@ -86,7 +91,7 @@ set:
 			return 1; // error
 		}
 
-		lastMatch->flags = (lastMatch->flags & ~__SUB_TYPE_VALUE) | __SUB_TYPE_NONE; // set value type, and preserve other flags
+		lastMatch->flags = (lastMatch->flags & ~__SUB_TYPE_MASK) | __SUB_TYPE_VALUE; // set value type, and preserve other flags
 		memcpy(lastMatch->value, value, valsz); // copy data
 		return 0; // success
 	}

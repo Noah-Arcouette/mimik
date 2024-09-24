@@ -17,6 +17,7 @@ struct sub_map
     struct sub_map *parent;
     struct sub_map *child;
     struct sub_map *next;
+	struct sub_map *previous;
 
     union {
         struct // child
@@ -48,10 +49,11 @@ extern void sub_free (struct sub_map *);
 extern int sub_set  (struct sub_map *restrict, const char *restrict key, size_t, const char *restrict value, size_t);
 extern int sub_comp (struct sub_map *restrict, const char *restrict key, size_t, int(*comp)(struct sub_map *restrict, const char *restrict key, size_t, struct sub_out *restrict));
 
+// del.c
+extern void sub_del (struct sub_map *restrict, const char *restrict key, size_t);
+
 // <nulls>
 extern struct sub_map *sub_copy (struct sub_map *);
-
-extern void sub_del (struct sub_map *restrict, const char *restrict key, size_t);
 
 extern int sub_find   (struct sub_map *restrict, struct sub_out *restrict, int c); // -1/EOF to emit last match
 extern int sub_rewind (struct sub_map *restrict,                           int n); // go back n characters, -1 to fully reset
