@@ -63,6 +63,9 @@ main (void)
 
 	sub_del(map, "Hie", 3);
 
+	sub_rewind(map,  1);
+	sub_rewind(map, -1);
+
 	sub_free(map);
 
     return 0;

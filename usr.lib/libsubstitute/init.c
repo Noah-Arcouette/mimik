@@ -20,5 +20,7 @@ sub_init (void)
 	map->out.data = (char *)NULL;
 	map->out.sz   = 0;
 
+	map->current = (struct sub_map *)NULL;
+
     return map;
 }
