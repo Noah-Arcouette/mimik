@@ -37,8 +37,8 @@ enterSection (const char *restrict section, const char *restrict flags)
 	int errnum;
 	if (!currentSection)
 	{
-		errnum = errno;
 	memerror:
+		errnum = errno;
 		fprintf(stderr, "%s: Failed to allocate memory.\n", self);
 		fprintf(stderr, "Errno %d: %s.\n", errnum, strerror(errnum));
 		exit(1);
@@ -51,6 +51,10 @@ enterSection (const char *restrict section, const char *restrict flags)
 		&currentSection->buffer,
 		&currentSection->size
 	);
+	if (!currentSection->stream)
+	{
+		goto memerror;
+	}
 	currentSection->firstSymbol = (struct symbol *)NULL;
 	currentSection->flags       = 0;
 
@@ -59,7 +63,6 @@ enterSection (const char *restrict section, const char *restrict flags)
 	// check if it worked
 	if (!currentSection->name)
 	{
-		errnum = errno;
 		goto memerror;
 	}
 
