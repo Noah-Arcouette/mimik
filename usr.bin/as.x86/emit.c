@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <string.h>
 #include <stdlib.h>
+#include <mio.h>
 #include "defs.h"
 #include "y.tab.h"
 
@@ -14,6 +15,11 @@ emit (size_t val, int type)
 	{
 	case BYTE:
 		printf("Parser: Emit Byte %02x\n", (unsigned char)val);
+		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
+		{
+			currentSection->bssz++;
+			return;
+		}
 		if (fwrite(&val, 1, 1, currentSection->stream) != 1)
 		{
 			goto error;
@@ -21,6 +27,11 @@ emit (size_t val, int type)
 		break;
 	case WORD:
 		printf("Parser: Emit Word %04x\n", (unsigned short)val);
+		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
+		{
+			currentSection->bssz += 2;
+			return;
+		}
 		val = htole16((unsigned short)val);
 		if (fwrite(&val, 1, 2, currentSection->stream) != 2)
 		{
@@ -29,6 +40,11 @@ emit (size_t val, int type)
 		break;
 	case SHORT:
 		printf("Parser: Emit Short %d\n", (short)val);
+		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
+		{
+			currentSection->bssz += 2;
+			return;
+		}
 		val = htole16((unsigned short)val);
 		if (fwrite(&val, 1, 2, currentSection->stream) != 2)
 		{
@@ -37,6 +53,11 @@ emit (size_t val, int type)
 		break;
 	case INT:
 		printf("Parser: Emit Int %d\n", (int)val);
+		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
+		{
+			currentSection->bssz += 4;
+			return;
+		}
 		val = htole32((unsigned int)val);
 		if (fwrite(&val, 1, 4, currentSection->stream) != 4)
 		{
@@ -45,6 +66,11 @@ emit (size_t val, int type)
 		break;
 	case LONG:
 		printf("Parser: Emit Long %ld\n", (long)val);
+		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
+		{
+			currentSection->bssz += 8;
+			break;
+		}
 		val = htole64((unsigned long)val);
 		if (fwrite(&val, 1, 8, currentSection->stream) != 8)
 		{

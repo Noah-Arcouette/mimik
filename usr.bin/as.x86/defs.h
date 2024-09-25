@@ -48,8 +48,10 @@ struct section
 	FILE  *stream;
 	size_t size;
 	char  *buffer;
+	size_t bssz; // BSS size
 
 	struct symbol *firstSymbol;
+	struct reloc  *firstReloc;
 
 	struct section *next;
 };
@@ -62,6 +64,14 @@ extern void globalSymbol (const char *);
 extern void emit (size_t, int);
 
 // emitRelocation.c
+struct reloc
+{
+	char  *name;
+	size_t offset;
+	int    flags;
+
+	struct reloc *next;
+};
 extern void emitRelocation (int, const char *);
 
 // align.c

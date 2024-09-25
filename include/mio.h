@@ -38,7 +38,7 @@ struct MiO_Header
 struct MiO_Section
 {
     MiO_byte name  [64]; // section name
-    MiO_byte offset[8];  // offset of section into file
+    MiO_byte offset[8];  // offset of section into data section, or virtual bss data section
     MiO_byte size  [8];  // size of section
     MiO_byte flags;
 } __attribute__((packed));
@@ -62,8 +62,8 @@ struct MiO_Lib // libraries
 
 #define MIO_SYMLIST_NAME ".symbols.list"
 #define MIO_SYMLIST_TYPE_ABSOLUTE  0 // absolute symbol
-#define MIO_SYMLIST_TYPE_BSS       1 // bss, uninitialized data ( offset only applies into uninitialized sections not normal sections ) MIO_SECTION_FLAG_ALLOC
-#define MIO_SYMLIST_TYPE_ADDRESS   2 // address data, offset
+#define MIO_SYMLIST_TYPE_BSS       1 // bss, uninitialized data address ( offset only applies into uninitialized sections not normal sections )
+#define MIO_SYMLIST_TYPE_ADDRESS   2 // address data, offset into data section
 #define MIO_SYMLIST_TYPE_FILE      3 // file symbol
 #define MIO_SYMLIST_TYPE_MASK      3 // mask for symbol type
 #define MIO_SYMLIST_GLOBAL         4 // global symbol, bit flag
@@ -91,7 +91,7 @@ struct MiO_Reloc
 struct MiO_Map
 {
     MiO_byte flags;
-    MiO_byte offset  [8]; // offset into file
+    MiO_byte offset  [8]; // offset into data section, or virtual bss section
     MiO_byte fsize   [8]; // amount of file data to copy
     MiO_byte virt    [8]; // virtual address, set to all ones for undefined
     MiO_byte physical[8]; // physical address, set to all ones for undefined
@@ -104,7 +104,7 @@ struct MiO_Map
 struct MiO_Seg
 {
     MiO_byte flags;
-    MiO_byte offset  [8]; // offset into file
+    MiO_byte offset  [8]; // offset into data section, or virtual bss section
     MiO_byte fsize   [8]; // amount of file data to copy
     MiO_byte segment;     // see architecture defined values
     MiO_byte physical[8]; // physical address, set to all ones for undefined

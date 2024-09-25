@@ -18,15 +18,17 @@ newSymbol (const char *symbol, int type)
 		return;
 	}
 
-	struct symbol **lastSymbol = &(currentSection->firstSymbol);
-	while (*lastSymbol)
+	struct symbol  *lastSymbol    = (struct symbol *)NULL;
+	struct symbol **currentSymbol = &(currentSection->firstSymbol);
+	while (*currentSymbol)
 	{
-		lastSymbol = &((*lastSymbol)->next);
+		lastSymbol    = *currentSymbol;
+		currentSymbol = &((*currentSymbol)->next);
 	}
 
 	// allocate new symbol
-	*lastSymbol = (struct symbol *)malloc(sizeof(struct symbol));
-	struct symbol *nextSymbol = *lastSymbol;
+	*currentSymbol = (struct symbol *)malloc(sizeof(struct symbol));
+	struct symbol *nextSymbol = *currentSymbol;
 
 	int errnum;
 	if (!nextSymbol)
@@ -46,15 +48,19 @@ newSymbol (const char *symbol, int type)
 
 	// initialize this symbol
 	nextSymbol->flags = type;
+	nextSymbol->size  = ftell(currentSection->stream);
+	nextSymbol->val   = ftell(currentSection->stream);
+	nextSymbol->next  = (struct symbol *)NULL;
 	if ((type == MIO_SYMLIST_TYPE_ADDRESS) && (currentSection->flags & MIO_SECTION_FLAG_BSS))
 	{
 		// push up address to BSS if in the bss section
 		nextSymbol->flags = MIO_SYMLIST_TYPE_BSS;
+		nextSymbol->val   = currentSection->bssz;
 	}
-	nextSymbol->size  = currentSection->size;
-	nextSymbol->val   = currentSection->size;
-	nextSymbol->next  = (struct symbol *)NULL;
 
 	// set size for prior symbol
-	(*lastSymbol)->size = currentSection->size - (*lastSymbol)->size;
+	if (lastSymbol)
+	{
+		lastSymbol->size = ftell(currentSection->stream) - lastSymbol->size;
+	}
 }

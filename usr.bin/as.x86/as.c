@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "defs.h"
 #include <mio.h>
+#include <mio-x86.h>
 
 int yyparse (void);
 
@@ -70,6 +71,49 @@ main (int argc, const char **argv)
 			free(currentSymbol);
 
 			currentSymbol = nextSymbol;
+		}
+
+		// free relocations
+		struct reloc *currentReloc = currentSection->firstReloc;
+		struct reloc *nextReloc;
+		while (currentReloc)
+		{
+			printf("Relocate `%s' at %lx, type: ", currentReloc->name, currentReloc->offset);
+			switch (currentReloc->flags&MIO_RELOC_TYPE_MASK)
+			{
+			case MIO_RELOC_ABSOLUTE_WORD:
+				printf("Absolute word.");
+				break;
+			case MIO_RELOC_ABSOLUTE_BYTE:
+				printf("Absolute byte.");
+				break;
+			case MIO_RELOC_RELATIVE_WORD:
+				printf("Relative word.");
+				break;
+			case MIO_RELOC_RELATIVE_BYTE:
+				printf("Relative byte.");
+				break;
+			}
+
+			if (currentReloc->flags & MIO_RELOC_FLAG_EXECUTE)
+			{
+				printf(" Executable");
+			}
+			if (currentReloc->flags & MIO_RELOC_FLAG_READ)
+			{
+				printf(" Readable");
+			}
+			if (currentReloc->flags & MIO_RELOC_FLAG_WRITE)
+			{
+				printf(" Writable");
+			}
+
+			putchar('\n');
+
+			nextReloc = currentReloc->next;
+			free(currentReloc->name);
+			free(currentReloc);
+			currentReloc = nextReloc;
 		}
 
 		printf("Data size: %ld\n", ftell(currentSection->stream));
