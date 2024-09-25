@@ -17,8 +17,10 @@ sub_init (void)
 	map->child  = (struct sub_map *)NULL;
 	map->next   = (struct sub_map *)NULL;
 
-	map->out.data = (char *)NULL;
-	map->out.sz   = 0;
+	map->out.data       = (char *)NULL;
+	map->out.datasz     = 0;
+	map->out.pushback   = (char *)NULL;
+	map->out.pushbacksz = 0;
 
 	map->current = (struct sub_map *)NULL;
 

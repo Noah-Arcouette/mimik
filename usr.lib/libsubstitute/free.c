@@ -12,6 +12,10 @@ sub_free (struct sub_map *map)
 		{
 			free(map->out.data);
 		}
+		if (map->out.pushback)
+		{
+			free(map->out.pushback);
+		}
 	}
 
 	// free sibling

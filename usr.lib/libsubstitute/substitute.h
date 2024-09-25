@@ -8,38 +8,41 @@
 
 struct sub_out
 {
-    char  *data;
-    size_t sz;
+	char  *data;
+	size_t datasz;
+
+	char  *pushback;
+	size_t pushbacksz;
 };
 
 struct sub_map
 {
-    struct sub_map *parent;
-    struct sub_map *child;
-    struct sub_map *next;
+	struct sub_map *parent;
+	struct sub_map *child;
+	struct sub_map *next;
 	struct sub_map *previous;
 
-    union {
-        struct // child
-        {
-            int key;
+	union {
+		struct // child
+		{
+			int key;
 
-            char flags;
-            union {
+			char flags;
+			union {
 				struct
 				{
-                	char  *value;
+					char  *value;
 					size_t valuesz;
 				};
-                int(*comp)(struct sub_map *restrict, const char *restrict, size_t, struct sub_out *restrict);
-            };
-        };
-        struct // root
+				int(*comp)(struct sub_map *restrict, const char *restrict, size_t, struct sub_out *restrict);
+			};
+		};
+		struct // root
 		{
 			struct sub_map *current;
-        	struct sub_out  out;
+			struct sub_out  out;
 		};
-    };
+	};
 };
 
 // init.c
