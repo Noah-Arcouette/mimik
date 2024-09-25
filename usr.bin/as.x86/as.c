@@ -72,6 +72,8 @@ main (int argc, const char **argv)
 			currentSymbol = nextSymbol;
 		}
 
+		printf("Data size: %ld\n", ftell(currentSection->stream));
+
 		// free data
 		if (currentSection->stream)
 		{
