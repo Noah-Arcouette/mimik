@@ -57,10 +57,24 @@ newSymbol (const char *symbol, int type)
 		nextSymbol->flags = MIO_SYMLIST_TYPE_BSS;
 		nextSymbol->val   = currentSection->bssz;
 	}
-
-	// set size for prior symbol
-	if (lastSymbol)
+	// find and set last address/bss symbols size
+	struct symbol *currentSym = currentSection->firstSymbol;
+	while (currentSym)
 	{
-		lastSymbol->size = ftell(currentSection->stream) - lastSymbol->size;
+		if ((currentSym->flags&MIO_SYMLIST_TYPE_MASK) == nextSymbol->flags) // find matching symbol
+		{
+			lastSymbol = currentSym;
+		}
+
+		currentSym = currentSym->next;
+	}
+	// last symbol is the last matching symbol
+	if ((nextSymbol->flags&MIO_SYMLIST_TYPE_MASK) == MIO_SYMLIST_TYPE_BSS)
+	{
+		lastSymbol->size = currentSection->bssz - lastSymbol->size; // BSS set
+	}
+	else
+	{
+		lastSymbol->size = ftell(currentSection->stream) - lastSymbol->size; // address set
 	}
 }

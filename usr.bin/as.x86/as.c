@@ -117,6 +117,7 @@ main (int argc, const char **argv)
 		}
 
 		printf("Data size: %ld\n", ftell(currentSection->stream));
+		printf("BSS size:  %ld\n", currentSection->bssz);
 
 		// free data
 		if (currentSection->stream)
