@@ -57,6 +57,5 @@ comments (int c)
         state = COMMENTS_STATE_POSSIBLE_COMMENT;
         return;
     }
-out:
     fputc(c, fout);
 }
