@@ -8,3 +8,16 @@ de
 hi\
 hi\
 hi
+
+// hi
+
+hi // hello
+
+/*
+ * Wo
+// hi
+/ jo
+/* hfuiwehfiqu
+
+
+*/

@@ -41,5 +41,5 @@ lineSplicing (int c)
     }
 
     // output character
-    fputc(c, fout);
+    comments(c);
 }

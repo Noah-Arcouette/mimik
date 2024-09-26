@@ -4,4 +4,7 @@
 // lineSplicing.c
 extern void lineSplicing (int);
 
+// comments.c
+extern void comments (int);
+
 #endif
