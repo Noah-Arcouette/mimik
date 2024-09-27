@@ -7,6 +7,10 @@ unsigned int row    = 0;
 void
 putc (char character, unsigned char color)
 {
+	// restrict to buffer size, user may change these improperly so be aware
+	row    = row % rows;
+	column = column % columns;
+
 	switch (character)
 	{
 	case '\n':
@@ -19,6 +23,7 @@ putc (char character, unsigned char color)
 	videoMemory[(row*columns+column)*2+0] = character;
 	videoMemory[(row*columns+column)*2+1] = color;
 
+	// move to next line
 	column++;
 	if (column >= columns){
 		column = 0;
