@@ -2,10 +2,8 @@ name: Build
 on: [push]
 jobs:
     Build:
-        runs-on: ubuntu-lastest
+        runs-on: self-hosted
         steps:
-            - name: "Install Packages"
-              run: "apt add tup byacc flex clang lld binutils kconfig-frontends"
             - name: "Check out"
               run: actions/checkout@v4
             - name: "Configure"
