@@ -1,6 +1,6 @@
 # `/boot/`
 
-All fines in this folder will reside in the MBR boot sector. Their only purpose is to load the next stage into memory.
+All files in this folder will reside in the MBR boot sector. Their only purpose is to load the next stage into memory.
 
 ## `init.S`
 

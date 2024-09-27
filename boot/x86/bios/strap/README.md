@@ -8,7 +8,7 @@ This file is the entry point for strap and will setup unreal mode by messing wit
 
 ## `enableA20.S`
 
-This is attempt to enable the A20 line and will panic if it fails to set it. The current implementation will only check if the A20 line is preset by the BIOS and will panic if not.
+This will attempt to enable the A20 line and will panic if it fails to set it. The current implementation will only check if the A20 line is preset by the BIOS and will panic if not.
 
 ## `gdt.S`
 

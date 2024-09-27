@@ -1,5 +1,6 @@
 include_rules
 
+# Toolchain build
 ifeq (@(ARCH_X86),y)
 : lexer.l  |> !host_lex  |>
 : parser.y |> !host_yacc |>

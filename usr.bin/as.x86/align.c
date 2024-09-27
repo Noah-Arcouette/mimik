@@ -9,10 +9,12 @@ align (size_t alignment)
 {
 	printf("Parser: Align %zu\n", alignment);
 
+	// amount needed to align properly
 	size_t rem = ftell(currentSection->stream) % alignment;
 
 	while (rem--)
 	{
+		// 0xe1 is a random number for padding
 		if (fputc(0xe1, currentSection->stream) == EOF)
 		{
 			int error = errno;

@@ -45,7 +45,7 @@ struct section
 	char *name;
 	int   flags;
 
-	FILE  *stream;
+	FILE  *stream; // output stream
 	size_t size;
 	char  *buffer;
 	size_t bssz; // BSS size

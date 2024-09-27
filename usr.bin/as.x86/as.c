@@ -29,7 +29,7 @@ main (int argc, const char **argv)
 	// parser input
 	yyparse();
 
-	// free data structures
+	// free data structures, and print them
 	struct section *nextSection;
 	currentSection = firstSection;
 	while (currentSection)
@@ -45,11 +45,13 @@ main (int argc, const char **argv)
 		{
 			nextSymbol = currentSymbol->next;
 
+			// whether global or not
 			if (currentSymbol->flags & MIO_SYMLIST_GLOBAL)
 			{
 				printf("G ");
 			}
 
+			// symbol typr
 			switch (currentSymbol->flags & MIO_SYMLIST_TYPE_MASK)
 			{
 			case MIO_SYMLIST_TYPE_FILE:
@@ -65,20 +67,24 @@ main (int argc, const char **argv)
 				printf("\t? ");
 				break;
 			}
+			// name, place, and size
 			printf("%s %zu(%zuB)\n", currentSymbol->name, currentSymbol->val, currentSymbol->size);
 
+			// free them
 			free(currentSymbol->name);
 			free(currentSymbol);
 
 			currentSymbol = nextSymbol;
 		}
 
-		// free relocations
+		// free relocations, and print them
 		struct reloc *currentReloc = currentSection->firstReloc;
 		struct reloc *nextReloc;
 		while (currentReloc)
 		{
+			// name and place
 			printf("Relocate `%s' at %lx, type: ", currentReloc->name, currentReloc->offset);
+			// type
 			switch (currentReloc->flags&MIO_RELOC_TYPE_MASK)
 			{
 			case MIO_RELOC_ABSOLUTE_WORD:
@@ -95,6 +101,7 @@ main (int argc, const char **argv)
 				break;
 			}
 
+			// flags
 			if (currentReloc->flags & MIO_RELOC_FLAG_EXECUTE)
 			{
 				printf(" Executable");
@@ -110,25 +117,27 @@ main (int argc, const char **argv)
 
 			putchar('\n');
 
+			// free them and move onto the next
 			nextReloc = currentReloc->next;
 			free(currentReloc->name);
 			free(currentReloc);
 			currentReloc = nextReloc;
 		}
 
+		// sections data and bss sizes
 		printf("Data size: %ld\n", ftell(currentSection->stream));
 		printf("BSS size:  %ld\n", currentSection->bssz);
 
 		// free data
 		if (currentSection->stream)
 		{
-			fclose(currentSection->stream);
+			fclose(currentSection->stream); // close output stream
 			free(currentSection->buffer);
 		}
 		free(currentSection->name);
 		free(currentSection);
 
-		currentSection = nextSection;
+		currentSection = nextSection; // next section
 	}
 
 	return errors;

@@ -3,6 +3,7 @@
 #include "lang.h"
 
 int
+// amount is restricted to char because some BIOSes won't read 255 consecutive sectors
 diskRead (unsigned int lba, unsigned char amount, void *buf)
 {
 	// extra CHS from LBA
@@ -11,10 +12,12 @@ diskRead (unsigned int lba, unsigned char amount, void *buf)
 	unsigned char cylinder = temp/dinfo.heads;
 	unsigned char head     = temp%dinfo.heads;
 
+	// setup the weird BIOS parameters
 	unsigned short ax = 0x0200 | amount;
 	unsigned short cx = (cylinder<<8)|sector;
 	unsigned short dx = (head<<8)|dinfo.disk;
 	unsigned char  errorCode;
+	// get BIOS to read data
 	__asm__ (
 		"movw %1, %%ax\n\t"
 		"movw %2, %%cx\n\t"
