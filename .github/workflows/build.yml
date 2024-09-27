@@ -1,0 +1,12 @@
+name: Build
+on: [push]
+jobs:
+    Build:
+        runs-on: ubuntu-lastest
+        steps:
+            - name: "Install Packages"
+              run: "apt add tup byacc flex clang lld binutils kconfig-frontends"
+            - name: "Configure"
+              run: "yes \"\" | ./oldconfig"
+            - name: "Build"
+              run: "tup"

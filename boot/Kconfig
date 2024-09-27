@@ -1,6 +1,7 @@
 
 menuconfig BOOT
 	bool "boot/"
+	default y
 if BOOT
 	# change in the future to something like /boot/kernel+/boot/initramfs -> /boot/payload
 	config BOOT_PAYLOAD
