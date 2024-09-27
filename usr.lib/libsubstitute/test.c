@@ -7,10 +7,10 @@
 #define STR(x) __STR(x)
 #define LINE STR(__LINE__)
 
-int
-testfunc (struct sub_map *restrict, const char *restrict, size_t, struct sub_out *restrict)
+void
+testfunc (struct sub_map *restrict, struct sub_out *restrict)
 {
-	return 0;
+	return;
 }
 
 int

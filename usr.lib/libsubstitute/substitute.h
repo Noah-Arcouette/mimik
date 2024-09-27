@@ -34,7 +34,7 @@ struct sub_map
 					char  *value;
 					size_t valuesz;
 				};
-				int(*comp)(struct sub_map *restrict, const char *restrict, size_t, struct sub_out *restrict);
+				void(*comp)(struct sub_map *restrict, struct sub_out *restrict);
 			};
 		};
 		struct // root
@@ -53,7 +53,7 @@ extern void sub_free (struct sub_map *);
 
 // set.c
 extern int sub_set  (struct sub_map *restrict, const char *restrict key, size_t, const char *restrict value, size_t);
-extern int sub_comp (struct sub_map *restrict, const char *restrict key, size_t, int(*comp)(struct sub_map *restrict, const char *restrict key, size_t, struct sub_out *restrict));
+extern int sub_comp (struct sub_map *restrict, const char *restrict key, size_t, void(*comp)(struct sub_map *restrict, struct sub_out *restrict));
 
 // del.c
 extern void sub_del (struct sub_map *restrict, const char *restrict key, size_t);

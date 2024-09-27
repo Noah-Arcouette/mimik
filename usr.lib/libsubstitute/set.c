@@ -97,7 +97,7 @@ set:
 	}
 	// compute value
 	lastMatch->flags = (lastMatch->flags & ~__SUB_TYPE_VALUE) | __SUB_TYPE_COMP; // set value type, and preserve other flags
-	lastMatch->comp = (int(*)(struct sub_map *restrict, const char *restrict, size_t, struct sub_out *restrict))value; // please take a moment to look at that beautiful, redundant, cast
+	lastMatch->comp = (void(*)(struct sub_map *restrict, struct sub_out *restrict))value; // please take a moment to look at that beautiful, redundant, cast
 	return 0;
 }
 
@@ -114,7 +114,7 @@ sub_set (struct sub_map *restrict map, const char *restrict key, size_t keysz, c
 }
 
 int
-sub_comp (struct sub_map *restrict map, const char *restrict key, size_t keysz, int(*comp)(struct sub_map *restrict, const char *restrict key, size_t, struct sub_out *restrict))
+sub_comp (struct sub_map *restrict map, const char *restrict key, size_t keysz, void(*comp)(struct sub_map *restrict, struct sub_out *restrict))
 {
 	if (!map || !key || !keysz || !comp)
 	{
@@ -122,5 +122,5 @@ sub_comp (struct sub_map *restrict map, const char *restrict key, size_t keysz, 
 		return 1;
 	}
 
-	return __sub_set(map, key, keysz, comp, 0, __SUB_TYPE_COMP);
+	return __sub_set(map, key, keysz, (void *)comp, 0, __SUB_TYPE_COMP);
 }
