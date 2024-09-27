@@ -16,40 +16,28 @@ emitRelocation(int flags, const char *symbol)
 	case MIO_RELOC_ABSOLUTE_WORD:
 		if (fwrite(nothing, 1, 2, currentSection->stream) != 2)
 		{
-			int error = errno;
-			fprintf(stderr, "%s: Failed to write to output.\n", self);
-			fprintf(stderr, "Error %d: %s.\n", error, strerror(error));
-			exit(1);
+			goto writeerror;
 		}
 		printf("Parser: Emit Absolute Word Relocation `%s'\n", symbol);
 		break;
 	case MIO_RELOC_ABSOLUTE_BYTE:
 		if (fwrite(nothing, 1, 1, currentSection->stream) != 1)
 		{
-			int error = errno;
-			fprintf(stderr, "%s: Failed to write to output.\n", self);
-			fprintf(stderr, "Error %d: %s.\n", error, strerror(error));
-			exit(1);
+			goto writeerror;
 		}
 		printf("Parser: Emit Absolute Byte Relocation `%s'\n", symbol);
 		break;
 	case MIO_RELOC_RELATIVE_WORD:
 		if (fwrite(nothing, 1, 2, currentSection->stream) != 2)
 		{
-			int error = errno;
-			fprintf(stderr, "%s: Failed to write to output.\n", self);
-			fprintf(stderr, "Error %d: %s.\n", error, strerror(error));
-			exit(1);
+			goto writeerror;
 		}
 		printf("Parser: Emit Relative Word Relocation `%s'\n", symbol);
 		break;
 	case MIO_RELOC_RELATIVE_BYTE:
 		if (fwrite(nothing, 1, 1, currentSection->stream) != 1)
 		{
-			int error = errno;
-			fprintf(stderr, "%s: Failed to write to output.\n", self);
-			fprintf(stderr, "Error %d: %s.\n", error, strerror(error));
-			exit(1);
+			goto writeerror;
 		}
 		printf("Parser: Emit Relative Byte Relocation `%s'\n", symbol);
 		break;
@@ -80,4 +68,13 @@ emitRelocation(int flags, const char *symbol)
 	}
 	reloc->flags  = flags;
 	reloc->offset = ftell(currentSection->stream);
+
+	return;
+	int error;
+	// failed to write data
+writeerror:
+	error = errno;
+	fprintf(stderr, "%s: Failed to write to output.\n", self);
+	fprintf(stderr, "Error %d: %s.\n", error, strerror(error));
+	exit(1);
 }
