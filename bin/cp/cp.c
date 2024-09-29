@@ -69,5 +69,8 @@ main (int argc, const char **argv)
 		fwrite(buf, 1, red, dst);
 	}
 
+	fclose(src);
+	fclose(dst);
+
 	return 0;
 }
