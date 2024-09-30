@@ -1,7 +1,7 @@
 include_rules
 
 # toolchain build
-: foreach *.c ^test.c             |> !host_cc                                         |> ./obj/%B.o {obj}
-: {obj} | $(ROOT)/toolchain/<lib> |> !host_ccld $(ROOT)/toolchain/lib/libsubstitute.a |> $(ROOT)/toolchain/cpp | $(ROOT)/<toolchain>
+: foreach *.c ^test.c |> !host_cc   |> ./obj/%B.o {obj}
+: {obj}               |> !host_ccld |> $(ROOT)/toolchain/cpp | $(ROOT)/<toolchain>
 
 : test.c | $(ROOT)/<toolchain> |> $(ROOT)/toolchain/cpp < %f | nl -ba |>

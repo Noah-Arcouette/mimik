@@ -1,9 +1,0 @@
-include_rules
-
-# Toolchain build, for cpp
-: foreach *.c ^test.c |> !host_cc |> ./obj/%B.o {obj}
-: {obj}               |> !host_ar |> $(ROOT)/toolchain/lib/libsubstitute.a | $(ROOT)/toolchain/<lib>
-
-: test.c       |> !host_cc |> ./obj/%B.o
-: ./obj/test.o $(ROOT)/toolchain/lib/libsubstitute.a |> !host_ccld |> test
-: ./test | $(ROOT)/toolchain/lib/libsubstitute.a |> ./test libsubstitute |>
