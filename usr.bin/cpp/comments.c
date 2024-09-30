@@ -26,6 +26,7 @@ comments (int c)
         }
 		// failed possibly match
         fputc('/', fout); // emit hold `/`
+		state = 0;
         break; // continue to nothing
     case COMMENTS_STATE_COMMENT: // in single line comment
         if (c != '\n') // print all but newlines
