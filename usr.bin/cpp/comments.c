@@ -25,7 +25,7 @@ comments (int c)
             return;
         }
 		// failed possibly match
-        fputc('/', fout); // emit hold `/`
+        expand('/'); // emit hold `/`
 		state = 0;
         break; // continue to nothing
     case COMMENTS_STATE_COMMENT: // in single line comment
@@ -61,5 +61,5 @@ comments (int c)
         state = COMMENTS_STATE_POSSIBLE_COMMENT;
         return; // don't emit
     }
-    fputc(c, fout); // output character as normal
+    expand(c); // output character as normal
 }

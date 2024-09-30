@@ -7,4 +7,7 @@ extern void lineSplicing (int);
 // comments.c
 extern void comments (int);
 
+// expand.c
+extern void expand (int);
+
 #endif

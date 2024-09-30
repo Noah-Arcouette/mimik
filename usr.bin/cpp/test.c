@@ -23,3 +23,5 @@ hi // hello
 */
 
 1/2
+
+__FILE__ : __LINE__

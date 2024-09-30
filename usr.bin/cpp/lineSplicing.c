@@ -19,7 +19,7 @@ lineSplicing (int c)
     {
         // only hold two character
         hold = 0;
-        
+
         // true hold
         if (c == '\n')
         {
@@ -28,14 +28,14 @@ lineSplicing (int c)
         }
 
         // false hold, output data
-        fputc('\\', fout);
+        comments('\\');
     }
     else if (c == '\n') // on non-captured newline
     {
         // output backed up newlines
         while (captured)
         {
-            fputc('\n', fout);
+            comments('\n');
             captured--;
         }
     }
