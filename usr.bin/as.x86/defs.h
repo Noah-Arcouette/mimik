@@ -23,6 +23,8 @@ extern const  char    *self;
 extern        int      code;
 extern struct section *currentSection;
 extern struct section *firstSection;
+extern struct symbol  *lastFile;
+extern struct symbol  *lastSymbol;
 
 // lexer.l
 extern int lineno;

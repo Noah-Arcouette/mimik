@@ -15,6 +15,15 @@ emit (size_t val, int type)
 	{
 	case BYTE:
 		printf("Parser: Emit Byte %02x\n", (unsigned char)val);
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size++;
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size++;
+		}
 		// if in bss
 		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
 		{
@@ -30,6 +39,15 @@ emit (size_t val, int type)
 		break;
 	case WORD:
 		printf("Parser: Emit Word %04x\n", (unsigned short)val);
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size += 2;
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size += 2;
+		}
 		// if in bss
 		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
 		{
@@ -46,6 +64,15 @@ emit (size_t val, int type)
 		break;
 	case SHORT:
 		printf("Parser: Emit Short %d\n", (short)val);
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size += 2;
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size += 2;
+		}
 		// if in bss
 		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
 		{
@@ -62,6 +89,15 @@ emit (size_t val, int type)
 		break;
 	case INT:
 		printf("Parser: Emit Int %d\n", (int)val);
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size += 4;
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size += 4;
+		}
 		// if in bss
 		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
 		{
@@ -78,6 +114,15 @@ emit (size_t val, int type)
 		break;
 	case LONG:
 		printf("Parser: Emit Long %ld\n", (long)val);
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size += 8;
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size += 8;
+		}
 		// if in bss
 		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
 		{

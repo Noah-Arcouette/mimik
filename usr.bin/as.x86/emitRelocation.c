@@ -9,6 +9,15 @@
 void
 emitRelocation(int flags, const char *symbol)
 {
+	if (!currentSection)
+	{
+		fprintf(stderr, "%s:%d: Cannot emit relocation outside of section.\n", filename, lineno-1);
+		return;
+	}
+	// check to see if in BSS section, no relocations in BSS
+
+	size_t currentPosition = ftell(currentSection->stream);
+
 	// output dumby data
 	char nothing[2] = {0xe1, 0xe1}; // dumby data
 	switch (flags&MIO_RELOC_TYPE_MASK)
@@ -18,12 +27,30 @@ emitRelocation(int flags, const char *symbol)
 		{
 			goto writeerror;
 		}
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size += 2; 
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size += 2;
+		}
 		printf("Parser: Emit Absolute Word Relocation `%s'\n", symbol);
 		break;
 	case MIO_RELOC_ABSOLUTE_BYTE:
 		if (fwrite(nothing, 1, 1, currentSection->stream) != 1)
 		{
 			goto writeerror;
+		}
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size++; 
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size++;
 		}
 		printf("Parser: Emit Absolute Byte Relocation `%s'\n", symbol);
 		break;
@@ -32,12 +59,30 @@ emitRelocation(int flags, const char *symbol)
 		{
 			goto writeerror;
 		}
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size += 2; 
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size += 2;
+		}
 		printf("Parser: Emit Relative Word Relocation `%s'\n", symbol);
 		break;
 	case MIO_RELOC_RELATIVE_BYTE:
 		if (fwrite(nothing, 1, 1, currentSection->stream) != 1)
 		{
 			goto writeerror;
+		}
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size++; 
+		}
+		if  (lastSymbol)
+		{
+			lastSymbol->size++;
 		}
 		printf("Parser: Emit Relative Byte Relocation `%s'\n", symbol);
 		break;
@@ -67,7 +112,7 @@ emitRelocation(int flags, const char *symbol)
 		goto memerror;
 	}
 	reloc->flags  = flags;
-	reloc->offset = ftell(currentSection->stream);
+	reloc->offset = currentPosition;
 
 	return;
 	int error;

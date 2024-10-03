@@ -6,6 +6,11 @@
 void
 globalSymbol (const char *symbol)
 {
+	if (!currentSection)
+	{
+		fprintf(stderr, "%s:%d: Trying to globalize a symbol without being in a section.\n", filename, lineno-1);
+		return;
+	}
 	// Find symbol
 	struct symbol *currentSymbol = currentSection->firstSymbol;
 	while (currentSymbol)

@@ -14,6 +14,8 @@ int code = 32;
 
 struct section *currentSection;
 struct section *firstSection;
+struct symbol  *lastFile;
+struct symbol  *lastSymbol;
 
 int
 main (int argc, const char **argv)
@@ -25,6 +27,8 @@ main (int argc, const char **argv)
 
 	currentSection = (struct section *)NULL;
 	firstSection   = (struct section *)NULL;
+	lastFile       = (struct symbol  *)NULL;
+	lastSymbol     = (struct symbol  *)NULL;
 
 	// parser input
 	yyparse();
@@ -51,7 +55,7 @@ main (int argc, const char **argv)
 				printf("G ");
 			}
 
-			// symbol typr
+			// symbol type
 			switch (currentSymbol->flags & MIO_SYMLIST_TYPE_MASK)
 			{
 			case MIO_SYMLIST_TYPE_FILE:
@@ -83,7 +87,7 @@ main (int argc, const char **argv)
 		while (currentReloc)
 		{
 			// name and place
-			printf("Relocate `%s' at %lx, type: ", currentReloc->name, currentReloc->offset);
+			printf("Relocate `%s' at %zu, type: ", currentReloc->name, currentReloc->offset);
 			// type
 			switch (currentReloc->flags&MIO_RELOC_TYPE_MASK)
 			{
