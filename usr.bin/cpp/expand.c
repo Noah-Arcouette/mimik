@@ -45,7 +45,9 @@ expand (int c)
 	// check for macro
 	if (!strcmp("__FILE__", expand_buf)) // __FILE__ special macro
 	{
+		fputc('"', fout);
 		fwrite(filename, 1, strlen(filename), fout); // printf file name
+		fputc('"', fout); // with quotes around
 
 		goto reset_buffer;
 	}
