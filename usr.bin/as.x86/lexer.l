@@ -266,7 +266,7 @@ setString (void)
 	return VALUE;
 }
 
-"0x"[a-fA-Z0-9]+ {
+"0x"[a-fA-Z0-9_]+ {
 	printf("Lexer : VALUE `%s'\n", yytext);
 	yylval.value = (size_t)strtol(yytext+2, NULL, 16);
 
@@ -274,7 +274,7 @@ setString (void)
 	return VALUE;
 }
 
-"0b"[a-fA-Z0-9]+ {
+"0b"[01_]+ {
 	printf("Lexer : VALUE `%s'\n", yytext);
 	yylval.value = (size_t)strtol(yytext+2, NULL, 2);
 
