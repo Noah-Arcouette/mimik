@@ -4,4 +4,4 @@ include_rules
 : foreach *.c ^test.c |> !host_cc   |> ./obj/%B.o {obj}
 : {obj}               |> !host_ccld |> $(ROOT)/toolchain/cpp | $(ROOT)/<toolchain>
 
-: test.c | $(ROOT)/<toolchain> |> $(ROOT)/toolchain/cpp < %f | nl -ba |>
+: test.c | $(ROOT)/<toolchain> |> $(ROOT)/toolchain/cpp -UNOT_DEFINED < %f | nl -ba |>

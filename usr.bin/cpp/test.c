@@ -25,3 +25,5 @@ hi // hello
 1/2
 
 __FILE__ : __LINE__
+
+NOT_DEFINED
