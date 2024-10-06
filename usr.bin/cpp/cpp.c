@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "pipeline.h"
 
 const char *self = "/usr/bin/cpp";
@@ -26,7 +27,7 @@ expand_buf_free (void)
 }
 
 int
-main (int argc, const char **argv)
+main (int argc, char * const*argv)
 {
     // defaults
     fin  = stdin;
@@ -48,9 +49,10 @@ main (int argc, const char **argv)
 	int c;
 	opterr = 0; // no outputs
 	lineno = 1;
+	char *string;
 	while (1)
 	{
-		c = getopt(argc, argv, ":U:");
+		c = getopt(argc, argv, ":U:D:");
 		if (c < 0)
 		{
 			break; // leave on end of getopt
@@ -67,19 +69,42 @@ main (int argc, const char **argv)
 			exit(1);
 			break;
 		case 'U':
-			const char *undef = "#undef ";
-			while (*undef) // print undefine
+			string = "#undef ";
+			while (*string) // print undefine
 			{
-				lineSplicing(*undef);
-				undef++;
+				lineSplicing(*string);
+				string++;
 			}
-			const char *string = optarg;
+			string = optarg;
 			while (*string) // give the given value
 			{
 				lineSplicing(*string);
 				string++;
 			}
 			lineSplicing('\n'); // newline
+			break;
+		case 'D':
+			string = "#define ";
+			while (*string) // print define
+			{
+				lineSplicing(*string);
+				string++;
+			}
+
+			// convert first `=' to a space
+			char *eq = strchr(optarg, '=');
+			if (eq) // there may not be one
+			{
+				*eq = ' ';
+			}
+
+			string = optarg;
+			while (*string) // give the given value
+			{
+				lineSplicing(*string);
+				string++;
+			}
+			lineSplicing('\n');
 			break;
 		}
 		lineno++;

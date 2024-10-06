@@ -26,4 +26,7 @@ hi // hello
 
 __FILE__ : __LINE__
 
+DEFINED
+
 NOT_DEFINED
+ALSO_DEFINED
