@@ -29,15 +29,15 @@ expand_buf_free (void)
 int
 main (int argc, char * const*argv)
 {
-    // defaults
-    fin  = stdin;
-    fout = stdout;
+	// defaults
+	fin  = stdin;
+	fout = stdout;
 
-    // find program name
-    if (argc > 0)
-    {
-        self = argv[0];
-    }
+	// find program name
+	if (argc > 0)
+	{
+		self = argv[0];
+	}
 
 	atexit(expand_buf_free);
 
@@ -114,15 +114,15 @@ main (int argc, char * const*argv)
 	lineno   = 0;
 	filename = "<stdin>";
 	fprintf(fout, "# 1 \"%s\"\n", filename);
-    // read each character
-    while ((c = fgetc(fin)) != EOF)
-    {
+	// read each character
+	while ((c = fgetc(fin)) != EOF)
+	{
 		if (c == '\n')
 		{
 			lineno++;
 		}
 
-        // send character down the pipeline, starting at line splicing
-        lineSplicing(c);
-    }
+		// send character down the pipeline, starting at line splicing
+		lineSplicing(c);
+	}
 }

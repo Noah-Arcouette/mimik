@@ -30,7 +30,7 @@ emitRelocation(int flags, const char *symbol)
 		// grow sizing
 		if (lastFile)
 		{
-			lastFile->size += 2; 
+			lastFile->size += 2;
 		}
 		if (lastSymbol)
 		{
@@ -46,7 +46,7 @@ emitRelocation(int flags, const char *symbol)
 		// grow sizing
 		if (lastFile)
 		{
-			lastFile->size++; 
+			lastFile->size++;
 		}
 		if (lastSymbol)
 		{
@@ -62,7 +62,7 @@ emitRelocation(int flags, const char *symbol)
 		// grow sizing
 		if (lastFile)
 		{
-			lastFile->size += 2; 
+			lastFile->size += 2;
 		}
 		if (lastSymbol)
 		{
@@ -78,7 +78,7 @@ emitRelocation(int flags, const char *symbol)
 		// grow sizing
 		if (lastFile)
 		{
-			lastFile->size++; 
+			lastFile->size++;
 		}
 		if  (lastSymbol)
 		{

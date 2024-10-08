@@ -11,13 +11,13 @@ namespace mimik {..} ==> prefix all with `mimik_'
 
 group g
 {
-    bit x;
-    bit y;
-    field f
-    {
-        ONE,
-        TWO
-    };
+	bit x;
+	bit y;
+	field f
+	{
+		ONE,
+		TWO
+	};
 };
 ==>
 #define _G_X      0b00000001
@@ -34,5 +34,5 @@ int[2] vector3 = vector1 * vector2;
 
 // test ==> "file_test.o"
 test {
-    ...
+	...
 };

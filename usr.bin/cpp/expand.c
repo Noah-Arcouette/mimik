@@ -15,7 +15,7 @@ expand (int c)
 	// possible macro char:
 	if (isalnum(c) || c == '_')
 	{
-    	// grow buffer
+		// grow buffer
 		bufsz++;
 
 		if (bufsz >= bufcp)
@@ -63,7 +63,7 @@ expand (int c)
 //     pass expansion through `expand'
 	else
 	{
-    	// print buffer
+		// print buffer
 		fwrite(expand_buf, 1, bufsz-1, fout);
 	}
 

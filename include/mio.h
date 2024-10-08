@@ -15,19 +15,19 @@
 typedef unsigned char MiO_byte;
 struct MiO_Header
 {
-    MiO_byte magic[4]; // header magic number
-    MiO_byte version;  // format version
-    MiO_byte flags;    // header flags
+	MiO_byte magic[4]; // header magic number
+	MiO_byte version;  // format version
+	MiO_byte flags;    // header flags
 
-    MiO_byte arch;            // architecture
-    MiO_byte uarch;           // microarchitecture
-    MiO_byte archFeatures[8]; // 64bit architecture feature bitmap
+	MiO_byte arch;            // architecture
+	MiO_byte uarch;           // microarchitecture
+	MiO_byte archFeatures[8]; // 64bit architecture feature bitmap
 
-    MiO_byte system;         // operating system
-    MiO_byte abi;            // application binary interface
-    MiO_byte sysFeatures[8]; // 64bit operating system feature bitmap
+	MiO_byte system;         // operating system
+	MiO_byte abi;            // application binary interface
+	MiO_byte sysFeatures[8]; // 64bit operating system feature bitmap
 
-    MiO_byte entry[64]; // C-string entry symbol
+	MiO_byte entry[64]; // C-string entry symbol
 } __attribute__((packed));
 
 #define MIO_SECTION_FLAG_PERMISSION_READ    1 // program readable section
@@ -37,18 +37,18 @@ struct MiO_Header
 #define MIO_SECTION_FLAG_LAST              16 // last section
 struct MiO_Section
 {
-    MiO_byte name  [64]; // section name
-    MiO_byte offset[8];  // offset of section into data section, or virtual bss data section
-    MiO_byte size  [8];  // size of section
-    MiO_byte flags;
+	MiO_byte name  [64]; // section name
+	MiO_byte offset[8];  // offset of section into data section, or virtual bss data section
+	MiO_byte size  [8];  // size of section
+	MiO_byte flags;
 } __attribute__((packed));
 
 #define MIO_DATA_FORMAT_RAW 1 // raw bytes
 struct MiO_Data
 {
-    MiO_byte format;  // format of the data
-    MiO_byte size[8]; // amount of data
-    MiO_byte data[];
+	MiO_byte format;  // format of the data
+	MiO_byte size[8]; // amount of data
+	MiO_byte data[];
 } __attribute__((packed));
 
 #define MIO_LIB_NAME ".libraries"
@@ -56,8 +56,8 @@ struct MiO_Data
 #define MIO_LIB_TYPE_OPTIONAL 2 // not needed
 struct MiO_Lib // libraries
 {
-    MiO_byte path[256]; // path/filename to libraries
-    MiO_byte type;      // type of library
+	MiO_byte path[256]; // path/filename to libraries
+	MiO_byte type;      // type of library
 } __attribute__((packed));
 
 #define MIO_SYMLIST_NAME ".symbols.list"
@@ -69,10 +69,10 @@ struct MiO_Lib // libraries
 #define MIO_SYMLIST_GLOBAL         4 // global symbol, bit flag
 struct MiO_SymList
 {
-    MiO_byte name[64]; // name of symbol
-    MiO_byte size[8];  // size of symbol
-    MiO_byte val [8];  // value/offset of symbol
-    MiO_byte flags;    // the symbol type and flags
+	MiO_byte name[64]; // name of symbol
+	MiO_byte size[8];  // size of symbol
+	MiO_byte val [8];  // value/offset of symbol
+	MiO_byte flags;    // the symbol type and flags
 } __attribute__((packed));
 
 #define MIO_RELOC_NAME ".relocations"
@@ -81,35 +81,35 @@ struct MiO_SymList
 #define MIO_RELOC_FLAG_EXECUTE 4
 struct MiO_Reloc
 {
-    MiO_byte name  [64]; // name of symbol to relocate
-    MiO_byte offset[8];  // byte offset into file
-    MiO_byte type;       // type of relocation format and flags, see architecture specific definitions
+	MiO_byte name  [64]; // name of symbol to relocate
+	MiO_byte offset[8];  // byte offset into file
+	MiO_byte type;       // type of relocation format and flags, see architecture specific definitions
 } __attribute__((packed));
 
 #define MIO_MAP_NAME ".map"
 #define MIO_MAP_FLAG_BSS 1 // map uninitialized symbols
 struct MiO_Map
 {
-    MiO_byte flags;
-    MiO_byte offset  [8]; // offset into data section, or virtual bss section
-    MiO_byte fsize   [8]; // amount of file data to copy
-    MiO_byte virt    [8]; // virtual address, set to all ones for undefined
-    MiO_byte physical[8]; // physical address, set to all ones for undefined
-    MiO_byte align   [8]; // align undefined address to boundary
-    MiO_byte size    [8]; // memory size
+	MiO_byte flags;
+	MiO_byte offset  [8]; // offset into data section, or virtual bss section
+	MiO_byte fsize   [8]; // amount of file data to copy
+	MiO_byte virt    [8]; // virtual address, set to all ones for undefined
+	MiO_byte physical[8]; // physical address, set to all ones for undefined
+	MiO_byte align   [8]; // align undefined address to boundary
+	MiO_byte size    [8]; // memory size
 } __attribute__((packed));
 
 #define MIO_SEG_NAME ".segments"
 #define MIO_SEG_FLAG_BSS 1 // map uninitialized symbols
 struct MiO_Seg
 {
-    MiO_byte flags;
-    MiO_byte offset  [8]; // offset into data section, or virtual bss section
-    MiO_byte fsize   [8]; // amount of file data to copy
-    MiO_byte segment;     // see architecture defined values
-    MiO_byte physical[8]; // physical address, set to all ones for undefined
-    MiO_byte align   [8]; // align undefined address to boundary
-    MiO_byte size    [8]; // memory size
+	MiO_byte flags;
+	MiO_byte offset  [8]; // offset into data section, or virtual bss section
+	MiO_byte fsize   [8]; // amount of file data to copy
+	MiO_byte segment;     // see architecture defined values
+	MiO_byte physical[8]; // physical address, set to all ones for undefined
+	MiO_byte align   [8]; // align undefined address to boundary
+	MiO_byte size    [8]; // memory size
 } __attribute__((packed));
 
 #endif

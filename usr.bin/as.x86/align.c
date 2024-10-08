@@ -20,13 +20,13 @@ align (size_t alignment)
 	// grow sizing
 	if (lastFile)
 	{
-		lastFile->size += rem; 
+		lastFile->size += rem;
 	}
 	if (lastSymbol)
 	{
 		lastSymbol->size += rem;
 	}
-	
+
 	while (rem--)
 	{
 		// 0xe1 is a random number for padding
