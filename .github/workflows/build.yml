@@ -7,6 +7,6 @@ jobs:
             - name: "Check out"
               uses: actions/checkout@v4
             - name: "Configure"
-              run: "yes \"\" | ./oldconfig"
+              run: "./oldconfig --all-yes"
             - name: "Build"
               run: "tup"

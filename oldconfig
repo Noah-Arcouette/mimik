@@ -5,4 +5,4 @@ export KCONFIG_CONFIG
 KCONFIG_OVERWRITECONFIG=1
 export KCONFIG_OVERWRITECONFIG
 
-kconfig-conf --oldconfig ./Kconfig
+kconfig-conf --oldconfig ./Kconfig $@

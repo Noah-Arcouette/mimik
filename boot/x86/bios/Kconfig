@@ -1,7 +1,7 @@
 
 menuconfig BOOT_X86_BIOS
 	bool "mbr-break.bin, boot-sector.bin"
-	default y
+	default n
 if BOOT_X86_BIOS
 	choice BOOT_X86_BIOS_OFF
 		bool "Boot off of"
@@ -45,5 +45,5 @@ endif
 
 config BOOT_X86_BIOS_ELF
 	bool "bios.elf"
-	default y
+	default n
 	depends on BOOT_X86_BIOS
