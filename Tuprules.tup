@@ -37,6 +37,11 @@ ifeq (@(ARCH_X86),y)
 TARGETFLAGS+=-m32
 endif
 
+# Valgrind
+ifeq (@(USE_VALGRIND),y)
+VALGRIND:=@(VALGRIND)
+endif
+
 # includes
 COMMONFLAGS+=-I$(ROOT)/include/
 
@@ -54,7 +59,7 @@ COMMONFLAGS+=-I$(ROOT)/include/
 # Host Yacc
 !host_yacc = |> ^ HOST-YACC %f -> %o^ $(YACC) -d -b y %f |> y.tab.c | y.tab.h
 # Copy
-!cp = | $(ROOT)/<toolchain> |> ^ CP %f -> %o^ $(ROOT)/toolchain/cp %f %o |>
+!cp = | $(ROOT)/<toolchain> |> ^ CP %f -> %o^ $(VALGRIND) $(ROOT)/toolchain/cp %f %o |>
 # Object Copy
 !objcopy = |> ^ OBJCOPY %f -> %o^ $(OBJCOPY) %f %o |>
 # Text Distribute, allows for possible compression option in the future

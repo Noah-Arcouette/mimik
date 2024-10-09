@@ -36,6 +36,15 @@ menu "Host Toolchain"
 	config AR
 		string "Library Archivor"
 		default "ar"
+
+	config USE_VALGRIND
+		bool "Run all toolchain binaries will Valgrind (will be drastically slower)"
+
+	config VALGRIND
+		string "Valgrind"
+		depends on USE_VALGRIND
+
+		default "valgrind --leak-check=full"
 endmenu
 
 choice ARCH
