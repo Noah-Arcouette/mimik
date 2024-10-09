@@ -72,5 +72,6 @@ reset_buffer:
 	expand_buf[0] = '\0';
 print:
 	// print c
-	fputc(c, fout);
+	if  (c != EOF)
+		fputc(c, fout);
 }

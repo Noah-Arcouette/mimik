@@ -10,6 +10,7 @@ extern const char *filename;
 extern FILE *fout;
 
 extern char *expand_buf;
+extern char *directive_buf;
 
 extern size_t lineno;
 

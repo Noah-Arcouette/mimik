@@ -16,13 +16,19 @@ size_t lineno;
 
 // expand.c saved character buffer
 char *expand_buf = (char *)NULL;
+// directives.c saved character buffer
+char *directive_buf = (char *)NULL;
 
 void
-expand_buf_free (void)
+buf_free (void)
 {
 	if (expand_buf)
 	{
 		free(expand_buf);
+	}
+	if (directive_buf)
+	{
+		free(directive_buf);
 	}
 }
 
@@ -39,7 +45,7 @@ main (int argc, char * const*argv)
 		self = argv[0];
 	}
 
-	atexit(expand_buf_free);
+	atexit(buf_free);
 
 	// line control
 	fprintf(fout, "# 1 \"<command-line>\"\n");
@@ -125,4 +131,5 @@ main (int argc, char * const*argv)
 		// send character down the pipeline, starting at line splicing
 		lineSplicing(c);
 	}
+	lineSplicing(EOF);
 }
