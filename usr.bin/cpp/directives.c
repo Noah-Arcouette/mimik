@@ -87,7 +87,9 @@ check: // for rerunning check on state change
 			expand(directive_buf[i]);
 		}
 		bufsz = 1; // reset buffer
-		state = 0; // reset state
+
+		if (c == '\n') // only if newline
+			state = 0; // reset state
 		break;
 	}
 }
