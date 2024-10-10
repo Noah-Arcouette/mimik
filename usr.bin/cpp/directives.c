@@ -1,11 +1,10 @@
-#include "pipeline.h"
+#include "defs.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
 #include <errno.h>
 #include <stdio.h>
-#include "globs.h"
 
 void
 directives (int c)

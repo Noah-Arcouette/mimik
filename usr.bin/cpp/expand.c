@@ -1,5 +1,4 @@
-#include "globs.h"
-#include "pipeline.h"
+#include "defs.h"
 #include <ctype.h>
 #include <stddef.h>
 #include <string.h>

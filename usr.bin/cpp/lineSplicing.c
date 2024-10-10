@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "pipeline.h"
-#include "globs.h"
+#include "defs.h"
 
 void
 lineSplicing (int c)

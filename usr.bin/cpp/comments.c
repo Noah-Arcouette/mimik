@@ -1,5 +1,4 @@
-#include "pipeline.h"
-#include "globs.h"
+#include "defs.h"
 #include <stdio.h>
 #define COMMENTS_STATE_POSSIBLE_COMMENT  1
 #define COMMENTS_STATE_COMMENT           2
