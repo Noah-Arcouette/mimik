@@ -1,58 +1,30 @@
 
-```C
-extern int printf (ptr, ...)
+globals/data
 
-self.0: .asciz "self"
-fmt: .asciz "%s: %s\n"
-
-global self: .ptr self.0
-
-global function main:
-	int argc = input.int 0
-	ptr argv = input.ptr 1
-
-	void = goto_le argc 0 next
-	ptr t1 = load.ptr argv
-	void = store.ptr self t1
-next:
-
-	int i.start = 1
-	ptr t2.start = argv
-for_start:
-	int i = phi i.start i.new
-
-	void = goto_ge argc i for_end
-
-	ptr t2 = phi t2.start t2.new
-	void = printf fmt self t2
-
-	ptr t2.new = add.ptr t2 sizeof(ptr)
-
-	int i.new = add.int i 1
-	void = goto for_start
-for_end:
-	void = return.int 0
-```
+functions:
+    block:
+        operations...
+        control flow
 
 
-```C
-extern int printf (const char *restrict fmt, ...);
+r self:
+    .asciz "Self"
+r fmt:
+    .asciz "%s\n"
 
-const char *self = "self";
+gx main:
+    i32 %0 = i32_arg 0
+    ptr %1 = ptr_arg 1
 
-int
-main (int argc, const char *argv)
-{
-	if (argc > 0)
-	{
-		self = argv[0];
-	}
+    bool %2 = i32_le %0 0
+    goto @L2, if %2
+    goto @L1
+x L1:
+    ptr %self.0 = ptr_dereference %1 0
+    goto @L2
+x L2:
+    ptr %self := @self %self.0
+    printf @fmt %self
 
-	for (int i = 1; i<argc; i++)
-	{
-		printf("%s: %s\n", self, argv[i]);
-	}
-
-	return 0;
-}
-```
+    i32_ret 0
+    unreachable
