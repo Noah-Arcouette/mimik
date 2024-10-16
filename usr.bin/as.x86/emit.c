@@ -1,4 +1,3 @@
-#define _DEFAULT_SOURCE // glibc compatibility
 #include <stdio.h>
 #include <endian.h>
 #include <errno.h>
