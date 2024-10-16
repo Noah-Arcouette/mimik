@@ -2,6 +2,7 @@
 #define __MIO_H__
 
 // multibyte data is in little endian
+// string buffer may not be terminated if all data is used, please use strn(cpy,cat,cmp)
 
 #define MIO_MAGIC "\xe1MiO"
 #define MIO_CURRENT_VERSION 0
@@ -27,7 +28,7 @@ struct MiO_Header
 	MiO_byte abi;            // application binary interface
 	MiO_byte sysFeatures[8]; // 64bit operating system feature bitmap
 
-	MiO_byte entry[64]; // C-string entry symbol
+	MiO_byte entry[64]; // entry symbol
 } __attribute__((packed));
 
 #define MIO_SECTION_FLAG_PERMISSION_READ    1 // program readable section

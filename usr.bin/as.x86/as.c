@@ -33,6 +33,9 @@ main (int argc, const char **argv)
 	// parser input
 	yyparse();
 
+	// compile symbol and relocation tables
+	buildSymbolTable();
+
 	// free data structures, and print them
 	struct section *nextSection;
 	currentSection = firstSection;

@@ -79,4 +79,7 @@ extern void emitRelocation (int, const char *);
 // align.c
 extern void align (size_t);
 
+// buildSymTab.c
+extern void buildSymbolTable (void);
+
 #endif
