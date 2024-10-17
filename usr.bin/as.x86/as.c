@@ -35,6 +35,7 @@ main (int argc, const char **argv)
 
 	// compile symbol and relocation tables
 	buildSymbolTable();
+	buildRelocTable();
 
 	// free data structures, and print them
 	struct section *nextSection;

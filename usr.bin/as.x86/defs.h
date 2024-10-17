@@ -82,4 +82,7 @@ extern void align (size_t);
 // buildSymTab.c
 extern void buildSymbolTable (void);
 
+// buildRelocTab.c
+extern void buildRelocTable (void);
+
 #endif
