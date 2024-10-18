@@ -2,12 +2,6 @@
 #include "../colors.h"
 #include "../lang.h"
 
-#define __STR(X) #X
-#define STR(X) __STR(X)
-
-// first LBA for the data of the payload in the file system
-unsigned int payloadDataStart;
-
 // old tar format, USTAr additions aren't really needed
 struct tar
 {
@@ -22,6 +16,8 @@ struct tar
 	char linkName[100]; // name of linked file, if any
 	char padding[255];
 } __attribute__((packed));
+#define TAR_SYMLINK  '2'
+#define TAR_HARDLINK '1'
 
 // get octal for tar.size
 unsigned int
@@ -40,10 +36,9 @@ tar_getSize (const char *size)
 	return val;
 }
 
-// WARNING: Does not follow any links
-// setup for reading from payload file
+// open file returning the pointer to its inode
 int
-fsInit (void)
+fsopen (const char *filename)
 {
 	unsigned int currentBlock = pinfo.start;
 	struct tar tar;
@@ -61,19 +56,17 @@ fsInit (void)
 		// tar terminator
 		if (tar.name[0] == '\0')
 		{
-			// boot file not found
-			puts(NO_BOOT_FILE, FG_RED);
-			puts(STR(PAYLOAD), FG_WHITE);
-			puts(NO_BOOT_FILE2, FG_RED);
-			return 1;
+			return -1; // not found
 		}
 
-		// is it the boot file
-		if (!strncmp(tar.name, STR(PAYLOAD), 100))
+		// is it the searched file
+		if (!strncmp(tar.name, filename, 100))
 		{
-			// set the data block
-			payloadDataStart = currentBlock+1;
-			return 0;
+			if (tar.type == TAR_SYMLINK || tar.type == TAR_HARDLINK)
+			{
+				return fsopen(tar.linkName);
+			}
+			return currentBlock; // return inode
 		}
 
 		// get offset to next tar block
@@ -87,6 +80,6 @@ fsInit (void)
 	}
 }
 
-// read from payload file
+// read from file
 int
-fsRead (unsigned int seek, unsigned int size, void *buf);
+fsRead (unsigned int fildes, unsigned int seek, unsigned int size, void *buf);

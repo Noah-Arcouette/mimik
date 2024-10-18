@@ -53,9 +53,9 @@
 // Partition Messages
 #define PART_NO_PART "No bootable partition found\n"
 
-// File System Messages
-#define NO_BOOT_FILE  "Boot loader payload not found, looking for `"
-#define NO_BOOT_FILE2 "'\n"
+// Boot Loader file reading
+#define NO_KERNEL_FILE  "Boot loader kernel path not resolvable or failed to open, looking for `"
+#define NO_KERNEL_FILE2 "'\n"
 
 // Memory Map
 #define MEMORY_MAP_HEADER "Address | Length | Type\n"

@@ -67,8 +67,8 @@ extern struct memoryMap map[MAX_MAP];
 extern unsigned int     maps;
 
 // fs/<type>
-extern int fsInit (void);
-extern int fsRead (unsigned int, unsigned int, void *);
+extern int fsopen (const char *);
+extern int fsread (unsigned int, unsigned int, unsigned int, void *);
 
 // strcmp.c
 int strncmp (const char *restrict, const char *restrict, unsigned int);

@@ -3,6 +3,9 @@
 #include "lang.h"
 #include "unreal.h"
 
+#define __STR(X) #X
+#define STR(X) __STR(X)
+
 struct diskInfo  dinfo;
 struct partInfo  pinfo;
 struct memoryMap map[MAX_MAP];
@@ -29,9 +32,13 @@ _unreal (void)
 		goto leave;
 	}
 
-	// load boot file
-	if (fsInit())
+	// open kernel file
+	int kernel = fsopen(STR(KERNEL));
+	if (kernel < 0) // failed to open
 	{
+		puts(NO_KERNEL_FILE, FG_RED);
+		puts(STR(KERNEL), FG_WHITE);
+		puts(NO_KERNEL_FILE2, FG_RED);
 		goto leave;
 	}
 
