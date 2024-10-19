@@ -10,6 +10,13 @@
 void
 emit (size_t val, int type)
 {
+	if (!currentSection)
+	{
+		fprintf(stderr, "%s:%d: Cannot emit data outside of a section.\n", filename, lineno-1);
+		errors++;
+		return;
+	}
+
 	switch (type)
 	{
 	case BYTE:
