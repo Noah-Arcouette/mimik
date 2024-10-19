@@ -1,4 +1,10 @@
 
+Boot loader:
+	- Load kernel from file system
+	- Load initial processes and services from file system
+	- Use kernel, unreal-mode stub, to load and boot strap the kernel structures
+
+
 Message Protocol:
 	Fork Message:
 		duplicate all data
