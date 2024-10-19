@@ -33,9 +33,12 @@ main (int argc, const char **argv)
 	// parser input
 	yyparse();
 
-	// compile symbol and gap tables
-	buildSymbolTable();
-	buildGapTable();
+	if (!errors)
+	{
+		// compile symbol and gap tables
+		buildSymbolTable();
+		buildGapTable();
+	}
 
 	// free data structures, and print them
 	struct section *nextSection;
