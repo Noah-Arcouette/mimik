@@ -81,7 +81,7 @@ data:
 	| SHORT VALUE { emit($2.value, SHORT); }
 	| INT VALUE   { emit($2.value, INT);   }
 	| LONG VALUE  { emit($2.value, LONG);  }
-	| LONG SYMBOL { emitRelocation(MIO_RELOC_ABSOLUTE_QWORD, $2.string); free($2.string); }
+	| LONG SYMBOL { emitGap(MIO_GAP_ABSOLUTE_QWORD, $2.string); free($2.string); }
 	| ASCIZ STRING {
 		for (size_t i = 0; $2.string[i]; i++)
 		{
@@ -95,19 +95,19 @@ data:
 jmp:
 	LJMP '$' VALUE ',' '$' SYMBOL {
 		emit(0xea, BYTE);
-		emitRelocation(MIO_RELOC_RELATIVE_WORD|MIO_RELOC_FLAG_EXECUTE, $6.string);
+		emitGap(MIO_GAP_RELATIVE_WORD|MIO_GAP_FLAG_EXECUTE, $6.string);
 		free($6.string);
 		emit($3.value, WORD);
 	}
 	| JMP '$' VALUE ',' '$' SYMBOL {
 		emit(0xea, BYTE);
-		emitRelocation(MIO_RELOC_RELATIVE_WORD|MIO_RELOC_FLAG_EXECUTE, $6.string);
+		emitGap(MIO_GAP_RELATIVE_WORD|MIO_GAP_FLAG_EXECUTE, $6.string);
 		free($6.string);
 		emit($3.value, WORD);
 	}
 	| JMP SYMBOL {
 		emit(0xe9, BYTE);
-		emitRelocation(MIO_RELOC_RELATIVE_WORD|MIO_RELOC_FLAG_EXECUTE, $2.string);
+		emitGap(MIO_GAP_RELATIVE_WORD|MIO_GAP_FLAG_EXECUTE, $2.string);
 		free($2.string);
 	}
 	;
@@ -115,7 +115,7 @@ jmp:
 call:
 	CALL SYMBOL {
 		emit(0xe8, BYTE);
-		emitRelocation(MIO_RELOC_RELATIVE_WORD|MIO_RELOC_FLAG_EXECUTE, $2.string);
+		emitGap(MIO_GAP_RELATIVE_WORD|MIO_GAP_FLAG_EXECUTE, $2.string);
 		free($2.string);
 	}
 	;
@@ -123,12 +123,12 @@ call:
 jcc:
 	JZ SYMBOL {
 		emit(0x74, BYTE);
-		emitRelocation(MIO_RELOC_RELATIVE_BYTE|MIO_RELOC_FLAG_EXECUTE, $2.string);
+		emitGap(MIO_GAP_RELATIVE_BYTE|MIO_GAP_FLAG_EXECUTE, $2.string);
 		free($2.string);
 	}
 	| JC SYMBOL {
 		emit(0x72, BYTE);
-		emitRelocation(MIO_RELOC_RELATIVE_BYTE|MIO_RELOC_FLAG_EXECUTE, $2.string);
+		emitGap(MIO_GAP_RELATIVE_BYTE|MIO_GAP_FLAG_EXECUTE, $2.string);
 		free($2.string);
 	}
 	;
@@ -142,7 +142,7 @@ ret:
 cmp:
 	CMP '$' SYMBOL ',' AL {
 		emit(0x3c, BYTE);
-		emitRelocation(MIO_RELOC_ABSOLUTE_BYTE|MIO_RELOC_FLAG_READ, $3.string);
+		emitGap(MIO_GAP_ABSOLUTE_BYTE|MIO_GAP_FLAG_READ, $3.string);
 		free($3.string);
 	}
 	;
@@ -184,7 +184,7 @@ mov:
 	}
 	| MOV '$' SYMBOL ',' reg16 {
 		emit(0xb8+$5.value, BYTE);
-		emitRelocation(MIO_RELOC_ABSOLUTE_WORD|MIO_RELOC_FLAG_READ, $3.string);
+		emitGap(MIO_GAP_ABSOLUTE_WORD|MIO_GAP_FLAG_READ, $3.string);
 		free($3.string);
 	}
 	| MOV '$' VALUE ',' reg8 {
@@ -193,19 +193,19 @@ mov:
 	}
 	| MOV '$' SYMBOL ',' reg8 {
 		emit(0xb0+$5.value, BYTE);
-		emitRelocation(MIO_RELOC_ABSOLUTE_BYTE|MIO_RELOC_FLAG_READ, $3.string);
+		emitGap(MIO_GAP_ABSOLUTE_BYTE|MIO_GAP_FLAG_READ, $3.string);
 		free($3.string);
 	}
 	| MOV reg8 ',' SYMBOL {
 		emit(0x88, BYTE);
 		emit($2.value<<3|0b110, BYTE); // displacement
-		emitRelocation(MIO_RELOC_ABSOLUTE_WORD|MIO_RELOC_FLAG_WRITE, $4.string);
+		emitGap(MIO_GAP_ABSOLUTE_WORD|MIO_GAP_FLAG_WRITE, $4.string);
 		free($4.string);
 	}
 	| MOV SYMBOL ',' reg8 {
 		emit(0x8a, BYTE);
 		emit($4.value<<3|0b110, BYTE); // displacement
-		emitRelocation(MIO_RELOC_ABSOLUTE_WORD|MIO_RELOC_FLAG_READ, $2.string);
+		emitGap(MIO_GAP_ABSOLUTE_WORD|MIO_GAP_FLAG_READ, $2.string);
 		free($2.string);
 	}
 	;

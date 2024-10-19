@@ -76,15 +76,15 @@ struct MiO_SymList
 	MiO_byte flags;    // the symbol type and flags
 } __attribute__((packed));
 
-#define MIO_RELOC_NAME ".relocations"
-#define MIO_RELOC_FLAG_READ    1
-#define MIO_RELOC_FLAG_WRITE   2
-#define MIO_RELOC_FLAG_EXECUTE 4
-struct MiO_Reloc
+#define MIO_GAP_NAME ".gaps"
+#define MIO_GAP_FLAG_READ    1
+#define MIO_GAP_FLAG_WRITE   2
+#define MIO_GAP_FLAG_EXECUTE 4
+struct MiO_Gap
 {
-	MiO_byte name  [64]; // name of symbol to relocate
+	MiO_byte name  [64]; // name of symbol fill into the gap
 	MiO_byte offset[8];  // byte offset into file
-	MiO_byte type;       // type of relocation format and flags, see architecture specific definitions
+	MiO_byte type;       // type of gap and flags, see architecture specific definitions
 } __attribute__((packed));
 
 #define MIO_MAP_NAME ".map"

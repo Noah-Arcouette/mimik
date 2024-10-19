@@ -56,7 +56,7 @@ enterSection (const char *restrict section, const char *restrict flags)
 		goto memerror;
 	}
 	currentSection->firstSymbol = (struct symbol *)NULL;
-	currentSection->firstReloc  = (struct reloc  *)NULL;
+	currentSection->firstGap    = (struct gap    *)NULL;
 	currentSection->bssz        = 0;
 	currentSection->flags       = 0;
 

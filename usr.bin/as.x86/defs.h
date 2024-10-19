@@ -53,7 +53,7 @@ struct section
 	size_t bssz; // BSS size
 
 	struct symbol *firstSymbol;
-	struct reloc  *firstReloc;
+	struct gap    *firstGap;
 
 	struct section *next;
 };
@@ -65,16 +65,16 @@ extern void globalSymbol (const char *);
 // emit.c
 extern void emit (size_t, int);
 
-// emitRelocation.c
-struct reloc
+// emitGap.c
+struct gap
 {
 	char  *name;
 	size_t offset;
 	int    flags;
 
-	struct reloc *next;
+	struct gap *next;
 };
-extern void emitRelocation (int, const char *);
+extern void emitGap (int, const char *);
 
 // align.c
 extern void align (size_t);
@@ -82,7 +82,7 @@ extern void align (size_t);
 // buildSymTab.c
 extern void buildSymbolTable (void);
 
-// buildRelocTab.c
-extern void buildRelocTable (void);
+// buildGapTab.c
+extern void buildGapTable (void);
 
 #endif

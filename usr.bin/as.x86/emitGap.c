@@ -7,22 +7,22 @@
 #include "defs.h"
 
 void
-emitRelocation(int flags, const char *symbol)
+emitGap(int flags, const char *symbol)
 {
 	if (!currentSection)
 	{
-		fprintf(stderr, "%s:%d: Cannot emit relocation outside of section.\n", filename, lineno-1);
+		fprintf(stderr, "%s:%d: Cannot emit gap outside of section.\n", filename, lineno-1);
 		return;
 	}
-	// check to see if in BSS section, no relocations in BSS
+	// check to see if in BSS section, no gap in BSS
 
 	size_t currentPosition = ftell(currentSection->stream);
 
 	// output dumby data
 	char nothing[2] = {0xe1, 0xe1}; // dumby data
-	switch (flags&MIO_RELOC_TYPE_MASK)
+	switch (flags&MIO_GAP_TYPE_MASK)
 	{
-	case MIO_RELOC_ABSOLUTE_WORD:
+	case MIO_GAP_ABSOLUTE_WORD:
 		if (fwrite(nothing, 1, 2, currentSection->stream) != 2)
 		{
 			goto writeerror;
@@ -36,9 +36,9 @@ emitRelocation(int flags, const char *symbol)
 		{
 			lastSymbol->size += 2;
 		}
-		printf("Parser: Emit Absolute Word Relocation `%s'\n", symbol);
+		printf("Parser: Emit Absolute Word Gap `%s'\n", symbol);
 		break;
-	case MIO_RELOC_ABSOLUTE_BYTE:
+	case MIO_GAP_ABSOLUTE_BYTE:
 		if (fwrite(nothing, 1, 1, currentSection->stream) != 1)
 		{
 			goto writeerror;
@@ -52,9 +52,9 @@ emitRelocation(int flags, const char *symbol)
 		{
 			lastSymbol->size++;
 		}
-		printf("Parser: Emit Absolute Byte Relocation `%s'\n", symbol);
+		printf("Parser: Emit Absolute Byte Gap `%s'\n", symbol);
 		break;
-	case MIO_RELOC_RELATIVE_WORD:
+	case MIO_GAP_RELATIVE_WORD:
 		if (fwrite(nothing, 1, 2, currentSection->stream) != 2)
 		{
 			goto writeerror;
@@ -68,9 +68,9 @@ emitRelocation(int flags, const char *symbol)
 		{
 			lastSymbol->size += 2;
 		}
-		printf("Parser: Emit Relative Word Relocation `%s'\n", symbol);
+		printf("Parser: Emit Relative Word Gap `%s'\n", symbol);
 		break;
-	case MIO_RELOC_RELATIVE_BYTE:
+	case MIO_GAP_RELATIVE_BYTE:
 		if (fwrite(nothing, 1, 1, currentSection->stream) != 1)
 		{
 			goto writeerror;
@@ -84,17 +84,17 @@ emitRelocation(int flags, const char *symbol)
 		{
 			lastSymbol->size++;
 		}
-		printf("Parser: Emit Relative Byte Relocation `%s'\n", symbol);
+		printf("Parser: Emit Relative Byte Gap `%s'\n", symbol);
 		break;
 	default:
-		printf("Parser: Emit unknown relocation `%s'\n", symbol);
+		printf("Parser: Emit unknown Gap `%s'\n", symbol);
 		break;
 	}
 
-	// add relocation
-	struct reloc *reloc = currentSection->firstReloc; // save tail
-	currentSection->firstReloc = (struct reloc *)malloc(sizeof(struct reloc));
-	if (!currentSection->firstReloc)
+	// add gap
+	struct gap *gap = currentSection->firstGap; // save tail
+	currentSection->firstGap = (struct gap *)malloc(sizeof(struct gap));
+	if (!currentSection->firstGap)
 	{
 		int error;
 	memerror:
@@ -104,15 +104,15 @@ emitRelocation(int flags, const char *symbol)
 		exit(1);
 	}
 	// attach tail
-	currentSection->firstReloc->next = reloc;
-	reloc = currentSection->firstReloc; // dereference
-	reloc->name = strdup(symbol);
-	if (!reloc->name)
+	currentSection->firstGap->next = gap;
+	gap = currentSection->firstGap; // dereference
+	gap->name = strdup(symbol);
+	if (!gap->name)
 	{
 		goto memerror;
 	}
-	reloc->flags  = flags;
-	reloc->offset = currentPosition;
+	gap->flags  = flags;
+	gap->offset = currentPosition;
 
 	return;
 	int error;

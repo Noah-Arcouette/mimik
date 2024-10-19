@@ -33,9 +33,9 @@ main (int argc, const char **argv)
 	// parser input
 	yyparse();
 
-	// compile symbol and relocation tables
+	// compile symbol and gap tables
 	buildSymbolTable();
-	buildRelocTable();
+	buildGapTable();
 
 	// free data structures, and print them
 	struct section *nextSection;
@@ -85,40 +85,40 @@ main (int argc, const char **argv)
 			currentSymbol = nextSymbol;
 		}
 
-		// free relocations, and print them
-		struct reloc *currentReloc = currentSection->firstReloc;
-		struct reloc *nextReloc;
-		while (currentReloc)
+		// free gaps, and print them
+		struct gap *currentGap = currentSection->firstGap;
+		struct gap *nextGap;
+		while (currentGap)
 		{
 			// name and place
-			printf("Relocate `%s' at %zu, type: ", currentReloc->name, currentReloc->offset);
+			printf("Fill gap `%s' at %zu, type: ", currentGap->name, currentGap->offset);
 			// type
-			switch (currentReloc->flags&MIO_RELOC_TYPE_MASK)
+			switch (currentGap->flags&MIO_GAP_TYPE_MASK)
 			{
-			case MIO_RELOC_ABSOLUTE_WORD:
+			case MIO_GAP_ABSOLUTE_WORD:
 				printf("Absolute word.");
 				break;
-			case MIO_RELOC_ABSOLUTE_BYTE:
+			case MIO_GAP_ABSOLUTE_BYTE:
 				printf("Absolute byte.");
 				break;
-			case MIO_RELOC_RELATIVE_WORD:
+			case MIO_GAP_RELATIVE_WORD:
 				printf("Relative word.");
 				break;
-			case MIO_RELOC_RELATIVE_BYTE:
+			case MIO_GAP_RELATIVE_BYTE:
 				printf("Relative byte.");
 				break;
 			}
 
 			// flags
-			if (currentReloc->flags & MIO_RELOC_FLAG_EXECUTE)
+			if (currentGap->flags & MIO_GAP_FLAG_EXECUTE)
 			{
 				printf(" Executable");
 			}
-			if (currentReloc->flags & MIO_RELOC_FLAG_READ)
+			if (currentGap->flags & MIO_GAP_FLAG_READ)
 			{
 				printf(" Readable");
 			}
-			if (currentReloc->flags & MIO_RELOC_FLAG_WRITE)
+			if (currentGap->flags & MIO_GAP_FLAG_WRITE)
 			{
 				printf(" Writable");
 			}
@@ -126,10 +126,10 @@ main (int argc, const char **argv)
 			putchar('\n');
 
 			// free them and move onto the next
-			nextReloc = currentReloc->next;
-			free(currentReloc->name);
-			free(currentReloc);
-			currentReloc = nextReloc;
+			nextGap = currentGap->next;
+			free(currentGap->name);
+			free(currentGap);
+			currentGap = nextGap;
 		}
 
 		// sections data and bss sizes
