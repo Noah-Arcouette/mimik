@@ -6,7 +6,8 @@
 
 // TODO: setup an atomic and always free environment, even on forced exits/hard errors
 
-int yyparse (void);
+int  yyparse       (void);
+void yylex_destroy (void); // lexer clean up, not portable but who cares
 
 char *filename = "<stdin>"; // input file name
 
@@ -41,6 +42,8 @@ main (int argc, const char **argv)
 		buildSymbolTable();
 		buildGapTable();
 	}
+
+	yylex_destroy(); // clean up lexer
 
 	// free data structures, and print them
 	struct section *nextSection;

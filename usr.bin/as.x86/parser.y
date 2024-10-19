@@ -7,6 +7,9 @@
 #include <mio.h>
 #include <mio-x86.h>
 
+// tell yacc to prevent leaks and free data when done
+#define YY_NO_LEAKS
+
 int errors = 0;
 
 // Bison support
