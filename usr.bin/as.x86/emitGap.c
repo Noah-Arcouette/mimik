@@ -12,9 +12,17 @@ emitGap(int flags, const char *symbol)
 	if (!currentSection)
 	{
 		fprintf(stderr, "%s:%d: Cannot emit gap outside of section.\n", filename, lineno-1);
+		errors++;
 		return;
 	}
-	// check to see if in BSS section, no gap in BSS
+
+	// check to see if in BSS section, no gaps allowed in BSS
+	if (currentSection->flags & MIO_SECTION_FLAG_BSS)
+	{
+		fprintf(stderr, "%s:%d: Not allowed to reserve a gap inside a BSS section.\n", filename, lineno-1);
+		errors++;
+		return;
+	}
 
 	size_t currentPosition = ftell(currentSection->stream);
 
