@@ -56,23 +56,24 @@ main (int argc, const char **argv)
 	firstSection   = (struct section *)NULL;
 	lastFile       = (struct symbol  *)NULL;
 	lastSymbol     = (struct symbol  *)NULL;
+	atexit(freeAll); // free all data structures at end of execution
 
 	// parser input
 	yyparse();
+
+	yylex_destroy(); // free lexer
 
 	if (!errors)
 	{
 		// compile symbol and gap tables
 		buildSymbolTable();
 		buildGapTable();
+
+		// write file header
+		writeHeader();
 	}
 
-	yylex_destroy(); // clean up lexer
-
-	// write file header
-	writeHeader();
-
-	// free data structures, and print them
+	// print data structures
 	struct section *nextSection;
 	currentSection = firstSection;
 	while (currentSection)
@@ -113,16 +114,11 @@ main (int argc, const char **argv)
 			// name, place, and size
 			printf("%s %zu(%zuB)\n", currentSymbol->name, currentSymbol->val, currentSymbol->size);
 
-			// free them
-			free(currentSymbol->name);
-			free(currentSymbol);
-
 			currentSymbol = nextSymbol;
 		}
 
 		// free gaps, and print them
 		struct gap *currentGap = currentSection->firstGap;
-		struct gap *nextGap;
 		while (currentGap)
 		{
 			// name and place
@@ -161,28 +157,15 @@ main (int argc, const char **argv)
 			putchar('\n');
 
 			// free them and move onto the next
-			nextGap = currentGap->next;
-			free(currentGap->name);
-			free(currentGap);
-			currentGap = nextGap;
+			currentGap = currentGap->next;
 		}
 
 		// sections data and bss sizes
 		printf("Data size: %ld\n", ftell(currentSection->stream));
 		printf("BSS size:  %ld\n", currentSection->bssz);
 
-		// free data
-		if (currentSection->stream)
-		{
-			fclose(currentSection->stream); // close output stream
-			free(currentSection->buffer);
-		}
-		free(currentSection->name);
-		free(currentSection);
-
 		currentSection = nextSection; // next section
 	}
-	fclose(fout);
 
 	return errors;
 }

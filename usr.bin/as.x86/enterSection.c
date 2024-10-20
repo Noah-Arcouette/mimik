@@ -53,6 +53,7 @@ enterSection (const char *restrict section, const char *restrict flags)
 	);
 	if (!currentSection->stream)
 	{
+		currentSection->buffer = (char *)NULL;
 		goto memerror;
 	}
 	currentSection->firstSymbol = (struct symbol *)NULL;

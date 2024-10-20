@@ -100,4 +100,7 @@ extern void buildGapTable (void);
 // writeHeader.c
 extern void writeHeader (void);
 
+// free.c
+extern void freeAll (void);
+
 #endif

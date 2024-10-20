@@ -102,9 +102,10 @@ emitGap(int flags, const char *symbol)
 	// add gap
 	struct gap *gap = currentSection->firstGap; // save tail
 	currentSection->firstGap = (struct gap *)malloc(sizeof(struct gap));
+	int error;
 	if (!currentSection->firstGap)
 	{
-		int error;
+		currentSection->firstGap = gap; // reset tail
 	memerror:
 		error = errno;
 		fprintf(stderr, "%s: Failed to allocate memory.\n", self);
@@ -123,7 +124,6 @@ emitGap(int flags, const char *symbol)
 	gap->offset = currentPosition;
 
 	return;
-	int error;
 	// failed to write data
 writeerror:
 	error = errno;
