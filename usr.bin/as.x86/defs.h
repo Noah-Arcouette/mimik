@@ -25,6 +25,18 @@ extern struct section *currentSection;
 extern struct section *firstSection;
 extern struct symbol  *lastFile;
 extern struct symbol  *lastSymbol;
+extern        FILE    *fout;
+extern const  char    *fileout;
+
+extern struct header
+{
+	int uarch;
+	int archFeatures;
+
+	int system;
+	int abi;
+	int sysFeatures;
+} header;
 
 // lexer.l
 extern int lineno;
@@ -84,5 +96,8 @@ extern void buildSymbolTable (void);
 
 // buildGapTab.c
 extern void buildGapTable (void);
+
+// writeHeader.c
+extern void writeHeader (void);
 
 #endif

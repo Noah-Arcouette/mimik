@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 #include "defs.h"
 #include <mio.h>
 #include <mio-x86.h>
@@ -15,10 +17,22 @@ const char *self = "as.x86";
 
 int code = 32;
 
+FILE *fout;
+const char *fileout = "a.out"; // a.out as default output file name
+
 struct section *currentSection;
 struct section *firstSection;
 struct symbol  *lastFile;
 struct symbol  *lastSymbol;
+
+struct header header = {
+	.uarch        = MIO_UARCH_I8086,
+	.archFeatures = 0,
+
+	.system      = MIO_SYSTEM_UNKNOWN,
+	.abi         = MIO_ABI_UNKNOWN,
+	.sysFeatures = 0
+};
 
 int
 main (int argc, const char **argv)
@@ -26,6 +40,16 @@ main (int argc, const char **argv)
 	if (argc > 0)
 	{
 		self = argv[0];
+	}
+
+	// open ouput file
+	fout = fopen(fileout, "w");
+	if (!fout)
+	{
+		int errnum = errno;
+		fprintf(stderr, "%s: Failed to open file `%s' for writing.\n", self, fileout);
+		fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+		exit(1);
 	}
 
 	currentSection = (struct section *)NULL;
@@ -44,6 +68,9 @@ main (int argc, const char **argv)
 	}
 
 	yylex_destroy(); // clean up lexer
+
+	// write file header
+	writeHeader();
 
 	// free data structures, and print them
 	struct section *nextSection;
@@ -155,6 +182,7 @@ main (int argc, const char **argv)
 
 		currentSection = nextSection; // next section
 	}
+	fclose(fout);
 
 	return errors;
 }
