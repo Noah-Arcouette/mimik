@@ -17,7 +17,7 @@ const char *self = "as.x86";
 
 int code = 32;
 
-FILE *fout;
+FILE *fout          = (FILE *)NULL;
 const char *fileout = "a.out"; // a.out as default output file name
 
 struct section *currentSection;
@@ -42,16 +42,6 @@ main (int argc, const char **argv)
 		self = argv[0];
 	}
 
-	// open ouput file
-	fout = fopen(fileout, "w");
-	if (!fout)
-	{
-		int errnum = errno;
-		fprintf(stderr, "%s: Failed to open file `%s' for writing.\n", self, fileout);
-		fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
-		exit(1);
-	}
-
 	currentSection = (struct section *)NULL;
 	firstSection   = (struct section *)NULL;
 	lastFile       = (struct symbol  *)NULL;
@@ -68,6 +58,16 @@ main (int argc, const char **argv)
 		// compile symbol and gap tables
 		buildSymbolTable();
 		buildGapTable();
+
+		// open ouput file
+		fout = fopen(fileout, "w");
+		if (!fout)
+		{
+			int errnum = errno;
+			fprintf(stderr, "%s: Failed to open file `%s' for writing.\n", self, fileout);
+			fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+			exit(1);
+		}
 
 		// write file header
 		writeHeader();
