@@ -20,6 +20,7 @@ buildSymbolTable (void)
 	// for each section
 	struct section *csect = firstSection;
 	struct symbol  *csym;
+	struct symbol  *nextSym;
 	while (csect)
 	{
 		// for each symbol
@@ -64,7 +65,13 @@ buildSymbolTable (void)
 				exit(1);
 			}
 
-			csym = csym->next; // next symbol
+			nextSym = csym->next;
+			// free data symbol
+			free(csym->name);
+			free(csym);
+
+			csect->firstSymbol = nextSym; // reset tail just incase next output fails
+			csym = nextSym;               // next symbol
 		}
 
 		// update offsets

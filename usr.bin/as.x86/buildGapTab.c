@@ -12,6 +12,7 @@ buildGapTable (void)
 
 	struct section *csect = firstSection; // current section
 	struct gap     *cgap; // current gap
+	struct gap     *nextGap;
 	struct MiO_Gap  gap; // MiO gap
 	size_t fileoff = 0;     // file offset
 	// for each section
@@ -39,7 +40,13 @@ buildGapTable (void)
 				exit(1);
 			}
 
-			cgap = cgap->next; // next gap
+			nextGap = cgap->next; // save tail
+			// free data
+			free(cgap->name);
+			free(cgap);
+
+			csect->firstGap = nextGap; // reset tail just incase next emission fails
+			cgap            = nextGap; // next gap
 		}
 
 		fileoff += ftell(csect->stream); // add to file offset
