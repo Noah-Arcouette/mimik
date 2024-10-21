@@ -25,7 +25,7 @@ extern void yyerror (const char *);
 %token STRING SYMBOL GLOBAL ALIGN
 %token BYTE WORD SHORT INT LONG ASCIZ
 %token VALUE
-%token AX BX BP SP
+%token AX BX BP SP DI
 %token AL AH CL CH DL DH
 %token DS ES GS FS SS
 %token XOR
@@ -34,7 +34,7 @@ extern void yyerror (const char *);
 %token JZ JC JL
 %token RET
 %token CMP
-%token INTERRUPT
+%token INT
 %token INC
 %token MOVB
 %start program
@@ -257,6 +257,7 @@ reg16:
 	| BX { $$.value = 0b011; }
 	| SP { $$.value = 0b100; }
 	| BP { $$.value = 0b101; }
+	| DI { $$.value = 0b111; }
 	;
 
 reg8:

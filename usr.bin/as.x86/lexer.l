@@ -152,6 +152,12 @@ setString (void)
 	yylval.lineno = lineno;
 	return BP;
 }
+"%di" {
+	printf("Lexer : DI: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return DI;
+}
 
 "%al" {
 	printf("Lexer : AL: `%s'\n", yytext);
@@ -267,7 +273,7 @@ setString (void)
 	printf("Lexer : INTERRUPT: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
-	return INTERRUPT;
+	return INT;
 }
 
 "inc" {

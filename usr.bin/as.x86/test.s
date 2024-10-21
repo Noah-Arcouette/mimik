@@ -1,32 +1,33 @@
 .code16
+.section .boot, "x"
+.file "panic.S"
 
-.section .bss, "brw"
-.file "init.S"
-bootDisk: .byte 0
-.globl bootDisk
+boot_panic:
+.globl boot_panic
+	mov $0, %di
+boot_setupVideo.fillVideo:
 
-.section .boot.init, "x"
-boot_init:
-.globl boot_init
-	xor %ax, %ax
-	mov %ax, %es
-	mov %ax, %gs
+	inc %di
 
-	mov %ax, %ds
-	mov %ax, %ss
+	inc %di
 
-	mov $0xb800, %ax
-	mov %ax, %fs
 
-	mov $BSS_START, %bx
-boot_init_bss_clear:
-	movb $0, (%bx)
-	inc  %bx
-	cmp  $BSS_END, %bx
-	jl   boot_init_bss_clear
 
-	mov $BSS_END, %sp
-	mov %sp, %bp
 
-	mov %dl, bootDisk
-	ljmp $0,$_boot
+	mov $0, %di
+boot_panic.loop:
+
+
+	je boot_panic.halt
+
+
+	inc %di
+
+	inc %di
+	inc %bx
+
+	jmp boot_panic.loop
+boot_panic.halt:
+
+
+	jmp boot_panic.halt
