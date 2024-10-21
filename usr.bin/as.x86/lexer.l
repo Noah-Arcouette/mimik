@@ -283,6 +283,19 @@ setString (void)
 	return INC;
 }
 
+"cli" {
+	printf("Lexer : CLI: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return CLI;
+}
+"sti" {
+	printf("Lexer : STI: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return STI;
+}
+
 [0-9_]+ {
 	printf("Lexer : VALUE: `%s'\n", yytext);
 	yylval.value = (size_t)strtol(yytext, NULL, 10);

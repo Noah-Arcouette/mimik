@@ -28,6 +28,6 @@ boot_panic.loop:
 
 	jmp boot_panic.loop
 boot_panic.halt:
-
+	cli
 
 	jmp boot_panic.halt

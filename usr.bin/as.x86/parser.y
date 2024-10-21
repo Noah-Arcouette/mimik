@@ -30,13 +30,14 @@ extern void yyerror (const char *);
 %token DS ES GS FS SS
 %token XOR
 %token MOV
+%token MOVB
 %token LJMP JMP CALL
 %token JZ JC JL
 %token RET
 %token CMP
 %token INT
 %token INC
-%token MOVB
+%token STI CLI
 %start program
 
 %destructor { free($$.string); } STRING SYMBOL
@@ -68,6 +69,9 @@ program:
 	| program ret NEWLINE
 	| program cmp NEWLINE
 	| program inc NEWLINE
+
+	| program STI NEWLINE { emit(0xfb, BYTE); }
+	| program CLI NEWLINE { emit(0xfa, BYTE); }
 
 	| program INT '$' VALUE NEWLINE {
 		emit(0xcd,     BYTE);
