@@ -6,8 +6,6 @@
 #include <mio.h>
 #include <mio-x86.h>
 
-// TODO: setup an atomic and always free environment, even on forced exits/hard errors
-
 int  yyparse       (void);
 void yylex_destroy (void); // lexer clean up, not portable but who cares
 
