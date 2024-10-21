@@ -257,8 +257,23 @@ indirect:
 	;
 
 segment_override:
-	| FS ':' { emit(0x64, BYTE); }
-	| GS ':' { emit(0x65, BYTE); }
+	| FS ':' {
+		if (header.uarch < MIO_UARCH_I386)
+		{
+			fprintf(stderr, "%s:%d: Warning F segment override promotes to micro-architecture I386\n", filename, $1.lineno);
+			header.uarch = MIO_UARCH_I386;
+		}
+		emit(0x64, BYTE);
+	}
+	| GS ':' {
+		if (header.uarch < MIO_UARCH_I386)
+		{
+			fprintf(stderr, "%s:%d: Warning G segment override promotes to micro-architecture I386\n", filename, $1.lineno);
+			header.uarch = MIO_UARCH_I386;
+		}
+
+		emit(0x65, BYTE);
+	}
 	| // no override
 	;
 
