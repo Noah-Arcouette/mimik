@@ -12,7 +12,7 @@ boot_setupVideo.fillVideo:
 	inc %di
 
 
-
+	jg boot_setupVideo.fillVideo
 
 	mov $0, %di
 boot_panic.loop:

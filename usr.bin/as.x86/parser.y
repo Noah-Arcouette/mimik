@@ -32,7 +32,7 @@ extern void yyerror (const char *);
 %token MOV
 %token MOVB
 %token LJMP JMP CALL
-%token JZ JC JL
+%token JZ JC JL JG
 %token RET
 %token CMP
 %token INT STI CLI HLT
@@ -143,6 +143,11 @@ jcc:
 	}
 	| JL SYMBOL {
 		emit(0x7c, BYTE);
+		emitGap(MIO_GAP_RELATIVE_BYTE|MIO_GAP_FLAG_EXECUTE, $2.string);
+		free($2.string);
+	}
+	| JG SYMBOL {
+		emit(0x7f, BYTE);
 		emitGap(MIO_GAP_RELATIVE_BYTE|MIO_GAP_FLAG_EXECUTE, $2.string);
 		free($2.string);
 	}
