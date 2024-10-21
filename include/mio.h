@@ -49,7 +49,6 @@ struct MiO_Data
 {
 	MiO_byte format;  // format of the data
 	MiO_byte size[8]; // amount of data
-	MiO_byte data[];
 } __attribute__((packed));
 
 #define MIO_LIB_NAME ".libraries"

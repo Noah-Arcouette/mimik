@@ -106,4 +106,7 @@ extern void freeAll (void);
 // writeSections.c
 extern void writeSections (void);
 
+// writeData.c
+extern void writeData (void);
+
 #endif

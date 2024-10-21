@@ -52,10 +52,10 @@ freeAll (void)
 		if (currentSection->stream)
 		{
 			fclose(currentSection->stream); // close output stream
-			if (currentSection->buffer)
-			{
-				free(currentSection->buffer);
-			}
+		}
+		if (currentSection->buffer)
+		{
+			free(currentSection->buffer);
 		}
 		if (currentSection->name)
 		{

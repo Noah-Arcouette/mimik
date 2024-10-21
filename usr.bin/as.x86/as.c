@@ -74,20 +74,9 @@ main (int argc, const char **argv)
 
 		// write sections
 		writeSections();
-	}
 
-	// print data structures
-	struct section *nextSection;
-	currentSection = firstSection;
-	while (currentSection)
-	{
-		nextSection = currentSection->next;
-
-		// sections data and bss sizes
-		printf("Data size: %ld\n", ftell(currentSection->stream));
-		printf("BSS size:  %ld\n", currentSection->bssz);
-
-		currentSection = nextSection; // next section
+		// write data
+		writeData();
 	}
 
 	return errors;
