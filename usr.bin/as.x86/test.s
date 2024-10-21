@@ -6,9 +6,9 @@ boot_panic:
 .globl boot_panic
 	mov $0, %di
 boot_setupVideo.fillVideo:
-
+	movb $' ',  %fs:(%di)
 	inc %di
-
+	movb $0x40, %fs:(%di)
 	inc %di
 
 
@@ -22,7 +22,7 @@ boot_panic.loop:
 
 
 	inc %di
-
+	movb $0x40, %fs:(%di)
 	inc %di
 	inc %bx
 

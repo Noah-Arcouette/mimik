@@ -325,6 +325,14 @@ setString (void)
 	return VALUE;
 }
 
+"'"."'" {
+	printf("Lexer : VALUE `%s'\n", yytext);
+	yylval.value = (size_t)(*yytext);
+
+	yylval.lineno = lineno;
+	return VALUE;
+}
+
 [a-zA-Z0-9\-_.]+ {
 	setString();
 	printf("Lexer : SYMBOL: `%s'\n", yytext);

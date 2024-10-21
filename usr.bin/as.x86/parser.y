@@ -252,7 +252,14 @@ movb:
 	;
 
 indirect:
-	'(' BX ')' { $$.value = 0b111; }
+	  segment_override '(' BX ')' { $$.value = 0b111; }
+	| segment_override '(' DI ')' { $$.value = 0b101; }
+	;
+
+segment_override:
+	| FS ':' { emit(0x64, BYTE); }
+	| GS ':' { emit(0x65, BYTE); }
+	| // no override
 	;
 
 reg16:
