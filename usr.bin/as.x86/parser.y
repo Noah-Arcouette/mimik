@@ -232,11 +232,19 @@ mov:
 		emitGap(MIO_GAP_ABSOLUTE_WORD|MIO_GAP_FLAG_WRITE, $4.string);
 		free($4.string);
 	}
+	| MOV reg8 ',' indirect {
+		emit(0x88, BYTE);
+		emit($2.value<<3|$4.value, BYTE);
+	}
 	| MOV SYMBOL ',' reg8 {
 		emit(0x8a, BYTE);
 		emit($4.value<<3|0b110, BYTE); // displacement
 		emitGap(MIO_GAP_ABSOLUTE_WORD|MIO_GAP_FLAG_READ, $2.string);
 		free($2.string);
+	}
+	| MOV indirect ',' reg8 {
+		emit(0x8a, BYTE);
+		emit($2.value|$4.value<<3, BYTE);
 	}
 	;
 

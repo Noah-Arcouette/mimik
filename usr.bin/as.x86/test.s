@@ -16,11 +16,11 @@ boot_setupVideo.fillVideo:
 
 	mov $0, %di
 boot_panic.loop:
-
+	mov (%bx), %al
 
 	je boot_panic.halt
 
-
+	mov %al, %fs:(%di)
 	inc %di
 	movb $0x40, %fs:(%di)
 	inc %di
