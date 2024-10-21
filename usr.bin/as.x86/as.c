@@ -71,6 +71,9 @@ main (int argc, const char **argv)
 
 		// write file header
 		writeHeader();
+
+		// write sections
+		writeSections();
 	}
 
 	// print data structures
@@ -78,8 +81,6 @@ main (int argc, const char **argv)
 	currentSection = firstSection;
 	while (currentSection)
 	{
-		printf("%s\n", currentSection->name);
-
 		nextSection = currentSection->next;
 
 		// sections data and bss sizes

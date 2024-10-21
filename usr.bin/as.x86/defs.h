@@ -103,4 +103,7 @@ extern void writeHeader (void);
 // free.c
 extern void freeAll (void);
 
+// writeSections.c
+extern void writeSections (void);
+
 #endif
