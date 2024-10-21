@@ -35,6 +35,7 @@ extern void yyerror (const char *);
 %token RET
 %token CMP
 %token INTERRUPT
+%token INC
 %start program
 
 %destructor { free($$.string); } STRING SYMBOL
@@ -64,6 +65,7 @@ program:
 	| program jcc NEWLINE
 	| program ret NEWLINE
 	| program cmp NEWLINE
+	| program inc NEWLINE
 
 	| program INT '$' VALUE NEWLINE {
 		emit(0xcd,     BYTE);
@@ -147,6 +149,12 @@ cmp:
 		emit(0x3c, BYTE);
 		emitGap(MIO_GAP_ABSOLUTE_BYTE|MIO_GAP_FLAG_READ, $3.string);
 		free($3.string);
+	}
+	;
+
+inc:
+	INC reg16 {
+		emit(0x40+$2.value, BYTE);
 	}
 	;
 

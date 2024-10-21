@@ -258,6 +258,13 @@ setString (void)
 	return INTERRUPT;
 }
 
+"inc" {
+	printf("Lexer : INC: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return INC;
+}
+
 [0-9_]+ {
 	printf("Lexer : VALUE: `%s'\n", yytext);
 	yylval.value = (size_t)strtol(yytext, NULL, 10);
