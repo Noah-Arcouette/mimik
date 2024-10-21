@@ -275,14 +275,6 @@ setString (void)
 	yylval.lineno = lineno;
 	return INT;
 }
-
-"inc" {
-	printf("Lexer : INC: `%s'\n", yytext);
-
-	yylval.lineno = lineno;
-	return INC;
-}
-
 "cli" {
 	printf("Lexer : CLI: `%s'\n", yytext);
 
@@ -294,6 +286,19 @@ setString (void)
 
 	yylval.lineno = lineno;
 	return STI;
+}
+"hlt" {
+	printf("Lexer : HLT: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return HLT;
+}
+
+"inc" {
+	printf("Lexer : INC: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return INC;
 }
 
 [0-9_]+ {
