@@ -22,7 +22,7 @@ boot_init:
 boot_init_bss_clear:
 
 	inc  %bx
-
+	cmp  $BSS_END, %bx
 	jl   boot_init_bss_clear
 
 	mov $BSS_END, %sp

@@ -155,6 +155,15 @@ cmp:
 		emitGap(MIO_GAP_ABSOLUTE_BYTE|MIO_GAP_FLAG_READ, $3.string);
 		free($3.string);
 	}
+	| CMP '$' SYMBOL ',' reg16 {
+		emit(0x81, BYTE);
+		emit(
+			0b11111000 | $5.value,
+			BYTE
+		);
+		emitGap(MIO_GAP_ABSOLUTE_WORD|MIO_GAP_FLAG_READ, $3.string);
+		free($3.string);
+	}
 	;
 
 inc:
