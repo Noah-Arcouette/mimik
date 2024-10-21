@@ -31,7 +31,7 @@ extern void yyerror (const char *);
 %token XOR
 %token MOV
 %token LJMP JMP CALL
-%token JZ JC
+%token JZ JC JL
 %token RET
 %token CMP
 %token INTERRUPT
@@ -133,6 +133,11 @@ jcc:
 	}
 	| JC SYMBOL {
 		emit(0x72, BYTE);
+		emitGap(MIO_GAP_RELATIVE_BYTE|MIO_GAP_FLAG_EXECUTE, $2.string);
+		free($2.string);
+	}
+	| JL SYMBOL {
+		emit(0x7c, BYTE);
 		emitGap(MIO_GAP_RELATIVE_BYTE|MIO_GAP_FLAG_EXECUTE, $2.string);
 		free($2.string);
 	}

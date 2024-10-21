@@ -243,6 +243,12 @@ setString (void)
 	yylval.lineno = lineno;
 	return JZ;
 }
+"jl" {
+	printf("Lexer : JL `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return JL;
+}
 
 "call" {
 	printf("Lexer : CALL: `%s'\n", yytext);
