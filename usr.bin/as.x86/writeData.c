@@ -57,7 +57,7 @@ writeData (void)
 	memcpy(head.size, &totalSize, sizeof(head.size));
 
 	// rewrite to file
-	if (!fwrite(fout, sizeof(head), 1, fout))
+	if (!fwrite(&head, sizeof(head), 1, fout))
 	{
 		goto error;
 	}
