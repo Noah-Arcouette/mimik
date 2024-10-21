@@ -20,7 +20,7 @@ boot_init:
 
 	mov $BSS_START, %bx
 boot_init_bss_clear:
-
+	movb $0, (%bx)
 	inc  %bx
 	cmp  $BSS_END, %bx
 	jl   boot_init_bss_clear

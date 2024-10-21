@@ -203,6 +203,12 @@ setString (void)
 	yylval.lineno = lineno;
 	return MOV;
 }
+"movb" {
+	printf("Lexer : MOVB `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return MOVB;
+}
 
 "ljmp" {
 	printf("Lexer : LJMP: `%s'\n", yytext);

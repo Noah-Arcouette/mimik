@@ -36,6 +36,7 @@ extern void yyerror (const char *);
 %token CMP
 %token INTERRUPT
 %token INC
+%token MOVB
 %start program
 
 %destructor { free($$.string); } STRING SYMBOL
@@ -59,6 +60,7 @@ program:
 	| program xor NEWLINE
 
 	| program mov NEWLINE
+	| program movb NEWLINE
 
 	| program jmp NEWLINE
 	| program call NEWLINE
@@ -233,6 +235,21 @@ mov:
 		emitGap(MIO_GAP_ABSOLUTE_WORD|MIO_GAP_FLAG_READ, $2.string);
 		free($2.string);
 	}
+	;
+
+movb:
+	MOVB '$' VALUE ',' indirect {
+		emit(0xc6, BYTE);
+		emit(
+			0 | $5.value,
+			BYTE
+		);
+		emit($3.value, BYTE);
+	}
+	;
+
+indirect:
+	'(' BX ')' { $$.value = 0b111; }
 	;
 
 reg16:
