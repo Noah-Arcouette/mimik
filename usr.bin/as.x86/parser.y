@@ -25,7 +25,7 @@ extern void yyerror (const char *);
 %token STRING SYMBOL GLOBAL ALIGN
 %token BYTE WORD SHORT INT LONG ASCIZ
 %token VALUE
-%token AX BX BP SP DI
+%token AX BX BP SP DI SI
 %token AL AH CL CH DL DH
 %token DS ES GS FS SS
 %token XOR
@@ -37,6 +37,7 @@ extern void yyerror (const char *);
 %token CMP
 %token INT STI CLI HLT
 %token INC
+%token PUSH POP
 %start program
 
 %destructor { free($$.string); } STRING SYMBOL
@@ -76,6 +77,8 @@ program:
 		emit(0xcd,     BYTE);
 		emit($4.value, BYTE);
 	}
+
+	| program push_pop NEWLINE
 
 	| program error NEWLINE { yyerrok; yyclearin; }
 	|
@@ -302,11 +305,33 @@ segment_override:
 	| // no override
 	;
 
+push_pop:
+	  PUSH reg16 {
+		emit(0x50+$2.value, BYTE);
+	  }
+	| POP reg16 {
+		emit(0x58+$2.value, BYTE);
+	}
+	| PUSH ES {
+		emit(0x06, BYTE);
+	}
+	| POP ES {
+		emit(0x07, BYTE);
+	}
+	| PUSH DS {
+		emit(0x1e, BYTE);
+	}
+	| POP DS {
+		emit(0x1f, BYTE);
+	}
+	;
+
 reg16:
 	  AX { $$.value = 0b000; }
 	| BX { $$.value = 0b011; }
 	| SP { $$.value = 0b100; }
 	| BP { $$.value = 0b101; }
+	| SI { $$.value = 0b110; }
 	| DI { $$.value = 0b111; }
 	;
 

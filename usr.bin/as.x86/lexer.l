@@ -140,6 +140,7 @@ setString (void)
 	yylval.lineno = lineno;
 	return FS;
 }
+
 "%sp" {
 	printf("Lexer : SP: `%s'\n", yytext);
 
@@ -157,6 +158,12 @@ setString (void)
 
 	yylval.lineno = lineno;
 	return DI;
+}
+"%si" {
+	printf("Lexer : SI: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return SI;
 }
 
 "%al" {
@@ -305,6 +312,19 @@ setString (void)
 
 	yylval.lineno = lineno;
 	return INC;
+}
+
+"push" {
+	printf("Lexer : PUSH: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return PUSH;
+}
+"pop" {
+	printf("Lexer : POP: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return POP;
 }
 
 [0-9_]+ {

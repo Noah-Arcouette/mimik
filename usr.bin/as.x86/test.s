@@ -1,33 +1,65 @@
 .code16
-.section .boot, "x"
-.file "panic.S"
 
-boot_panic:
-.globl boot_panic
-	mov $0, %di
-boot_setupVideo.fillVideo:
-	movb $' ',  %fs:(%di)
-	inc %di
-	movb $0x40, %fs:(%di)
-	inc %di
+.section .text, "x"
+.file "enableA20.S"
+stageTwo_enableA20:
+.globl stageTwo_enableA20
+	call stageTwo_checkA20
+	cmp  $0, %ax
+	je stageTwo_enableA20.noA20
 
-	cmp $0xffff, %di
-	jg boot_setupVideo.fillVideo
+	ret
+stageTwo_enableA20.noA20:
+	mov $stageTwo_enableA20.noA20Msg, %bx
+	jmp  boot_panic
 
-	mov $0, %di
-boot_panic.loop:
-	mov (%bx), %al
-	cmp $0, %al
-	je boot_panic.halt
+stageTwo_checkA20:
 
-	mov %al, %fs:(%di)
-	inc %di
-	movb $0x40, %fs:(%di)
-	inc %di
-	inc %bx
+	push %ds
+	push %es
+	push %di
+	push %si
 
-	jmp boot_panic.loop
-boot_panic.halt:
 	cli
-	hlt
-	jmp boot_panic.halt
+
+	xor %ax, %ax
+	mov %ax, %es
+
+
+	mov %ax, %ds
+
+	mov $0x0500, %di
+	mov $0x0510, %si
+
+
+	push %ax
+
+
+	push %ax
+
+
+
+
+
+	pop %ax
+
+
+	pop %ax
+
+
+	mov $0, %ax
+	je stageTwo_checkA20.exit
+
+	inc %ax
+stageTwo_checkA20.exit:
+	pop %si
+	pop %di
+	pop %es
+	pop %ds
+
+
+	ret
+
+.section .rodata, "r"
+stageTwo_enableA20.noA20Msg:
+	.asciz "HIIIIIIIIIIII"
