@@ -28,145 +28,68 @@ emitGap(int flags, const char *symbol)
 
 	// output dumby data
 	char nothing[8] = {0xe1, 0xe1, 0xe1, 0xe1, 0xe1, 0xe1, 0xe1, 0xe1}; // dumby data
+	int  size       = 0;
 	switch (flags&MIO_GAP_TYPE_MASK)
 	{
 	case MIO_GAP_ABSOLUTE_QWORD:
-		if (fwrite(nothing, 1, 8, currentSection->stream) != 8)
-		{
-			goto writeerror;
-		}
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size += 8;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size += 8;
-		}
 		printf("Parser: Emit Absolute Quad Word Gap `%s'\n", symbol);
+		size = 8;
 		break;
 	case MIO_GAP_ABSOLUTE_DWORD:
-		if (fwrite(nothing, 1, 4, currentSection->stream) != 4)
-		{
-			goto writeerror;
-		}
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size += 4;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size += 4;
-		}
 		printf("Parser: Emit Absolute Double Word Gap `%s'\n", symbol);
+		size = 4;
 		break;
 	case MIO_GAP_ABSOLUTE_WORD:
-		if (fwrite(nothing, 1, 2, currentSection->stream) != 2)
-		{
-			goto writeerror;
-		}
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size += 2;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size += 2;
-		}
 		printf("Parser: Emit Absolute Word Gap `%s'\n", symbol);
+		size = 2;
 		break;
 	case MIO_GAP_ABSOLUTE_BYTE:
-		if (fwrite(nothing, 1, 1, currentSection->stream) != 1)
-		{
-			goto writeerror;
-		}
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size++;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size++;
-		}
 		printf("Parser: Emit Absolute Byte Gap `%s'\n", symbol);
+		size = 1;
 		break;
 	case MIO_GAP_RELATIVE_QWORD:
-		if (fwrite(nothing, 1, 8, currentSection->stream) != 8)
-		{
-			goto writeerror;
-		}
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size += 8;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size += 8;
-		}
 		printf("Parser: Emit Relative Quad Word Gap `%s'\n", symbol);
+		size = 8;
 		break;
 	case MIO_GAP_RELATIVE_DWORD:
-		if (fwrite(nothing, 1, 4, currentSection->stream) != 4)
-		{
-			goto writeerror;
-		}
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size += 4;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size += 4;
-		}
 		printf("Parser: Emit Relative Double Word Gap `%s'\n", symbol);
+		size = 4;
 		break;
 	case MIO_GAP_RELATIVE_WORD:
-		if (fwrite(nothing, 1, 2, currentSection->stream) != 2)
-		{
-			goto writeerror;
-		}
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size += 2;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size += 2;
-		}
 		printf("Parser: Emit Relative Word Gap `%s'\n", symbol);
+		size = 2;
 		break;
 	case MIO_GAP_RELATIVE_BYTE:
-		if (fwrite(nothing, 1, 1, currentSection->stream) != 1)
-		{
-			goto writeerror;
-		}
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size++;
-		}
-		if  (lastSymbol)
-		{
-			lastSymbol->size++;
-		}
 		printf("Parser: Emit Relative Byte Gap `%s'\n", symbol);
+		size = 1;
 		break;
 	default:
 		printf("Parser: Emit unknown Gap `%s'\n", symbol);
+		exit(-1);
 		break;
+	}
+	
+	int error;
+	if (fwrite(nothing, size, 1, currentSection->stream) != 1)
+	{
+		error = errno;
+		fprintf(stderr, "%s: Failed to write to output.\n", self);
+		fprintf(stderr, "Error %d: %s.\n", error, strerror(error));
+		exit(1);
+	}
+	// grow sizing
+	if (lastFile)
+	{
+		lastFile->size += size;
+	}
+	if  (lastSymbol)
+	{
+		lastSymbol->size += size
 	}
 
 	// add gap
 	struct gap *gap = currentSection->firstGap; // save tail
 	currentSection->firstGap = (struct gap *)malloc(sizeof(struct gap));
-	int error;
 	if (!currentSection->firstGap)
 	{
 		currentSection->firstGap = gap; // reset tail
@@ -186,12 +109,4 @@ emitGap(int flags, const char *symbol)
 	}
 	gap->flags  = flags;
 	gap->offset = currentPosition;
-
-	return;
-	// failed to write data
-writeerror:
-	error = errno;
-	fprintf(stderr, "%s: Failed to write to output.\n", self);
-	fprintf(stderr, "Error %d: %s.\n", error, strerror(error));
-	exit(1);
 }
