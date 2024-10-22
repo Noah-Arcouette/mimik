@@ -52,7 +52,14 @@ program:
 	| program DFILE STRING NEWLINE { newSymbol($3.string, MIO_SYMLIST_TYPE_FILE   ); free($3.string); }
 
 	| program CODE16 NEWLINE { code = 16; }
-	| program CODE32 NEWLINE { code = 32; }
+	| program CODE32 NEWLINE {
+		code = 32;
+		if (header.uarch < MIO_UARCH_I386)
+		{
+			fprintf(stderr, "%s:%d: Warning 32bit code promotes the micro-architecture to I386.\n", filename, $2.lineno);
+			header.uarch = MIO_UARCH_I386;
+		}
+	}
 
 	| program data
 
