@@ -375,15 +375,6 @@ segment_override:
 	| // no override
 	;
 
-data16:
-	| {
-		if (code != 16)
-		{
-			emit(0x66, BYTE);
-		}
-	}
-	;
-
 reg16:
 	  AX { $$.value = 0b000; }
 	| CX { $$.value = 0b001; }
