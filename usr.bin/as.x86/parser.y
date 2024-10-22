@@ -95,7 +95,8 @@ data:
 	| SHORT VALUE { emit($2.value, SHORT); }
 	| INT VALUE   { emit($2.value, INT);   }
 	| LONG VALUE  { emit($2.value, LONG);  }
-	| LONG SYMBOL { emitGap(MIO_GAP_ABSOLUTE_QWORD, $2.string); free($2.string); }
+	| SHORT SYMBOL { emitGap(MIO_GAP_ABSOLUTE_WORD,  $2.string); free($2.string); }
+	| LONG SYMBOL  { emitGap(MIO_GAP_ABSOLUTE_QWORD, $2.string); free($2.string); }
 	| ASCIZ STRING {
 		for (size_t i = 0; $2.string[i]; i++)
 		{

@@ -27,9 +27,41 @@ emitGap(int flags, const char *symbol)
 	size_t currentPosition = ftell(currentSection->stream);
 
 	// output dumby data
-	char nothing[2] = {0xe1, 0xe1}; // dumby data
+	char nothing[8] = {0xe1, 0xe1, 0xe1, 0xe1, 0xe1, 0xe1, 0xe1, 0xe1}; // dumby data
 	switch (flags&MIO_GAP_TYPE_MASK)
 	{
+	case MIO_GAP_ABSOLUTE_QWORD:
+		if (fwrite(nothing, 1, 8, currentSection->stream) != 8)
+		{
+			goto writeerror;
+		}
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size += 8;
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size += 8;
+		}
+		printf("Parser: Emit Absolute Quad Word Gap `%s'\n", symbol);
+		break;
+	case MIO_GAP_ABSOLUTE_DWORD:
+		if (fwrite(nothing, 1, 4, currentSection->stream) != 4)
+		{
+			goto writeerror;
+		}
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size += 4;
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size += 4;
+		}
+		printf("Parser: Emit Absolute Double Word Gap `%s'\n", symbol);
+		break;
 	case MIO_GAP_ABSOLUTE_WORD:
 		if (fwrite(nothing, 1, 2, currentSection->stream) != 2)
 		{
@@ -61,6 +93,38 @@ emitGap(int flags, const char *symbol)
 			lastSymbol->size++;
 		}
 		printf("Parser: Emit Absolute Byte Gap `%s'\n", symbol);
+		break;
+	case MIO_GAP_RELATIVE_QWORD:
+		if (fwrite(nothing, 1, 8, currentSection->stream) != 8)
+		{
+			goto writeerror;
+		}
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size += 8;
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size += 8;
+		}
+		printf("Parser: Emit Relative Quad Word Gap `%s'\n", symbol);
+		break;
+	case MIO_GAP_RELATIVE_DWORD:
+		if (fwrite(nothing, 1, 4, currentSection->stream) != 4)
+		{
+			goto writeerror;
+		}
+		// grow sizing
+		if (lastFile)
+		{
+			lastFile->size += 4;
+		}
+		if (lastSymbol)
+		{
+			lastSymbol->size += 4;
+		}
+		printf("Parser: Emit Relative Double Word Gap `%s'\n", symbol);
 		break;
 	case MIO_GAP_RELATIVE_WORD:
 		if (fwrite(nothing, 1, 2, currentSection->stream) != 2)
