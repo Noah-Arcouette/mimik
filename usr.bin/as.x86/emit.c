@@ -17,116 +17,60 @@ emit (size_t val, int type)
 		return;
 	}
 
+	int size = 0;
 	switch (type)
 	{
 	case BYTE:
 		printf("Parser: Emit Byte %02x\n", (unsigned char)val);
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size++;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size++;
-		}
-		// if in bss
-		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
-		{
-			// grow bss
-			currentSection->bssz++;
-			return;
-		}
-		// in data, write to output stream
-		if (fwrite(&val, 1, 1, currentSection->stream) != 1)
-		{
-			goto error;
-		}
+		size = 1; // set and format value
+		val  = val&0xff;
 		break;
 	case WORD:
 		printf("Parser: Emit Word %04x\n", (unsigned short)val);
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size += 2;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size += 2;
-		}
-		// if in bss
-		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
-		{
-			// grow bss
-			currentSection->bssz += 2;
-			return;
-		}
-		// in data, write to output stream
-		val = htole16((unsigned short)val);
-		if (fwrite(&val, 1, 2, currentSection->stream) != 2)
-		{
-			goto error;
-		}
+		size = 2; // set and format value
+		val  = htole16(val&0xffff);
 		break;
 	case DWORD:
-		printf("Parser: Emit Double Word %x\n", (int)val);
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size += 4;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size += 4;
-		}
-		// if in bss
-		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
-		{
-			// grow bss
-			currentSection->bssz += 4;
-			return;
-		}
-		// in data, write to output stream
-		val = htole32((unsigned int)val);
-		if (fwrite(&val, 1, 4, currentSection->stream) != 4)
-		{
-			goto error;
-		}
+		printf("Parser: Emit Double Word %08x\n", (unsigned int)val);
+		size = 4;
+		val = htole32(val&0xffffffff);
 		break;
 	case QWORD:
-		printf("Parser: Emit Quad Word %lx\n", (long)val);
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size += 8;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size += 8;
-		}
-		// if in bss
-		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
-		{
-			// grow bss
-			currentSection->bssz += 8;
-			break;
-		}
-		// in data, write to output stream
-		val = htole64((unsigned long)val);
-		if (fwrite(&val, 1, 8, currentSection->stream) != 8)
-		{
-			goto error;
-		}
+		printf("Parser: Emit Quad Word %016lx\n", (long)val);
+		size = 8;
+		val = htole64(val&0xffffffffffffffff);
 		break;
 	default:
 		printf("Parser: Emit unknown %zx\n", val);
+		exit(-1);
 		break;
 	}
+	
+	// grow sizing
+	if (lastFile)
+	{
+		lastFile->size += size;
+	}
+	if (lastSymbol)
+	{
+		lastSymbol->size += size;
+	}
+	// if in bss
+	if (currentSection->flags & MIO_SECTION_FLAG_BSS)
+	{
+		// grow bss
+		currentSection->bssz += size;
+		return;
+	}
 
-	return;
-	int errnum;
-error:
-	errnum = errno;
+	// in data, write to output stream
+	if (fwrite(&val, size, 1, currentSection->stream) == 1)
+	{
+		return;
+	}
+	
+	// output failed case
+	int errnum = errno;
 	fprintf(stderr, "%s: Failed to output data.\n", self);
 	fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
 	exit(1);
