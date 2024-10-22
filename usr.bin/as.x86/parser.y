@@ -22,8 +22,8 @@ extern void yyerror (const char *);
 %token CODE16 CODE32
 %token BYTE WORD DWORD QWORD ASCIZ ALIGN
 %token ES CS SS DS FS GS
+%token AX CX DX BX BP SP SI DI
 
-%token AX BX BP SP DI SI
 %token AL AH CL CH DL DH
 %token XOR NOT
 %token MOV

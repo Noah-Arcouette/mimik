@@ -26,7 +26,7 @@ setString (void)
 
 %%
 
-[ \t]*".section"[ \t]* {
+[ \t]*".section"[ \t]* { // = Directives =
 	printf("Lexer : SECTION: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
@@ -45,7 +45,7 @@ setString (void)
 	return GLOBAL;
 }
 
-[ \t]*".code16"[ \t]* {
+[ \t]*".code16"[ \t]* { // = Code Type =
 	printf("Lexer : CODE16: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
@@ -58,7 +58,7 @@ setString (void)
 	return CODE32;
 }
 
-[ \t]*".byte"[ \t]* {
+[ \t]*".byte"[ \t]* { // = Raw Data =
 	printf("Lexer : BYTE: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
@@ -88,14 +88,14 @@ setString (void)
 	yylval.lineno = lineno;
 	return ASCIZ;
 }
-[ \t]*".align"[ \t]* {
+[ \t]*".align"[ \t]* { // - Alignment -
 	printf("Lexer : ALIGN: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
 	return ALIGN;
 }
 
-"%es" {
+"%es" { // = Segment Registers =
 	printf("Lexer : ES: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
@@ -132,15 +132,27 @@ setString (void)
 	return GS;
 }
 
-"%ax" {
+"%ax" { // = 16bit registers =
 	printf("Lexer : AX: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
 	return AX;
 }
+"%cx" {
+	printf("Lexer : CX: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return CX;
+}
+"%dx" {
+	printf("Lexer : DX: `%s'\n", yytext);
+	
+	yylval.lineno = lineno;
+	return DX;
+}
 "%bx" {
 	printf("Lexer : BX: `%s'\n", yytext);
-
+	
 	yylval.lineno = lineno;
 	return BX;
 }
@@ -156,17 +168,17 @@ setString (void)
 	yylval.lineno = lineno;
 	return BP;
 }
-"%di" {
-	printf("Lexer : DI: `%s'\n", yytext);
-
-	yylval.lineno = lineno;
-	return DI;
-}
 "%si" {
 	printf("Lexer : SI: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
 	return SI;
+}
+"%di" {
+	printf("Lexer : DI: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return DI;
 }
 
 "%al" {
