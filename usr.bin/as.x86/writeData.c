@@ -33,13 +33,17 @@ writeData (void)
 		fclose(csect->stream); // close and flush stream
 		csect->stream = (FILE *)NULL;
 
-		// write to output
-		if (fwrite(csect->buffer+off, 1, csect->size, fout) != csect->size)
+		// check if buffer's allocated
+		if (csect->buffer)
 		{
-			goto error;
+			// write to output
+			if (fwrite(csect->buffer+off, 1, csect->size, fout) != csect->size)
+			{
+				goto error;
+			}
+			free(csect->buffer);
+			csect->buffer = (char *)NULL;
 		}
-		free(csect->buffer);
-		csect->buffer = (char *)NULL;
 
 		// add to total size
 		totalSize += csect->size;
