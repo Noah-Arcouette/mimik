@@ -386,6 +386,8 @@ data16:
 
 reg16:
 	  AX { $$.value = 0b000; }
+	| CX { $$.value = 0b001; }
+	| DX { $$.value = 0b010; }
 	| BX { $$.value = 0b011; }
 	| SP { $$.value = 0b100; }
 	| BP { $$.value = 0b101; }
@@ -397,13 +399,16 @@ reg8:
 	  AL { $$.value = 0b000; }
 	| CL { $$.value = 0b001; }
 	| DL { $$.value = 0b010; }
+	| BL { $$.value = 0b011; }
 	| AH { $$.value = 0b100; }
 	| CH { $$.value = 0b101; }
 	| DH { $$.value = 0b110; }
+	| BH { $$.value = 0b111; }
 	;
 
 sreg:
 	  ES { $$.value = 0b000; }
+	| CS { $$.value = 0b001; }
 	| SS { $$.value = 0b010; }
 	| DS { $$.value = 0b011; }
 	| FS { $$.value = 0b100; }
