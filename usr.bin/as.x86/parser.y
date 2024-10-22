@@ -23,8 +23,8 @@ extern void yyerror (const char *);
 %token BYTE WORD DWORD QWORD ASCIZ ALIGN
 %token ES CS SS DS FS GS
 %token AX CX DX BX BP SP SI DI
+%token AL CL DL BL AH CH DH BH
 
-%token AL AH CL CH DL DH
 %token XOR NOT
 %token MOV
 %token MOVB

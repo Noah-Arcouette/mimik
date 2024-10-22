@@ -181,17 +181,11 @@ setString (void)
 	return DI;
 }
 
-"%al" {
+"%al" { // = 8bit Registers =
 	printf("Lexer : AL: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
 	return AL;
-}
-"%ah" {
-	printf("Lexer : AH: `%s'\n", yytext);
-
-	yylval.lineno = lineno;
-	return AH;
 }
 "%cl" {
 	printf("Lexer : CL: `%s'\n", yytext);
@@ -199,23 +193,41 @@ setString (void)
 	yylval.lineno = lineno;
 	return CL;
 }
-"%ch" {
-	printf("Lexer : CH: `%s'\n", yytext);
-
-	yylval.lineno = lineno;
-	return CH;
-}
 "%dl" {
 	printf("Lexer : DL: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
 	return DL;
 }
+"%bl" {
+	printf("Lexer : BL: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return BL;
+}
+"%ah" {
+	printf("Lexer : AH: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return AH;
+}
+"%ch" {
+	printf("Lexer : CH: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return CH;
+}
 "%dh" {
 	printf("Lexer : DH: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
 	return DH;
+}
+"%bh" {
+	printf("Lexer : BH: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return BH;
 }
 
 "xor" {
