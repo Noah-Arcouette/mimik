@@ -279,8 +279,30 @@ movb:
 	}
 	;
 
+push_pop:
+	  PUSH reg16 {
+		emit(0x50+$2.value, BYTE);
+	  }
+	| POP reg16 {
+		emit(0x58+$2.value, BYTE);
+	}
+	| PUSH ES {
+		emit(0x06, BYTE);
+	}
+	| POP ES {
+		emit(0x07, BYTE);
+	}
+	| PUSH DS {
+		emit(0x1e, BYTE);
+	}
+	| POP DS {
+		emit(0x1f, BYTE);
+	}
+	;
+
 indirect:
 	  segment_override '(' BX ')' { $$.value = 0b111; }
+	| segment_override '(' SI ')' { $$.value = 0b100; }
 	| segment_override '(' DI ')' { $$.value = 0b101; }
 	;
 
@@ -302,28 +324,13 @@ segment_override:
 
 		emit(0x65, BYTE);
 	}
+	| ES ':' {
+		emit(0x26, BYTE);
+	}
+	| DS ':' {
+		emit(0x3e, BYTE);
+	}
 	| // no override
-	;
-
-push_pop:
-	  PUSH reg16 {
-		emit(0x50+$2.value, BYTE);
-	  }
-	| POP reg16 {
-		emit(0x58+$2.value, BYTE);
-	}
-	| PUSH ES {
-		emit(0x06, BYTE);
-	}
-	| POP ES {
-		emit(0x07, BYTE);
-	}
-	| PUSH DS {
-		emit(0x1e, BYTE);
-	}
-	| POP DS {
-		emit(0x1f, BYTE);
-	}
 	;
 
 reg16:

@@ -31,21 +31,21 @@ stageTwo_checkA20:
 	mov $0x0500, %di
 	mov $0x0510, %si
 
-
+	mov  %es:(%di), %al
 	push %ax
 
-
+	mov  %ds:(%si), %al
 	push %ax
 
-
-
+	movb $0x00, %es:(%di)
+	movb $0xff, %ds:(%si)
 
 
 	pop %ax
-
+	mov %al, %ds:(%si)
 
 	pop %ax
-
+	mov %al, %es:(%di)
 
 	mov $0, %ax
 	je stageTwo_checkA20.exit
