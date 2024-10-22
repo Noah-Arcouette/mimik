@@ -25,7 +25,7 @@ stageTwo_checkA20:
 	xor %ax, %ax
 	mov %ax, %es
 
-
+	not %ax
 	mov %ax, %ds
 
 	mov $0x0500, %di

@@ -209,6 +209,12 @@ setString (void)
 	yylval.lineno = lineno;
 	return XOR;
 }
+"not" {
+	printf("Lexer : NOT: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return NOT;
+}
 
 "mov" {
 	printf("Lexer : MOV: `%s'\n", yytext);

@@ -28,7 +28,7 @@ extern void yyerror (const char *);
 %token AX BX BP SP DI SI
 %token AL AH CL CH DL DH
 %token DS ES GS FS SS
-%token XOR
+%token XOR NOT
 %token MOV
 %token MOVB
 %token LJMP JMP CALL
@@ -59,6 +59,7 @@ program:
 	| program GLOBAL SYMBOL NEWLINE { globalSymbol($3.string); free($3.string); }
 
 	| program xor NEWLINE
+	| program not NEWLINE
 
 	| program mov NEWLINE
 	| program movb NEWLINE
@@ -212,6 +213,16 @@ xor:
 			0b11000000 |
 			($2.value << 3) |
 			($4.value),
+			BYTE
+		);
+	}
+	;
+
+not:
+	NOT reg16 {
+		emit(0xf7, BYTE);
+		emit(
+			0b11010000|$2.value,
 			BYTE
 		);
 	}
