@@ -23,7 +23,7 @@ extern void yyerror (const char *);
 %token DFILE
 %token CODE16 CODE32
 %token STRING SYMBOL GLOBAL ALIGN
-%token BYTE WORD SHORT INT LONG ASCIZ
+%token BYTE WORD DWORD QWORD ASCIZ
 %token VALUE
 %token AX BX BP SP DI SI
 %token AL AH CL CH DL DH
@@ -91,12 +91,12 @@ section:
 	;
 
 data:
-	  BYTE VALUE  { emit($2.value, BYTE);  }
-	| SHORT VALUE { emit($2.value, SHORT); }
-	| INT VALUE   { emit($2.value, INT);   }
-	| LONG VALUE  { emit($2.value, LONG);  }
-	| SHORT SYMBOL { emitGap(MIO_GAP_ABSOLUTE_WORD,  $2.string); free($2.string); }
-	| LONG SYMBOL  { emitGap(MIO_GAP_ABSOLUTE_QWORD, $2.string); free($2.string); }
+	   BYTE VALUE  { emit($2.value,  BYTE); }
+	|  WORD VALUE  { emit($2.value,  WORD); }
+	| DWORD VALUE  { emit($2.value, DWORD); }
+	| QWORD VALUE  { emit($2.value, QWORD); }
+	|  WORD SYMBOL { emitGap(MIO_GAP_ABSOLUTE_WORD,  $2.string); free($2.string); }
+	| QWORD SYMBOL { emitGap(MIO_GAP_ABSOLUTE_QWORD, $2.string); free($2.string); }
 	| ASCIZ STRING {
 		for (size_t i = 0; $2.string[i]; i++)
 		{
@@ -110,9 +110,18 @@ data:
 jmp:
 	LJMP '$' VALUE ',' '$' SYMBOL {
 		emit(0xea, BYTE);
-		emitGap(MIO_GAP_RELATIVE_WORD|MIO_GAP_FLAG_EXECUTE, $6.string);
+
+		if (code == 16)
+		{
+			emitGap(MIO_GAP_RELATIVE_WORD|MIO_GAP_FLAG_EXECUTE, $6.string);
+			emit($3.value, WORD);
+		}
+		else
+		{
+			emitGap(MIO_GAP_RELATIVE_DWORD|MIO_GAP_FLAG_EXECUTE, $6.string);
+			emit($3.value, DWORD);
+		}
 		free($6.string);
-		emit($3.value, WORD);
 	}
 	| JMP '$' VALUE ',' '$' SYMBOL {
 		emit(0xea, BYTE);
@@ -357,6 +366,15 @@ segment_override:
 		emit(0x3e, BYTE);
 	}
 	| // no override
+	;
+
+data16:
+	| {
+		if (code != 16)
+		{
+			emit(0x66, BYTE);
+		}
+	}
 	;
 
 reg16:

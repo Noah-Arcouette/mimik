@@ -68,33 +68,8 @@ emit (size_t val, int type)
 			goto error;
 		}
 		break;
-	case SHORT:
-		printf("Parser: Emit Short %d\n", (short)val);
-		// grow sizing
-		if (lastFile)
-		{
-			lastFile->size += 2;
-		}
-		if (lastSymbol)
-		{
-			lastSymbol->size += 2;
-		}
-		// if in bss
-		if (currentSection->flags & MIO_SECTION_FLAG_BSS)
-		{
-			// grow bss
-			currentSection->bssz += 2;
-			return;
-		}
-		// in data, write to output stream
-		val = htole16((unsigned short)val);
-		if (fwrite(&val, 1, 2, currentSection->stream) != 2)
-		{
-			goto error;
-		}
-		break;
-	case INT:
-		printf("Parser: Emit Int %d\n", (int)val);
+	case DWORD:
+		printf("Parser: Emit Double Word %x\n", (int)val);
 		// grow sizing
 		if (lastFile)
 		{
@@ -118,8 +93,8 @@ emit (size_t val, int type)
 			goto error;
 		}
 		break;
-	case LONG:
-		printf("Parser: Emit Long %ld\n", (long)val);
+	case QWORD:
+		printf("Parser: Emit Quad Word %lx\n", (long)val);
 		// grow sizing
 		if (lastFile)
 		{

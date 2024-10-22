@@ -70,19 +70,19 @@ setString (void)
 	printf("Lexer : SHORT: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
-	return SHORT;
+	return WORD;
 }
 [ \t]*".int"[ \t]* {
 	printf("Lexer : INT: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
-	return INT;
+	return DWORD;
 }
 [ \t]*".long"[ \t]* {
 	printf("Lexer : LONG: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
-	return LONG;
+	return QWORD;
 }
 [ \t]*".asciz"[ \t]* {
 	printf("Lexer : ASCIZ: `%s'\n", yytext);
@@ -98,18 +98,6 @@ setString (void)
 	return ALIGN;
 }
 
-"%ax" {
-	printf("Lexer : AX: `%s'\n", yytext);
-
-	yylval.lineno = lineno;
-	return AX;
-}
-"%bx" {
-	printf("Lexer : BX: `%s'\n", yytext);
-
-	yylval.lineno = lineno;
-	return BX;
-}
 "%es" {
 	printf("Lexer : ES: `%s'\n", yytext);
 
@@ -141,6 +129,18 @@ setString (void)
 	return FS;
 }
 
+"%ax" {
+	printf("Lexer : AX: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return AX;
+}
+"%bx" {
+	printf("Lexer : BX: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return BX;
+}
 "%sp" {
 	printf("Lexer : SP: `%s'\n", yytext);
 
