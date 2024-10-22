@@ -349,7 +349,7 @@ indirect:
 	;
 
 segment_override:
-	| FS ':' {
+	FS ':' {
 		if (header.uarch < MIO_UARCH_I386)
 		{
 			fprintf(stderr, "%s:%d: Warning F segment override promotes to micro-architecture I386\n", filename, $1.lineno);
