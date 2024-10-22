@@ -39,7 +39,7 @@ stageTwo_checkA20:
 
 	movb $0x00, %es:(%di)
 	movb $0xff, %ds:(%si)
-
+	cmpb $0xff, %es:(%di)
 
 	pop %ax
 	mov %al, %ds:(%si)

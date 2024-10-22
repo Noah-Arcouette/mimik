@@ -34,7 +34,7 @@ extern void yyerror (const char *);
 %token LJMP JMP CALL
 %token JZ JC JL JG
 %token RET
-%token CMP
+%token CMP CMPB
 %token INT STI CLI HLT
 %token INC
 %token PUSH POP
@@ -188,6 +188,14 @@ cmp:
 			BYTE
 		);
 		emit($3.value, WORD);
+	}
+	| CMPB '$' VALUE ',' indirect {
+		emit(0x80, BYTE);
+		emit(
+			0b00111000|$5.value,
+			BYTE
+		);
+		emit($3.value, BYTE);
 	}
 	;
 

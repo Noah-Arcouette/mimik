@@ -242,6 +242,12 @@ setString (void)
 	yylval.lineno = lineno;
 	return CMP;
 }
+"cmpb" {
+	printf("Lexer : CMPB: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return CMPB;
+}
 
 "ret" {
 	printf("Lexer : RET: `%s'\n", yytext);
