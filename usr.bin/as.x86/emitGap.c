@@ -84,7 +84,7 @@ emitGap(int flags, const char *symbol)
 	}
 	if  (lastSymbol)
 	{
-		lastSymbol->size += size
+		lastSymbol->size += size;
 	}
 
 	// add gap

@@ -18,16 +18,13 @@ extern void yyerror (const char *);
 
 %}
 
-%token NEWLINE
-%token SECTION
-%token DFILE
+%token SECTION DFILE GLOBAL
 %token CODE16 CODE32
-%token STRING SYMBOL GLOBAL ALIGN
-%token BYTE WORD DWORD QWORD ASCIZ
-%token VALUE
+%token BYTE WORD DWORD QWORD ASCIZ ALIGN
+%token ES CS SS DS FS GS
+
 %token AX BX BP SP DI SI
 %token AL AH CL CH DL DH
-%token DS ES GS FS SS
 %token XOR NOT
 %token MOV
 %token MOVB
@@ -38,6 +35,9 @@ extern void yyerror (const char *);
 %token INT STI CLI HLT
 %token INC
 %token PUSH POP PUSHF POPF
+%token STRING SYMBOL GLOBAL
+%token VALUE
+%token NEWLINE
 %start program
 
 %destructor { free($$.string); } STRING SYMBOL

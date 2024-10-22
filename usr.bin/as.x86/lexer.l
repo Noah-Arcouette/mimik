@@ -32,14 +32,12 @@ setString (void)
 	yylval.lineno = lineno;
 	return SECTION;
 }
-
 [ \t]*".file"[ \t]* {
 	printf("Lexer : FILE: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
 	return DFILE;
 }
-
 [ \t]*".globl"[ \t]* {
 	printf("Lexer : GLOBAL: `%s'\n", yytext);
 
@@ -90,7 +88,6 @@ setString (void)
 	yylval.lineno = lineno;
 	return ASCIZ;
 }
-
 [ \t]*".align"[ \t]* {
 	printf("Lexer : ALIGN: `%s'\n", yytext);
 
@@ -104,17 +101,11 @@ setString (void)
 	yylval.lineno = lineno;
 	return ES;
 }
-"%gs" {
-	printf("Lexer : GS: `%s'\n", yytext);
+"%cs" {
+	printf("Lexer : CS: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
-	return GS;
-}
-"%ds" {
-	printf("Lexer : DS: `%s'\n", yytext);
-
-	yylval.lineno = lineno;
-	return DS;
+	return CS;
 }
 "%ss" {
 	printf("Lexer : SS: `%s'\n", yytext);
@@ -122,11 +113,23 @@ setString (void)
 	yylval.lineno = lineno;
 	return SS;
 }
+"%ds" {
+	printf("Lexer : DS: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return DS;
+}
 "%fs" {
 	printf("Lexer : FS: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
 	return FS;
+}
+"%gs" {
+	printf("Lexer : GS: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return GS;
 }
 
 "%ax" {
