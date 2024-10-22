@@ -332,6 +332,18 @@ setString (void)
 	yylval.lineno = lineno;
 	return POP;
 }
+"pushf" {
+	printf("Lexer : PUSHF: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return PUSHF;
+}
+"popf" {
+	printf("Lexer : POPF: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return POPF;
+}
 
 [0-9_]+ {
 	printf("Lexer : VALUE: `%s'\n", yytext);

@@ -37,7 +37,7 @@ extern void yyerror (const char *);
 %token CMP CMPB
 %token INT STI CLI HLT
 %token INC
-%token PUSH POP
+%token PUSH POP PUSHF POPF
 %start program
 
 %destructor { free($$.string); } STRING SYMBOL
@@ -305,6 +305,12 @@ push_pop:
 	}
 	| POP DS {
 		emit(0x1f, BYTE);
+	}
+	| PUSHF {
+		emit(0x9c, BYTE);
+	}
+	| POPF {
+		emit(0x9d, BYTE);
 	}
 	;
 

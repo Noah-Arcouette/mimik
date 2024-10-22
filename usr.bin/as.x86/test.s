@@ -14,7 +14,7 @@ stageTwo_enableA20.noA20:
 	jmp  boot_panic
 
 stageTwo_checkA20:
-
+	pushf
 	push %ds
 	push %es
 	push %di
@@ -56,7 +56,7 @@ stageTwo_checkA20.exit:
 	pop %di
 	pop %es
 	pop %ds
-
+	popf
 
 	ret
 
