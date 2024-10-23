@@ -10,13 +10,16 @@ writeSections (void)
 {
 	size_t dataOff = 0;
 	size_t bssOff  = 0;
-	struct section  *csect    = firstSection; // current section
-	struct section **lastNext = &firstSection;
+	struct section  *csect = firstSection; // current section
+	struct section **last  = &firstSection;
+
 	struct section  *next;
+	struct section **lastNext = &firstSection;;
 	struct MiO_Section out;
 	while (csect)
 	{
-		next = csect->next;
+		next     =  csect->next;
+		lastNext = &csect->next; // save last next
 
 		// write name
 		strncpy((char *)out.name, csect->name, sizeof(out.name));
@@ -38,7 +41,7 @@ writeSections (void)
 			bssOff += size;
 
 			// free unneeded bss section
-			*lastNext = next;
+			*last = next;
 			fclose(csect->stream);
 			if (csect->buffer)
 			{
@@ -51,20 +54,19 @@ writeSections (void)
 			off  = htole64(dataOff             );
 			size = htole64(ftell(csect->stream));
 			dataOff += size;
+
+			// skip over last BSS sections
+			last = lastNext;
 		}
 		memcpy(out.offset, &off,  sizeof(out.offset)); // copy over offset
 		memcpy(out.size,   &size, sizeof(out.size  )); // copy over size
 
-		csect = next; // next section
-
-		if (!csect) // check for last section
+		if (!next) // check for last section
 		{
 			out.flags |= MIO_SECTION_FLAG_LAST;
 		}
-		else
-		{
-			lastNext = &csect->next; // save last nexr
-		}
+
+		csect = next; // next section
 
 		if (!fwrite(&out, sizeof(out), 1, fout))
 		{
