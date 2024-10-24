@@ -1,0 +1,7 @@
+include_rules
+
+: foreach *.c ^test.c |> !host_cc   |> ./obj/%B.o {obj}
+: {obj}               |> !host_ccld |> $(ROOT)/toolchain/cc | $(ROOT)/<toolchain>
+
+: test.c | $(ROOT)/<toolchain> |> $(VALGRIND) $(ROOT)/toolchain/cc < %f |> 
+
