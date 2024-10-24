@@ -8,6 +8,12 @@ void yylex_destroy (void); // lexer clean up, not portable but who cares
 void
 freeAll (void)
 {
+	// yylex_destroy messes with this pointer so put it above
+	if (yyin && yyin != stdin)
+	{
+		fclose(yyin);
+	}
+
 	yylex_destroy(); // clean up lexer
 
 	struct section *nextSection;

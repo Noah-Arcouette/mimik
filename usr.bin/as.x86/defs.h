@@ -13,6 +13,9 @@ struct yystype
 };
 #define YYSTYPE struct yystype
 
+// lexer.l
+extern FILE *yyin;
+
 // parser.y
 extern YYSTYPE yylval;
 extern int     errors;

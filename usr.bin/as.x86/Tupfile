@@ -10,5 +10,5 @@ ifeq (@(ARCH_X86),y)
 : foreach *.c ^emit.c ^lex.yy.c |> !host_cc   |> ./obj/%B.o {obj}
 : {obj}                         |> !host_ccld |> $(ROOT)/toolchain/as.x86 | $(ROOT)/<toolchain>
 
-: test.s | $(ROOT)/<toolchain> |> $(VALGRIND) $(ROOT)/toolchain/as.x86 < %f |> a.out
+: test.s | $(ROOT)/<toolchain> |> $(VALGRIND) $(ROOT)/toolchain/as.x86 -o a.out -mi386 test.s |> a.out
 endif

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <errno.h>
 #include "defs.h"
 #include <mio.h>
@@ -33,11 +34,68 @@ struct header header = {
 };
 
 int
-main (int argc, const char **argv)
+main (int argc, char * const*argv)
 {
 	if (argc > 0)
 	{
 		self = argv[0];
+	}
+
+	opterr = 0;
+	int c;
+	while (1)
+	{
+		c = getopt(argc, argv, ":m:o:");
+		if (c < 0)
+		{
+			break; // leave on end of getopt
+		}
+
+		switch (c)
+		{
+		case '?':
+			fprintf(stderr, "%s: Unknown option `%c'\n", self, optopt);
+			exit(1);
+			break;
+		case ':':
+			fprintf(stderr, "%s: Option `%c' requires a parameter.\n", self, optopt);
+			exit(1);
+			break;
+		case 'm': // micro-architecture
+			if (!strcmp(optarg, "i8086"))
+			{
+				header.uarch = MIO_UARCH_I8086;
+				break;
+			}
+			if (!strcmp(optarg, "i386"))
+			{
+				header.uarch = MIO_UARCH_I386;
+				break;
+			}
+			fprintf(stderr, "%s: Unknown micro-architecture `%s'.\n", self, optarg);
+			exit(1);
+			break;
+		case 'o': // output file
+			fileout = optarg;
+			break;
+		}
+	}
+	if (optind < argc && !strcmp(argv[optind], "--"))
+	{
+		optind++; // skip over `--'
+	}
+	// check for input file
+	if (optind < argc)
+	{
+		filename = argv[optind];
+		yyin     = fopen(filename, "r"); // open parameter file
+		if (!yyin)
+		{
+			int errnum = errno;
+			fprintf(stderr, "%s: Failed to open file `%s'\n", self, filename);
+			fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+			exit(1);
+		}
 	}
 
 	currentSection = (struct section *)NULL;
@@ -48,6 +106,12 @@ main (int argc, const char **argv)
 
 	// parser input
 	yyparse();
+
+	// yylex_destroy does weird things to the pointer so put it above
+	if (yyin && yyin != stdin)
+	{
+		fclose(yyin);
+	}
 
 	yylex_destroy(); // free lexer
 
