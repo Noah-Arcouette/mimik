@@ -17,10 +17,10 @@ main (int argc, char *const *argv)
 		self = argv[0]; // get program name
 	}
 
-	//yyparse();
+	// parse file
+	yyparse();
 
-	//yylex_destroy(); // free the lexer
-	printf("%s: Hello, world!\n", self);
+	yylex_destroy(); // free the lexer
 
 	return errors;
 }
