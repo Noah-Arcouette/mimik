@@ -9,6 +9,7 @@ struct yystype
 {
 	union {
 		long long value;
+		char     *string;
 	};
 
 	int lineno;

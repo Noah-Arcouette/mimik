@@ -1,6 +1,7 @@
 %{
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "defs.h"
 
 // lexer
@@ -12,7 +13,9 @@ extern void yyerror (const char *);
 
 %}
 
-%token VALUE // immidiate value
+%token VALUE  // immidiate value
+%token SYMBOL // user defined name
+%destructor { free($$.string); } SYMBOL
 
 // associativity
 %left '+' '-'
@@ -39,8 +42,19 @@ expr:
 	| '-' value %prec UNARY
 	;
 
+args:
+	value arg
+	|
+	;
+arg:
+	',' value arg
+	|
+	;
+
 value:
-	VALUE
+	  VALUE
+	| SYMBOL              { free($1.string); }
+	| SYMBOL '(' args ')' { free($1.string); }
 	| expr
 	;
 

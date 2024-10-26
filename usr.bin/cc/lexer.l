@@ -4,8 +4,24 @@
 #include "y.tab.h"
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 
 int lineno = 1;
+
+static void
+setString ()
+{
+	// duplication string
+	yylval.string = strdup(yytext);
+
+	if (!yylval.string) // check for error
+	{
+		int errnum = errno;
+		fprintf(stderr, "%s: Failed to allocate memory.\n", self);
+		fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+		exit(1);
+	}
+}
 
 %}
 
@@ -38,6 +54,14 @@ int lineno = 1;
 
 	yylval.lineno = lineno;
 	return VALUE;
+}
+
+[a-zA-Z0-9_]* { // = Symbol =
+	fprintf(stderr, "Lexer : SYMBOL: `%s'\n", yytext);
+	setString();
+
+	yylval.lineno = lineno;
+	return SYMBOL;
 }
 
 \n { // = white space =
