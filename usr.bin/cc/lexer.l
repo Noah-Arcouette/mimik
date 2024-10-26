@@ -27,6 +27,87 @@ setString ()
 
 %%
 
+"char" { // = Types =
+	fprintf(stderr, "Lexer : CHAR: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return CHAR;
+}
+"short" {
+	fprintf(stderr, "Lexer : SHORT: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return SHORT;
+}
+"int" {
+	fprintf(stderr, "Lexer : INT: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return INT;
+}
+"long" {
+	fprintf(stderr, "Lexer : LONG: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return LONG;
+}
+"long int" {
+	fprintf(stderr, "Lexer : LONG INT: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return LONG;
+}
+"long long" {
+	fprintf(stderr, "Lexer : LONG LONG: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return LONG_LONG;
+}
+
+"unsigned" { // = Qualifiers =
+	fprintf(stderr, "Lexer : UNSIGNED: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return UNSIGNED;
+}
+"signed" {
+	fprintf(stderr, "Lexer : SIGNED: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return SIGNED;
+}
+"const" {
+	fprintf(stderr, "Lexer : CONST: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return CONST;
+}
+"volatile" {
+	fprintf(stderr, "Lexer : VOLATILE: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return VOLATILE;
+}
+
+"struct" { // = Structure Types =
+	fprintf(stderr, "Lexer : STRUCT: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return STRUCT;
+}
+"union" {
+	fprintf(stderr, "Lexer : UNION: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return UNION;
+}
+"enum" {
+	fprintf(stderr, "Lexer : ENUM: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return ENUM;
+}
+
 "0"[0-6][0-6_]* { // = Values =
 	fprintf(stderr, "Lexer : VALUE: `%s'\n", yytext);
 	yylval.value = strtoll(yytext, NULL, 7);

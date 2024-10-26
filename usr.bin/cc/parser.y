@@ -17,17 +17,52 @@ extern void yyerror (const char *);
 %token SYMBOL // user defined name
 %destructor { free($$.string); } SYMBOL
 
+// types
+%token CHAR SHORT INT LONG LONG_LONG
+%token UNSIGNED SIGNED CONST VOLATILE // qualifiers
+%token STRUCT UNION ENUM // structure types
+
 // associativity
 %left '+' '-'
 %left '/' '%' '*'
 %nonassoc UNARY
+%right '='
 
 %start program
 %%
 
 program:
-	program value ';'
+	  program value ';'
+	| program type SYMBOL ';' { free($3.string); }
 	|
+	;
+
+qualifier:
+	  CONST qualifier
+	| VOLATILE qualifier
+	|
+	;
+pointer:
+	qualifier '*' pointer
+	|
+	;
+signage:
+	  UNSIGNED
+	|   SIGNED
+	|
+	;
+struct:
+	  STRUCT
+	| UNION
+	| ENUM
+	;
+type:
+	  qualifier signage CHAR pointer
+	| qualifier signage SHORT pointer
+	| qualifier signage INT pointer
+	| qualifier signage LONG pointer
+	| qualifier signage LONG_LONG pointer
+	| qualifier struct  SYMBOL pointer { free($3.string); }
 	;
 
 expr:
@@ -40,6 +75,8 @@ expr:
 	| value '*' value
 	| '+' value %prec UNARY
 	| '-' value %prec UNARY
+	// assignment
+	| type SYMBOL '=' value { free($2.string); }
 	;
 
 args:
