@@ -14,16 +14,34 @@ extern void yyerror (const char *);
 
 %token VALUE // immidiate value
 
+// associativity
+%left '+' '-'
+%left '/' '%' '*'
+%nonassoc UNARY
+
 %start program
 %%
 
 program:
-	program value
+	program value ';'
 	|
+	;
+
+expr:
+	'(' value ')'
+	// mathamatical
+	| value '+' value
+	| value '-' value
+	| value '/' value
+	| value '%' value
+	| value '*' value
+	| '+' value %prec UNARY
+	| '-' value %prec UNARY
 	;
 
 value:
 	VALUE
+	| expr
 	;
 
 %%

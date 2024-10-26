@@ -1,7 +1,7 @@
 %{
 
-#include "y.tab.h"
 #include "defs.h"
+#include "y.tab.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -11,7 +11,14 @@ int lineno = 1;
 
 %%
 
-[0-9][0-9_]* { // = Values =
+"0"[0-6][0-6_]* { // = Values =
+	fprintf(stderr, "Lexer : VALUE: `%s'\n", yytext);
+	yylval.value = strtoll(yytext, NULL, 7);
+
+	yylval.lineno = lineno;
+	return VALUE;
+}
+[0-9][0-9_]* {
 	fprintf(stderr, "Lexer : VALUE: `%s'\n", yytext);
 	yylval.value = strtoll(yytext, NULL, 10);
 
@@ -28,13 +35,6 @@ int lineno = 1;
 "0b"[01][01_]* {
 	fprintf(stderr, "Lexer : VALUE: `%s'\n", yytext);
 	yylval.value = strtoll(yytext, NULL, 2);
-
-	yylval.lineno = lineno;
-	return VALUE;
-}
-"0"[0-6][0-6_]* {
-	fprintf(stderr, "Lexer : VALUE: `%s'\n", yytext);
-	yylval.value = strtoll(yytext, NULL, 7);
 
 	yylval.lineno = lineno;
 	return VALUE;
