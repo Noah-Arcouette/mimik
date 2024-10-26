@@ -12,10 +12,18 @@ extern void yyerror (const char *);
 
 %}
 
+%token VALUE // immidiate value
+
 %start program
 %%
 
 program:
+	program value
+	|
+	;
+
+value:
+	VALUE
 	;
 
 %%

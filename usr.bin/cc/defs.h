@@ -4,9 +4,22 @@
 // lexer.l
 extern int lineno;
 
+// parser.y
+struct yystype
+{
+	union {
+		long long value;
+	};
+
+	int lineno;
+};
+#define YYSTYPE struct yystype
+extern YYSTYPE yylval;
+
 // cc.c
 extern const char *filename;
 extern       int   errors;
+extern const char *self;
 
 #endif
 
