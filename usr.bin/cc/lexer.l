@@ -27,7 +27,13 @@ setString ()
 
 %%
 
-"char" { // = Types =
+"void" { // = Types =
+	fprintf(stderr, "Lexer : VOID: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return VOID;
+}
+"char" {
 	fprintf(stderr, "Lexer : CHAR: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
@@ -106,6 +112,13 @@ setString ()
 
 	yylval.lineno = lineno;
 	return ENUM;
+}
+
+"return" { // = Keywords =
+	fprintf(stderr, "Lexer : RETURN: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return RETURN;
 }
 
 "0"[0-6][0-6_]* { // = Values =

@@ -16,3 +16,9 @@ x + 20 / y(10+20, (16-jfr(10)/fjw()));
 unsigned int *const *x = 69;
 
 struct hi *pickel;
+
+int
+testFunc (int x)
+{
+	return testFunc(x-1)*x;
+}

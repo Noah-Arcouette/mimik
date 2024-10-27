@@ -18,9 +18,10 @@ extern void yyerror (const char *);
 %destructor { free($$.string); } SYMBOL
 
 // types
-%token CHAR SHORT INT LONG LONG_LONG
+%token VOID CHAR SHORT INT LONG LONG_LONG
 %token UNSIGNED SIGNED CONST VOLATILE // qualifiers
 %token STRUCT UNION ENUM // structure types
+%token RETURN // keywords
 
 // associativity
 %left '+' '-'
@@ -32,8 +33,34 @@ extern void yyerror (const char *);
 %%
 
 program:
-	  program value ';'
-	| program type SYMBOL ';' { free($3.string); }
+	  program line
+	| program func
+	|
+	;
+
+line:
+	  value ';'
+	| type SYMBOL ';' { free($2.string); }
+	| '{' line line_continue '}'
+	| RETURN value ';'
+	| RETURN ';'
+	;
+line_continue:
+	  line line_continue
+	|
+	;
+
+func:
+	type SYMBOL '(' params ')' line { free($2.string); }
+	;
+params:
+	  type SYMBOL params_continue { free($2.string); }
+	| type        params_continue
+	|
+	;
+params_continue:
+	  ',' type SYMBOL params_continue { free($3.string); }
+	| ',' type        params_continue
 	|
 	;
 
@@ -57,7 +84,8 @@ struct:
 	| ENUM
 	;
 type:
-	  qualifier signage CHAR pointer
+	  qualifier         VOID pointer
+	| qualifier signage CHAR pointer
 	| qualifier signage SHORT pointer
 	| qualifier signage INT pointer
 	| qualifier signage LONG pointer
