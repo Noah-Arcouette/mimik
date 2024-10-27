@@ -17,17 +17,18 @@ extern void yyerror (const char *);
 %token SYMBOL // user defined name
 %destructor { free($$.string); } SYMBOL
 
-// types
-%token VOID CHAR SHORT INT LONG LONG_LONG
+%token VOID CHAR SHORT INT LONG LONG_LONG // types
 %token UNSIGNED SIGNED CONST VOLATILE // qualifiers
 %token STRUCT UNION ENUM // structure types
-%token RETURN // keywords
+%token RETURN IF ELSE // keywords
+%token EQ NEQ GTE LTE // ==, !=, >=, <= : multicharacter operations
 
 // associativity
 %left '+' '-'
 %left '/' '%' '*'
 %nonassoc UNARY
 %right '='
+%right EQ NEQ GTE LTE '>' '<'
 
 %start program
 %%
@@ -44,6 +45,9 @@ line:
 	| '{' line line_continue '}'
 	| RETURN value ';'
 	| RETURN ';'
+	| IF '(' value ')' line
+	| IF ELSE '(' value ')' line
+	| ELSE line
 	;
 line_continue:
 	  line line_continue
@@ -103,6 +107,13 @@ expr:
 	| value '*' value
 	| '+' value %prec UNARY
 	| '-' value %prec UNARY
+	// compareison
+	| value EQ  value
+	| value NEQ value
+	| value GTE value
+	| value LTE value
+	| value '>' value
+	| value '<' value
 	// assignment
 	| type SYMBOL '=' value { free($2.string); }
 	;

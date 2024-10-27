@@ -20,5 +20,10 @@ struct hi *pickel;
 int
 testFunc (int x)
 {
+	if (x <= 1)
+	{
+		return 1;
+	}
+
 	return testFunc(x-1)*x;
 }

@@ -120,6 +120,43 @@ setString ()
 	yylval.lineno = lineno;
 	return RETURN;
 }
+"if" {
+	fprintf(stderr, "Lexer : IF: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return IF;
+}
+"else" {
+	fprintf(stderr, "Lexer : ELSE: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return ELSE;
+}
+
+"==" { // = multicharacter operations =
+	fprintf(stderr, "Lexer : EQ: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return EQ;
+}
+"!=" {
+	fprintf(stderr, "Lexer : NEQ: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return NEQ;
+}
+">=" {
+	fprintf(stderr, "Lexer : GTE: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return GTE;
+}
+"<=" {
+	fprintf(stderr, "Lexer : LTE: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return LTE;
+}
 
 "0"[0-6][0-6_]* { // = Values =
 	fprintf(stderr, "Lexer : VALUE: `%s'\n", yytext);
