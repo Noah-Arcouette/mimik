@@ -17,10 +17,10 @@ extern void yyerror (const char *);
 %token SYMBOL // user defined name
 %destructor { free($$.string); } SYMBOL
 
-%token VOID CHAR SHORT INT LONG LONG_LONG // types
+%token VOID CHAR SHORT INT LONG LONG_LONG STRING // types
 %token UNSIGNED SIGNED CONST VOLATILE // qualifiers
 %token STRUCT UNION ENUM // structure types
-%token RETURN IF ELSE // keywords
+%token RETURN IF ELSE EXTERN // keywords
 %token EQ NEQ GTE LTE // ==, !=, >=, <= : multicharacter operations
 
 // associativity
@@ -35,7 +35,7 @@ extern void yyerror (const char *);
 
 program:
 	  program line
-	| program func
+	| program func line
 	|
 	;
 
@@ -43,11 +43,16 @@ line:
 	  value ';'
 	| type SYMBOL ';' { free($2.string); }
 	| '{' line line_continue '}'
+	// return
 	| RETURN value ';'
 	| RETURN ';'
+	// if/else statements
 	| IF '(' value ')' line
 	| IF ELSE '(' value ')' line
 	| ELSE line
+	// extern declarations
+	| EXTERN type SYMBOL ';' { free($3.string); }
+	| EXTERN func        ';'
 	;
 line_continue:
 	  line line_continue
@@ -55,7 +60,7 @@ line_continue:
 	;
 
 func:
-	type SYMBOL '(' params ')' line { free($2.string); }
+	type SYMBOL '(' params ')' { free($2.string); }
 	;
 params:
 	  type SYMBOL params_continue { free($2.string); }
@@ -116,6 +121,9 @@ expr:
 	| value '<' value
 	// assignment
 	| type SYMBOL '=' value { free($2.string); }
+	|      SYMBOL '=' value { free($1.string); }
+	// indexing
+	| SYMBOL '[' value ']' { free($1.string); }
 	;
 
 args:
@@ -132,6 +140,7 @@ value:
 	| SYMBOL              { free($1.string); }
 	| SYMBOL '(' args ')' { free($1.string); }
 	| expr
+	| STRING { free($1.string); }
 	;
 
 %%

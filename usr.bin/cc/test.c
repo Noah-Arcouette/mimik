@@ -1,29 +1,23 @@
 
+extern int  yyparse       (void);
+extern void yylex_destroy (void);
 
-010272;
-0b1001;
+      int   errors = 0;
+const char *self   = "usr.bin/cc";
 
-0x10_1020_23;
-
-31203213123;
-9;
-
-10 + 20 + 20 - 5 * 20 / 432 % 2;
-
-int x = y(10, 3);
-x + 20 / y(10+20, (16-jfr(10)/fjw()));
-
-unsigned int *const *x = 69;
-
-struct hi *pickel;
+const char *filename = "<stdin>";
 
 int
-testFunc (int x)
+main (int argc, char *const *argv)
 {
-	if (x <= 1)
+	if (argc > 0)
 	{
-		return 1;
+		self = argv[0];
 	}
 
-	return testFunc(x-1)*x;
+	yyparse();
+
+	yylex_destroy();
+
+	return errors;
 }

@@ -132,6 +132,12 @@ setString ()
 	yylval.lineno = lineno;
 	return ELSE;
 }
+"extern" {
+	fprintf(stderr, "Lexer : EXTERN: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return EXTERN;
+}
 
 "==" { // = multicharacter operations =
 	fprintf(stderr, "Lexer : EQ: `%s'\n", yytext);
@@ -185,6 +191,18 @@ setString ()
 
 	yylval.lineno = lineno;
 	return VALUE;
+}
+"\"".*"\"" {
+	fprintf(stderr, "Lexer : STRING: `%s'\n", yytext);
+
+	// remove quotes
+	yytext++;
+	yytext[yyleng-2] = '\0';
+
+	setString();
+
+	yylval.lineno = lineno;
+	return STRING;
 }
 
 [a-zA-Z0-9_]* { // = Symbol =
