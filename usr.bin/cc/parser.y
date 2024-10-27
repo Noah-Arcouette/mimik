@@ -139,8 +139,14 @@ value:
 	  VALUE
 	| SYMBOL              { free($1.string); }
 	| SYMBOL '(' args ')' { free($1.string); }
+	| STRING              { free($1.string); }
 	| expr
-	| STRING { free($1.string); }
+	// casting
+	| '(' type ')' VALUE
+	| '(' type ')' SYMBOL              { free($4.string); }
+	| '(' type ')' SYMBOL '(' args ')' { free($4.string); }
+	| '(' type ')' STRING              { free($4.string); }
+	| '(' type ')' '(' value ')'
 	;
 
 %%
