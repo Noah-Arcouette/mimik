@@ -16,10 +16,10 @@ getDiskInfo (unsigned char disk)
 		"movb %%ah, %2\n\t"    // error code
 		"xor %%ax, %%ax\n\t"
 		"movw %%ax, %%es\n\t" // fix segment to floppy drive parameter table
-		: "=rmsg"(dinfo.heads),
-		  "=rmsg"(cylinSect),
-		  "=rmsg"(errorCode)
-		: "rmsg"(disk)
+		: "=ms"(dinfo.heads),
+		  "=ms"(cylinSect),
+		  "=ms"(errorCode)
+		: "ms"(disk)
 		: "%di", "%ah", "%dx", "%cx", "%bl", "cc"
 	);
 
