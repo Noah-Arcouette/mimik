@@ -93,13 +93,20 @@ struct:
 	| ENUM
 	;
 type:
-	  qualifier         VOID pointer
-	| qualifier signage CHAR pointer
-	| qualifier signage SHORT pointer
-	| qualifier signage INT pointer
-	| qualifier signage LONG pointer
+	  qualifier         VOID      pointer
+	| qualifier signage CHAR      pointer
+	| qualifier signage SHORT     pointer
+	| qualifier signage INT       pointer
+	| qualifier signage LONG      pointer
 	| qualifier signage LONG_LONG pointer
-	| qualifier struct  SYMBOL pointer { free($3.string); }
+	| qualifier struct  SYMBOL    pointer { free($3.string); }
+	;
+array:
+	'[' value ']' array_continue
+	;
+array_continue:
+	'[' value ']' array_continue
+	|
 	;
 
 expr:
@@ -123,7 +130,7 @@ expr:
 	| type SYMBOL '=' value { free($2.string); }
 	|      SYMBOL '=' value { free($1.string); }
 	// indexing
-	| SYMBOL '[' value ']' { free($1.string); }
+	| SYMBOL array { free($1.string); }
 	;
 
 args:

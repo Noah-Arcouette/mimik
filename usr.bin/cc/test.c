@@ -7,6 +7,15 @@ const char *self   = "usr.bin/cc";
 
 const char *filename = "<stdin>";
 
+struct test
+{
+	union {
+		int a;
+		int b[10];
+	}
+	const void **x[100];
+};
+
 int
 main (int argc, char *const *argv)
 {
