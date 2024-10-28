@@ -12,7 +12,7 @@ struct test
 	union {
 		int a;
 		int b[10];
-	}
+	};
 	const void **x[100];
 };
 
@@ -23,6 +23,8 @@ main (int argc, char *const *argv)
 	{
 		self = argv[0];
 	}
+
+	int *x[0] = 0;
 
 	yyparse();
 

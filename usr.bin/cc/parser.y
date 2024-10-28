@@ -15,7 +15,7 @@ extern void yyerror (const char *);
 
 %token VALUE  // immidiate value
 %token SYMBOL // user defined name
-%destructor { free($$.string); } SYMBOL
+%destructor { free($$.string); } SYMBOL STRING
 
 %token VOID CHAR SHORT INT LONG LONG_LONG STRING // types
 %token UNSIGNED SIGNED CONST VOLATILE // qualifiers
@@ -53,6 +53,8 @@ line:
 	// extern declarations
 	| EXTERN type SYMBOL ';' { free($3.string); }
 	| EXTERN func        ';'
+	// structural type definitions
+	| qualifier struct SYMBOL struct_body pointer ';' { free($3.string); }
 	;
 line_continue:
 	  line line_continue
@@ -87,19 +89,38 @@ signage:
 	|   SIGNED
 	|
 	;
+
 struct:
 	  STRUCT
 	| UNION
-	| ENUM
 	;
+struct_body:
+	'{' definitions '}'
+	;
+definitions:
+	definition ';' definitions
+	|
+	;
+definition:
+	  type SYMBOL array { free($2.string); }
+	| type SYMBOL       { free($2.string); }
+	| structural
+	;
+structural:
+	  qualifier struct  SYMBOL struct_body pointer { free($3.string); }
+	| qualifier struct  SYMBOL             pointer { free($3.string); }
+	| qualifier struct         struct_body pointer
+	| qualifier ENUM    SYMBOL             pointer { free($3.string); }
+	;
+
 type:
-	  qualifier         VOID      pointer
-	| qualifier signage CHAR      pointer
-	| qualifier signage SHORT     pointer
-	| qualifier signage INT       pointer
-	| qualifier signage LONG      pointer
-	| qualifier signage LONG_LONG pointer
-	| qualifier struct  SYMBOL    pointer { free($3.string); }
+	  qualifier         VOID               pointer
+	| qualifier signage CHAR               pointer
+	| qualifier signage SHORT              pointer
+	| qualifier signage INT                pointer
+	| qualifier signage LONG               pointer
+	| qualifier signage LONG_LONG          pointer
+	| structural
 	;
 array:
 	'[' value ']' array_continue
@@ -127,7 +148,7 @@ expr:
 	| value '>' value
 	| value '<' value
 	// assignment
-	| type SYMBOL '=' value { free($2.string); }
+	| definition '=' value
 	|      SYMBOL '=' value { free($1.string); }
 	// indexing
 	| SYMBOL array { free($1.string); }
