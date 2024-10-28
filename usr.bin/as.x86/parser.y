@@ -35,7 +35,7 @@ extern void yyerror (const char *);
 %token INT STI CLI HLT
 %token INC
 %token PUSH POP PUSHF POPF
-%token STRING SYMBOL GLOBAL
+%token STRING SYMBOL
 %token VALUE
 %token NEWLINE
 %start program
