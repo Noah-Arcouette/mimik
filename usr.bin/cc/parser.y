@@ -13,12 +13,13 @@ extern void yyerror (const char *);
 
 %}
 
-%token VALUE  // immidiate value
+%token VALUE STRING // immidiate value
 %token SYMBOL // user defined name
 %destructor { free($$.string); } SYMBOL STRING
 
-%token VOID CHAR SHORT INT LONG LONG_LONG STRING // types
-%token UNSIGNED SIGNED CONST VOLATILE // qualifiers
+%token ELLIPSIS
+%token VOID CHAR SHORT INT  // types
+%token UNSIGNED SIGNED CONST VOLATILE LONG // qualifiers
 %token STRUCT UNION ENUM // structure types
 %token RETURN IF ELSE EXTERN // keywords
 %token EQ NEQ GTE LTE // ==, !=, >=, <= : multicharacter operations
@@ -34,147 +35,143 @@ extern void yyerror (const char *);
 %%
 
 program:
-	  program line
-	| program func line
+	  external   program
+	| definition program
+	| function   program
+	| error program { yyerrok; yyclearin; }
 	|
 	;
 
-line:
-	  value ';'
-	| type SYMBOL ';' { free($2.string); }
-	| '{' line line_continue '}'
-	// return
-	| RETURN value ';'
-	| RETURN ';'
-	// if/else statements
-	| IF '(' value ')' line
-	| IF ELSE '(' value ')' line
-	| ELSE line
-	// extern declarations
-	| EXTERN type SYMBOL ';' { free($3.string); }
-	| EXTERN func        ';'
-	// structural type definitions
-	| qualifier struct SYMBOL struct_body pointer ';' { free($3.string); }
-	;
-line_continue:
-	  line line_continue
-	|
-	;
-
-func:
-	type SYMBOL '(' params ')' { free($2.string); }
-	;
-params:
-	  type SYMBOL params_continue { free($2.string); }
-	| type        params_continue
-	|
-	;
-params_continue:
-	  ',' type SYMBOL params_continue { free($3.string); }
-	| ',' type        params_continue
-	|
-	;
-
-qualifier:
-	  CONST qualifier
-	| VOLATILE qualifier
-	|
-	;
-pointer:
-	qualifier '*' pointer
-	|
-	;
-signage:
-	  UNSIGNED
-	|   SIGNED
-	|
-	;
-
-struct:
-	  STRUCT
-	| UNION
-	;
-struct_body:
-	'{' definitions '}'
-	;
-definitions:
-	definition ';' definitions
-	|
-	;
+// definition, and assignment
 definition:
-	  type SYMBOL array { free($2.string); }
-	| type SYMBOL       { free($2.string); }
-	| structural
-	;
-structural:
-	  qualifier struct  SYMBOL struct_body pointer { free($3.string); }
-	| qualifier struct  SYMBOL             pointer { free($3.string); }
-	| qualifier struct         struct_body pointer
-	| qualifier ENUM    SYMBOL             pointer { free($3.string); }
-	;
-
-type:
-	  qualifier         VOID               pointer
-	| qualifier signage CHAR               pointer
-	| qualifier signage SHORT              pointer
-	| qualifier signage INT                pointer
-	| qualifier signage LONG               pointer
-	| qualifier signage LONG_LONG          pointer
-	| structural
+	  type SYMBOL array ';' { free($2.string); }
+	| type SYMBOL ';'       { free($2.string); }
+	// with assignment
+	| type SYMBOL       '=' value ';' { free($2.string); }
+	| type SYMBOL array '=' value ';' { free($2.string); }
+	// structures and unions
+	| structure
 	;
 array:
 	'[' value ']' array_continue
 	;
 array_continue:
-	'[' value ']' array_continue
+	array
 	|
 	;
 
+// structure
+structure:
+	  struct SYMBOL struct_body ';' { free($2.string); }
+	| struct        struct_body ';'
+	;
+struct:
+	  STRUCT
+	| UNION
+	;
+struct_body:
+	'{' struct_elements '}'
+	;
+struct_elements:
+	  definition struct_elements
+	|
+	;
+
+// externals
+external:
+	  EXTERN type SYMBOL   ';' { free($3.string); }
+	| EXTERN function_head ';'
+	;
+
+// function
+function:
+	function_head body
+function_head:
+	type SYMBOL '(' function_params ')' { free($2.string); }
+	;
+function_params:
+	  type        function_params_continue
+	| type SYMBOL function_params_continue { free($2.string); }
+	|
+	;
+function_params_continue:
+	  ',' function_params
+	| ',' ELLIPSIS
+	|
+	;
+
+// execution body
+body:
+	  '{' body_continue '}'
+	| definition
+	// if statement
+	|      IF '(' value ')' body
+	| ELSE                  body
+	// just a value
+	| value ';'
+	// return
+	| RETURN value ';'
+	| RETURN ';'
+	;
+body_continue:
+	body body_continue
+	|
+	;
+
+// variable type
+type:
+	  qualifiers number_qualifiers number pointer
+	| qualifiers                   VOID   pointer
+	;
+qualifiers: // general type qualifiers
+	  CONST    qualifiers
+	| VOLATILE qualifiers
+	|
+	;
+number_qualifiers: // qualifiers for integer types
+	  UNSIGNED number_qualifiers
+	| SIGNED   number_qualifiers
+	| LONG     number_qualifiers
+	|
+	;
+number: // general number types
+	  CHAR
+	| SHORT
+	| INT
+	;
+pointer:
+	qualifiers '*' pointer
+	|
+	;
+
+// value
+value:
+	  VALUE
+	| STRING { free($1.string); }
+	| expr
+	// symbols get and set
+	| SYMBOL           { free($1.string); }
+	| SYMBOL '=' value { free($1.string); }
+	// array indexing
+	| SYMBOL array { free($1.string); }
+	// function call
+	| SYMBOL '(' ')' { free($1.string); }
+	;
+// expression
 expr:
-	'(' value ')'
-	// mathamatical
-	| value '+' value
+	// math
+	  value '+' value
 	| value '-' value
 	| value '/' value
 	| value '%' value
 	| value '*' value
-	| '+' value %prec UNARY
-	| '-' value %prec UNARY
-	// compareison
+	// comparisons
+	| value '>' value
+	| value '<' value
 	| value EQ  value
 	| value NEQ value
 	| value GTE value
 	| value LTE value
-	| value '>' value
-	| value '<' value
-	// assignment
-	| definition '=' value
-	|      SYMBOL '=' value { free($1.string); }
-	// indexing
-	| SYMBOL array { free($1.string); }
-	;
-
-args:
-	value arg
-	|
-	;
-arg:
-	',' value arg
-	|
-	;
-
-value:
-	  VALUE
-	| SYMBOL              { free($1.string); }
-	| SYMBOL '(' args ')' { free($1.string); }
-	| STRING              { free($1.string); }
-	| expr
-	// casting
-	| '(' type ')' VALUE
-	| '(' type ')' SYMBOL              { free($4.string); }
-	| '(' type ')' SYMBOL '(' args ')' { free($4.string); }
-	| '(' type ')' STRING              { free($4.string); }
-	| '(' type ')' '(' value ')'
 	;
 
 %%

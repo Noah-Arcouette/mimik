@@ -27,6 +27,13 @@ setString ()
 
 %%
 
+"..." { // Ellipsis
+	fprintf(stderr, "Lexer : ELLIPSIS: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return ELLIPSIS;
+}
+
 "void" { // = Types =
 	fprintf(stderr, "Lexer : VOID: `%s'\n", yytext);
 
@@ -50,24 +57,6 @@ setString ()
 
 	yylval.lineno = lineno;
 	return INT;
-}
-"long" {
-	fprintf(stderr, "Lexer : LONG: `%s'\n", yytext);
-
-	yylval.lineno = lineno;
-	return LONG;
-}
-"long int" {
-	fprintf(stderr, "Lexer : LONG INT: `%s'\n", yytext);
-
-	yylval.lineno = lineno;
-	return LONG;
-}
-"long long" {
-	fprintf(stderr, "Lexer : LONG LONG: `%s'\n", yytext);
-
-	yylval.lineno = lineno;
-	return LONG_LONG;
 }
 
 "unsigned" { // = Qualifiers =
@@ -93,6 +82,12 @@ setString ()
 
 	yylval.lineno = lineno;
 	return VOLATILE;
+}
+"long" {
+	fprintf(stderr, "Lexer : LONG: `%s'\n", yytext);
+
+	yylval.lineno = lineno;
+	return LONG;
 }
 
 "struct" { // = Structure Types =
