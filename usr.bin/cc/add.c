@@ -37,7 +37,7 @@ addNode (struct node *restrict parent, const struct node *restrict child)
 	}
 	else
 	{
-		parent->next = copy; // if no last then add to start and end (the only other node)
+		parent->child = copy; // if no last then add to start and end (the only node)
 	}
 	parent->last = copy;
 	return copy;

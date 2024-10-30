@@ -46,9 +46,13 @@ struct node
 
 // add.c
 // copies child and attacks it to parent, returning a pointer to a copy of it or NULL
-struct node *addNode (struct node *restrict parent, const struct node *restrict child);
+extern struct node *addNode (struct node *restrict parent, const struct node *restrict child);
 
 // cc.c
-extern const char *self;
+extern const  char *self;
+extern struct node  root;
+
+// free.c
+extern void freeNodes (void);
 
 #endif

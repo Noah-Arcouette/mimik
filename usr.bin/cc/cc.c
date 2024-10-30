@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "defs.h"
 
 /*
@@ -25,6 +26,9 @@ main (void)
 {
 	// fill with zero
 	memset(&root, 0, sizeof(struct node));
+
+	// free all, known, nodes at end
+	atexit(freeNodes);
 
 	// add nodes
 	struct node test;
