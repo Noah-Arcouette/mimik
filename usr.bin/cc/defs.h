@@ -12,7 +12,7 @@ struct type
 		TYPE_DOUBLE
 	} type;
 	unsigned int longness   : 2;
-	unsigned int signness   : 1;
+	unsigned int signness   : 1; // is signed?
 	unsigned int isVolatile : 1;
 	unsigned int isConst    : 1;
 	unsigned int isStatic   : 1;
@@ -29,12 +29,20 @@ struct type
 struct node
 {
 	enum {
-		NODE_ROOT
+		NODE_ROOT,
+		NODE_VALUE
 	} nodeType;
 
 	struct type valueType; // resolvable type of the expression
 
 	char *symbol; // symbol name
+	union { // value
+		unsigned           char  uc;
+		unsigned           short us;
+		unsigned           int   ui;
+		unsigned      long int   ul;
+		unsigned long long int   ull;
+	} value;
 
 	// register for definitions
 	// noreturn, and inline, for functions
@@ -63,7 +71,8 @@ extern int lineno;
 extern int yylex_destroy (void);
 
 // parser.y
-extern int yyparse (void);
+extern void yyerror (const char *);
+extern int  yyparse (void);
 #define YYSTYPE struct node
 extern YYSTYPE yylval;
 

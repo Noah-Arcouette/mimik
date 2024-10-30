@@ -89,7 +89,7 @@ program:
 	| program push_pop NEWLINE
 
 	| program error NEWLINE { yyerrok; yyclearin; }
-	|
+	| // empty
 	;
 
 section:
@@ -372,7 +372,7 @@ segment_override:
 	| DS ':' {
 		emit(0x3e, BYTE);
 	}
-	| // no override
+	| // empty: no override
 	;
 
 reg16:

@@ -35,5 +35,7 @@ main (void)
 	// parse
 	yyparse();
 
+	// display the node tree
+
 	return 0;
 }
