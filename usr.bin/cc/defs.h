@@ -34,10 +34,10 @@ struct node
 
 	struct type valueType; // resolvable type of the expression
 
-	union { // other data for each node type
-		// register for definitions
-		// noreturn, and inline, for functions
-	};
+	char *symbol; // symbol name
+
+	// register for definitions
+	// noreturn, and inline, for functions
 
 	struct node *next;
 	struct node *child; // first child
