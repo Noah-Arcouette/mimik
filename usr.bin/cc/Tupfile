@@ -1,7 +1,11 @@
 include_rules
 
 # toolchain build
-: foreach *.c |> !host_cc   |> ./obj/%B.o {obj}
-: {obj}       |> !host_ccld |> $(ROOT)/toolchain/cc | $(ROOT)/<toolchain>
+: lexer.l  |> !host_lex  |>
+: parser.y |> !host_yacc |>
+
+: lex.yy.c | y.tab.h            |> !host_cc   |> ./obj/%B.o {obj}
+: foreach *.c ^lex.yy.c ^test.c |> !host_cc   |> ./obj/%B.o {obj}
+: {obj}                         |> !host_ccld |> $(ROOT)/toolchain/cc | $(ROOT)/<toolchain>
 
 : | $(ROOT)/<toolchain> |> $(VALGRIND) $(ROOT)/toolchain/cc |>

@@ -52,7 +52,17 @@ extern struct node *addNode (struct node *restrict parent, const struct node *re
 extern const  char *self;
 extern struct node  root;
 
+extern const char *filename;
+
 // free.c
 extern void freeNodes (void);
+
+// lexer.l
+extern int yylex (void);
+extern int lineno;
+extern int yylex_destroy (void);
+
+// parser.y
+extern int yyparse (void);
 
 #endif

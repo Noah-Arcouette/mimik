@@ -21,6 +21,8 @@ const char *self = "cc";
 
 struct node root;
 
+const char *filename = "<stdin>";
+
 int
 main (void)
 {
@@ -30,13 +32,8 @@ main (void)
 	// free all, known, nodes at end
 	atexit(freeNodes);
 
-	// add nodes
-	struct node test;
-	memset(&test, 0, sizeof(struct node));
-
-	addNode(&root, &test);
-	struct node *c = addNode(&root, &test);
-	addNode(c, &test);
+	// parse
+	yyparse();
 
 	printf("Hello, world!\n");
 	return 0;
