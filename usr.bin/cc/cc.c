@@ -35,6 +35,5 @@ main (void)
 	// parse
 	yyparse();
 
-	printf("Hello, world!\n");
 	return 0;
 }

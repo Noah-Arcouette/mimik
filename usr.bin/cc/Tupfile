@@ -8,4 +8,4 @@ include_rules
 : foreach *.c ^lex.yy.c ^test.c |> !host_cc   |> ./obj/%B.o {obj}
 : {obj}                         |> !host_ccld |> $(ROOT)/toolchain/cc | $(ROOT)/<toolchain>
 
-: | $(ROOT)/<toolchain> |> $(VALGRIND) $(ROOT)/toolchain/cc |>
+: test.c | $(ROOT)/<toolchain> |> $(VALGRIND) $(ROOT)/toolchain/cc < test.c |>

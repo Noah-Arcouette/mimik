@@ -4,25 +4,25 @@
 struct type
 {
 	enum { // base type
-		VOID,
-		CHAR,
-		SHORT,
-		INT,
-		FLOAT,
-		DOUBLE
-	};
-	int longness   : 2;
-	int signness   : 1;
-	int isVolatile : 1;
-	int isConst    : 1;
-	int isStatic   : 1;
+		TYPE_VOID,
+		TYPE_CHAR,
+		TYPE_SHORT,
+		TYPE_INT,
+		TYPE_FLOAT,
+		TYPE_DOUBLE
+	} type;
+	unsigned int longness   : 2;
+	unsigned int signness   : 1;
+	unsigned int isVolatile : 1;
+	unsigned int isConst    : 1;
+	unsigned int isStatic   : 1;
 
 	struct
 	{
-		int present    : 1;
-		int isVolatile : 1;
-		int isConst    : 1;
-		int isRestrict : 1;
+		unsigned int present    : 1;
+		unsigned int isVolatile : 1;
+		unsigned int isConst    : 1;
+		unsigned int isRestrict : 1;
 	} pointer[4]; // only four nested pointers
 };
 
@@ -64,5 +64,7 @@ extern int yylex_destroy (void);
 
 // parser.y
 extern int yyparse (void);
+#define YYSTYPE struct node
+extern YYSTYPE yylval;
 
 #endif

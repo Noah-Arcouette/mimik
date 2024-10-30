@@ -10,6 +10,12 @@
 %%
 
 program:
+	value ';' program
+	|
+	;
+
+// immediate value
+value:
 	;
 
 %%
