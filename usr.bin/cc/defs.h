@@ -32,7 +32,7 @@ struct node
 		NODE_ROOT
 	} nodeType;
 
-	struct type *valueType; // resolvable type of the expression
+	struct type valueType; // resolvable type of the expression
 
 	union { // other data for each node type
 		// register for definitions
@@ -40,7 +40,15 @@ struct node
 	};
 
 	struct node *next;
-	struct node *child;
+	struct node *child; // first child
+	struct node *last;  // last child
 };
+
+// add.c
+// copies child and attacks it to parent, returning a pointer to a copy of it or NULL
+struct node *addNode (struct node *restrict parent, const struct node *restrict child);
+
+// cc.c
+extern const char *self;
 
 #endif
