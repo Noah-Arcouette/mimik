@@ -30,10 +30,7 @@ freeAll (void)
 			nextSymbol = currentSymbol->next;
 
 			// free it
-			if (currentSymbol->name)
-			{
-				free(currentSymbol->name);
-			}
+			free(currentSymbol->name);
 			free(currentSymbol);
 
 			currentSymbol = nextSymbol;
@@ -46,10 +43,7 @@ freeAll (void)
 		{
 			// free them and move onto the next
 			nextGap = currentGap->next;
-			if (currentGap->name)
-			{
-				free(currentGap->name);
-			}
+			free(currentGap->name);
 			free(currentGap);
 			currentGap = nextGap;
 		}
@@ -59,14 +53,8 @@ freeAll (void)
 		{
 			fclose(currentSection->stream); // close output stream
 		}
-		if (currentSection->buffer)
-		{
-			free(currentSection->buffer);
-		}
-		if (currentSection->name)
-		{
-			free(currentSection->name);
-		}
+		free(currentSection->buffer);
+		free(currentSection->name);
 		free(currentSection);
 
 		currentSection = nextSection; // next section

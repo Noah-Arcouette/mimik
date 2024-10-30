@@ -68,7 +68,7 @@ emitGap(int flags, const char *symbol)
 		exit(-1);
 		break;
 	}
-	
+
 	int error;
 	if (fwrite(nothing, size, 1, currentSection->stream) != 1)
 	{

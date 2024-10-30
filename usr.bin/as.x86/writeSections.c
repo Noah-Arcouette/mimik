@@ -43,10 +43,7 @@ writeSections (void)
 			// free unneeded bss section
 			*last = next;
 			fclose(csect->stream);
-			if (csect->buffer)
-			{
-				free(csect->buffer);
-			}
+			free(csect->buffer);
 			free(csect);
 		}
 		else
