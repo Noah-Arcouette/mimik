@@ -37,11 +37,7 @@ struct node
 
 	char *symbol; // symbol name
 	union { // value
-		unsigned           char  uc;
-		unsigned           short us;
-		unsigned           int   ui;
-		unsigned      long int   ul;
-		unsigned long long int   ull;
+		unsigned long long int uvalue;
 	} value;
 
 	// register for definitions
@@ -75,5 +71,9 @@ extern void yyerror (const char *);
 extern int  yyparse (void);
 #define YYSTYPE struct node
 extern YYSTYPE yylval;
+
+// display.c
+extern void displayNode (struct node *, int);
+extern void displayType (struct type       );
 
 #endif

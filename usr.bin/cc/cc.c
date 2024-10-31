@@ -36,6 +36,7 @@ main (void)
 	yyparse();
 
 	// display the node tree
+	displayNode(&root, 0);
 
 	return 0;
 }
