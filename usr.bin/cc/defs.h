@@ -30,7 +30,14 @@ struct node
 {
 	enum {
 		NODE_ROOT,
-		NODE_VALUE
+		NODE_VALUE,
+		// binary operations
+		//  math
+		NODE_ADD,
+		NODE_SUB,
+		NODE_DIV,
+		NODE_MOD,
+		NODE_MUL
 	} nodeType;
 
 	struct type valueType; // resolvable type of the expression

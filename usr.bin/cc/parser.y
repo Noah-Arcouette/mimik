@@ -9,6 +9,11 @@
 
 %token VALUE // immediate value
 
+// binary operations
+//  simple math
+%left '+' '-'
+%left '/' '%' '*'
+
 %start program
 %%
 
@@ -20,6 +25,40 @@ program:
 // immediate value
 value:
 	VALUE { memcpy(&$$, &$1, sizeof(struct node)); }
+	| expr
+	;
+expr: // expressions
+	value '+' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_ADD;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value '-' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_SUB;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value '/' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_DIV;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value '%' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_MOD;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value '*' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_MUL;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| '(' value ')' { memcpy(&$$, &$2, sizeof(struct node)); }
 	;
 
 %%

@@ -19,7 +19,7 @@ int lineno = 1;
 
 	return VALUE;
 }
-[0-9_]+ {
+[0-9_]+[Uu] {
 	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_VALUE;
 

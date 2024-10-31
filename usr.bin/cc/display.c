@@ -104,6 +104,23 @@ displayNode (struct node *node, int depth)
 		}
 		printf(" %llu", node->value.uvalue);
 		break;
+	// binary operations
+	//  math
+	case NODE_ADD:
+		printf("ADD");
+		break;
+	case NODE_SUB:
+		printf("SUB");
+		break;
+	case NODE_DIV:
+		printf("DIV");
+		break;
+	case NODE_MOD:
+		printf("MOD");
+		break;
+	case NODE_MUL:
+		printf("MUL");
+		break;
 	default:
 		printf("UNKNOWN ");
 		break;
