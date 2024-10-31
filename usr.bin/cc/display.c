@@ -96,6 +96,12 @@ displayNode (struct node *node, int depth)
 	case NODE_VALUE:
 		printf("VALUE ");
 		displayType(node->valueType);
+
+		if (node->valueType.signness)
+		{
+			printf(" %lli", node->value.value);
+			break;
+		}
 		printf(" %llu", node->value.uvalue);
 		break;
 	default:

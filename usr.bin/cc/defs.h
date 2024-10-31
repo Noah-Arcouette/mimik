@@ -38,6 +38,7 @@ struct node
 	char *symbol; // symbol name
 	union { // value
 		unsigned long long int uvalue;
+		  signed long long int  value;
 	} value;
 
 	// register for definitions

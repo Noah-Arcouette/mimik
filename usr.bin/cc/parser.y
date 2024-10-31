@@ -13,7 +13,7 @@
 %%
 
 program:
-	value ';' program { addNode(&root, &$1); }
+	program value ';' { addNode(&root, &$2); }
 	| // empty
 	;
 
