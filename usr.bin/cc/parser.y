@@ -14,6 +14,8 @@
 %left '+' '-'
 %left '/' '%' '*'
 %left '&' '|' '^'
+%left BOOL_AND BOOL_OR
+%left BOOL_EQ BOOL_NEQ BOOL_LTE BOOL_GTE '>' '<'
 
 %start program
 %%
@@ -29,8 +31,57 @@ value:
 	| expr
 	;
 expr: // expressions
+	// boolean operations
+	value BOOL_AND value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_BOOL_AND;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value BOOL_OR value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_BOOL_OR;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value BOOL_EQ value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_BOOL_EQ;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value BOOL_NEQ value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_BOOL_NEQ;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value BOOL_GTE value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_BOOL_GTE;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value BOOL_LTE value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_BOOL_LTE;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value '>' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_BOOL_GT;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value '<' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_BOOL_LT;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
 	// binary arithmetic
-	value '&' value {
+	| value '&' value {
 		memset(&$$, 0, sizeof(struct node));
 		$$.nodeType = NODE_AND;
 		addNode(&$$, &$1);

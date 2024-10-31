@@ -41,7 +41,16 @@ struct node
 		// binary arithmetic
 		NODE_AND,
 		NODE_OR,
-		NODE_XOR
+		NODE_XOR,
+		// boolean operations
+		NODE_BOOL_AND,
+		NODE_BOOL_OR,
+		NODE_BOOL_EQ,
+		NODE_BOOL_NEQ,
+		NODE_BOOL_GTE,
+		NODE_BOOL_LTE,
+		NODE_BOOL_LT,
+		NODE_BOOL_GT
 	} nodeType;
 
 	struct type valueType; // resolvable type of the expression

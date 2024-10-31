@@ -131,6 +131,31 @@ displayNode (struct node *node, int depth)
 	case NODE_XOR:
 		printf("XOR");
 		break;
+	// boolean operations
+	case NODE_BOOL_AND:
+		printf("BOOL-AND");
+		break;
+	case NODE_BOOL_OR:
+		printf("BOOL-OR");
+		break;
+	case NODE_BOOL_EQ:
+		printf("EQ");
+		break;
+	case NODE_BOOL_NEQ:
+		printf("NEQ");
+		break;
+	case NODE_BOOL_GTE:
+		printf("GTE");
+		break;
+	case NODE_BOOL_LTE:
+		printf("LTE");
+		break;
+	case NODE_BOOL_GT:
+		printf("GT");
+		break;
+	case NODE_BOOL_LT:
+		printf("LT");
+		break;
 	default:
 		printf("UNKNOWN ");
 		break;

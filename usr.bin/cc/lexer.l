@@ -29,6 +29,43 @@ int lineno = 1;
 	return VALUE;
 }
 
+"&&" { // = boolean operations =
+	memset(&yylval, 0, sizeof(struct node));
+	yylval.nodeType = NODE_BOOL_AND;
+
+	return BOOL_AND;
+}
+"||" {
+	memset(&yylval, 0, sizeof(struct node));
+	yylval.nodeType = NODE_BOOL_OR;
+
+	return BOOL_OR;
+}
+"==" {
+	memset(&yylval, 0, sizeof(struct node));
+	yylval.nodeType = NODE_BOOL_EQ;
+
+	return BOOL_EQ;
+}
+"!=" {
+	memset(&yylval, 0, sizeof(struct node));
+	yylval.nodeType = NODE_BOOL_NEQ;
+
+	return BOOL_NEQ;
+}
+">=" {
+	memset(&yylval, 0, sizeof(struct node));
+	yylval.nodeType = NODE_BOOL_GTE;
+
+	return BOOL_GTE;
+}
+"<=" {
+	memset(&yylval, 0, sizeof(struct node));
+	yylval.nodeType = NODE_BOOL_LTE;
+
+	return BOOL_LTE;
+}  
+
 \n {
 	lineno++;
 }
