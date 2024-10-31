@@ -13,6 +13,7 @@
 //  simple math
 %left '+' '-'
 %left '/' '%' '*'
+%left '&' '|' '^'
 
 %start program
 %%
@@ -28,7 +29,27 @@ value:
 	| expr
 	;
 expr: // expressions
-	value '+' value {
+	// binary arithmetic
+	value '&' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_AND;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value '|' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_OR;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| value '^' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_XOR;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	// simple math
+	| value '+' value {
 		memset(&$$, 0, sizeof(struct node));
 		$$.nodeType = NODE_ADD;
 		addNode(&$$, &$1);

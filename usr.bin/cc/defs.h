@@ -37,7 +37,11 @@ struct node
 		NODE_SUB,
 		NODE_DIV,
 		NODE_MOD,
-		NODE_MUL
+		NODE_MUL,
+		// binary arithmetic
+		NODE_AND,
+		NODE_OR,
+		NODE_XOR
 	} nodeType;
 
 	struct type valueType; // resolvable type of the expression

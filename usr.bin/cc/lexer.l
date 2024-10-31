@@ -9,7 +9,7 @@ int lineno = 1;
 
 %%
 
-[-+]?[0-9_]+ { // = Value = : integer
+[0-9_]+ { // = Value = : integer
 	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_VALUE;
 
@@ -22,8 +22,6 @@ int lineno = 1;
 [0-9_]+[Uu] {
 	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_VALUE;
-
-	yytext[yyleng-1] = '\0';
 
 	yylval.valueType.type = TYPE_INT;
 	yylval.value.uvalue   = (unsigned long long int)strtoll(yytext, NULL, 10);

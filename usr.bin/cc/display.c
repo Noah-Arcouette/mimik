@@ -121,6 +121,16 @@ displayNode (struct node *node, int depth)
 	case NODE_MUL:
 		printf("MUL");
 		break;
+	// binary arithmetic
+	case NODE_AND:
+		printf("AND");
+		break;
+	case NODE_OR:
+		printf("OR");
+		break;
+	case NODE_XOR:
+		printf("XOR");
+		break;
 	default:
 		printf("UNKNOWN ");
 		break;
