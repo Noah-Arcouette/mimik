@@ -10,12 +10,13 @@
 %token VALUE // immediate value
 
 // binary operations
-//  simple math
 %left '+' '-'
 %left '/' '%' '*'
 %left '&' '|' '^'
 %left BOOL_AND BOOL_OR
 %left BOOL_EQ BOOL_NEQ BOOL_LTE BOOL_GTE '>' '<'
+// unary
+%right UNARY
 
 %start program
 %%
@@ -31,8 +32,29 @@ value:
 	| expr
 	;
 expr: // expressions
+	// unary oparations
+	'-' value %prec UNARY {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_NEG;
+		addNode(&$$, &$2);
+	}
+	| '+' value %prec UNARY {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_POS;
+		addNode(&$$, &$2);
+	}
+	| '~' value %prec UNARY {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_NOT;
+		addNode(&$$, &$2);
+	}
+	| '!' value %prec UNARY {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_BOOL_NOT;
+		addNode(&$$, &$2);
+	}
 	// boolean operations
-	value BOOL_AND value {
+	| value BOOL_AND value {
 		memset(&$$, 0, sizeof(struct node));
 		$$.nodeType = NODE_BOOL_AND;
 		addNode(&$$, &$1);

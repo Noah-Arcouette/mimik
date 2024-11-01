@@ -156,6 +156,19 @@ displayNode (struct node *node, int depth)
 	case NODE_BOOL_LT:
 		printf("LT");
 		break;
+	// unary
+	case NODE_NEG:
+		printf("NEG");
+		break;
+	case NODE_POS:
+		printf("POS");
+		break;
+	case NODE_NOT:
+		printf("NOT");
+		break;
+	case NODE_BOOL_NOT:
+		printf("BOOL-NOT");
+		break;
 	default:
 		printf("UNKNOWN ");
 		break;

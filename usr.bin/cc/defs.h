@@ -50,7 +50,12 @@ struct node
 		NODE_BOOL_GTE,
 		NODE_BOOL_LTE,
 		NODE_BOOL_LT,
-		NODE_BOOL_GT
+		NODE_BOOL_GT,
+		// unary operations
+		NODE_NEG,
+		NODE_POS,
+		NODE_NOT,
+		NODE_BOOL_NOT
 	} nodeType;
 
 	struct type valueType; // resolvable type of the expression
