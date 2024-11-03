@@ -1,7 +1,9 @@
 %{
 #include "defs.h"
 #include "y.tab.h"
-#include <limits.h>
+#include <string.h>
+#include <stdio.h>
+#include <errno.h>
 
 int lineno = 1;
 
@@ -64,7 +66,23 @@ int lineno = 1;
 	yylval.nodeType = NODE_BOOL_LTE;
 
 	return BOOL_LTE;
-}  
+}
+
+[a-zA-Z0-9_]+ { // = Symbol =
+	memset(&yylval, 0, sizeof(struct node));
+	yylval.nodeType = NODE_SYMBOL;
+
+	yylval.symbol = strdup(yytext); // duplicate string
+	if (!yylval.symbol)
+	{
+		int errnum = errno;
+		fprintf(stderr, "%s: Failed to allocate memory.\n", self);
+		fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+		exit(1);
+	}
+
+	return SYMBOL;
+}
 
 \n {
 	lineno++;

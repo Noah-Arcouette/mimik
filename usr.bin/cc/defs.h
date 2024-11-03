@@ -31,6 +31,8 @@ struct node
 	enum {
 		NODE_ROOT,
 		NODE_VALUE,
+		NODE_SYMBOL,
+		NODE_ASSIGN, // symbol = value
 		// binary operations
 		//  math
 		NODE_ADD,

@@ -104,6 +104,13 @@ displayNode (struct node *node, int depth)
 		}
 		printf(" %llu", node->value.uvalue);
 		break;
+	// symbols and assignment
+	case NODE_SYMBOL:
+		printf("SYMBOL `%s'", node->symbol);
+		break;
+	case NODE_ASSIGN:
+		printf("ASSIGN");
+		break;
 	// binary operations
 	//  math
 	case NODE_ADD:

@@ -8,6 +8,8 @@
 %}
 
 %token VALUE // immediate value
+%token SYMBOL // symbol
+%destructor { free($$.symbol); } SYMBOL
 
 // binary operations
 %left '+' '-'
@@ -17,6 +19,8 @@
 %left BOOL_EQ BOOL_NEQ BOOL_LTE BOOL_GTE '>' '<'
 // unary
 %right UNARY
+// assigment
+%right '='
 
 %start program
 %%
@@ -30,6 +34,13 @@ program:
 value:
 	VALUE { memcpy(&$$, &$1, sizeof(struct node)); }
 	| expr
+	// assignment
+	| SYMBOL '=' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_ASSIGN;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
 	;
 expr: // expressions
 	// unary oparations
