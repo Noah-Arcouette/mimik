@@ -85,6 +85,7 @@ extern struct node *addNode (struct node *restrict parent, const struct node *re
 // cc.c
 extern const  char *self;
 extern struct node  root;
+extern int          errors;
 
 extern const char *filename;
 

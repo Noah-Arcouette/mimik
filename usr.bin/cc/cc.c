@@ -23,6 +23,8 @@ struct node root;
 
 const char *filename = "<stdin>";
 
+int errors = 0;
+
 int
 main (void)
 {
@@ -38,5 +40,5 @@ main (void)
 	// display the node tree
 	displayNode(&root, 0);
 
-	return 0;
+	return errors;
 }

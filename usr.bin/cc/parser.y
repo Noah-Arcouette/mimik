@@ -238,5 +238,6 @@ expr: // expressions
 void
 yyerror (const char *msg)
 {
+	errors++;
 	fprintf(stderr, "%s:%d: %s.\n", filename, lineno, msg);
 }
