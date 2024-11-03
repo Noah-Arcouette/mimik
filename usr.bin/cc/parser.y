@@ -3,6 +3,7 @@
 #include "defs.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define YY_NO_LEAKS // tell yacc to free its data
 %}
