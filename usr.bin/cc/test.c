@@ -14,3 +14,7 @@
 +(~!10) - -10u;
 
 hi = 10;
+
+const void hi = 1;
+
+int integer;

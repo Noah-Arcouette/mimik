@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #define YY_NO_LEAKS // tell yacc to free its data
 %}
@@ -23,20 +24,75 @@
 // assigment
 %right '='
 
+// types
+%token VOID CHAR SHORT INT
+// qualifiers
+%token CONST
+
 %start program
 %%
 
 program:
-	program value ';' { addNode(&root, &$2); }
+	  program value  ';' { addNode(&root, &$2); }
+	| program define ';' { addNode(&root, &$2); }
 	| // empty
 	;
 
+type:
+	CONST type {
+		memcpy(&$$, &$2, sizeof(struct node));
+		$$.valueType.isConst = 1;
+	}
+	| VOID {
+		memset(&$$, 0, sizeof(struct node));
+		$$.valueType.type     = TYPE_VOID;
+		$$.valueType.signness = 1;
+	}
+	| CHAR {
+		memset(&$$, 0, sizeof(struct node));
+		$$.valueType.type     = TYPE_CHAR;
+		$$.valueType.signness = 1;
+	}
+	| SHORT {
+		memset(&$$, 0, sizeof(struct node));
+		$$.valueType.type     = TYPE_SHORT;
+		$$.valueType.signness = 1;
+	}
+	| INT {
+		memset(&$$, 0, sizeof(struct node));
+		$$.valueType.type     = TYPE_INT;
+		$$.valueType.signness = 1;
+	}
+	;
+
+// definition
+define:
+	type SYMBOL {
+		memcpy(&$$, &$1, sizeof(struct node)); // give it the type of the type
+		$$.nodeType = NODE_DEFINE;
+		$$.symbol   = strdup($2.symbol); // give it the symbol from the symbol
+		if (!$$.symbol)
+		{
+			int errnum = errno;
+			fprintf(stderr, "%s: Failed to allocate memory.\n", self);
+			fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+			exit(1);
+		}
+		free($2.symbol);
+	}
+	;
 // immediate value
 value:
 	VALUE { memcpy(&$$, &$1, sizeof(struct node)); }
 	| expr
 	// assignment
 	| SYMBOL '=' value {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_ASSIGN;
+		addNode(&$$, &$1);
+		addNode(&$$, &$3);
+	}
+	| define '=' value {
 		memset(&$$, 0, sizeof(struct node));
 		$$.nodeType = NODE_ASSIGN;
 		addNode(&$$, &$1);

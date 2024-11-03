@@ -111,6 +111,11 @@ displayNode (struct node *node, int depth)
 	case NODE_ASSIGN:
 		printf("ASSIGN");
 		break;
+	case NODE_DEFINE:
+		printf("DEFINE ");
+		displayType(node->valueType);
+		printf(" `%s'", node->symbol);
+		break;
 	// binary operations
 	//  math
 	case NODE_ADD:

@@ -68,6 +68,28 @@ int lineno = 1;
 	return BOOL_LTE;
 }
 
+"void" { // = Types =
+	memset(&yylval, 0, sizeof(struct node));
+	return VOID;
+}
+"char" {
+	memset(&yylval, 0, sizeof(struct node));
+	return CHAR;
+}
+"short" {
+	memset(&yylval, 0, sizeof(struct node));
+	return SHORT;
+}
+"int" {
+	memset(&yylval, 0, sizeof(struct node));
+	return INT;
+}
+
+"const" { // = Qualifiers =
+	memset(&yylval, 0, sizeof(struct node));
+	return CONST;
+}
+
 [a-zA-Z0-9_]+ { // = Symbol =
 	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_SYMBOL;

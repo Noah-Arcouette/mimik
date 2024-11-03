@@ -33,6 +33,7 @@ struct node
 		NODE_VALUE,
 		NODE_SYMBOL,
 		NODE_ASSIGN, // symbol = value
+		NODE_DEFINE,
 		// binary operations
 		//  math
 		NODE_ADD,
