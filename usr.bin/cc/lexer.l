@@ -85,7 +85,11 @@ int lineno = 1;
 	return INT;
 }
 
-"const" { // = Qualifiers =
+"extern" { // = Qualifiers =
+	memset(&yylval, 0, sizeof(struct node));
+	return EXTERN;
+}
+"const" {
 	memset(&yylval, 0, sizeof(struct node));
 	return CONST;
 }

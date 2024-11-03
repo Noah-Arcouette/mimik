@@ -111,6 +111,8 @@ displayNode (struct node *node, int depth)
 	case NODE_ASSIGN:
 		printf("ASSIGN");
 		break;
+	case NODE_EXTERN_DEFINE:
+		printf("EXTERN-");
 	case NODE_DEFINE:
 		printf("DEFINE ");
 		displayType(node->valueType);

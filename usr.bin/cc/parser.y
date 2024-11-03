@@ -27,7 +27,7 @@
 // types
 %token VOID CHAR SHORT INT
 // qualifiers
-%token CONST
+%token EXTERN CONST
 
 %start program
 %%
@@ -35,7 +35,17 @@
 program:
 	  program value  ';' { addNode(&root, &$2); }
 	| program define ';' { addNode(&root, &$2); }
+	| program extern ';' { addNode(&root, &$2); }
+	| program error  ';' { yyerrok; yyclearin; }
 	| // empty
+	;
+
+// external definitions
+extern:
+	EXTERN define {
+		memcpy(&$$, &$2, sizeof(struct node));
+		$$.nodeType = NODE_EXTERN_DEFINE;
+	}
 	;
 
 type:
