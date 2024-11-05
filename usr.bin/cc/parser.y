@@ -13,6 +13,9 @@
 %token SYMBOL // symbol
 %destructor { free($$.symbol); } SYMBOL
 
+// assigment
+%right '='
+
 // binary operations
 %left '+' '-'
 %left '/' '%' '*'
@@ -21,8 +24,6 @@
 %left BOOL_EQ BOOL_NEQ BOOL_LTE BOOL_GTE '>' '<'
 // unary
 %right UNARY
-// assigment
-%right '='
 
 // types
 %token VOID CHAR SHORT INT
@@ -40,10 +41,21 @@ program:
 
 // lines
 line:
-	  value  ';' { memcpy(&$$, &$1, sizeof(struct node)); }
-	| define ';' { memcpy(&$$, &$1, sizeof(struct node)); }
-	| extern ';' { memcpy(&$$, &$1, sizeof(struct node)); }
-	| error  ';' { yyerrok; yyclearin;                    }
+	// switch to context block instead of just attaching
+	  '{' lines '}'{ memcpy(&$$, &$2, sizeof(struct node)); }
+	| value  ';'   { memcpy(&$$, &$1, sizeof(struct node)); }
+	| define ';'   { memcpy(&$$, &$1, sizeof(struct node)); }
+	| extern ';'   { memcpy(&$$, &$1, sizeof(struct node)); }
+	| error  ';'   { yyerrok; yyclearin;                    }
+	;
+lines:
+	  lines line {
+		memcpy    (&$$, &$1, sizeof(struct node));
+		attachNode(&$$, &$2);
+	  }
+	| line {
+		memcpy(&$$, &$1, sizeof(struct node));
+	}
 	;
 
 // full function with body

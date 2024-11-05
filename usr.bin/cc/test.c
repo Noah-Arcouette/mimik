@@ -27,3 +27,13 @@ int
 fact (int x)
 	x = 1;
 y = 10+1;
+
+int
+testssssss (char)
+{
+	int y = 10;
+	y = 10000000000 + (0*2u);
+	{
+		stuuuuuuuf = 1;
+	}
+}
