@@ -11,10 +11,14 @@
 
 %token VALUE // immediate value
 %token SYMBOL // symbol
-%destructor { free($$.symbol); } SYMBOL
+%destructor {
+	free($$.symbol);
+	$$.symbol = (char *)NULL;
+} SYMBOL
 
 // statement
 %right RETURN
+%token IF ELSE
 
 // assigment
 %right '='
@@ -57,6 +61,23 @@ line:
 	| RETURN value ';' {
 		memset(&$$, 0, sizeof(struct node));
 		$$.nodeType = NODE_RETURN;
+		addNode(&$$, &$2);
+	}
+	| RETURN ';' {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_RETURN;
+	}
+	| IF '(' value ')' line {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_IF;
+
+		addNode(&$$, &$3);
+		addNode(&$$, &$5);
+	}
+	| ELSE line {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_ELSE;
+
 		addNode(&$$, &$2);
 	}
 	| error ';' { yyerrok; yyclearin; }

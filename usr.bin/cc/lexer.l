@@ -85,6 +85,12 @@ int lineno = 1;
 "return" { // statement
 	return RETURN;
 }
+"if" {
+	return IF;
+}
+"else" {
+	return ELSE;
+}
 
 [a-zA-Z0-9_]+ { // = Symbol =
 	yylval.nodeType = NODE_SYMBOL;

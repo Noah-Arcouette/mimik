@@ -18,6 +18,8 @@ _freeNode (struct node *node)
 
 	// free self
 	free(node->symbol);
+	node->symbol = (char*)NULL;
+
 	free(node);
 }
 

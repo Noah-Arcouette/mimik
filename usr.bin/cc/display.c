@@ -100,6 +100,12 @@ displayNode (struct node *node, int depth)
 	case NODE_RETURN:
 		printf("RETURN");
 		break;
+	case NODE_IF:
+		printf("IF");
+		break;
+	case NODE_ELSE:
+		printf("ELSE");
+		break;
 	// basics and stuff
 	case NODE_VALUE:
 		printf("VALUE ");
@@ -136,6 +142,12 @@ displayNode (struct node *node, int depth)
 	case NODE_PARAM:
 		printf("PARAM "); // parameter
 		displayType(node->valueType);
+		if (!node->symbol)
+		{
+			printf(" (NULL)");
+			break;
+		}
+
 		printf(" `%s'", node->symbol);
 		break;
 	// binary operations

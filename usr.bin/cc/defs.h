@@ -34,6 +34,8 @@ struct node
 		NODE_CONTEXT,
 		// statements
 		NODE_RETURN,
+		NODE_IF,
+		NODE_ELSE,
 		// basics and lines and stuff
 		NODE_VALUE,
 		NODE_SYMBOL,

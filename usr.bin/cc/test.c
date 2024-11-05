@@ -38,3 +38,13 @@ testssssss (char)
 	}
 	return y+2;
 }
+
+int
+fact (int x)
+{
+	if (x <= 1)
+	{
+		return 1;
+	}
+	return x-1*x;
+}
