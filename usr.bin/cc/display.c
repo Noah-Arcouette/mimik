@@ -90,9 +90,13 @@ displayNode (struct node *node, int depth)
 	// type
 	switch (node->nodeType)
 	{
+	case NODE_CONTEXT:
+		printf("CONTEXT");
+		break;
 	case NODE_ROOT:
 		printf("ROOT");
 		break;
+	// basics and stuff
 	case NODE_VALUE:
 		printf("VALUE ");
 		displayType(node->valueType);

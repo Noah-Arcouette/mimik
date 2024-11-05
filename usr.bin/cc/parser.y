@@ -41,12 +41,16 @@ program:
 
 // lines
 line:
-	// switch to context block instead of just attaching
-	  '{' lines '}'{ memcpy(&$$, &$2, sizeof(struct node)); }
-	| value  ';'   { memcpy(&$$, &$1, sizeof(struct node)); }
-	| define ';'   { memcpy(&$$, &$1, sizeof(struct node)); }
-	| extern ';'   { memcpy(&$$, &$1, sizeof(struct node)); }
-	| error  ';'   { yyerrok; yyclearin;                    }
+	  '{' lines '}' {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_CONTEXT;
+
+		addNode(&$$, &$2);
+	}
+	| value  ';'    { memcpy(&$$, &$1, sizeof(struct node)); }
+	| define ';'    { memcpy(&$$, &$1, sizeof(struct node)); }
+	| extern ';'    { memcpy(&$$, &$1, sizeof(struct node)); }
+	| error  ';'    { yyerrok; yyclearin;                    }
 	;
 lines:
 	  lines line {

@@ -29,7 +29,10 @@ struct type
 struct node
 {
 	enum {
+		// Root and contexts
 		NODE_ROOT,
+		NODE_CONTEXT,
+		// basics and lines and stuff
 		NODE_VALUE,
 		NODE_SYMBOL,
 		NODE_ASSIGN, // symbol = value
