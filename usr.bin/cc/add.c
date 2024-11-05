@@ -7,7 +7,7 @@
 struct node *
 addNode (struct node *restrict parent, const struct node *restrict child)
 {
-	if (!child)
+	if (!child->nodeType)
 	{
 		return (struct node *)NULL;
 	}
