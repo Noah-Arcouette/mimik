@@ -35,6 +35,7 @@ struct node
 		NODE_ASSIGN, // symbol = value
 		NODE_DEFINE,
 		NODE_FUNCTION,
+		NODE_PARAM, // function parameter
 		NODE_EXTERN_DEFINE,
 		NODE_EXTERN_FUNCTION,
 		// binary operations
@@ -82,7 +83,8 @@ struct node
 
 // add.c
 // copies child and attacks it to parent, returning a pointer to a copy of it or NULL
-extern struct node *addNode (struct node *restrict parent, const struct node *restrict child);
+extern struct node *addNode    (struct node *restrict parent, const struct node *restrict child  );
+extern struct node *attachNode (struct node *restrict parent, const struct node *restrict sibling);
 
 // cc.c
 extern const  char *self;

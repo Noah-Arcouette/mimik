@@ -55,6 +55,57 @@ function:
 		}
 		free($2.symbol);
 	}
+	| type SYMBOL '(' args ')' {
+		memcpy(&$$, &$1, sizeof(struct node)); // give it the type of the type
+		$$.nodeType = NODE_FUNCTION;
+		$$.symbol   = strdup($2.symbol); // give it the symbol from the symbol
+		if (!$$.symbol)
+		{
+			int errnum = errno;
+			fprintf(stderr, "%s: Failed to allocate memory.\n", self);
+			fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+			exit(1);
+		}
+		free($2.symbol);
+
+		addNode(&$$, &$4);
+	}
+	;
+args:
+	  args ',' arg {
+		memcpy(&$$, &$1, sizeof(struct node));
+		attachNode(&$$, &$3);
+	  }
+	| arg {
+		memcpy(&$$, &$1, sizeof(struct node));
+	  }
+	;
+arg:
+	  type SYMBOL {
+		memcpy(&$$, &$1, sizeof(struct node)); // give it the type of the type
+		$$.nodeType = NODE_PARAM;
+		$$.symbol   = strdup($2.symbol); // give it the symbol from the symbol
+		if (!$$.symbol)
+		{
+			int errnum = errno;
+			fprintf(stderr, "%s: Failed to allocate memory.\n", self);
+			fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+			exit(1);
+		}
+		free($2.symbol);
+	}
+	| type {
+		memcpy(&$$, &$1, sizeof(struct node)); // give it the type of the type
+		$$.nodeType = NODE_PARAM;
+		$$.symbol   = strdup("(anonymous)"); // give it an anonymous symbol name
+		if (!$$.symbol)
+		{
+			int errnum = errno;
+			fprintf(stderr, "%s: Failed to allocate memory.\n", self);
+			fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+			exit(1);
+		}
+	}
 	;
 
 // external definitions
@@ -260,5 +311,6 @@ void
 yyerror (const char *msg)
 {
 	errors++;
+	displayNode(&yylval, 0);
 	fprintf(stderr, "%s:%d: %s.\n", filename, lineno, msg);
 }

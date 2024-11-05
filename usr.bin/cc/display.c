@@ -125,6 +125,11 @@ displayNode (struct node *node, int depth)
 		displayType(node->valueType);
 		printf(" `%s'", node->symbol);
 		break;
+	case NODE_PARAM:
+		printf("PARAM "); // parameter
+		displayType(node->valueType);
+		printf(" `%s'", node->symbol);
+		break;
 	// binary operations
 	//  math
 	case NODE_ADD:

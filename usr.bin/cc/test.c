@@ -20,3 +20,5 @@ const void hi = 1;
 extern int integer;
 
 extern int hi();
+
+extern int hi2 (const int i, char);
