@@ -18,3 +18,5 @@ hi = 10;
 const void hi = 1;
 
 extern int integer;
+
+extern int hi();

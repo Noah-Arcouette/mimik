@@ -40,11 +40,32 @@ program:
 	| // empty
 	;
 
+// function
+function:
+	type SYMBOL '(' ')' {
+		memcpy(&$$, &$1, sizeof(struct node)); // give it the type of the type
+		$$.nodeType = NODE_FUNCTION;
+		$$.symbol   = strdup($2.symbol); // give it the symbol from the symbol
+		if (!$$.symbol)
+		{
+			int errnum = errno;
+			fprintf(stderr, "%s: Failed to allocate memory.\n", self);
+			fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+			exit(1);
+		}
+		free($2.symbol);
+	}
+	;
+
 // external definitions
 extern:
 	EXTERN define {
 		memcpy(&$$, &$2, sizeof(struct node));
 		$$.nodeType = NODE_EXTERN_DEFINE;
+	}
+	| EXTERN function {
+		memcpy(&$$, &$2, sizeof(struct node));
+		$$.nodeType = NODE_EXTERN_FUNCTION;
 	}
 	;
 

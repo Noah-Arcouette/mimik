@@ -118,6 +118,13 @@ displayNode (struct node *node, int depth)
 		displayType(node->valueType);
 		printf(" `%s'", node->symbol);
 		break;
+	case NODE_EXTERN_FUNCTION:
+		printf("EXTERN-");
+	case NODE_FUNCTION:
+		printf("FUNCTION ");
+		displayType(node->valueType);
+		printf(" `%s'", node->symbol);
+		break;
 	// binary operations
 	//  math
 	case NODE_ADD:
