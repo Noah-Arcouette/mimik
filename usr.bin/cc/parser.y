@@ -14,7 +14,7 @@
 %destructor {
 	free($$.symbol);
 	$$.symbol = (char *)NULL;
-} SYMBOL
+} SYMBOL value function define
 
 // statement
 %right RETURN
