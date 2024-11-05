@@ -1,44 +1,14 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "defs.h"
-
-/*
-
-FUNCTION return name:
-    PARAMETER type parameter
-    CONTEXT:
-        DEFINE type name
-        SET name:
-            CONST 10
-EXTERN-FUNCTION return name:
-    PARAMETER type parameter?
-EXTERN-DEFINE type name
-
-*/
-
-const char *self = "cc";
-
-struct node root;
-
-const char *filename = "<stdin>";
-
-int errors = 0;
+#include <stdlib.h>
 
 int
 main (void)
 {
-	// fill with zero
-	memset(&root, 0, sizeof(struct node));
+	atexit(yylex_destroy); // free lex at program exit
 
-	// free all, known, nodes at end
-	atexit(freeNodes);
-
-	// parse
+	// parse input
 	yyparse();
-
-	// display the node tree
-	displayNode(&root, 0);
 
 	return errors;
 }
+
