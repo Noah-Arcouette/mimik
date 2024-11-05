@@ -22,3 +22,8 @@ extern int integer;
 extern int hi();
 
 extern int hi2 (const int i, char);
+
+int
+fact (int x)
+	x = 1;
+y = 10+1;

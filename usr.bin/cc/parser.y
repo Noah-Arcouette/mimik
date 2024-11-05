@@ -33,11 +33,25 @@
 %%
 
 program:
-	  program value  ';' { addNode(&root, &$2); }
-	| program define ';' { addNode(&root, &$2); }
-	| program extern ';' { addNode(&root, &$2); }
-	| program error  ';' { yyerrok; yyclearin; }
+	  program line          { addNode(&root, &$2); }
+	| program full_function { addNode(&root, &$2); }
 	| // empty
+	;
+
+// lines
+line:
+	  value  ';' { memcpy(&$$, &$1, sizeof(struct node)); }
+	| define ';' { memcpy(&$$, &$1, sizeof(struct node)); }
+	| extern ';' { memcpy(&$$, &$1, sizeof(struct node)); }
+	| error  ';' { yyerrok; yyclearin;                    }
+	;
+
+// full function with body
+full_function:
+	function line {
+		memcpy (&$$, &$1, sizeof(struct node));
+		addNode(&$$, &$2);
+	}
 	;
 
 // function
