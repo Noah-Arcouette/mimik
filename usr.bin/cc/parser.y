@@ -210,6 +210,9 @@ value:
 		addNode(&$$, &$1);
 		addNode(&$$, &$3);
 	}
+	| SYMBOL {
+		memcpy(&$$, &$1, sizeof(struct node));
+	}
 	;
 expr: // expressions
 	// unary oparations

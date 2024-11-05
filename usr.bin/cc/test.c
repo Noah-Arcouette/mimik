@@ -32,7 +32,7 @@ int
 testssssss (char)
 {
 	int y = 10;
-	y = 10000000000 + (0*2u);
+	y = 10000000000 + (y*2u);
 	{
 		stuuuuuuuf = 1;
 	}
