@@ -32,6 +32,8 @@ struct node
 		// Root and contexts
 		NODE_ROOT,
 		NODE_CONTEXT,
+		// statements
+		NODE_RETURN,
 		// basics and lines and stuff
 		NODE_VALUE,
 		NODE_SYMBOL,

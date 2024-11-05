@@ -36,4 +36,5 @@ testssssss (char)
 	{
 		stuuuuuuuf = 1;
 	}
+	return y+2;
 }

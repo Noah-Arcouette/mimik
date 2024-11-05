@@ -13,6 +13,9 @@
 %token SYMBOL // symbol
 %destructor { free($$.symbol); } SYMBOL
 
+// statement
+%right RETURN
+
 // assigment
 %right '='
 
@@ -50,7 +53,13 @@ line:
 	| value  ';'    { memcpy(&$$, &$1, sizeof(struct node)); }
 	| define ';'    { memcpy(&$$, &$1, sizeof(struct node)); }
 	| extern ';'    { memcpy(&$$, &$1, sizeof(struct node)); }
-	| error  ';'    { yyerrok; yyclearin;                    }
+	// statements
+	| RETURN value ';' {
+		memset(&$$, 0, sizeof(struct node));
+		$$.nodeType = NODE_RETURN;
+		addNode(&$$, &$2);
+	}
+	| error ';' { yyerrok; yyclearin; }
 	;
 lines:
 	  lines line {

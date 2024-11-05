@@ -94,6 +94,11 @@ int lineno = 1;
 	return CONST;
 }
 
+"return" { // statement
+	memset(&yylval, 0, sizeof(struct node));
+	return RETURN;
+}
+
 [a-zA-Z0-9_]+ { // = Symbol =
 	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_SYMBOL;

@@ -96,6 +96,10 @@ displayNode (struct node *node, int depth)
 	case NODE_ROOT:
 		printf("ROOT");
 		break;
+	// statements
+	case NODE_RETURN:
+		printf("RETURN");
+		break;
 	// basics and stuff
 	case NODE_VALUE:
 		printf("VALUE ");
