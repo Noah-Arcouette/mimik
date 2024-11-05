@@ -102,6 +102,7 @@ extern const char *filename;
 
 // free.c
 extern void freeNodes (void);
+extern void freeNode  (struct node *);
 
 // lexer.l
 extern int yylex (void);

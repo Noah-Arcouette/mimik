@@ -7,6 +7,11 @@
 struct node *
 addNode (struct node *restrict parent, const struct node *restrict child)
 {
+	if (!child)
+	{
+		return (struct node *)NULL;
+	}
+
 	struct node *copy = (struct node *)malloc(sizeof(struct node));
 	if (!copy)
 	{
@@ -33,6 +38,11 @@ addNode (struct node *restrict parent, const struct node *restrict child)
 struct node *
 attachNode (struct node *restrict parent, const struct node *restrict sibling)
 {
+	if (!sibling->nodeType)
+	{
+		return (struct node *)NULL;
+	}
+
 	struct node *copy = (struct node *)malloc(sizeof(struct node));
 	if (!copy)
 	{

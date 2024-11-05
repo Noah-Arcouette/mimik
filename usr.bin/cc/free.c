@@ -1,8 +1,8 @@
 #include "defs.h"
 #include <stdlib.h>
 
-static void
-_freeNode (struct node *node)
+void
+freeNode (struct node *node)
 {
 	// skip if it doesn't exist
 	if (!node)
@@ -11,10 +11,12 @@ _freeNode (struct node *node)
 	}
 
 	// free child
-	_freeNode(node->child);
+	freeNode(node->child);
+	node->child = (struct node *)NULL;
 
 	// free next
-	_freeNode(node->next);
+	freeNode(node->next);
+	node->next = (struct node *)NULL;
 
 	// free self
 	free(node->symbol);
@@ -26,5 +28,5 @@ _freeNode (struct node *node)
 void
 freeNodes (void)
 {
-	_freeNode(root.child); // root isn't allocated, nor should it have any siblings
+	freeNode(root.child); // root isn't allocated, nor should it have any siblings
 }

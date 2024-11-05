@@ -46,5 +46,5 @@ fact (int x)
 	{
 		return 1;
 	}
-	return x-1*x;
+	return (x-1)*x;
 }

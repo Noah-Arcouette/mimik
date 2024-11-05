@@ -80,7 +80,21 @@ line:
 
 		addNode(&$$, &$2);
 	}
-	| error ';' { yyerrok; yyclearin; }
+	| error ';' {
+		memset(&$$, 0, sizeof(struct node));
+
+		// free error
+		freeNode($1.child);
+		$1.child = (struct node *)NULL;
+		freeNode($1.next);
+		$1.next = (struct node *)NULL;
+
+		free($1.symbol);
+		$1.symbol = (char *)NULL;
+
+		// clear yacc
+		yyerrok; yyclearin;
+	}
 	;
 lines:
 	  lines line {
