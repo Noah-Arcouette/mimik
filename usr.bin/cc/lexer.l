@@ -32,75 +32,61 @@ int lineno = 1;
 }
 
 "&&" { // = boolean operations =
-	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_BOOL_AND;
 
 	return BOOL_AND;
 }
 "||" {
-	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_BOOL_OR;
 
 	return BOOL_OR;
 }
 "==" {
-	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_BOOL_EQ;
 
 	return BOOL_EQ;
 }
 "!=" {
-	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_BOOL_NEQ;
 
 	return BOOL_NEQ;
 }
 ">=" {
-	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_BOOL_GTE;
 
 	return BOOL_GTE;
 }
 "<=" {
-	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_BOOL_LTE;
 
 	return BOOL_LTE;
 }
 
 "void" { // = Types =
-	memset(&yylval, 0, sizeof(struct node));
 	return VOID;
 }
 "char" {
-	memset(&yylval, 0, sizeof(struct node));
 	return CHAR;
 }
 "short" {
-	memset(&yylval, 0, sizeof(struct node));
 	return SHORT;
 }
 "int" {
-	memset(&yylval, 0, sizeof(struct node));
 	return INT;
 }
 
 "extern" { // = Qualifiers =
-	memset(&yylval, 0, sizeof(struct node));
 	return EXTERN;
 }
 "const" {
-	memset(&yylval, 0, sizeof(struct node));
 	return CONST;
 }
 
 "return" { // statement
-	memset(&yylval, 0, sizeof(struct node));
 	return RETURN;
 }
 
 [a-zA-Z0-9_]+ { // = Symbol =
-	memset(&yylval, 0, sizeof(struct node));
 	yylval.nodeType = NODE_SYMBOL;
 
 	yylval.symbol = strdup(yytext); // duplicate string
