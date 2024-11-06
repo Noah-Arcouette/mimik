@@ -14,7 +14,8 @@ struct type
 struct value
 {
 	struct type type;
-	int variable : 1; // value: is a variable or an immediate value
+	unsigned int variable : 1; // value: is a variable or an immediate value
+	
 	unsigned long long int value;
 };
 #define YYSTYPE struct value
