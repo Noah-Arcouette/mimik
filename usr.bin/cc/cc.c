@@ -4,7 +4,7 @@
 int
 main (void)
 {
-	atexit(yylex_destroy); // free lex at program exit
+	atexit((void(*)(void))yylex_destroy); // free lex at program exit
 
 	// parse input
 	yyparse();
