@@ -9,7 +9,9 @@ size_t lineno = 1;
 %%
 
 [0-9_]+ {
-	yylval.value = strtoll(yytext, NULL, 10);
+	yylval.type.base = TYPE_INT;
+	yylval.variable  = 0;
+	yylval.value     = strtoll(yytext, NULL, 10);
 	return VALUE;
 }
 
@@ -19,6 +21,7 @@ size_t lineno = 1;
 [ \t] // ignore
 
 . {
+	yylval.type.base = TYPE_VOID;
 	return *yytext;
 }
 
