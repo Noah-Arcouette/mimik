@@ -73,7 +73,7 @@ expr:
 int
 yyerror (const char *msg)
 {
-	fprintf(stderr, "%s\n", msg);
+	fprintf(stderr, "%s:%zu: %s\n", filename, lineno, msg);
 
 	errors++;
 	return 0;
