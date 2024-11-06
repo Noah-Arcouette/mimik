@@ -15,6 +15,7 @@ expr (struct value *dst, struct value a, struct value b, const char *operation)
         return 1;
     }
 
+    fputc('\t', fout);
     printType(fout, dst->type);
 
     fprintf(fout, " %%%zu = %s_", temps++, operation);
