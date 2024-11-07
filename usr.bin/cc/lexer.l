@@ -8,6 +8,19 @@ size_t lineno = 1;
 
 %%
 
+">=" { // = Multicharacter operations =
+	return GTE;
+}
+"<=" {
+	return LTE;
+}
+"==" {
+	return EQU;
+}
+"!=" {
+	return NEQ;
+}
+
 [0-9_]+ {
 	yylval.type.base = TYPE_INT;
 	yylval.variable  = 0;
