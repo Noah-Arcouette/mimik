@@ -8,6 +8,9 @@ printType (FILE *f, struct type t)
 {
     switch (t.base)
     {
+        case TYPE_BOOL:
+            fprintf(f, "bool");
+            break;
         case TYPE_INT:
             switch (dataTypes)
             {
