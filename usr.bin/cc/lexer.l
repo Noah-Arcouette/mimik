@@ -20,6 +20,12 @@ size_t lineno = 1;
 "!=" {
 	return NEQ;
 }
+"&&" {
+	return BOOL_AND;
+}
+"||" {
+	return BOOL_OR;
+}
 
 [0-9_]+ {
 	yylval.type.base = TYPE_INT;

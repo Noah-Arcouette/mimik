@@ -20,6 +20,7 @@ int errors = 0;
 
 %left '>' '<' GTE LTE EQU NEQ
 %left '&' '|' '^'
+%left BOOL_AND BOOL_OR
 
 %start program
 %%
@@ -90,6 +91,18 @@ expr:
 	}
 	| value NEQ value {
 		if (boolExpr(&$$, $1, $3, "neq"))
+		{
+			YYERROR;
+		}
+	}
+	| value BOOL_AND value {
+		if (expr(&$$, $1, $3, "and"))
+		{
+			YYERROR;
+		}
+	}
+	| value BOOL_OR value {
+		if (expr(&$$, $1, $3, "or"))
 		{
 			YYERROR;
 		}
