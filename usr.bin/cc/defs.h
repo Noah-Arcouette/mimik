@@ -7,6 +7,7 @@ struct type
 {
 	enum {
 		TYPE_VOID,
+		TYPE_BOOL,
 		TYPE_INT
 	} base;
 };
@@ -50,6 +51,9 @@ extern const char *filename;
 
 // expr.c
 extern int expr (struct value *, struct value, struct value, const char *);
+
+// bool.c
+extern int boolExpr (struct value *, struct value, struct value, const char *);
 
 #endif
 

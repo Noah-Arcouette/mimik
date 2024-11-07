@@ -59,37 +59,37 @@ expr:
 	}
 	// comparisons
 	| value '>' value {
-		if (expr(&$$, $1, $3, "gt"))
+		if (boolExpr(&$$, $1, $3, "gt"))
 		{
 			YYERROR;
 		}
 	}
 	| value '<' value {
-		if (expr(&$$, $1, $3, "lt"))
+		if (boolExpr(&$$, $1, $3, "lt"))
 		{
 			YYERROR;
 		}
 	}
 	| value GTE value {
-		if (expr(&$$, $1, $3, "gte"))
+		if (boolExpr(&$$, $1, $3, "gte"))
 		{
 			YYERROR;
 		}
 	}
 	| value LTE value {
-		if (expr(&$$, $1, $3, "lte"))
+		if (boolExpr(&$$, $1, $3, "lte"))
 		{
 			YYERROR;
 		}
 	}
 	| value EQU value {
-		if (expr(&$$, $1, $3, "equ"))
+		if (boolExpr(&$$, $1, $3, "equ"))
 		{
 			YYERROR;
 		}
 	}
 	| value NEQ value {
-		if (expr(&$$, $1, $3, "neq"))
+		if (boolExpr(&$$, $1, $3, "neq"))
 		{
 			YYERROR;
 		}
