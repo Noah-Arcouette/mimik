@@ -18,6 +18,8 @@ int errors = 0;
 %left '+' '-'
 %left '*' '/' '%'
 
+%left '>' '<' GTE LTE EQU NEQ
+
 %start program
 %%
 
@@ -34,6 +36,43 @@ value:
 expr:
 	'(' value ')' {
 		memcpy(&$$, &$2, sizeof(struct value));
+	}
+	// comparisons
+	| value '>' value {
+		if (expr(&$$, $1, $3, "gt"))
+		{
+			YYERROR;
+		}
+	}
+	| value '<' value {
+		if (expr(&$$, $1, $3, "lt"))
+		{
+			YYERROR;
+		}
+	}
+	| value GTE value {
+		if (expr(&$$, $1, $3, "gte"))
+		{
+			YYERROR;
+		}
+	}
+	| value LTE value {
+		if (expr(&$$, $1, $3, "lte"))
+		{
+			YYERROR;
+		}
+	}
+	| value EQU value {
+		if (expr(&$$, $1, $3, "equ"))
+		{
+			YYERROR;
+		}
+	}
+	| value NEQ value {
+		if (expr(&$$, $1, $3, "neq"))
+		{
+			YYERROR;
+		}
 	}
 	// basic math operations
 	| value '+' value {
