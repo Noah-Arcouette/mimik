@@ -12,7 +12,8 @@ int errors = 0;
 %}
 
 // immediate values
-%token VALUE
+%token VALUE SYMBOL
+%token INT // Types
 
 // associatiity
 %left '+' '-'
@@ -23,11 +24,35 @@ int errors = 0;
 %left BOOL_AND BOOL_OR
 
 %start program
+%destructor {
+	free($$.string);
+	$$.string = (char *)NULL;
+} SYMBOL
 %%
 
 program:
-	program value ';'
+	  program value  ';'
+	| program define ';'
 	| %empty
+	;
+
+// definition
+define:
+	type SYMBOL {
+		printType(stderr, $1.type);
+		putc (' ',       stderr);
+		fputs($2.string, stderr);
+		putc ('\n',      stderr);
+
+		free($2.string);
+	}
+	;
+// types
+type:
+	INT {
+		memset(&$$, 0, sizeof(struct value));
+		$$.type.base = TYPE_INT;
+	}
 	;
 
 // a value

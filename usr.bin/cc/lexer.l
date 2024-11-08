@@ -8,6 +8,10 @@ size_t lineno = 1;
 
 %%
 
+"int" { // = Types =
+	return INT;
+}
+
 ">=" { // = Multicharacter operations =
 	return GTE;
 }
@@ -27,11 +31,16 @@ size_t lineno = 1;
 	return BOOL_OR;
 }
 
-[0-9_]+ {
+[0-9_]+ { // = Numbers =
 	yylval.type.base = TYPE_INT;
 	yylval.variable  = 0;
 	yylval.value     = strtoll(yytext, NULL, 10);
 	return VALUE;
+}
+
+[a-zA-Z_]+ { // = Symbol =
+	yylval.string = strdup(yytext);
+	return SYMBOL;
 }
 
 \n {
