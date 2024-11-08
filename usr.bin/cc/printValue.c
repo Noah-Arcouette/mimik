@@ -15,6 +15,9 @@ printValue (struct value v)
     case TYPE_VOID:
         fprintf(fout, "(void)");
         break;
+	case TYPE_BOOL:
+		fprintf(fout, "%d", (int)v.value&1);
+		break;
     case TYPE_INT:
         fprintf(fout, "%d", (int)v.value);
         break;
