@@ -27,7 +27,7 @@ int errors = 0;
 
 program:
 	program value ';'
-	|
+	| %empty
 	;
 
 // a value
