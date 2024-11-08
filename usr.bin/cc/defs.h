@@ -16,8 +16,11 @@ struct value
 {
 	struct type type;
 	unsigned int variable : 1; // value: is a variable or an immediate value
-	
-	unsigned long long int value;
+
+	union {
+		unsigned long long int   value;
+		                   char *string;
+	};
 };
 #define YYSTYPE struct value
 
