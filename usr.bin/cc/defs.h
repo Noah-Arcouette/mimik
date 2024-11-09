@@ -66,9 +66,13 @@ struct variable
 	char       *name;
 	struct type type;
 	ssize_t     delta;
+
+	size_t      lineno;
+	const char *filename;
 };
 
-extern int defineVar (char *, struct type);
+extern int              defineVar (char *, struct type);
+extern struct variable *getVar    (char *);
 
 // context.c
 struct context

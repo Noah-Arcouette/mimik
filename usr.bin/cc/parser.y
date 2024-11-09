@@ -41,8 +41,8 @@ define:
 	type SYMBOL {
 		if (defineVar($2.string, $1.type))
 		{
-			fprintf(stderr, "%s:%zu: Symbol `%s' already exists.\n", filename, lineno, $2.string);
 			free($2.string);
+			errors++;
 			YYERROR;
 		}
 	}
