@@ -8,3 +8,5 @@
 10000&&3^2||10|2&4|(10 && 40);
 
 int helloThere;
+int h;
+int hello;

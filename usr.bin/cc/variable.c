@@ -7,11 +7,14 @@
 int
 defineVar (char *name, struct type t)
 {
+	struct variable *v;
 	// check if variable exists
-	// if (getVar(name)) // get variable
-	// {
-		// return 1; // already exists
-	// }
+	if ((v = getVar(name))) // get variable
+	{
+		fprintf(stderr, "%s:%zu: Symbol `%s' already exists.\n", filename, lineno, name);
+		fprintf(stderr, " -> first seem on line %zu in file `%s'.\n", v->lineno, v->filename);
+		return 1; // already exists
+	}
 
 	// grow variable vector array
 	ctx->vars++;
@@ -37,10 +40,30 @@ defineVar (char *name, struct type t)
 	}
 
 	// add variable
-	size_t i = ctx->vars-1;
-	ctx->var[i].delta = -1; // no delta
-	ctx->var[i].name  = name;
-	memcpy(&ctx->var[i].type, &t, sizeof(struct type));
+	v = &ctx->var[ctx->vars-1];
+
+	v->delta = -1; // no delta
+	v->name  = name;
+	memcpy(&v->type, &t, sizeof(struct type));
+
+	// add line information
+	v->filename = filename;
+	v->lineno   = lineno;
 
 	return 0;
+}
+
+struct variable *
+getVar (char *name)
+{
+	// loop through all variables
+	size_t i = ctx->vars;
+	while (i--)
+	{
+		if (!strcmp(ctx->var[i].name, name))
+		{
+			return &ctx->var[i]; // found variable
+		}
+	}
+	return (struct variable *)NULL; // didn't find the variable
 }
