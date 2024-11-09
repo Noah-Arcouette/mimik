@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-size_t temps = 0;
+size_t temps = 1; // variable of 0 is undefined
 
 int errors = 0;
 
@@ -59,6 +59,32 @@ type:
 value:
 	  VALUE  { memcpy(&$$, &$1, sizeof(struct value)); }
 	| expr   { memcpy(&$$, &$1, sizeof(struct value)); }
+	| SYMBOL {
+		struct variable *v = getVar($1.string);
+
+		if (!v) // no variable
+		{
+			fprintf(stderr, "%s:%zu: Variable `%s' does not exist.\n", filename, lineno, $1.string);
+		value_error:
+			free($1.string);
+			errors++;
+			YYERROR;
+			// yyerror should break
+		}
+
+		// variable has no delta, used before set
+		if (!v->delta)
+		{
+			fprintf(stderr, "%s:%zu: Variable `%s' used before a value was set.\n", filename, lineno, $1.string);
+			goto value_error;
+		}
+
+		free($1.string);
+
+		$$.variable = 1;
+		$$.value    = (unsigned long long int)v->delta;
+		memcpy(&$$.type, &v->type, sizeof(struct type));
+	}
 	;
 expr:
 	'(' value ')' {
