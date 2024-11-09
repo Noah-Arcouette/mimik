@@ -10,3 +10,12 @@
 int helloThere;
 int h;
 int hello;
+
+hello = 10+1;
+
+hello+1;
+
+helloThere = 10;
+
+helloThere = 1000;
+helloThere+1;
