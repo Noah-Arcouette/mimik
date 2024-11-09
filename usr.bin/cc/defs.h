@@ -52,6 +52,7 @@ extern YYSTYPE yylval;
 // cc.c
 extern       FILE *fout;
 extern const char *filename;
+extern const char *self;
 
 // expr.c
 extern int expr (struct value *, struct value, struct value, const char *);
@@ -59,13 +60,15 @@ extern int expr (struct value *, struct value, struct value, const char *);
 // bool.c
 extern int boolExpr (struct value *, struct value, struct value, const char *);
 
-// <variable.c>
+// variable.c
 struct variable
 {
 	char       *name;
 	struct type type;
 	ssize_t     delta;
 };
+
+extern int defineVar (char *, struct type);
 
 // context.c
 struct context
@@ -75,6 +78,9 @@ struct context
 	size_t           varcp;
 };
 extern struct context *ctx;
+
+// free.c
+extern void freeCtx (void);
 
 #endif
 

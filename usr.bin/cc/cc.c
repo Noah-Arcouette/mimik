@@ -4,11 +4,18 @@
 
       FILE *fout;
 const char *filename;
+const char *self = "cc";
 
 int
-main (void)
+main (int argc, const char **argv)
 {
+	if (argc > 0)
+	{
+		self = argv[0];
+	}
+
 	atexit((void(*)(void))yylex_destroy); // free lex at program exit
+	atexit(               freeCtx); // free contexts
 
 	fout     = stdout; // output for standard out
 	filename = "<stdin>";

@@ -39,12 +39,12 @@ program:
 // definition
 define:
 	type SYMBOL {
-		printType(stderr, $1.type);
-		putc (' ',       stderr);
-		fputs($2.string, stderr);
-		putc ('\n',      stderr);
-
-		free($2.string);
+		if (defineVar($2.string, $1.type))
+		{
+			fprintf(stderr, "%s:%zu: Symbol `%s' already exists.\n", filename, lineno, $2.string);
+			free($2.string);
+			YYERROR;
+		}
 	}
 	;
 // types
