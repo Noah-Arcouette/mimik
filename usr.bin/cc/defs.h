@@ -2,6 +2,7 @@
 #define __DEFS_H__
 #include <stddef.h>
 #include <stdio.h>
+#include <sys/types.h>
 
 struct type
 {
@@ -57,6 +58,23 @@ extern int expr (struct value *, struct value, struct value, const char *);
 
 // bool.c
 extern int boolExpr (struct value *, struct value, struct value, const char *);
+
+// <variable.c>
+struct variable
+{
+	char       *name;
+	struct type type;
+	ssize_t     delta;
+};
+
+// context.c
+struct context
+{
+	struct variable *var;
+	size_t           vars;
+	size_t           varcp;
+};
+extern struct context *ctx;
 
 #endif
 
