@@ -42,7 +42,7 @@ defineVar (char *name, struct type t)
 	// add variable
 	v = &ctx->var[ctx->vars-1];
 
-	v->delta = -1; // no delta
+	v->delta = 0; // no delta
 	v->name  = name;
 	memcpy(&v->type, &t, sizeof(struct type));
 
