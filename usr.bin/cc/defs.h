@@ -74,6 +74,9 @@ struct variable
 extern int              defineVar (char *, struct type);
 extern struct variable *getVar    (char *);
 
+// set.c
+extern int setVar (struct variable *, struct value);
+
 // context.c
 struct context
 {

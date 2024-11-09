@@ -16,6 +16,8 @@ int errors = 0;
 %token INT // Types
 
 // associatiity
+%right '='
+
 %left '+' '-'
 %left '*' '/' '%'
 
@@ -80,6 +82,38 @@ value:
 		}
 
 		free($1.string);
+
+		$$.variable = 1;
+		$$.value    = (unsigned long long int)v->delta;
+		memcpy(&$$.type, &v->type, sizeof(struct type));
+	}
+	// variable setting
+	| SYMBOL '=' value {
+		struct variable *v = getVar($1.string);
+
+		if (!v) // no variable
+		{
+			fprintf(stderr, "%s:%zu: Variable `%s' does not exist.\n", filename, lineno, $1.string);
+			free($1.string);
+			errors++;
+			YYERROR;
+			// yyerror should break
+		}
+		free($1.string);
+
+		// if value is already a variable
+		if ($3.variable)
+		{
+			v->delta = (size_t)$3.value; // set delta
+		}
+		else
+		{
+			if (setVar(v, $3))
+			{
+				errors++;
+				YYERROR;
+			}
+		}
 
 		$$.variable = 1;
 		$$.value    = (unsigned long long int)v->delta;
