@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-int
+struct variable *
 defineVar (char *name, struct type t)
 {
 	struct variable *v;
@@ -13,7 +13,7 @@ defineVar (char *name, struct type t)
 	{
 		fprintf(stderr, "%s:%zu: Symbol `%s' already exists.\n", filename, lineno, name);
 		fprintf(stderr, " -> first seem on line %zu in file `%s'.\n", v->lineno, v->filename);
-		return 1; // already exists
+		return (struct variable *)NULL; // already exists
 	}
 
 	// grow variable vector array
@@ -50,7 +50,7 @@ defineVar (char *name, struct type t)
 	v->filename = filename;
 	v->lineno   = lineno;
 
-	return 0;
+	return v;
 }
 
 struct variable *

@@ -71,7 +71,7 @@ struct variable
 	const char *filename;
 };
 
-extern int              defineVar (char *, struct type);
+extern struct variable *defineVar (char *, struct type);
 extern struct variable *getVar    (char *);
 
 // set.c

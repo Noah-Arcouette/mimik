@@ -41,7 +41,7 @@ program:
 // definition
 define:
 	type SYMBOL {
-		if (defineVar($2.string, $1.type))
+		if (!defineVar($2.string, $1.type))
 		{
 			free($2.string);
 			errors++;
@@ -93,6 +93,26 @@ value:
 		free($1.string);
 
 		if (setVar(v, $3))
+		{
+			errors++;
+			YYERROR;
+			// yyerror should break
+		}
+
+		$$.variable = 1;
+		$$.value    = (unsigned long long int)v->delta;
+		memcpy(&$$.type, &v->type, sizeof(struct type));
+	}
+	| type SYMBOL '=' value {
+		struct variable *v;
+		if (!(v = defineVar($2.string, $1.type)))
+		{
+			free($2.string);
+			errors++;
+			YYERROR;
+		}
+
+		if (setVar(v, $4))
 		{
 			errors++;
 			YYERROR;
