@@ -33,7 +33,7 @@ int errors = 0;
 program:
 	  program value  ';'
 	| program define ';'
-	| %empty
+	|
 	;
 
 // definition
