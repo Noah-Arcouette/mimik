@@ -4,27 +4,41 @@
 int
 setVar (struct variable *dst, struct value a)
 {
-    if (compromiseTypes(NULL, a.type, dst->type))
-    {
-        fprintf  (stderr, "%s:%zu: Failed to compromise between type `", filename, lineno);
-        printType(stderr, a.type);
-        fprintf  (stderr, "' and `");
-        printType(stderr, dst->type);
-        fprintf  (stderr, "'\n");
+	if (!dst) // no variable
+	{
+		fprintf(stderr, "%s:%zu: Variable `%s' does not exist.\n", filename, lineno, dst->name);
+		return 1;
+	}
 
-        return 1;
-    }
+	// if value is already a variable
+	if (a.variable)
+	{
+		dst->delta = (size_t)a.value; // set delta
+	}
+	else
+	{
+		if (compromiseTypes(NULL, a.type, dst->type))
+		{
+			fprintf  (stderr, "%s:%zu: Failed to compromise between type `", filename, lineno);
+			printType(stderr, a.type);
+			fprintf  (stderr, "' and `");
+			printType(stderr, dst->type);
+			fprintf  (stderr, "'\n");
 
-    fputc('\t', fout);
-    printType(fout, dst->type);
+			return 1;
+		}
 
-    fprintf(fout, " %%%zu = ", temps++);
+		fputc('\t', fout);
+		printType(fout, dst->type);
 
-    printValue(a);
-    fputc('\n', fout);
+		fprintf(fout, " %%%zu = ", temps++);
 
-    // assign destination to a variable
-    dst->delta = temps-1;
+		printValue(a);
+		fputc('\n', fout);
+
+		// assign destination to a variable
+		dst->delta = temps-1;
+	}
 
     return 0;
 }
