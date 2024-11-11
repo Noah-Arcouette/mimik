@@ -25,6 +25,7 @@ int errors = 0;
 %left '>' '<' GTE LTE EQU NEQ
 %left '&' '|' '^'
 %left BOOL_AND BOOL_OR
+%right UNARY
 
 %start program
 %destructor {
@@ -161,67 +162,92 @@ expr:
 	| value '&' value {
 		if (expr(&$$, $1, $3, "and"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value '|' value {
 		if (expr(&$$, $1, $3, "or"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value '^' value {
 		if (expr(&$$, $1, $3, "xor"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
+	| '~' value %prec UNARY {
+		unaryExpr(&$$, $2, "not");
+	}
 	// comparisons
+	| '!' value %prec UNARY {
+		struct value v;
+		memset(&v, 0, sizeof(struct value));
+		v.type.base = TYPE_INT;
+
+		if (boolExpr(&$$, $2, v, "eq"))
+		{
+			errors++;
+			YYERROR;
+		}
+	}
 	| value '>' value {
 		if (boolExpr(&$$, $1, $3, "gt"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value '<' value {
 		if (boolExpr(&$$, $1, $3, "lt"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value GTE value {
 		if (boolExpr(&$$, $1, $3, "gte"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value LTE value {
 		if (boolExpr(&$$, $1, $3, "lte"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value EQU value {
 		if (boolExpr(&$$, $1, $3, "equ"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value NEQ value {
 		if (boolExpr(&$$, $1, $3, "neq"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value BOOL_AND value {
 		if (expr(&$$, $1, $3, "and"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value BOOL_OR value {
 		if (expr(&$$, $1, $3, "or"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
@@ -229,30 +255,35 @@ expr:
 	| value '+' value {
 		if (expr(&$$, $1, $3, "add"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value '-' value {
 		if (expr(&$$, $1, $3, "sub"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value '/' value {
 		if (expr(&$$, $1, $3, "div"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value '%' value {
 		if (expr(&$$, $1, $3, "mod"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}
 	| value '*' value {
 		if (expr(&$$, $1, $3, "mul"))
 		{
+			errors++;
 			YYERROR;
 		}
 	}

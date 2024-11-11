@@ -56,7 +56,8 @@ extern const char *filename;
 extern const char *self;
 
 // expr.c
-extern int expr (struct value *, struct value, struct value, const char *);
+extern int  expr      (struct value *, struct value, struct value, const char *);
+extern void unaryExpr (struct value *, struct value,               const char *);
 
 // bool.c
 extern int boolExpr (struct value *, struct value, struct value, const char *);
