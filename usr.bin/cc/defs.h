@@ -85,6 +85,10 @@ struct context
 	size_t           vars;
 	size_t           varcp;
 
+	struct label *label;
+	size_t        labels;
+	size_t        labelcp;
+
 	struct context *parent;
 };
 extern struct context *ctx;
@@ -95,6 +99,20 @@ extern int  popContext  (void);
 // free.c
 extern void freeCtx         (struct context *);
 extern void freeAllContexts (void);
+
+// labels.c
+struct label
+{
+	char  *name;
+	size_t label;
+
+	size_t      lineno;
+	const char *filename;
+};
+extern size_t labelTemp;
+
+extern int defineLabel (char *);
+// extern void gotoLabel   (char *);
 
 #endif
 

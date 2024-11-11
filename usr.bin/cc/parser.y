@@ -36,6 +36,15 @@ program:
 	  program value  ';'
 	| program define ';'
 	| program body_open program body_close
+	| program SYMBOL ':' {
+		// label definition
+		if (defineLabel($2.string)) // if failed
+		{
+			free($2.string);
+			errors++;
+			YYERROR;
+		}
+	}
 	|
 	;
 // body '{' '}'

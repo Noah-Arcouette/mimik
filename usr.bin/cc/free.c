@@ -11,6 +11,13 @@ freeCtx (struct context *c)
 	}
 	free(c->var);
 
+	// free all labels
+	while (c->labels--)
+	{
+		free(c->label[c->labels].name);
+	}
+	free(c->label);
+
 	if (c->parent) // if parent then free the context
 		free(c);
 }

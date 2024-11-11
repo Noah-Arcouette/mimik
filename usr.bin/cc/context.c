@@ -9,6 +9,10 @@ static struct context _ctx = {
 	.vars  = 0,
 	.varcp = 0,
 
+	.label   = (struct label *)NULL,
+	.labels  = 0,
+	.labelcp = 0,
+
 	.parent = (struct context *)NULL
 };
 struct context *ctx = &_ctx;
