@@ -12,6 +12,7 @@ int errors = 0;
 %}
 
 // immediate values
+%token GOTO
 %token VALUE SYMBOL
 %token INT // Types
 
@@ -40,10 +41,12 @@ program:
 		// label definition
 		if (defineLabel($2.string)) // if failed
 		{
-			free($2.string);
 			errors++;
 			YYERROR;
 		}
+	}
+	| program GOTO SYMBOL ';' {
+		gotoLabel($3.string);
 	}
 	|
 	;

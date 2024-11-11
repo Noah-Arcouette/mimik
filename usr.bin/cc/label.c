@@ -21,6 +21,7 @@ getLabel (char *name) // get or define a label
 			// check for label
 			if (!strcmp(name, c->label[labels].name))
 			{
+				free(name);
 				return &c->label[labels]; // just leave with that variable
 			}
 		}
@@ -82,29 +83,10 @@ defineLabel (char *name)
 	return 0;
 }
 
-// struct context
-// {
-// 	struct variable *var;
-// 	size_t           vars;
-// 	size_t           varcp;
+void
+gotoLabel (char *name)
+{
+	struct label *l = getLabel(name);
 
-// 	struct label *label;
-// 	size_t        labels;
-// 	size_t        labelcp;
-
-// 	struct context *parent;
-// };
-
-// // free.c
-// extern void freeCtx         (struct context *);
-// extern void freeAllContexts (void);
-
-// // labels.c
-// struct label
-// {
-// 	char  *name;
-// 	size_t label;
-
-// 	size_t      lineno;
-// 	const char *filename;
-// };
+	fprintf(fout, "\tgoto @%zu\n", l->label);
+}

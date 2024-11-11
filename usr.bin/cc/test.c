@@ -34,3 +34,13 @@ context_thing:
 }
 
 hi;
+
+goto main;
+
+goto hi;
+
+hi+1000000;
+
+hello:
+
+hi:

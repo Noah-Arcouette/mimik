@@ -111,8 +111,8 @@ struct label
 };
 extern size_t labelTemp;
 
-extern int defineLabel (char *);
-// extern void gotoLabel   (char *);
+extern int  defineLabel (char *);
+extern void gotoLabel   (char *);
 
 #endif
 
