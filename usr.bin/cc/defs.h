@@ -20,7 +20,7 @@ struct value
 
 	union {
 		unsigned long long int   value;
-		                   char *string;
+						   char *string;
 	};
 };
 #define YYSTYPE struct value

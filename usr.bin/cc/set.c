@@ -34,5 +34,5 @@ setVar (struct variable *dst, struct value a)
 		dst->delta = temps-1;
 	}
 
-    return 0;
+	return 0;
 }

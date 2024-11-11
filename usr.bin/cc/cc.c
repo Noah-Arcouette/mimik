@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-      FILE *fout;
+	  FILE *fout;
 const char *filename;
 const char *self = "cc";
 

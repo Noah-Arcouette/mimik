@@ -26,8 +26,8 @@ hello = (h+1)+(int hi = 10+3);
 
 hi+1;
 {
-    h;
-    int p = 10;
+	h;
+	int p = 10;
 	hi = 10+10000;
 }
 
