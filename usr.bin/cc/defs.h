@@ -83,8 +83,12 @@ struct context
 	struct variable *var;
 	size_t           vars;
 	size_t           varcp;
+
+	struct context *parent;
 };
 extern struct context *ctx;
+
+extern void pushContext (void);
 
 // free.c
 extern void freeCtx (void);

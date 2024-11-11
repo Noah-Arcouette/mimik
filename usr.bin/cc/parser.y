@@ -35,7 +35,18 @@ int errors = 0;
 program:
 	  program value  ';'
 	| program define ';'
+	| program body_open program body_close
 	|
+	;
+// body '{' '}'
+// evaluate separately so the actions can be wrapped acordingly
+body_open:
+	'{' {
+		pushContext();
+	}
+	;
+body_close:
+	'}' // do nothing for now
 	;
 
 // definition

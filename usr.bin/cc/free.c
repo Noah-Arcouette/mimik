@@ -10,6 +10,14 @@ _freeCtx (struct context *c)
 		free(c->var[c->vars].name);
 	}
 	free(c->var);
+
+	// call onto the parent
+	if (c->parent)
+	{
+		_freeCtx(c->parent);
+		free(c); // free ourselves if there is a parent,
+			// so all but the last contex, _ctx, will be freed
+	}
 }
 
 void
