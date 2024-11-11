@@ -46,7 +46,13 @@ body_open:
 	}
 	;
 body_close:
-	'}' // do nothing for now
+	'}' {
+		if (popContext())
+		{
+			errors++;
+			YYERROR;
+		}
+	}
 	;
 
 // definition

@@ -33,12 +33,47 @@ pushContext (void)
 	ctx            = newCtx;
 }
 
-/*
+int
+popContext (void)
+{
+	if (!ctx->parent) // if there's no parent
+	{
+		fprintf(stderr, "%s:%zu: Error, attempting to pop from root context.\n", filename, lineno);
+		return 1;
+	}
 
-pop context:
-	check for conflicting variable deltas
-		merge them with a phi node
-	free context
-	set tail as current
+	struct variable *v;
+	struct variable *c; // parent, compared to, variable
+	struct context  *parent = ctx->parent;
+	size_t vars = ctx->vars;
+	while (vars--) // go through all variables
+	{
+		v = &ctx->var[vars];
 
-*/
+		// find variable in parent
+		for (size_t i = 0; i<parent->vars; i++)
+		{
+			c = &parent->var[i];
+
+			// are they same variable, and have different deltas
+			if (!strcmp(c->name, v->name) && c->delta != v->delta)
+			{
+				fputc('\t', fout);
+				printType(fout, c->type);
+
+				// merge variables with a phi
+				fprintf(fout, " %%%zu := %%%zu %%%zu\n", temps++, c->delta, v->delta);
+
+				// set parent's delta
+				c->delta = temps-1;
+			}
+		}
+	}
+
+	// free context
+	freeCtx(ctx);
+
+	// set tail as current
+	ctx = parent;
+	return 0;
+}

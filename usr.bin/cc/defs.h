@@ -89,6 +89,7 @@ struct context
 extern struct context *ctx;
 
 extern void pushContext (void);
+extern int  popContext  (void);
 
 // free.c
 extern void freeCtx         (struct context *);
