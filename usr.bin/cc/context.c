@@ -41,11 +41,4 @@ pop context:
 	free context
 	set tail as current
 
--> In the getting for variables:
-	check the prior parent context for the variable
--> In the setting for variable deltas:
-	pull the variable into the current scope then set it's delta
-	NEVER, modify a variable's data that is not in the current scope,
-		always bring forward so popping can merge the deltas
-
 */
