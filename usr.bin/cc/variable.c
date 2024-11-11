@@ -56,14 +56,63 @@ defineVar (char *name, struct type t)
 struct variable *
 getVar (char *name)
 {
-	// loop through all variables
-	size_t i = ctx->vars;
-	while (i--)
+	struct context *current = ctx;
+	while (current) // until end contextes
 	{
-		if (!strcmp(ctx->var[i].name, name))
+		// loop through all variables
+		size_t i = current->vars;
+		while (i--)
 		{
-			return &ctx->var[i]; // found variable
+			// found variable
+			if (!strcmp(current->var[i].name, name))
+			{
+				struct variable *v = &current->var[i];
+
+				// if not in current context
+				if (current != ctx)
+				{
+					// pull into the current context, verbatim
+
+					// grow variable vector array
+					ctx->vars++;
+					if (ctx->vars > ctx->varcp)
+					{
+						ctx->varcp = (3*ctx->vars)/2; // grow by 3/2
+
+						// reallocate
+						ctx->var = (struct variable *)realloc(ctx->var, sizeof(struct variable)*ctx->varcp);
+
+						if (!ctx->var)
+						{
+							// clean up the rest
+							ctx->vars  = 0;
+							ctx->varcp = 0;
+							int errnum;
+						memerror:
+							errnum = errno;
+							fprintf(stderr, "%s: Failed to allocate memory.\n", self);
+							fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+							exit(1);
+						}
+					}
+
+					// copy over the data
+					memcpy(&ctx->var[ctx->vars-1], v, sizeof(struct variable));
+					v = &ctx->var[ctx->vars-1];
+
+					// duplicate the name
+					v->name = strdup(v->name);
+					if (!v->name)
+					{
+						goto memerror;
+					}
+				}
+
+				return v;
+			}
 		}
+
+		current = current->parent; // move up one context
 	}
 	return (struct variable *)NULL; // didn't find the variable
 }
