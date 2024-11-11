@@ -7,12 +7,6 @@ boolExpr (struct value *dst, struct value a, struct value b, const char *operati
     struct type c; // compromised type
     if (compromiseTypes(&c, a.type, b.type))
     {
-        fprintf  (stderr, "%s:%zu: Failed to compromise between type `", filename, lineno);
-        printType(stderr, a.type);
-        fprintf  (stderr, "' and `");
-        printType(stderr, b.type);
-        fprintf  (stderr, "'\n");
-        
         return 1;
     }
     dst->type.base = TYPE_BOOL;

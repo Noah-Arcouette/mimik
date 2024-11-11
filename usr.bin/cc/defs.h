@@ -33,6 +33,7 @@ extern enum dataTypes {
 	DATA_TYPE_ILP32
 } dataTypes;
 extern void printType (FILE *, struct type); // print the IR form
+extern void printCType (FILE *, struct type);
 
 // compTypes.c
 extern int compromiseTypes (struct type *, struct type, struct type);

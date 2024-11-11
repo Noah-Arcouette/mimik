@@ -24,3 +24,21 @@ printType (FILE *f, struct type t)
             break;
     }
 }
+
+void
+// print C type, not IR type
+printCType (FILE *f, struct type t)
+{
+    switch (t.base)
+    {
+        case TYPE_BOOL:
+            fprintf(f, "_Bool");
+            break;
+        case TYPE_INT:
+            fprintf(f, "int");
+            break;
+        case TYPE_VOID:
+            fprintf(f, "void");
+            break;
+    }
+}
