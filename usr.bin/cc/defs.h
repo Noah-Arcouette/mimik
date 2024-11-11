@@ -91,7 +91,8 @@ extern struct context *ctx;
 extern void pushContext (void);
 
 // free.c
-extern void freeCtx (void);
+extern void freeCtx         (struct context *);
+extern void freeAllContexts (void);
 
 #endif
 

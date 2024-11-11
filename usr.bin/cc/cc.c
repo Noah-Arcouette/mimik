@@ -14,8 +14,8 @@ main (int argc, const char **argv)
 		self = argv[0];
 	}
 
-	atexit((void(*)(void))yylex_destroy); // free lex at program exit
-	atexit(               freeCtx); // free contexts
+	atexit((void(*)(void))yylex_destroy);   // free lex at program exit
+	atexit(               freeAllContexts); // free contexts
 
 	fout     = stdout; // output for standard out
 	filename = "<stdin>";

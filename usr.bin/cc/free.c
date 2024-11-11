@@ -1,8 +1,8 @@
 #include "defs.h"
 #include <stdlib.h>
 
-static void
-_freeCtx (struct context *c)
+void
+freeCtx (struct context *c)
 {
 	// free all variables
 	while (c->vars--)
@@ -11,17 +11,19 @@ _freeCtx (struct context *c)
 	}
 	free(c->var);
 
-	// call onto the parent
-	if (c->parent)
-	{
-		_freeCtx(c->parent);
-		free(c); // free ourselves if there is a parent,
-			// so all but the last contex, _ctx, will be freed
-	}
+	if (c->parent) // if parent then free the context
+		free(c);
 }
 
 void
-freeCtx (void)
+freeAllContexts (void)
 {
-	_freeCtx(ctx);
+	struct context *c = ctx;
+	struct context *parent;
+	while (c) // look ahead, so the last context doesn't get freed
+	{
+		parent = c->parent;
+		freeCtx(c); // free context's data
+		c = parent; // move up one
+	}
 }
