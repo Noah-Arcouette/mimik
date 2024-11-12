@@ -7,7 +7,9 @@ enum token {
 	// = Type =
 	INT,
 	// = Symbol =
-	SYMBOL
+	SYMBOL,
+	// = Characters =
+	SEMICOLON
 };
 
 // lexer.l
@@ -19,5 +21,6 @@ extern char  *yytext;
 
 // cc.c
 extern const char *filename;
+extern enum token  token;
 
 #endif

@@ -3,14 +3,14 @@
 #include "defs.h"
 
 const char *filename = "<stdin>";
+enum token  token;
 
 int
 main (void)
 {
-	int l;
-	while ((l = yylex()))
+	while ((token = (enum token)yylex()))
 	{
-		switch (l)
+		switch (token)
 		{
 		// = Key words =
 		case EXTERN:
@@ -24,8 +24,12 @@ main (void)
 		case SYMBOL:
 			fprintf(stderr, "SYMBOL `%s'\n", yytext);
 			break;
+		// = characters =
+		case SEMICOLON:
+			fprintf(stderr, "SEMICOLON\n");
+			break;
 		default:
-			fprintf(stderr, "%c\n", l);
+			fprintf(stderr, "(UNKNOWN)");
 			break;
 		}
 	}
