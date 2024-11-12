@@ -12,7 +12,7 @@ int errors = 0;
 %}
 
 // immediate values
-%token GOTO IF
+%token GOTO IF ELSE
 %token VALUE SYMBOL
 %token INT // Types
 
@@ -68,21 +68,38 @@ body_close:
 		popContext();
 	}
 	;
+body_pop:
+	{
+		popContext();
+	}
+	;
+body_push:
+	{
+		pushContext();
+	}
+	;
 
 // if statement
 if:
-	  IF info_start if_check body_open line info_end body_close
-	| IF info_start if_check           line info_end
+	  IF info_start if_check body_open program '}'      else_start                       info_end body_pop
+	| IF info_start if_check           line             else_start                       info_end
+	| IF info_start if_check body_open program '}' ELSE else_start body_push line        info_end body_pop body_pop
+	| IF info_start if_check body_open program '}' ELSE else_start body_open program '}' info_end body_pop body_pop
 	;
 if_check:
 	'(' value ')' {
 		fprintf(fout, "\tgoto @%zu, if ", info->start);
 		printValue($2);
 		putc('\n', fout);
-		fprintf(fout, "\tgoto @%zu\n", info->end);
+		fprintf(fout, "\tgoto @%zu\n", info->elif);
 		fprintf(fout, "%zu:\n",      info->start);
 	}
 	;
+else_start:
+	{
+		fprintf(fout, "\tgoto @%zu\n", info->end);
+		fprintf(fout, "%zu:\n",        info->elif);
+	}
 
 // information data
 info_start:
