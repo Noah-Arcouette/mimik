@@ -22,5 +22,23 @@ extern char  *yytext;
 // cc.c
 extern const char *filename;
 extern enum token  token;
+extern size_t      errors;
+
+// <type>
+struct type
+{
+	enum {
+		TYPE_INT
+	} base;
+};
+
+// parser/extern.c
+extern int extern_ (void);
+
+// parser/recover.c
+extern void recover (void);
+
+// parser/type.c
+extern int type (struct type *);
 
 #endif

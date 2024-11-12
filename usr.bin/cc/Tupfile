@@ -3,6 +3,7 @@ include_rules
 # toolchain build
 : lexer.l |> !host_lex |>
 
+: foreach parser/*.c  |> !host_cc   |> ./obj/parser/%B.o {obj}
 : foreach *.c ^test.c |> !host_cc   |> ./obj/%B.o {obj}
 : {obj}               |> !host_ccld |> $(ROOT)/toolchain/cc | $(ROOT)/<toolchain>
 

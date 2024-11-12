@@ -4,36 +4,14 @@
 
 const char *filename = "<stdin>";
 enum token  token;
+size_t      errors = 0;
 
 int
 main (void)
 {
-	while ((token = (enum token)yylex()))
-	{
-		switch (token)
-		{
-		// = Key words =
-		case EXTERN:
-			fprintf(stderr, "EXTERN\n");
-			break;
-		// = Types =
-		case INT:
-			fprintf(stderr, "INT\n");
-			break;
-		// = Symbol =
-		case SYMBOL:
-			fprintf(stderr, "SYMBOL `%s'\n", yytext);
-			break;
-		// = characters =
-		case SEMICOLON:
-			fprintf(stderr, "SEMICOLON\n");
-			break;
-		default:
-			fprintf(stderr, "(UNKNOWN)");
-			break;
-		}
-	}
+	token = (enum token)yylex();
+	extern_();
 	yylex_destroy();
 
-	return 0;
+	return errors;
 }
