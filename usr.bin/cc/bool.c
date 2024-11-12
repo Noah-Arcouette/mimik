@@ -14,7 +14,7 @@ boolExpr (struct value *dst, struct value a, struct value b, const char *operati
 	fputc('\t', fout);
 	printType(fout, dst->type);
 
-	fprintf(fout, " %%%zu = %s_", temps++, operation);
+	fprintf(fout, " %%%zu = %s_", temps++, operation); // bool var = op_type params
 
 	printType (fout, c);
 	fputc(' ', fout);

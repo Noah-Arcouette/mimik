@@ -88,6 +88,10 @@ if:
 	;
 if_check:
 	'(' value ')' {
+		/*
+			goto the start, truethy part, if comparison is true
+			goto else if false
+		*/
 		fprintf(fout, "\tgoto @%zu, if ", info->start);
 		printValue($2);
 		putc('\n', fout);
@@ -97,6 +101,7 @@ if_check:
 	;
 else_start:
 	{
+		// else will end going to the end
 		fprintf(fout, "\tgoto @%zu\n", info->end);
 		fprintf(fout, "%zu:\n",        info->elif);
 	}
@@ -109,6 +114,7 @@ info_start:
 	;
 info_end:
 	{
+		// end of info will fall through to end
 		fprintf(fout, "\tgoto @%zu\n", info->end);
 		fprintf(fout, "%zu:\n",        info->end);
 		popInfo();

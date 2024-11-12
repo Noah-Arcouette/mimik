@@ -13,9 +13,9 @@ openFile (const char *file, int rw)
 {
 	struct stat statbuf;
 	int error;
-	if (stat(file, &statbuf))
+	if (stat(file, &statbuf)) // check if it exists
 	{
-		if (!rw)
+		if (!rw) // if reading then fail
 		{
 			error = errno;
 			fprintf(stderr, "%s: Failed to stat file `%s'\n", self, file);
@@ -23,14 +23,14 @@ openFile (const char *file, int rw)
 			exit(1);
 		}
 	}
-	else if (!S_ISREG(statbuf.st_mode))
+	else if (!S_ISREG(statbuf.st_mode)) // make sure it's a regular file, if it exists
 	{
 		fprintf(stderr, "%s: File `%s' is not a regular file\n", self, file);
 		exit(1);
 	}
 
-	FILE *fp = fopen(file, rw ? "w" : "r");
-	if (!fp)
+	FILE *fp = fopen(file, rw ? "w" : "r"); // open
+	if (!fp) // failed to open
 	{
 		error = errno;
 		fprintf(stderr, "%s: Failed to open `%s' for %s\n", self, file, rw ? "writting" : "reading");

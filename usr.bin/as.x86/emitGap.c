@@ -9,6 +9,7 @@
 void
 emitGap(int flags, const char *symbol)
 {
+	// check if we're in a section
 	if (!currentSection)
 	{
 		fprintf(stderr, "%s:%d: Cannot emit gap outside of section.\n", filename, lineno-1);
@@ -90,7 +91,7 @@ emitGap(int flags, const char *symbol)
 	// add gap
 	struct gap *gap = currentSection->firstGap; // save tail
 	currentSection->firstGap = (struct gap *)malloc(sizeof(struct gap));
-	if (!currentSection->firstGap)
+	if (!currentSection->firstGap) // memory allocation error
 	{
 		currentSection->firstGap = gap; // reset tail
 	memerror:

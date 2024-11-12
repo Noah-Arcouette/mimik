@@ -18,12 +18,12 @@ extern void yyerror (const char *);
 
 %}
 
-%token SECTION DFILE GLOBAL
-%token CODE16 CODE32
-%token BYTE WORD DWORD QWORD ASCIZ ALIGN
-%token ES CS SS DS FS GS
-%token AX CX DX BX BP SP SI DI
-%token AL CL DL BL AH CH DH BH
+%token SECTION DFILE GLOBAL              // directives
+%token CODE16 CODE32                     // codes
+%token BYTE WORD DWORD QWORD ASCIZ ALIGN // immediate data
+%token ES CS SS DS FS GS                 // segments
+%token AX CX DX BX BP SP SI DI           // 16bit
+%token AL CL DL BL AH CH DH BH           // 8bit
 
 %token XOR NOT
 %token MOV

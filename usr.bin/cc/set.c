@@ -22,6 +22,7 @@ setVar (struct variable *dst, struct value a)
 			return 1;
 		}
 
+		// set variable to value
 		fputc('\t', fout);
 		printType(fout, dst->type);
 

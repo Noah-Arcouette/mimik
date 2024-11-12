@@ -17,7 +17,7 @@ globalSymbol (const char *symbol)
 	{
 		if (!strcmp(currentSymbol->name, symbol))
 		{
-			currentSymbol->flags |= MIO_SYMLIST_GLOBAL;
+			currentSymbol->flags |= MIO_SYMLIST_GLOBAL; // globalize then leave
 
 			goto good;
 		}

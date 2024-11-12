@@ -10,7 +10,7 @@ newSymbol (const char *symbol, int type)
 {
 	printf("Parser: New symbol, `%s'\n", symbol);
 
-	// find end of symbols
+	// are we in a section already
 	if (!currentSection)
 	{
 		fprintf(stderr, "%s:%d: Cannot output symbol without section defined first\n", filename, lineno-1);
@@ -18,6 +18,7 @@ newSymbol (const char *symbol, int type)
 		return;
 	}
 
+	// find end of symbols
 	struct symbol **currentSymbol = &(currentSection->firstSymbol);
 	while (*currentSymbol)
 	{
@@ -29,7 +30,7 @@ newSymbol (const char *symbol, int type)
 	struct symbol *nextSymbol = *currentSymbol;
 
 	int errnum;
-	if (!nextSymbol)
+	if (!nextSymbol) // failed
 	{
 	memerr:
 		errnum = errno;
@@ -56,6 +57,7 @@ newSymbol (const char *symbol, int type)
 		nextSymbol->val   = currentSection->bssz;
 	}
 
+	// save lasts
 	if (type == MIO_SYMLIST_TYPE_FILE)
 	{
 		lastFile = nextSymbol;

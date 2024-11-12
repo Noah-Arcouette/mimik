@@ -13,7 +13,7 @@ expr (struct value *dst, struct value a, struct value b, const char *operation)
 	fputc('\t', fout);
 	printType(fout, dst->type);
 
-	fprintf(fout, " %%%zu = %s_", temps++, operation);
+	fprintf(fout, " %%%zu = %s_", temps++, operation); // type var = operation_type params
 
 	printType (fout, dst->type);
 	fputc(' ', fout);
@@ -39,7 +39,7 @@ unaryExpr (struct value *dst, struct value a, const char *operation)
 	fputc('\t', fout);
 	printType(fout, dst->type);
 
-	fprintf(fout, " %%%zu = %s_", temps++, operation);
+	fprintf(fout, " %%%zu = %s_", temps++, operation); // type var = op_type param
 
 	printType (fout, dst->type);
 	fputc(' ', fout);

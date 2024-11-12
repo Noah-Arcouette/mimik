@@ -3,25 +3,28 @@ include_rules
 ifeq (@(BOOT_X86_BIOS),y)
 
 ifeq (@(BOOT_X86_BIOS_OFF_FLOPPY),y)
-FLAGS=-DFLOPPY
+FLAGS=-DFLOPPY # boot from floppy disk
 endif
 
 ifeq (@(BOOT_X86_BIOS_OFF_HDD),y)
-FLAGS=-DHDD
+FLAGS=-DHDD # boot from hard disk
 endif
 
 FLAGS+=-DMAX_MAP=@(BOOT_X86_BIOS_MAX_MAP)
 
+# set the language
 ifeq (@(BOOT_X86_BIOS_LANG_EN_US_ASCII),y)
 : ./lang/en_US.ascii.h |> !cp |> ./lang.h
 endif
 
 FLAGS+=-ffreestanding -fno-builtin
 
+# build partition
 ifeq (@(BOOT_X86_BIOS_PART_MBR),y)
 : ./part/mbr.c | lang.h |> !cc $(FLAGS) -m16 |> ./obj/part/mbr.o {obj}
 endif
 
+# build file system
 ifeq (@(BOOT_X86_BIOS_FS_TAR),y)
 : ./fs/tar.c | lang.h |> !cc $(FLAGS) -m16 |> ./obj/fs/tar.o {obj}
 endif

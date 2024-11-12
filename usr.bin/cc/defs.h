@@ -69,6 +69,7 @@ struct variable
 	struct type type;
 	ssize_t     delta;
 
+	// where it's defined
 	size_t      lineno;
 	const char *filename;
 };
@@ -107,8 +108,9 @@ struct label
 	char  *name;
 	size_t label;
 
+	// where it was defined
 	size_t      lineno;
-	const char *filename;
+	const char *filename; // if null then the label was referenced before definition
 };
 extern size_t labelTemp;
 

@@ -47,11 +47,11 @@ popInfo (void)
 void
 freeInfo (void)
 {
-	struct info *tail;
-	while (info)
+	struct info *tail; // preserve tail/parent
+	while (info) // while there's information on the stack
 	{
-		tail = info->parent;
-		free(info);
-		info = tail;
+		tail = info->parent; // save
+		free(info); // free
+		info = tail; // pop
 	}
 }
