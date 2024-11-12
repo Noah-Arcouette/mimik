@@ -95,7 +95,7 @@ struct context
 extern struct context *ctx;
 
 extern void pushContext (void);
-extern int  popContext  (void);
+extern void popContext  (void);
 
 // free.c
 extern void freeCtx         (struct context *);
@@ -114,6 +114,21 @@ extern size_t labelTemp;
 
 extern int  defineLabel (char *);
 extern void gotoLabel   (char *);
+
+// info.c
+struct info
+{
+	size_t start;
+	size_t end;
+	size_t elif; // for if statements
+
+	struct info *parent;
+};
+extern struct info *info;
+
+extern void infoPush (struct info);
+extern void infoPop  (void);
+extern void freeInfo (void);
 
 #endif
 

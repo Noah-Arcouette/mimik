@@ -16,6 +16,7 @@ main (int argc, const char **argv)
 
 	atexit((void(*)(void))yylex_destroy);   // free lex at program exit
 	atexit(               freeAllContexts); // free contexts
+	atexit(               freeInfo);        // free information stack
 
 	fout     = stdout; // output for standard out
 	filename = "<stdin>";

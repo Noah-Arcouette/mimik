@@ -60,11 +60,7 @@ body_open:
 	;
 body_close:
 	'}' {
-		if (popContext())
-		{
-			errors++;
-			YYERROR;
-		}
+		popContext();
 	}
 	;
 

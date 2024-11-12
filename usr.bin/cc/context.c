@@ -37,13 +37,13 @@ pushContext (void)
 	ctx            = newCtx;
 }
 
-int
+void
 popContext (void)
 {
 	if (!ctx->parent) // if there's no parent
 	{
 		fprintf(stderr, "%s:%zu: Error, attempting to pop from root context.\n", filename, lineno);
-		return 1;
+		exit(1);
 	}
 
 	struct variable *v;
@@ -79,5 +79,4 @@ popContext (void)
 
 	// set tail as current
 	ctx = parent;
-	return 0;
 }
