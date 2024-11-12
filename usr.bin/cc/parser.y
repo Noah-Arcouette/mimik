@@ -92,7 +92,8 @@ info_start:
 	;
 info_end:
 	{
-		fprintf(fout, "%zu:\n", info->end);
+		fprintf(fout, "\tgoto @%zu\n", info->end);
+		fprintf(fout, "%zu:\n",        info->end);
 		popInfo();
 	}
 	;
