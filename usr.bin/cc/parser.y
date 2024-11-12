@@ -12,7 +12,7 @@ int errors = 0;
 %}
 
 // immediate values
-%token GOTO
+%token GOTO IF
 %token VALUE SYMBOL
 %token INT // Types
 
@@ -35,22 +35,27 @@ int errors = 0;
 %%
 
 program:
-	  program value  ';'
-	| program define ';'
+	  program line
 	| program body_open program body_close
-	| program SYMBOL ':' {
+	|
+	;
+line:
+	  value  ';'
+	| define ';'
+	| SYMBOL ':' {
 		// label definition
-		if (defineLabel($2.string)) // if failed
+		if (defineLabel($1.string)) // if failed
 		{
 			errors++;
 			YYERROR;
 		}
 	}
-	| program GOTO SYMBOL ';' {
-		gotoLabel($3.string);
+	| GOTO SYMBOL ';' {
+		gotoLabel($2.string);
 	}
-	|
+	| if
 	;
+
 // body '{' '}'
 // evaluate separately so the actions can be wrapped acordingly
 body_open:
@@ -61,6 +66,34 @@ body_open:
 body_close:
 	'}' {
 		popContext();
+	}
+	;
+
+// if statement
+if:
+	  IF info_start if_check body_open line info_end body_close
+	| IF info_start if_check           line info_end
+	;
+if_check:
+	'(' value ')' {
+		fprintf(fout, "\tgoto @%zu, if ", info->start);
+		printValue($2);
+		putc('\n', fout);
+		fprintf(fout, "\tgoto @%zu\n", info->end);
+		fprintf(fout, "%zu:\n",      info->start);
+	}
+	;
+
+// information data
+info_start:
+	{
+		pushInfo();
+	}
+	;
+info_end:
+	{
+		fprintf(fout, "%zu:\n", info->end);
+		popInfo();
 	}
 	;
 

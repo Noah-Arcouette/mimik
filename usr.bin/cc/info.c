@@ -7,7 +7,7 @@
 struct info *info = (struct info *)NULL;
 
 void
-pushInfo (struct info i)
+pushInfo ()
 {
 	// save tail
 	struct info *tail = info;
@@ -24,7 +24,9 @@ pushInfo (struct info i)
 	}
 
 	// copy over data
-	memcpy(info, &i, sizeof(struct info));
+	info->start = labelTemp++;
+	info->end   = labelTemp++;
+	info->elif  = labelTemp++;
 	info->parent = tail;
 }
 

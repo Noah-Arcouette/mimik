@@ -126,8 +126,8 @@ struct info
 };
 extern struct info *info;
 
-extern void infoPush (struct info);
-extern void infoPop  (void);
+extern void pushInfo (void);
+extern void popInfo  (void);
 extern void freeInfo (void);
 
 #endif

@@ -11,6 +11,9 @@ size_t lineno = 1;
 "goto" { // = Keywords =
 	return GOTO;
 }
+"if" {
+	return IF;
+}
 
 "int" { // = Types =
 	return INT;
