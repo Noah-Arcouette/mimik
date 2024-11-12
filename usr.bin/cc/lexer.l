@@ -25,8 +25,8 @@ size_t lineno = 1;
 
 [ \t] // ignore
 
-. {
-	return *yytext;
+; { // = characters =
+	return SEMICOLON;
 }
 
 %%
