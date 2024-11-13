@@ -18,7 +18,7 @@ extern_ (void)
 		fprintf(stderr, "%s:%zu: Expected a type after keyword extern.\n", filename, lineno);
 		errors++;
 		recover();
-		return 1;
+		return 0;
 	}
 
 	if (token != SYMBOL)
@@ -27,7 +27,7 @@ extern_ (void)
 		fprintf(stderr, "%s:%zu: Expected a symbol name after type.\n", filename, lineno);
 		errors++;
 		recover();
-		return 1;
+		return 0;
 	}
 	char *name = strdup(yytext); // get a duplicate of the name
 	if (!name) // failed to allocate
@@ -46,7 +46,7 @@ extern_ (void)
 		free(name);
 		fprintf(stderr, "%s:%zu: Missing semicolon.\n", filename, lineno);
 		errors++;
-		return 1;
+		return 0;
 	}
 	token = (enum token)yylex();
 
@@ -56,7 +56,7 @@ extern_ (void)
 		errors++;
 		free(name);
 		freeType(t);
-		return 1;
+		return 0;
 	}
 	return 0;
 }

@@ -20,7 +20,7 @@ main (int argc, char * const* argv)
 	atexit(               freeContexts );
 
 	token = (enum token)yylex();
-	extern_();
+	root();
 
 	return errors;
 }
