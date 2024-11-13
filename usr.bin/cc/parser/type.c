@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <stdlib.h>
 
+// cannot failed safely, if called a pointer shall ALWAYS be there
 static int
 _pointerType (struct type *t)
 {
@@ -49,7 +50,7 @@ _pointerType (struct type *t)
 			t->isRestrict = 1;
 			break;
 		default:
-			return 1;
+			return 0; // just leave
 		}
 
 		token = (enum token)yylex();
@@ -114,7 +115,10 @@ leave:
 	// check for pointer
 	while (token == STAR)
 	{
-		_pointerType(t);
+		if (_pointerType(t))
+		{
+			return 0;
+		}
 	}
 
 	return 0;

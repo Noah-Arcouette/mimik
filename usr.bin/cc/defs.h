@@ -96,6 +96,16 @@ struct symbol
 };
 extern int getSymbol (const char *restrict, struct symbol *restrict);
 
+/*
+
+These don't fail on error
+They only fail if they aren't found
+Exp:
+	extern_ will fail if it doesn't find an extern statement
+	extern_ will not fail if the extern statement is malformed
+
+*/
+
 // parser/extern.c
 extern int extern_ (void);
 
@@ -104,5 +114,8 @@ extern void recover (void);
 
 // parser/type.c
 extern int type (struct type *);
+
+// parser/root.c
+extern int root (void);
 
 #endif
