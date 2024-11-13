@@ -18,6 +18,10 @@ extern_ (void)
 		return 1;
 	}
 
+	printType(t);
+	fprintf(stderr, "%s\n", yytext);
+	freeType(t);
+
 	if (token != SYMBOL)
 	{
 		fprintf(stderr, "%s:%zu: Expected a symbol name after type.\n", filename, lineno);
