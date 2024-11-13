@@ -16,6 +16,13 @@ int
 defineExternal (char *name, struct type t)
 {
     // TODO: need to check if the symbol is already defined anywhere
+    struct symbol sym;
+    if (!getSymbol(name, &sym))
+    {
+        fprintf(stderr, "%s:%zu: Error symbol `%s' already exists.\n", filename, lineno, name);
+        fprintf(stderr, " -> First seen on line %zu in file `%s'\n", sym.lineno, sym.filename);
+        return 1;
+    }
 
     ctx->externals++; // increment amount of externals
 
@@ -40,6 +47,8 @@ defineExternal (char *name, struct type t)
     // fill out information
     struct external *e = &ctx->external[ctx->externals-1]; // get the element
     memcpy(&e->type, &t, sizeof(struct type));
-    e->name = name;
+    e->name     = name;
+    e->filename = filename;
+    e->lineno   = lineno;
     return 0;
 }

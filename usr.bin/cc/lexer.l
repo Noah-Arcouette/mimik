@@ -2,7 +2,7 @@
 #include "defs.h"
 #include <stddef.h>
 
-size_t lineno = 1;
+size_t lineno = 0;
 %}
 
 %%

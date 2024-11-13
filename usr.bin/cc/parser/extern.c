@@ -51,5 +51,12 @@ extern_ (void)
 	token = (enum token)yylex();
 
 	// if all goes good
-	return defineExternal(name, t);
+	if (defineExternal(name, t))
+	{
+		errors++;
+		free(name);
+		freeType(t);
+		return 1;
+	}
+	return 0;
 }
