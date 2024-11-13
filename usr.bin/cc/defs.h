@@ -73,6 +73,10 @@ extern int  defineExternal (char *name, struct type type);
 extern void freeExternal   (struct external *);
 
 // prototype.c
+struct parameter {
+	struct type type;
+	char       *name; // warning may be null
+};
 struct prototype
 {
 	struct type returnType;
@@ -81,14 +85,13 @@ struct prototype
 	size_t      lineno;
 	const char *filename;
 
-	struct parameter {
-		struct type type;
-		char       *name; // warning may be null
-	} *parameter;
+	struct parameter *parameter;
 	size_t parameters;
 	size_t parametercp;
 };
 extern struct prototype *definePrototype (struct type, char *);
+extern        int        defineParameter (struct prototype *, struct parameter);
+extern        void       freeParameter   (struct parameter *);
 extern        void       freePrototype   (struct prototype *);
 
 // context.c
@@ -142,6 +145,9 @@ extern void recover (void);
 
 // parser/type.c, variable definition type
 extern int type (struct type *);
+
+// parser/param.c, function PROTOTYPE parameter
+extern int parameter (struct parameter *);
 
 // parser/root.c, the root
 extern int root (void);
