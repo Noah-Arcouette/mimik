@@ -62,6 +62,9 @@ struct external
 {
 	struct type type;
 	char       *name;
+
+	size_t      lineno;
+	const char *filename;
 };
 extern int  defineExternal (char *name, struct type type);
 extern void freeExternal   (struct external *);
@@ -77,6 +80,21 @@ extern struct context *ctx;
 
 extern void freeContexts (void);
 extern void freeContext  (struct context *);
+
+// symbols.c
+struct symbol
+{
+	enum {
+		SYMBOL_EXTERNAL
+	} type;
+	union {
+		struct external *external;
+	};
+
+	size_t      lineno;
+	const char *filename;
+};
+extern int getSymbol (const char *restrict, struct symbol *restrict);
 
 // parser/extern.c
 extern int extern_ (void);
