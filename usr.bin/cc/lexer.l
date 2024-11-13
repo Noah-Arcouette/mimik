@@ -11,8 +11,35 @@ size_t lineno = 1;
 	return EXTERN;
 }
 
-"int" { // = Types =
+"void" { // = Types =
+	return VOID;
+}
+"char" {
+	return CHAR;
+}
+"short" {
+	return SHORT;
+}
+"int" {
 	return INT;
+}
+"unsigned" { // = Qualifiers =
+	return UNSIGNED;
+}
+"signed" {
+	return SIGNED;
+}
+"long" {
+	return LONG;
+}
+"volatile" {
+	return VOLATILE;
+}
+"const" {
+	return CONST;
+}
+"restrict" {
+	return RESTRICT;
 }
 
 [a-zA-Z_]* { // = Symbol =
@@ -27,6 +54,9 @@ size_t lineno = 1;
 
 ; { // = characters =
 	return SEMICOLON;
+}
+"*" {
+	return STAR;
 }
 
 %%
