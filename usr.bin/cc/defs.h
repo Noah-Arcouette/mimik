@@ -20,7 +20,10 @@ enum token {
 	SYMBOL,
 	// = Characters =
 	SEMICOLON,
-	STAR
+	STAR,
+	LPAREN,
+	RPAREN,
+	COMA
 };
 
 // lexer.l
@@ -69,12 +72,35 @@ struct external
 extern int  defineExternal (char *name, struct type type);
 extern void freeExternal   (struct external *);
 
+// prototype.c
+struct prototype
+{
+	struct type returnType;
+	char       *name; // may be null if the prototype was removed
+
+	size_t      lineno;
+	const char *filename;
+
+	struct parameter {
+		struct type type;
+		char       *name; // warning may be null
+	} *parameter;
+	size_t parameters;
+	size_t parametercp;
+};
+extern struct prototype *definePrototype (struct type, char *);
+extern        void       freePrototype   (struct prototype *);
+
 // context.c
 struct context
 {
 	struct external *external; // external variables
 	size_t           externals;
 	size_t           externalcp;
+
+	struct prototype *prototype; // function prototypes
+	size_t            prototypes;
+	size_t            prototypecp;
 };
 extern struct context *ctx;
 
@@ -85,10 +111,12 @@ extern void freeContext  (struct context *);
 struct symbol
 {
 	enum {
-		SYMBOL_EXTERNAL
+		SYMBOL_EXTERNAL,
+		SYMBOL_PROTOTYPE
 	} type;
 	union {
-		struct external *external;
+		struct external  *external;
+		struct prototype *prototype;
 	};
 
 	size_t      lineno;
@@ -106,16 +134,16 @@ Exp:
 
 */
 
-// parser/extern.c
+// parser/extern.c, variable externals, and function externals
 extern int extern_ (void);
 
-// parser/recover.c
+// parser/recover.c, recover to semicolon
 extern void recover (void);
 
-// parser/type.c
+// parser/type.c, variable definition type
 extern int type (struct type *);
 
-// parser/root.c
+// parser/root.c, the root
 extern int root (void);
 
 #endif
