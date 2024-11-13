@@ -32,15 +32,19 @@ defineExternal (char *name, struct type t)
         ctx->externalcp = (3*ctx->externals)/2; // grow by 3/2
 
         // reallocate
+		struct external *old = ctx->external; // save
         ctx->external = (struct external *)realloc(ctx->external, ctx->externalcp*sizeof(struct external));
         if (!ctx->external) // if failed
         {
-            ctx->externals  = 0;
-            ctx->externalcp = 0;
+			// restore
+            ctx->externals--;
+            ctx->externalcp = ctx->externals;
+			ctx->external   = old;
+
             int errnum = errno;
-            fprintf(stderr, "%s: Failed to allocate memory.\n", self);
-            fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
-            exit(1);
+            fprintf(stderr, "%s:%zu: Failed to allocate memory.\n", filename, lineno);
+            fprintf(stderr, " -> Error %d: %s.\n", errnum, strerror(errnum));
+            return 1;
         }
     }
 

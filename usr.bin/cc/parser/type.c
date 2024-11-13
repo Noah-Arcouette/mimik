@@ -19,9 +19,9 @@ _pointerType (struct type *t)
 	if (!point.down) // failed to allocate
 	{
 		int errnum = errno;
-		fprintf(stderr, "%s: Failed to allocate memory.\n", self);
-		fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
-		exit(1);
+		fprintf(stderr, "%s:%zu: Failed to allocate memory.\n", filename, lineno);
+		fprintf(stderr, " -> Error %d: %s.\n", errnum, strerror(errnum));
+		return 1;
 	}
 	memcpy(point.down, t, sizeof(struct type));
 	memcpy(t,     &point, sizeof(struct type));
@@ -117,6 +117,7 @@ leave:
 	{
 		if (_pointerType(t))
 		{
+			freeType(*t);
 			return 0;
 		}
 	}

@@ -23,13 +23,18 @@ definePrototype (struct type t, char *name)
 		ctx->prototypecp = (3*ctx->prototypes)/2; // grow by 3/2
 
 		// reallocate
+		struct prototype *old = ctx->prototype; // save
 		ctx->prototype = (struct prototype *)realloc(ctx->prototype, ctx->prototypecp*sizeof(struct prototype));
 		if (!ctx->prototype) // failed to allocate
 		{
 			int errnum = errno;
-			fprintf(stderr, "%s: Failed to allocate memory.\n", self);
-			fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
-			exit(1);
+			fprintf(stderr, "%s:%zu: Failed to allocate memory.\n", filename, lineno);
+			fprintf(stderr, " -> Error %d: %s.\n", errnum, strerror(errnum));
+
+			ctx->prototypes--;
+			ctx->prototypecp = ctx->prototypes;
+			ctx->prototype   = old; // restore
+			return (struct prototype *)NULL; // soft fail
 		}
 	}
 
