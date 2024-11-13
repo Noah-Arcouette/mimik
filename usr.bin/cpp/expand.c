@@ -19,10 +19,14 @@ expand (int c)
 
 		if (bufsz >= bufcp)
 		{
+			char *old = expand_buf;
+
 			bufcp      = (3*bufsz)/2;
 			expand_buf = (char *)realloc(expand_buf, bufcp);
 			if (!expand_buf)
 			{
+				expand_buf = old;
+
 				int errnum = errno;
 				fprintf(stderr, "%s: Failed to allocate memory.\n", self);
 				fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));

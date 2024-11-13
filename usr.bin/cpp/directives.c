@@ -20,10 +20,14 @@ directives (int c)
 	bufsz++;
 	if (bufsz > bufcp)
 	{
+		char *old = directive_buf;
+
 		bufcp         = (3*bufsz)/2;
 		directive_buf = (char *)realloc(directive_buf, bufcp);
 		if (!directive_buf) // failed to allocate
 		{
+			directive_buf = old;
+
 			int errnum = errno;
 			fprintf(stderr, "%s: Failed to allocate memory.\n", self);
 			fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
