@@ -40,6 +40,47 @@ extern_ (void)
 	}
 	token = (enum token)yylex(); // accept
 
+	// function external
+	if (token == LPAREN)
+	{
+		token = (enum token)yylex();
+		if (token != RPAREN)
+		{
+			freeType(t);
+			free(name);
+			fprintf(stderr, "%s:%zu: Missing closing parenthesis.\n", filename, lineno);
+			errors++;
+			recover();
+			return 0;
+		}
+		token = (enum token)yylex();
+
+		// define the function prototype head
+		struct prototype *p = definePrototype(t, name);
+		if (!p) // failed to acquire a prototype
+		{
+			freeType(t);
+			free(name);
+			errors++;
+			recover();
+			return 0;
+		}
+
+		// get parameters
+		// type name? [, type name?]* : the parameters may not have names
+
+		if (token != SEMICOLON)
+		{
+			freePrototype(p);
+			fprintf(stderr, "%s:%zu: Missing semicolon.\n", filename, lineno);
+			errors++;
+			return 0;
+		}
+		token = (enum token)yylex();
+		return 0;
+	}
+
+	// variable external
 	if (token != SEMICOLON)
 	{
 		freeType(t);
@@ -51,12 +92,14 @@ extern_ (void)
 	token = (enum token)yylex();
 
 	// if all goes good
+	lineno--;
 	if (defineExternal(name, t))
 	{
 		errors++;
 		free(name);
 		freeType(t);
-		return 0;
 	}
+
+	lineno++;
 	return 0;
 }

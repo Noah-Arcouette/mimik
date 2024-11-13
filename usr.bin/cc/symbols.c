@@ -19,6 +19,21 @@ getSymbol (const char *restrict name, struct symbol *restrict s)
         }
     }
 
+	// try to find the prototype
+	for (size_t i = 0; i<ctx->prototypes; i++)
+	{
+		if (!strcmp(ctx->prototype[i].name, name)) // check name
+		{
+			// found the symbol
+			s->type      = SYMBOL_PROTOTYPE;
+			s->prototype = &ctx->prototype[i];
+
+			s->lineno   = ctx->prototype[i].lineno;
+			s->filename = ctx->prototype[i].filename;
+			return 0;
+		}
+	}
+
     // symbol doesn't exist
     return 1;
 }
