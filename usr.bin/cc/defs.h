@@ -46,16 +46,37 @@ struct type
 		TYPE_INT,
 		TYPE_POINTER,
 	} base;
-	int isVolatile : 1;
-	int isConst    : 1;
-	int isRestrict : 1;
-	int longness   : 2;
-	int isUnsigned : 1; // unsigned?
+	unsigned int isVolatile : 1;
+	unsigned int isConst    : 1;
+	unsigned int isRestrict : 1;
+	unsigned int longness   : 2;
+	unsigned int isUnsigned : 1; // unsigned?
 	struct type *down; // if pointer, this is the sub-type
 };
 
 extern void printType (struct type);
 extern void freeType  (struct type);
+
+// external.c
+struct external
+{
+	struct type type;
+	char       *name;
+};
+extern int  defineExternal (char *name, struct type type);
+extern void freeExternal   (struct external *);
+
+// context.c
+struct context
+{
+	struct external *external; // external variables
+	size_t           externals;
+	size_t           externalcp;
+};
+extern struct context *ctx;
+
+extern void freeContexts (void);
+extern void freeContext  (struct context *);
 
 // parser/extern.c
 extern int extern_ (void);

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include "defs.h"
 
 const char *filename = "<stdin>";
@@ -15,9 +16,11 @@ main (int argc, char * const* argv)
 		self = argv[0]; // get program name
 	}
 
+	atexit((void(*)(void))yylex_destroy);
+	atexit(               freeContexts );
+
 	token = (enum token)yylex();
 	extern_();
-	yylex_destroy();
 
 	return errors;
 }

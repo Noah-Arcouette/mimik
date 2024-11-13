@@ -1,4 +1,7 @@
 #include "../defs.h"
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 
 int
 extern_ (void)
@@ -18,26 +21,35 @@ extern_ (void)
 		return 1;
 	}
 
-	printType(t);
-	fprintf(stderr, "%s\n", yytext);
-	freeType(t);
-
 	if (token != SYMBOL)
 	{
+		freeType(t);
 		fprintf(stderr, "%s:%zu: Expected a symbol name after type.\n", filename, lineno);
 		errors++;
 		recover();
 		return 1;
 	}
+	char *name = strdup(yytext); // get a duplicate of the name
+	if (!name) // failed to allocate
+	{
+		freeType(t);
+		int errnum = errno;
+		fprintf(stderr, "%s: Failed to allocate memory.\n", self);
+		fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
+		exit(1);
+	}
 	token = (enum token)yylex(); // accept
 
 	if (token != SEMICOLON)
 	{
+		freeType(t);
+		free(name);
 		fprintf(stderr, "%s:%zu: Missing semicolon.\n", filename, lineno);
 		errors++;
 		return 1;
 	}
 	token = (enum token)yylex();
 
-	return 0;
+	// if all goes good
+	return defineExternal(name, t);
 }
