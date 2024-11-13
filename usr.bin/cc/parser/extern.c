@@ -34,9 +34,12 @@ extern_ (void)
 	{
 		freeType(t);
 		int errnum = errno;
-		fprintf(stderr, "%s: Failed to allocate memory.\n", self);
-		fprintf(stderr, "Error %d: %s.\n", errnum, strerror(errnum));
-		exit(1);
+		fprintf(stderr, "%s:%zu: Failed to allocate memory.\n", filename, lineno);
+		fprintf(stderr, " -> Error %d: %s.\n", errnum, strerror(errnum));
+
+		errors++;
+		recover();
+		return 0;
 	}
 	token = (enum token)yylex(); // accept
 
