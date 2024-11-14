@@ -67,6 +67,12 @@ size_t lineno = 1;
 "," {
 	return COMA;
 }
+"{" {
+	return LCURLY;
+}
+"}" {
+	return RCURLY;
+}
 
 %%
 

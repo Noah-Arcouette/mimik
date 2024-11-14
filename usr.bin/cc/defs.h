@@ -23,7 +23,9 @@ enum token {
 	STAR,
 	LPAREN,
 	RPAREN,
-	COMA
+	COMA,
+	LCURLY,
+	RCURLY
 };
 
 // lexer.l
@@ -152,6 +154,12 @@ extern int type (struct type *);
 
 // parser/param.c, function PROTOTYPE parameter
 extern int parameter (struct parameter *);
+
+// parser/def.c, symbol definition (type symbol ...) any type of definition including functions and global variables
+extern int definition (void);
+
+// parser/body.c, function body
+extern int body (void);
 
 // parser/root.c, the root
 extern int root (void);

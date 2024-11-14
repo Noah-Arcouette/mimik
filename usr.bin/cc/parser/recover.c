@@ -3,7 +3,8 @@
 void
 recover (void)
 {
-	while (token != SEMICOLON && token)
+	// consume all until `}' or `;'
+	while (token != SEMICOLON && token != RCURLY && token)
 	{
 		token = (enum token)yylex();
 	}
