@@ -11,6 +11,8 @@ const char *self = "cc";
 int
 main (int argc, char * const* argv)
 {
+	yyout = stdout;
+
 	if (argc > 0)
 	{
 		self = argv[0]; // get program name
