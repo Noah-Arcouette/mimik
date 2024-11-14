@@ -32,6 +32,7 @@ enum token {
 extern int    yylex_destroy (void);
 extern int    yylex         (void);
 extern FILE  *yyin;
+extern FILE  *yyout;
 extern size_t lineno;
 extern char  *yytext;
 
@@ -60,8 +61,17 @@ struct type
 };
 
 extern void printType   (struct type);
+extern void printIRType (struct type);
 extern void freeType    (struct type);
 extern int  compareType (struct type, struct type);
+
+extern enum dataType {
+	LP64,
+	ILP64,
+	LLP64,
+	ILP32,
+	LP32
+} dataType;
 
 // external.c
 struct external

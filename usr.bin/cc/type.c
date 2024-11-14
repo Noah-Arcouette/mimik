@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+dataType = ILP32; // 32bit by default
+
 void
 printType (struct type t)
 {
@@ -49,6 +51,74 @@ printType (struct type t)
 		fprintf(stderr, "int");
 		break;
 	case TYPE_POINTER:
+		break;
+	}
+}
+
+void
+printIRType (struct type t)
+{
+	switch (t.base)
+	{
+	case TYPE_VOID:
+		fprintf(yyout, "void");
+		break;
+	case TYPE_CHAR:
+		fprintf(yyout, "%c8",
+			t.isUnsigned ? 'u' : 'i');
+		break;
+	case TYPE_SHORT:
+		fprintf(yyout, "%c16",
+			t.isUnsigned ? 'u' : 'i');
+		break;
+	case TYPE_INT:
+		int size = 32;
+		switch (dataType)
+		{
+		case LP64:
+			if (t.longness)
+			{
+				size = 64;
+			}
+			break;
+		case ILP64:
+			size = 64;
+			break;
+		case LLP64:
+			if (t.longness > 1)
+			{
+				size = 64;
+			}
+			break;
+		case ILP32: // always 32bit
+			break;
+		case LP32:
+			size = 16;
+			if (t.longness)
+			{
+				size = 32;
+			}
+			break;
+		}
+
+		fprintf(yyout, "%c%d",
+			t.isUnsigned ? 'u' : 'i',
+			size);
+		break;
+	case TYPE_POINTER:
+		int size = 64;
+		switch (dataType)
+		{
+		case ILP32:
+		case LP32:
+			size = 32;
+			break;
+		default:
+			break; // keep 64
+		}
+		fprintf(yyout, "%c%d",
+			t.isUnsigned ? 'u' : 'i',
+			size);
 		break;
 	}
 }
