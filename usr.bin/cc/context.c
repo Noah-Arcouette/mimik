@@ -13,6 +13,10 @@ static struct context _ctx = {
 	.prototypes  = 0,
 	.prototypecp = 0,
 
+	.variable   = (struct variable *)NULL,
+	.variables  = 0,
+	.variablecp = 0,
+
 	.delta = 0,
 
 	.parent = (struct context *)NULL
@@ -33,6 +37,12 @@ freeContext (struct context *ctx)
 		freePrototype(&ctx->prototype[ctx->prototypes]);
 	}
 	free(ctx->prototype);
+
+	while (ctx->variables--) // for each variable
+	{
+		freeVariable(&ctx->variable[ctx->variables]);
+	}
+	free(ctx->variable);
 
 	// free the parent
 	if (ctx->parent)

@@ -1,7 +1,8 @@
 #ifndef __DEFS_H__
 #define __DEFS_H__
 #include <stdio.h>
-enum token {
+enum token
+{
 	// = Key Words =
 	EXTERN = 256,
 	// = Type =
@@ -63,9 +64,11 @@ struct type
 extern void printType   (struct type);
 extern void printIRType (struct type);
 extern void freeType    (struct type);
-extern int  compareType (struct type, struct type);
+extern int  compareType (struct type,   struct type);
+extern int  copyType    (struct type *, struct type);
 
-extern enum dataType {
+extern enum dataType
+{
 	LP64,
 	ILP64,
 	LLP64,
@@ -111,13 +114,27 @@ extern        int        doneWithPrototype (struct prototype *); // finished mod
 extern        void       freePrototype     (struct prototype *);
 
 // param.c
-struct parameter {
+struct parameter
+{
 	struct type type;
 	char       *name; // warning may be null, not all parameters have names
 };
 
 extern int  defineParameter (struct prototype *, struct parameter);
 extern void freeParameter   (struct parameter *);
+
+// variable.c
+struct variable
+{
+	struct type type;
+	char       *name;
+	size_t      delta;
+
+	      size_t lineno;
+	const char  *filename;
+};
+extern struct variable *defineVariable (char *, struct type);
+extern        void      freeVariable   (struct variable *);
 
 // context.c
 struct context
@@ -129,6 +146,10 @@ struct context
 	struct prototype *prototype; // function prototypes
 	size_t            prototypes;
 	size_t            prototypecp;
+
+	struct variable *variable; // local variables, NOT statics/globals
+	size_t           variables;
+	size_t           variablecp;
 
 	size_t delta; // current delta
 
@@ -144,13 +165,17 @@ extern void popContext   (void);
 // symbols.c
 struct symbol
 {
-	enum {
+	enum
+	{
 		SYMBOL_EXTERNAL,
-		SYMBOL_PROTOTYPE
+		SYMBOL_PROTOTYPE,
+		SYMBOL_VARIABLE
 	} type;
-	union {
+	union
+	{
 		struct external  *external;
 		struct prototype *prototype;
+		struct variable  *variable;
 	};
 
 	size_t      lineno;
