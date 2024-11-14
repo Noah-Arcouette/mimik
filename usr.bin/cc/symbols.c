@@ -4,46 +4,52 @@
 int
 getSymbol (const char *restrict name, struct symbol *restrict s)
 {
-    // try to find the external
-    for (size_t i = 0; i<ctx->externals; i++)
-    {
-		// skip un-named/unexistant variables
-		if (!ctx->external[i].name)
-		{
-			continue;
-		}
-
-        if (!strcmp(ctx->external[i].name, name)) // check name
-        {
-            // found the symbol
-            s->type     = SYMBOL_EXTERNAL;
-            s->external = &ctx->external[i];
-
-            s->lineno   = ctx->external[i].lineno;
-            s->filename = ctx->external[i].filename;
-            return 0;
-        }
-    }
-
-	// try to find the prototype
-	for (size_t i = 0; i<ctx->prototypes; i++)
+	struct context *current = ctx;
+	while (current) // for all contexts
 	{
-		// skip un-named/unexistant prototypes
-		if (!ctx->prototype[i].name)
+		// try to find the external
+		for (size_t i = 0; i<current->externals; i++)
 		{
-			continue;
+			// skip un-named/unexistant variables
+			if (!current->external[i].name)
+			{
+				continue;
+			}
+
+			if (!strcmp(current->external[i].name, name)) // check name
+			{
+				// found the symbol
+				s->type     = SYMBOL_EXTERNAL;
+				s->external = &current->external[i];
+
+				s->lineno   = current->external[i].lineno;
+				s->filename = current->external[i].filename;
+				return 0;
+			}
 		}
 
-		if (!strcmp(ctx->prototype[i].name, name)) // check name
+		// try to find the prototype
+		for (size_t i = 0; i<current->prototypes; i++)
 		{
-			// found the symbol
-			s->type      = SYMBOL_PROTOTYPE;
-			s->prototype = &ctx->prototype[i];
+			// skip un-named/unexistant prototypes
+			if (!current->prototype[i].name)
+			{
+				continue;
+			}
 
-			s->lineno   = ctx->prototype[i].lineno;
-			s->filename = ctx->prototype[i].filename;
-			return 0;
+			if (!strcmp(current->prototype[i].name, name)) // check name
+			{
+				// found the symbol
+				s->type      = SYMBOL_PROTOTYPE;
+				s->prototype = &current->prototype[i];
+
+				s->lineno   = current->prototype[i].lineno;
+				s->filename = current->prototype[i].filename;
+				return 0;
+			}
 		}
+
+		current = current->parent; // next context
 	}
 
     // symbol doesn't exist
