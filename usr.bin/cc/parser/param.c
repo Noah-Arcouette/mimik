@@ -27,9 +27,9 @@ parameter (struct parameter *p)
 	}
 	else
 	{
-		p->name = (char *)NULL; // make sure it gets null
-		// or un-name variable will get a name carried over via prior named variable
-		// this will cause a double free so please do this
+		p->name = (char *)NULL; // make sure it gets nulled
+		// or un-named variables will get a name carried over via the prior named variable
+		// this will cause a double free if not nulled
 	}
 
 	return 0;
