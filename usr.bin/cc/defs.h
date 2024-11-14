@@ -75,10 +75,6 @@ extern int  defineExternal (char *name, struct type type);
 extern void freeExternal   (struct external *);
 
 // prototype.c
-struct parameter {
-	struct type type;
-	char       *name; // warning may be null
-};
 struct prototype
 {
 	struct type returnType;
@@ -91,10 +87,18 @@ struct prototype
 	size_t parameters;
 	size_t parametercp;
 };
-extern struct prototype *definePrototype (struct type, char *);
-extern        int        defineParameter (struct prototype *, struct parameter);
-extern        void       freeParameter   (struct parameter *);
-extern        void       freePrototype   (struct prototype *);
+extern struct prototype *definePrototype   (struct type, char *);
+extern        void       doneWithPrototype (struct prototype *); // finished modifying a prototype
+extern        void       freePrototype     (struct prototype *);
+
+// param.c
+struct parameter {
+	struct type type;
+	char       *name; // warning may be null
+};
+
+extern int  defineParameter (struct prototype *, struct parameter);
+extern void freeParameter   (struct parameter *);
 
 // context.c
 struct context

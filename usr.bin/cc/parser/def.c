@@ -54,6 +54,8 @@ _func (struct type t, char *name)
 	}
 	token = (enum token)yylex(); // accept
 
+	doneWithPrototype(p); // clean up the prototype
+
 	// function fully accepted
 	pushContext();
 	if (body())
