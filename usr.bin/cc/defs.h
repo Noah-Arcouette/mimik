@@ -104,11 +104,15 @@ struct context
 	struct prototype *prototype; // function prototypes
 	size_t            prototypes;
 	size_t            prototypecp;
+
+	struct context *parent;
 };
 extern struct context *ctx;
 
 extern void freeContexts (void);
 extern void freeContext  (struct context *);
+extern void pushContext  (void);
+extern void popContext   (void);
 
 // symbols.c
 struct symbol
