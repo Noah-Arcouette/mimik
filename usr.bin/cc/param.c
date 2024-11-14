@@ -46,7 +46,7 @@ defineParameter (struct prototype *p, struct parameter param)
 		{
 			if (oldParam->name) // has a name
 			{
-				if (strcmp(param.name, oldParam->name)) // if they aren't the name
+				if (strcmp(param.name, oldParam->name)) // if they aren't the same names
 				{
 					fprintf(stderr, "%s:%zu: Function has mismatched parameter names.\n", filename, lineno);
 
@@ -82,7 +82,7 @@ defineParameter (struct prototype *p, struct parameter param)
 	// for each parameter
 	for (size_t i = 0; i<p->parameters; i++)
 	{
-		// skip un-name parameters
+		// skip un-named parameters
 		if (!p->parameter[i].name)
 		{
 			continue; // skip
@@ -101,7 +101,7 @@ skip_check:
 
 	// grow parameters
 	p->parameters++;
-	if (p->parameters >= p->parametercp) // if the capacity need to be grown
+	if (p->parameters >= p->parametercp) // if the capacity needs to be grown
 	{
 		p->parametercp = (3*p->parameters)/2; // grow by 3/2
 

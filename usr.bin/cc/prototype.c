@@ -56,6 +56,7 @@ definePrototype (struct type t, char *name, int isExternal)
 
 		return (struct prototype *)NULL;
 	}
+	// else, new prototype
 
 	// allocate for the prototype
 	ctx->prototypes++;
@@ -102,6 +103,7 @@ freePrototype (struct prototype *p)
 
 		return;
 	}
+	// else
 
 	free(p->name);
 	freeType(p->returnType);
@@ -140,6 +142,7 @@ doneWithPrototype (struct prototype *p)
 
 		return 0;
 	}
+	// else
 
 	// resize
 	p->parameter = (struct parameter *)realloc(p->parameter, p->parameters*sizeof(struct parameter));
@@ -149,6 +152,7 @@ doneWithPrototype (struct prototype *p)
 		fprintf(stderr, "%s:%zu: Failed to allocate memory.\n", filename, lineno);
 		fprintf(stderr, " -> Warning %d: %s.\n", errnum, strerror(errnum));
 		return 0; // it's still okay
+		// just don't update the capacity
 	}
 
 	// update capacity information

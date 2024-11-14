@@ -89,7 +89,7 @@ struct prototype
 	size_t parametercp;
 
 	unsigned int isExternal  : 1;
-	unsigned int isMirroring : 1; // is defined as an external and we're providing an implementation
+	unsigned int isMirroring : 1; // is defined already, match the definitions together (just don't allow two implementations)
 	struct {
 		      size_t parameters; // current parameter defined
 		      size_t lineno;
@@ -103,7 +103,7 @@ extern        void       freePrototype     (struct prototype *);
 // param.c
 struct parameter {
 	struct type type;
-	char       *name; // warning may be null
+	char       *name; // warning may be null, not all parameters have names
 };
 
 extern int  defineParameter (struct prototype *, struct parameter);
@@ -148,8 +148,9 @@ extern int getSymbol (const char *restrict, struct symbol *restrict);
 
 /*
 
-These don't fail on error
+These, the following, don't fail on error
 They only fail if they aren't found
+If there is an error, recovery will be attempted
 Exp:
 	extern_ will fail if it doesn't find an extern statement
 	extern_ will not fail if the extern statement is malformed
@@ -159,7 +160,7 @@ Exp:
 // parser/extern.c, variable externals, and function externals
 extern int extern_ (void);
 
-// parser/recover.c, recover to semicolon
+// parser/recover.c, recover to semicolon, or closing curly bracket
 extern void recover (void);
 
 // parser/type.c, variable definition type
