@@ -14,7 +14,7 @@ _func (struct type t, char *name)
 	token = (enum token)yylex(); // accept
 
 	// create prototype
-	struct prototype *p = definePrototype(t, name);
+	struct prototype *p = definePrototype(t, name, 0);
 	if (!p)
 	{
 		freeType(t);
@@ -54,7 +54,13 @@ _func (struct type t, char *name)
 	}
 	token = (enum token)yylex(); // accept
 
-	doneWithPrototype(p); // clean up the prototype
+	if (doneWithPrototype(p)) // clean up the prototype
+	{
+		errors++;
+		freePrototype(p);
+		recover();
+		return 0;
+	}
 
 	// function fully accepted
 	pushContext();

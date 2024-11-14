@@ -1,6 +1,7 @@
 #include "defs.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void
 printType (struct type t)
@@ -63,4 +64,24 @@ freeType (struct type t)
 		free(p); // free
 		p = d; // move
 	}
+}
+
+int
+// check if types are a exact match
+compareType (struct type a, struct type b)
+{
+	// if pointers
+	if (a.base == TYPE_POINTER && b.base == TYPE_POINTER)
+	{
+		if (!compareType(*(a.down), *(b.down))) // compare the next type
+		{
+			return 0; // failed
+		}
+		// set to null
+		a.down = (struct type *)NULL;
+		b.down = (struct type *)NULL;
+	}
+
+	// compare
+	return !memcmp(&a, &b, sizeof(struct type));
 }

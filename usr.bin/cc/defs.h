@@ -59,8 +59,9 @@ struct type
 	struct type *down; // if pointer, this is the sub-type
 };
 
-extern void printType (struct type);
-extern void freeType  (struct type);
+extern void printType   (struct type);
+extern void freeType    (struct type);
+extern int  compareType (struct type, struct type);
 
 // external.c
 struct external
@@ -86,9 +87,17 @@ struct prototype
 	struct parameter *parameter;
 	size_t parameters;
 	size_t parametercp;
+
+	unsigned int isExternal  : 1;
+	unsigned int isMirroring : 1; // is defined as an external and we're providing an implementation
+	struct {
+		      size_t parameters; // current parameter defined
+		      size_t lineno;
+		const char  *filename;
+	} mirroring;
 };
-extern struct prototype *definePrototype   (struct type, char *);
-extern        void       doneWithPrototype (struct prototype *); // finished modifying a prototype
+extern struct prototype *definePrototype   (struct type, char *, int);
+extern        int        doneWithPrototype (struct prototype *); // finished modifying a prototype
 extern        void       freePrototype     (struct prototype *);
 
 // param.c
