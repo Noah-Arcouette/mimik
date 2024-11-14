@@ -49,7 +49,7 @@ extern_ (void)
 		token = (enum token)yylex(); // accept
 
 		// define the function prototype head
-		struct prototype *p = definePrototype(t, name);
+		struct prototype *p = definePrototype(t, name, 1);
 		if (!p) // failed to acquire a prototype
 		{
 			freeType(t);
@@ -98,7 +98,11 @@ extern_ (void)
 		}
 		token = (enum token)yylex(); // accept
 
-		doneWithPrototype(p); // clean up the prototype
+		if (doneWithPrototype(p)) // clean up the prototype
+		{
+			errors++;
+		}
+
 		return 0;
 	}
 

@@ -7,6 +7,71 @@
 int
 defineParameter (struct prototype *p, struct parameter param)
 {
+	// ignore just void parameters
+	if (param.type.base == TYPE_VOID)
+	{
+		return 0;
+	}
+
+	// if mirroring
+	if (p->isMirroring)
+	{
+		// check for overflow
+		if (p->mirroring.parameters >= p->parameters) // excess parameters
+		{
+			fprintf(stderr, "%s:%zu: Error excess parameters in function, for function `%s'.\n", filename, lineno, p->name);
+		seens_and_error:
+			fprintf(stderr, " -> Current definition on line %zu in file `%s'\n", p->lineno, p->filename);
+			fprintf(stderr, " -> New definition on line %zu in file `%s'\n", p->mirroring.lineno, p->mirroring.filename);
+
+			return 1;
+		}
+
+		struct parameter *oldParam = &p->parameter[p->mirroring.parameters]; // the old parameter
+
+		// check if the type is the same
+		if (!compareType(oldParam->type, param.type))
+		{
+			fprintf(stderr, "%s:%zu: Function has mismatched parameter types.\n", filename, lineno);
+		param_and_error:
+			fprintf(stderr, " -> Parameter %zu, name `%s'\n",
+				p->mirroring.parameters+1,
+				oldParam->name ? oldParam->name : "(anonymous)"
+			);
+			goto seens_and_error;
+		}
+
+		// check if the name is the same
+		if (param.name) // has a name
+		{
+			if (oldParam->name) // has a name
+			{
+				if (strcmp(param.name, oldParam->name)) // if they aren't the name
+				{
+					fprintf(stderr, "%s:%zu: Function has mismatched parameter names.\n", filename, lineno);
+
+					goto param_and_error;
+				}
+			}
+			else
+			{
+				oldParam->name = param.name; // set new name
+			}
+		}
+
+		// next
+		p->mirroring.parameters++;
+
+		// if not copied over
+		if (oldParam->name != param.name)
+		{
+			free(param.name); // free it
+		}
+
+		freeType(param.type);
+		return 0;
+	}
+
 	// check if parameter already exists
 	// only if the parameter has a name
 	if (!param.name)
