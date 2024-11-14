@@ -13,6 +13,8 @@ static struct context _ctx = {
 	.prototypes  = 0,
 	.prototypecp = 0,
 
+	.delta = 0,
+
 	.parent = (struct context *)NULL
 };
 struct context *ctx = &_ctx;
@@ -65,6 +67,9 @@ pushContext (void)
 	// nullify and set
 	memset(new, 0, sizeof(struct context));
 	new->parent = ctx;
+
+	// delta
+	new->delta = ctx->delta+1;
 
 	// push
 	ctx = new;
