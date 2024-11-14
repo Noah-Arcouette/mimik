@@ -97,6 +97,8 @@ extern_ (void)
 			return 0;
 		}
 		token = (enum token)yylex(); // accept
+
+		doneWithPrototype(p); // clean up the prototype
 		return 0;
 	}
 
