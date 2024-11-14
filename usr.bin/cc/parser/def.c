@@ -64,12 +64,40 @@ _func (struct type t, char *name)
 
 	// function fully accepted
 	pushContext();
+
+	// define label
+	fprintf(yyout, "%s:\n", p->name);
+
+	// bring the parameters into context
+	for (size_t i = 0; i<p->parameters; i++)
+	{
+		if (!p->parameter[i].name)
+		{
+			continue;
+		}
+
+		fputc('\t', yyout);
+		printIRType(p->parameter[i].type);
+		fprintf(yyout, " %%%zu = arg_", ctx->delta++);
+		printIRType(p->parameter[i].type);
+		fprintf(yyout, " %zu\n", i);
+	}
+
 	if (body())
 	{
 		fprintf(stderr, "%s:%zu: Function expected a body.\n", filename, lineno);
 		errors++;
 	}
 	popContext();
+
+	// if void, add implicit return
+	if (p->returnType.base == TYPE_VOID)
+	{
+		fprintf(yyout, "\treturn_void\n");
+	}
+
+	// end of a function should always be unreachable
+	fprintf(yyout, "\tunreachable\n");
 
 	return 0;
 }

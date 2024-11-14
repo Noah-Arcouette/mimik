@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-dataType = ILP32; // 32bit by default
+enum dataType dataType = ILP32; // 32bit by default
 
 void
 printType (struct type t)
@@ -58,6 +58,7 @@ printType (struct type t)
 void
 printIRType (struct type t)
 {
+	int size;
 	switch (t.base)
 	{
 	case TYPE_VOID:
@@ -72,7 +73,7 @@ printIRType (struct type t)
 			t.isUnsigned ? 'u' : 'i');
 		break;
 	case TYPE_INT:
-		int size = 32;
+		size = 32;
 		switch (dataType)
 		{
 		case LP64:
@@ -106,7 +107,7 @@ printIRType (struct type t)
 			size);
 		break;
 	case TYPE_POINTER:
-		int size = 64;
+		size = 64;
 		switch (dataType)
 		{
 		case ILP32:

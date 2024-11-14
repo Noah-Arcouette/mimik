@@ -130,6 +130,8 @@ struct context
 	size_t            prototypes;
 	size_t            prototypecp;
 
+	size_t delta; // current delta
+
 	struct context *parent;
 };
 extern struct context *ctx;
