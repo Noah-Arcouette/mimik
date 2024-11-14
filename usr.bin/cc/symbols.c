@@ -49,6 +49,27 @@ getSymbol (const char *restrict name, struct symbol *restrict s)
 			}
 		}
 
+		// try to find the variable
+		for (size_t i = 0; i<current->variables; i++)
+		{
+			// skip un-named/unexistant variables
+			if (!current->variable[i].name)
+			{
+				continue;
+			}
+
+			if (!strcmp(current->variable[i].name, name)) // check name
+			{
+				// found the symbol
+				s->type     = SYMBOL_VARIABLE;
+				s->variable = &current->variable[i];
+
+				s->lineno   = current->variable[i].lineno;
+				s->filename = current->variable[i].filename;
+				return 0;
+			}
+		}
+
 		current = current->parent; // next context
 	}
 

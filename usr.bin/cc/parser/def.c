@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 static inline int
 _func (struct type t, char *name)
@@ -69,6 +70,9 @@ _func (struct type t, char *name)
 	fprintf(yyout, "%s:\n", p->name);
 
 	// bring the parameters into context
+	struct variable *v;
+	char       *paramName;
+	struct type paramType;
 	for (size_t i = 0; i<p->parameters; i++)
 	{
 		if (!p->parameter[i].name)
@@ -76,10 +80,39 @@ _func (struct type t, char *name)
 			continue;
 		}
 
+		// duplicate name and type for definition
+		paramName = strdup(p->parameter[i].name);
+		if (!paramName) // failed
+		{
+			int errnum = errno;
+			fprintf(stderr, "%s:%zu: Failed to allocate parameter name, for parameter %zu, `%s'.\n", filename, lineno, i+1, p->parameter[i].name);
+			fprintf(stderr, " -> Error %d: %s.\n", errnum, strerror(errnum));
+			errors++;
+			continue; // skip it
+		}
+
+		if (copyType(&paramType, p->parameter[i].type))
+		{
+			fprintf(stderr, " -> For parameter %zu, `%s'\n", i+1, paramName);
+			errors++;
+			free(paramName);
+			continue; // skip it
+		}
+
+		v = defineVariable(paramName, paramType);
+		if (!v) // failed to define variable
+		{
+			fprintf(stderr, " -> For parameter %zu, `%s'\n", i+1, paramName);
+			free(paramName);
+			freeType(paramType);
+			errors++;
+			continue; // skip it
+		}
+
 		fputc('\t', yyout);
-		printIRType(p->parameter[i].type);
-		fprintf(yyout, " %%%zu = arg_", ctx->delta++);
-		printIRType(p->parameter[i].type);
+		printIRType(v->type);
+		fprintf(yyout, " %%%zu = arg_", v->delta);
+		printIRType(v->type);
 		fprintf(yyout, " %zu\n", i);
 	}
 

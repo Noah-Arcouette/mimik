@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 enum dataType dataType = ILP32; // 32bit by default
 
@@ -155,4 +156,34 @@ compareType (struct type a, struct type b)
 
 	// compare
 	return !memcmp(&a, &b, sizeof(struct type));
+}
+
+int
+copyType (struct type *dest, struct type src)
+{
+	memcpy(dest, &src, sizeof(struct type));
+
+	// copy the pointer recursively
+	if (src.base == TYPE_POINTER)
+	{
+		// allocate the down
+		dest->down = (struct type *)malloc(sizeof(struct type));
+		if (!dest->down)
+		{
+			int errnum = errno;
+			fprintf(stderr, "%s:%zu: Failed to allocate type data while copying type.\n", filename, lineno);
+			fprintf(stderr, " -> Error %d: %s.\n", errnum, strerror(errnum));
+			return 1;
+		}
+
+		// copy the down
+		if (copyType(dest->down, *src.down))
+		{
+			free(dest->down);
+			dest->down = (struct type *)NULL;
+			return 1;
+		}
+	}
+
+	return 0;
 }
