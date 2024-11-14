@@ -85,4 +85,5 @@ popContext (void)
 	toFree->parent = (struct context *)NULL; // so we don't recurse
 
 	freeContext(toFree); // free
+	free(toFree);
 }

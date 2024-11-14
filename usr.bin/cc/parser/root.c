@@ -10,6 +10,11 @@ root (void)
 			continue;
 		}
 
+		if (!definition())
+		{
+			continue;
+		}
+
 		fprintf(stderr, "%s:%zu: Unexpected token at root.\n", filename, lineno);
 		return 1;
 	}
