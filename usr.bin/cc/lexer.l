@@ -62,6 +62,12 @@ size_t lineno = 1;
 "*" {
 	return STAR;
 }
+"/" {
+	return DIV;
+}
+"%" {
+	return MOD;
+}
 "+" {
 	return PLUS;
 }
