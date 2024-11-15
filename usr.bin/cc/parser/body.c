@@ -12,7 +12,7 @@ body (void)
 	while (1)
 	{
 		// leave the body
-		if (token == RCURLY)
+		if (token == RCURLY || !token)
 		{
 			token = (enum token)yylex(); // accept
 			return 0;
