@@ -27,7 +27,7 @@ _pointerType (struct type *t)
 	memcpy(t,     &point, sizeof(struct type));
 
 	// qualifiers
-	while (1)
+	while (token)
 	{
 		switch (token)
 		{
@@ -55,6 +55,10 @@ _pointerType (struct type *t)
 
 		token = (enum token)yylex();
 	}
+
+	fprintf(stderr, "%s:%zu: Unexpected EOF.\n", filename, lineno);
+	errors++;
+	return 0; // hit EOF
 }
 
 int
@@ -66,6 +70,10 @@ type (struct type *t)
 	{
 		switch (token)
 		{
+		case 0:
+			fprintf(stderr, "%s:%zu: Unexpected EOF.\n", filename, lineno);
+			errors++;
+			return 0; // hit EOF
 		case UNSIGNED:
 			t->isUnsigned = 0;
 			break;
@@ -95,6 +103,10 @@ leave:
 	// base type
 	switch (token)
 	{
+	case 0:
+		fprintf(stderr, "%s:%zu: Unexpected EOF.\n", filename, lineno);
+		errors++;
+		return 0; // hit EOF
 	case VOID:
 		t->base = TYPE_VOID;
 		break;

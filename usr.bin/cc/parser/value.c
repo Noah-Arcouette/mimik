@@ -42,7 +42,7 @@ _expr (size_t *delta, struct type *type)
 	size_t      r;
 	struct type rt;
 	size_t      c;
-	while (1)
+	while (token)
 	{
 		switch (token)
 		{
@@ -123,6 +123,11 @@ _expr (size_t *delta, struct type *type)
 		// update left hand side
 		l = c;
 	}
+
+
+	fprintf(stderr, "%s:%zu: Unexpected EOF.\n", filename, lineno);
+	errors++; // hit EOF
+	return 0;
 }
 
 int

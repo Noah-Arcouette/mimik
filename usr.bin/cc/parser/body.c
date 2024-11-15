@@ -9,10 +9,10 @@ body (void)
 	}
 	token = (enum token)yylex(); // accept
 
-	while (1)
+	while (token)
 	{
 		// leave the body
-		if (token == RCURLY || !token)
+		if (token == RCURLY)
 		{
 			token = (enum token)yylex(); // accept
 			return 0;
@@ -37,4 +37,9 @@ body (void)
 		errors++;
 		recover();
 	}
+
+
+	fprintf(stderr, "%s:%zu: Unexpected EOF.\n", filename, lineno);
+	errors++;
+	return 0; // hit EOF
 }
