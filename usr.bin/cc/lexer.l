@@ -46,6 +46,10 @@ size_t lineno = 1;
 	return SYMBOL;
 }
 
+[0-9_]* {
+	return IMM_INT;
+}
+
 \n {
 	lineno++;
 }

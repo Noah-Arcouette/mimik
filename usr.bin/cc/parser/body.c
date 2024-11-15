@@ -18,7 +18,19 @@ body (void)
 			return 0;
 		}
 
-		// for now, only allow empty bodies
+		// value ';'
+		if (!value(NULL, NULL))
+		{
+			if (token != SEMICOLON) // missing semicolon
+			{
+				fprintf(stderr, "%s:%zu: Expected a semicolon after expression.\n", filename, lineno);
+				errors++;
+				recover();
+				continue;
+			}
+			token = (enum token)yylex(); // accept
+			continue;
+		}
 
 		// unexpected
 		fprintf(stderr, "%s:%zu: Unexpected first token in function body.\n", filename, lineno);

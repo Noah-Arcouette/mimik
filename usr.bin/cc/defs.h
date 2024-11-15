@@ -19,6 +19,7 @@ enum token
 	RESTRICT,
 	// = Symbol =
 	SYMBOL,
+	IMM_INT,
 	// = Characters =
 	SEMICOLON,
 	STAR,
@@ -214,5 +215,8 @@ extern int body (void);
 
 // parser/root.c, the root
 extern int root (void);
+
+// parser/value.c, value/expressions
+extern int value (size_t *, struct type *);
 
 #endif
