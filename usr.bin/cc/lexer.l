@@ -62,6 +62,12 @@ size_t lineno = 1;
 "*" {
 	return STAR;
 }
+"+" {
+	return PLUS;
+}
+"-" {
+	return MINUS;
+}
 "(" {
 	return LPAREN;
 }

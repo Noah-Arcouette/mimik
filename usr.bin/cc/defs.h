@@ -23,6 +23,8 @@ enum token
 	// = Characters =
 	SEMICOLON,
 	STAR,
+	PLUS,
+	MINUS,
 	LPAREN,
 	RPAREN,
 	COMA,
