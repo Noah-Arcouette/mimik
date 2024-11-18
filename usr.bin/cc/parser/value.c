@@ -6,6 +6,52 @@
 static int
 _value (size_t *delta, struct type *type)
 {
+	// nullify returns
+	if (delta)
+	{
+		*delta = 0;
+	}
+	if (type)
+	{
+		memset(type, 0, sizeof(struct type));
+	}
+
+	// symbol getting
+	if (token == SYMBOL)
+	{
+		struct symbol sym;
+		if (getSymbol(yytext, &sym))
+		{
+			fprintf(stderr, "%s:%zu: Failed to find symbol, `%s' in current context.\n", filename, lineno, yytext);
+			errors++;
+			recover(); // recover will clean up SYMBOL
+			return 0;
+		}
+
+		// found symbol
+		if (sym.type == SYMBOL_VARIABLE) // symbol is variable
+		{
+			if (!sym.variable->delta)
+			{
+				fprintf(stderr, "%s:%zu: Variable `%s' used before set.\n", filename, lineno, sym.variable->name);
+				errors++;
+				recover(); // recover will clean up SYMBOL
+				return 0;
+			}
+			// else
+			*delta = sym.variable->delta;
+			memcpy(type, &sym.variable->type, sizeof(struct type));
+			token = (enum token)yylex(); // accept the symbol
+			return 0;
+		}
+		// else
+		fprintf(stderr, "%s:%zu: Symbol `%s' is unsupported for evaluation.\n", filename, lineno, yytext);
+		errors++;
+		recover(); // recover will clean up SYMBOL
+		return 0;
+	}
+
+	// interger/immediate tokens
 	if (token == IMM_INT)
 	{
 		size_t c = ctx->delta++;
@@ -17,7 +63,6 @@ _value (size_t *delta, struct type *type)
 		}
 		if (type)
 		{
-			memset(type, 0, sizeof(struct type)); // nullify
 			type->base = TYPE_INT;
 		}
 
@@ -32,15 +77,6 @@ _value (size_t *delta, struct type *type)
 
 		if (value(delta, type))
 		{
-			if (delta)
-			{
-				*delta = 0;
-			}
-			if (type)
-			{
-				memset(type, 0, sizeof(struct type));
-			}
-
 			fprintf(stderr, "%s:%zu: Expected a value after left parenthesis.\n", filename, lineno);
 			errors++;
 			recover();
@@ -54,15 +90,6 @@ _value (size_t *delta, struct type *type)
 			return 0;
 		}
 		// else
-		if (delta)
-		{
-			*delta = 0;
-		}
-		if (type)
-		{
-			memset(type, 0, sizeof(struct type));
-		}
-
 		fprintf(stderr, "%s:%zu: Expected a right parenthesis after value.\n", filename, lineno);
 		errors++;
 		recover();

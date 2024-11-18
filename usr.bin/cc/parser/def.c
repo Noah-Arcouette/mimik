@@ -108,6 +108,7 @@ _func (struct type t, char *name)
 			errors++;
 			continue; // skip it
 		}
+		v->delta = ctx->delta++; // set the variables delta
 
 		fputc('\t', yyout);
 		printIRType(v->type);
