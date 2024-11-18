@@ -9,7 +9,7 @@ body (void)
 	}
 	token = (enum token)yylex(); // accept
 
-	while (token)
+	while (token != TEOF) // while there is a token
 	{
 		// leave the body
 		if (token == RCURLY)

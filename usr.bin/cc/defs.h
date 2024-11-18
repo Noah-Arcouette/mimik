@@ -3,6 +3,7 @@
 #include <stdio.h>
 enum token
 {
+	TEOF = 0,
 	// = Key Words =
 	EXTERN = 256,
 	// = Type =

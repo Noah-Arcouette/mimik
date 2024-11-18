@@ -70,7 +70,7 @@ type (struct type *t)
 	{
 		switch (token)
 		{
-		case 0:
+		case TEOF:
 			fprintf(stderr, "%s:%zu: Unexpected EOF.\n", filename, lineno);
 			errors++;
 			return 0; // hit EOF
@@ -103,7 +103,7 @@ leave:
 	// base type
 	switch (token)
 	{
-	case 0:
+	case TEOF:
 		fprintf(stderr, "%s:%zu: Unexpected EOF.\n", filename, lineno);
 		errors++;
 		return 0; // hit EOF
