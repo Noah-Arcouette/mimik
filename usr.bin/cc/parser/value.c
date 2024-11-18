@@ -29,24 +29,55 @@ _value (size_t *delta, struct type *type)
 		}
 
 		// found symbol
-		if (sym.type == SYMBOL_VARIABLE) // symbol is variable
+		switch (sym.type)
 		{
+		case SYMBOL_VARIABLE:
+			if (sym.variable->type.implicitPointer) // handle implicit pointers seperatly
+			{
+				memcpy(type, &sym.variable->type, sizeof(struct type));
+				*delta = ctx->delta++; // set the delta
+
+				// -> type delta = (volatile/restrict/.)read_type symbol
+				fprintf(yyout, "\t");
+				printIRType(*type);
+				fprintf(yyout, " %%%zu = ", *delta);
+				if (sym.variable->type.isVolatile)
+				{
+					fprintf(yyout, "volatile_read_");
+				}
+				else if (sym.variable->type.isRestrict)
+				{
+					fprintf(yyout, "restrict_read_");
+				}
+				else 
+				{
+					fprintf(yyout, "read_");
+				}
+				printIRType(*type);
+				fprintf(yyout, " %s\n", sym.variable->name);
+
+				// remove pointer specifics
+				type->isRestrict      = 0;
+				type->isVolatile      = 0;
+				type->implicitPointer = 0;
+				break;
+			}
+
 			if (!sym.variable->delta)
 			{
 				fprintf(stderr, "%s:%zu: Variable `%s' used before set.\n", filename, lineno, sym.variable->name);
 				errors++;
-				token = (enum token)yylex(); // accept SYMBOL
-				return 0;
+				break;
 			}
 			// else
 			*delta = sym.variable->delta;
 			memcpy(type, &sym.variable->type, sizeof(struct type));
-			token = (enum token)yylex(); // accept SYMBOL
-			return 0;
+			break;
+		default:
+			fprintf(stderr, "%s:%zu: Symbol `%s' is unsupported for evaluation.\n", filename, lineno, yytext);
+			errors++;
+			break;
 		}
-		// else
-		fprintf(stderr, "%s:%zu: Symbol `%s' is unsupported for evaluation.\n", filename, lineno, yytext);
-		errors++;
 		token = (enum token)yylex(); // accept SYMBOL
 		return 0;
 	}
