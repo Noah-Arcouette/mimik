@@ -25,6 +25,50 @@ _value (size_t *delta, struct type *type)
 		return 0;
 	}
 
+	// '(' value ')'
+	if (token == LPAREN)
+	{
+		token = (enum token)yylex(); // accept
+
+		if (value(delta, type))
+		{
+			if (delta)
+			{
+				*delta = 0;
+			}
+			if (type)
+			{
+				memset(type, 0, sizeof(struct type));
+			}
+
+			fprintf(stderr, "%s:%zu: Expected a value after left parenthesis.\n", filename, lineno);
+			errors++;
+			recover();
+			return 0;
+		}
+
+		if (token == RPAREN)
+		{
+			token = (enum token)yylex(); // accept
+
+			return 0;
+		}
+		// else
+		if (delta)
+		{
+			*delta = 0;
+		}
+		if (type)
+		{
+			memset(type, 0, sizeof(struct type));
+		}
+
+		fprintf(stderr, "%s:%zu: Expected a right parenthesis after value.\n", filename, lineno);
+		errors++;
+		recover();
+		return 0;
+	}
+
 	return 1;
 }
 
