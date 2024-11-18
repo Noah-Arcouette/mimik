@@ -59,11 +59,12 @@ struct type
 		TYPE_INT,
 		TYPE_POINTER,
 	} base;
-	unsigned int isVolatile : 1;
-	unsigned int isConst    : 1;
-	unsigned int isRestrict : 1;
-	unsigned int longness   : 2;
-	unsigned int isUnsigned : 1; // unsigned?
+	unsigned int isVolatile      : 1;
+	unsigned int isConst         : 1;
+	unsigned int isRestrict      : 1;
+	unsigned int longness        : 2;
+	unsigned int isUnsigned      : 1; // unsigned?
+	unsigned int implicitPointer : 1; // isn't said as a pointer but is implicitly used as a pointer
 	struct type *down; // if pointer, this is the sub-type
 };
 

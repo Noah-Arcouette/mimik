@@ -84,14 +84,13 @@ type (struct type *t)
 			t->longness++;
 			break;
 		case VOLATILE:
-			t->isVolatile = 1;
+			t->isVolatile      = 1;
+			t->implicitPointer = 1; // volatiles must always be allocated
 			break;
 		case CONST:
 			t->isConst = 1;
 			break;
-		case RESTRICT:
-			t->isRestrict = 1;
-			break;
+		// restrict isn't allowed on base types
 		default:
 			goto leave;
 		}

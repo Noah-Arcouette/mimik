@@ -15,6 +15,8 @@ freeExternal (struct external *e)
 int
 defineExternal (char *name, struct type t)
 {
+	t.implicitPointer = 1; // externals are always implicit pointers
+
     // check if the symbol is already defined anywhere
     struct symbol sym;
     if (!getSymbol(name, &sym))
