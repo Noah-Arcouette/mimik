@@ -7,6 +7,8 @@
 struct prototype *
 definePrototype (struct type t, char *name, int isExternal)
 {
+	t.implicitPointer = 1; // functions are always labels, even if external
+
 	// check for the symbol
 	struct symbol sym;
 	if (!getSymbol(name, &sym))
