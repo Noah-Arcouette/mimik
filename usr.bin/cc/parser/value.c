@@ -42,7 +42,7 @@ _term (size_t *delta, struct type *type)
 	size_t      r;
 	struct type rt;
 	size_t      c;
-	while (token)
+	while (token != TEOF) // while there is a token
 	{
 		switch (token)
 		{
@@ -146,7 +146,7 @@ _expr (size_t *delta, struct type *type)
 	size_t      r;
 	struct type rt;
 	size_t      c;
-	while (token)
+	while (token != TEOF) // while there is a token
 	{
 		switch (token)
 		{

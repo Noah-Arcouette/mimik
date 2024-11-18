@@ -3,7 +3,7 @@
 int
 root (void)
 {
-	while (token)
+	while (token != TEOF) // while there's a token
 	{
 		if (!extern_())
 		{
