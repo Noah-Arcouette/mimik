@@ -24,7 +24,7 @@ _value (size_t *delta, struct type *type)
 		{
 			fprintf(stderr, "%s:%zu: Failed to find symbol, `%s' in current context.\n", filename, lineno, yytext);
 			errors++;
-			recover(); // recover will clean up SYMBOL
+			token = (enum token)yylex(); // accept SYMBOL
 			return 0;
 		}
 
@@ -35,19 +35,19 @@ _value (size_t *delta, struct type *type)
 			{
 				fprintf(stderr, "%s:%zu: Variable `%s' used before set.\n", filename, lineno, sym.variable->name);
 				errors++;
-				recover(); // recover will clean up SYMBOL
+				token = (enum token)yylex(); // accept SYMBOL
 				return 0;
 			}
 			// else
 			*delta = sym.variable->delta;
 			memcpy(type, &sym.variable->type, sizeof(struct type));
-			token = (enum token)yylex(); // accept the symbol
+			token = (enum token)yylex(); // accept SYMBOL
 			return 0;
 		}
 		// else
 		fprintf(stderr, "%s:%zu: Symbol `%s' is unsupported for evaluation.\n", filename, lineno, yytext);
 		errors++;
-		recover(); // recover will clean up SYMBOL
+		token = (enum token)yylex(); // accept SYMBOL
 		return 0;
 	}
 
@@ -79,7 +79,6 @@ _value (size_t *delta, struct type *type)
 		{
 			fprintf(stderr, "%s:%zu: Expected a value after left parenthesis.\n", filename, lineno);
 			errors++;
-			recover();
 			return 0;
 		}
 
@@ -92,7 +91,6 @@ _value (size_t *delta, struct type *type)
 		// else
 		fprintf(stderr, "%s:%zu: Expected a right parenthesis after value.\n", filename, lineno);
 		errors++;
-		recover();
 		return 0;
 	}
 
@@ -102,6 +100,16 @@ _value (size_t *delta, struct type *type)
 static int
 _term (size_t *delta, struct type *type)
 {
+	// nullify returns
+	if (delta)
+	{
+		*delta = 0;
+	}
+	if (type)
+	{
+		memset(type, 0, sizeof(struct type));
+	}
+
 	size_t      l;
 	struct type lt;
 	if (_value(&l, &lt)) // left side value
@@ -146,19 +154,8 @@ _term (size_t *delta, struct type *type)
 		// get right side
 		if (_value(&r, &rt)) // if failed
 		{
-			// nullify returns
-			if (delta)
-			{
-				*delta = 0;
-			}
-			if (type)
-			{
-				memset(type, 0, sizeof(struct type));
-			}
-
 			fprintf(stderr, "%s:%zu: Expected value on right hand side on operation `%s'\n", filename, lineno, op);
 			freeType(lt);
-			recover();
 			errors++;
 			return 0;
 		}
@@ -180,7 +177,6 @@ _term (size_t *delta, struct type *type)
 			freeType(rt);
 
 			errors++;
-			recover();
 			return 0;
 		}
 
@@ -206,6 +202,16 @@ _term (size_t *delta, struct type *type)
 static int
 _expr (size_t *delta, struct type *type)
 {
+	// nullify
+	if (delta)
+	{
+		*delta = 0;
+	}
+	if (type)
+	{
+		memset(type, 0, sizeof(struct type));
+	}
+
 	size_t      l;
 	struct type lt;
 	if (_term(&l, &lt)) // left side value
@@ -247,19 +253,8 @@ _expr (size_t *delta, struct type *type)
 		// get right side
 		if (_term(&r, &rt)) // if failed
 		{
-			// nullify returns
-			if (delta)
-			{
-				*delta = 0;
-			}
-			if (type)
-			{
-				memset(type, 0, sizeof(struct type));
-			}
-
 			fprintf(stderr, "%s:%zu: Expected value on right hand side on operation `%s'\n", filename, lineno, op);
 			freeType(lt);
-			recover();
 			errors++;
 			return 0;
 		}
@@ -281,7 +276,6 @@ _expr (size_t *delta, struct type *type)
 			freeType(rt);
 
 			errors++;
-			recover();
 			return 0;
 		}
 
