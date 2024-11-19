@@ -67,7 +67,7 @@ _func (struct type t, char *name)
 	pushContext();
 
 	// define label
-	fprintf(yyout, "%s:\n", p->name);
+	fprintf(yyout, "%s", p->name);
 
 	// bring the parameters into context
 	struct variable *v;
@@ -110,12 +110,11 @@ _func (struct type t, char *name)
 		}
 		v->delta = ctx->delta++; // set the variables delta
 
-		fputc('\t', yyout);
+		fputc(' ', yyout);
 		printIRType(v->type);
-		fprintf(yyout, " %%%zu = arg_", v->delta);
-		printIRType(v->type);
-		fprintf(yyout, " %zu\n", i);
+		fprintf(yyout, " %%%zu", v->delta);
 	}
+	fprintf(yyout, ": \n");
 
 	if (body())
 	{
