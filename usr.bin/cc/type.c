@@ -9,11 +9,6 @@ enum dataType dataType = ILP32; // 32bit by default
 void
 printType (struct type t)
 {
-	if (t.implicitPointer)
-	{
-		fprintf(stderr, "(implicit pointer) ");
-	}
-
 	if (t.base == TYPE_POINTER)
 	{
 		printType(*t.down);
@@ -21,10 +16,6 @@ printType (struct type t)
 		fprintf(stderr, "* ");
 	}
 
-	if (t.isVolatile)
-	{
-		fprintf(stderr, "volatile ");
-	}
 	if (t.isConst)
 	{
 		fprintf(stderr, "const ");
@@ -64,11 +55,6 @@ printType (struct type t)
 void
 printIRType (struct type t)
 {
-	if (t.implicitPointer)
-	{
-		goto pointer;
-	}
-
 	int size;
 	switch (t.base)
 	{
@@ -118,7 +104,6 @@ printIRType (struct type t)
 			size);
 		break;
 	case TYPE_POINTER:
-	pointer:
 		size = 64;
 		switch (dataType)
 		{
@@ -153,10 +138,6 @@ int
 // check if types are a exact match
 compareType (struct type a, struct type b)
 {
-	// implicaties are not checked
-	a.implicitPointer = 0;
-	b.implicitPointer = 0;
-
 	// if pointers
 	if (a.base == TYPE_POINTER && b.base == TYPE_POINTER)
 	{

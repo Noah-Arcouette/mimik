@@ -40,9 +40,6 @@ _pointerType (struct type *t)
 		case LONG:
 			t->longness++;
 			break;
-		case VOLATILE:
-			t->isVolatile = 1;
-			break;
 		case CONST:
 			t->isConst = 1;
 			break;
@@ -82,10 +79,6 @@ type (struct type *t)
 			break;
 		case LONG:
 			t->longness++;
-			break;
-		case VOLATILE:
-			t->isVolatile      = 1;
-			t->implicitPointer = 1; // volatiles must always be allocated
 			break;
 		case CONST:
 			t->isConst = 1;

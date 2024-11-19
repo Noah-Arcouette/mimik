@@ -32,9 +32,6 @@ size_t lineno = 1;
 "long" {
 	return LONG;
 }
-"volatile" {
-	return VOLATILE;
-}
 "const" {
 	return CONST;
 }
