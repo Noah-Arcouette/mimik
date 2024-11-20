@@ -53,6 +53,10 @@ size_t lineno = 1;
 
 [ \t] // ignore
 
+"=" { // = Setting =
+	return EQUAL;
+}
+
 ; { // = characters =
 	return SEMICOLON;
 }
