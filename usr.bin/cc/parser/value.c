@@ -38,9 +38,22 @@ _value (size_t *delta, struct type *type)
 				errors++;
 				break;
 			}
-			// else
+			// else, basic variable
 			memcpy(type, &sym.variable->type, sizeof(struct type));
 			*delta = sym.variable->delta;
+			break;
+		case SYMBOL_EXTERNAL:
+			if (copyType(type, sym.external->type)) // copy type over
+			{
+				fprintf(stderr, "%s:%zu: Failed to allocate type information for external symbol, `%s', dereference.\n", filename, lineno, sym.external->name);
+				errors++;
+				break;
+			}
+			*delta = ctx->delta++; // new delta
+
+			fputc('\t', yyout);
+			printIRType(*type);
+			fprintf(yyout, " %%%zu = @%s\n", *delta, sym.external->name);
 			break;
 		default:
 			fprintf(stderr, "%s:%zu: Symbol `%s' is unsupported for evaluation.\n", filename, lineno, yytext);
@@ -51,7 +64,7 @@ _value (size_t *delta, struct type *type)
 		return 0;
 	}
 
-	// interger/immediate tokens
+	// integer/immediate tokens
 	if (token == IMM_INT)
 	{
 		size_t c = ctx->delta++;
