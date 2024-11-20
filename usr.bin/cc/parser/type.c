@@ -32,7 +32,7 @@ _pointerType (struct type *t)
 		switch (token)
 		{
 		case UNSIGNED:
-			t->isUnsigned = 0;
+			t->isUnsigned = 1;
 			break;
 		case SIGNED:
 			t->isUnsigned = 0;
@@ -72,7 +72,7 @@ type (struct type *t)
 			errors++;
 			return 0; // hit EOF
 		case UNSIGNED:
-			t->isUnsigned = 0;
+			t->isUnsigned = 1;
 			break;
 		case SIGNED:
 			t->isUnsigned = 0;
