@@ -20,6 +20,8 @@ enum token
 	// = Symbol =
 	SYMBOL,
 	IMM_INT,
+	// = Setting =
+	EQUAL,
 	// = Characters =
 	SEMICOLON,
 	STAR,
@@ -68,7 +70,7 @@ struct type
 extern void printType   (struct type);
 extern void printIRType (struct type);
 extern void freeType    (struct type);
-extern int  compareType (struct type,   struct type);
+extern int  compareType (struct type,   struct type); // returns one if they are the same
 extern int  copyType    (struct type *, struct type);
 
 extern enum dataType

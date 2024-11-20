@@ -32,22 +32,54 @@ _value (size_t *delta, struct type *type)
 		switch (sym.type)
 		{
 		case SYMBOL_VARIABLE:
+			token = (enum token)yylex(); // accept SYMBOL
 			if (!sym.variable->delta)
 			{
 				fprintf(stderr, "%s:%zu: Variable `%s' used before set.\n", filename, lineno, sym.variable->name);
 				errors++;
-				break;
+				return 0;
 			}
 			// else, basic variable
-			memcpy(type, &sym.variable->type, sizeof(struct type));
+
+			// check if it is being set
+			if (token == EQUAL)
+			{
+				token = (enum token)yylex(); // accept
+
+				if (value(delta, type)) // get the value
+				{
+					fprintf(stderr, "%s:%zu: Expected a value/expression after equal in variable setting\n", filename, lineno);
+					fprintf(stderr, " -> For variable `%s'\n", sym.variable->name);
+					errors++;
+					return 0;
+				}
+				// else, got the value back
+				// check the type
+				if (!compareType(*type, sym.variable->type))
+				{
+					fprintf(stderr, "%s:%zu: Type miss match when setting variable `%s'\n", filename, lineno, sym.variable->name);
+					errors++;
+					return 0;
+				}
+				sym.variable->delta = *delta; // set new delta
+				return 0;
+			}
+			// else just return the symbol
+			if (copyType(type, sym.variable->type)) // copy type over
+			{
+				fprintf(stderr, "%s:%zu: Failed to allocate type information for variable, `%s'\n", filename, lineno, sym.variable->name);
+				errors++;
+				return 0;
+			}
 			*delta = sym.variable->delta;
-			break;
+			return 0;
 		case SYMBOL_EXTERNAL:
+			token = (enum token)yylex(); // accept SYMBOL
 			if (copyType(type, sym.external->type)) // copy type over
 			{
 				fprintf(stderr, "%s:%zu: Failed to allocate type information for external symbol, `%s', dereference.\n", filename, lineno, sym.external->name);
 				errors++;
-				break;
+				return 0;
 			}
 			*delta = ctx->delta++; // new delta
 
@@ -56,14 +88,13 @@ _value (size_t *delta, struct type *type)
 			fprintf(yyout, " %%%zu = read_", *delta);
 			printIRType(*type);
 			fprintf(stdout, " @%s\n", sym.external->name);
-			break;
+			return 0;
 		default:
 			fprintf(stderr, "%s:%zu: Symbol `%s' is unsupported for evaluation.\n", filename, lineno, yytext);
 			errors++;
-			break;
+			token = (enum token)yylex(); // accept SYMBOL
+			return 0;
 		}
-		token = (enum token)yylex(); // accept SYMBOL
-		return 0;
 	}
 
 	// integer/immediate tokens

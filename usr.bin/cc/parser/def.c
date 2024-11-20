@@ -67,7 +67,7 @@ _func (struct type t, char *name)
 	pushContext();
 
 	// define label
-	fprintf(yyout, "%s (", p->name);
+	fprintf(yyout, "gx %s (", p->name);
 
 	// bring the parameters into context
 	struct variable *v;
