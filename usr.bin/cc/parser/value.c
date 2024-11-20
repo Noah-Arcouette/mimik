@@ -33,13 +33,6 @@ _value (size_t *delta, struct type *type)
 		{
 		case SYMBOL_VARIABLE:
 			token = (enum token)yylex(); // accept SYMBOL
-			if (!sym.variable->delta)
-			{
-				fprintf(stderr, "%s:%zu: Variable `%s' used before set.\n", filename, lineno, sym.variable->name);
-				errors++;
-				return 0;
-			}
-			// else, basic variable
 
 			// check if it is being set
 			if (token == EQUAL)
@@ -65,6 +58,12 @@ _value (size_t *delta, struct type *type)
 				return 0;
 			}
 			// else just return the symbol
+			if (!sym.variable->delta) // check if used before set
+			{
+				fprintf(stderr, "%s:%zu: Variable `%s' used before set.\n", filename, lineno, sym.variable->name);
+				errors++;
+				return 0;
+			}
 			if (copyType(type, sym.variable->type)) // copy type over
 			{
 				fprintf(stderr, "%s:%zu: Failed to allocate type information for variable, `%s'\n", filename, lineno, sym.variable->name);
@@ -91,6 +90,7 @@ _value (size_t *delta, struct type *type)
 			return 0;
 		default:
 			fprintf(stderr, "%s:%zu: Symbol `%s' is unsupported for evaluation.\n", filename, lineno, yytext);
+			fprintf(stderr, " -> First seen on line %zu in file `%s'\n", sym.lineno, sym.filename);
 			errors++;
 			token = (enum token)yylex(); // accept SYMBOL
 			return 0;
