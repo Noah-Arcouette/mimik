@@ -53,7 +53,9 @@ _value (size_t *delta, struct type *type)
 
 			fputc('\t', yyout);
 			printIRType(*type);
-			fprintf(yyout, " %%%zu = @%s\n", *delta, sym.external->name);
+			fprintf(yyout, " %%%zu = read_", *delta);
+			printIRType(*type);
+			fprintf(stdout, " @%s\n", sym.external->name);
 			break;
 		default:
 			fprintf(stderr, "%s:%zu: Symbol `%s' is unsupported for evaluation.\n", filename, lineno, yytext);
