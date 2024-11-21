@@ -7,7 +7,9 @@ extern int numbro;
 int
 h (int lo, int x, const char **argv, const unsigned short hoi)
 {
-	x = 10-100+20;
+	int y;
+	y = x+100*2;
+	x = 10-100+20+y;
 
 	1*(2+3*(x=1))-numbro;
 }
