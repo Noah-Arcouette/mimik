@@ -4,22 +4,66 @@
 #include <string.h>
 
 static int
-_value (size_t *delta, struct type *type)
+_value (size_t *delta, struct type *typeData)
 {
 	// nullify returns
 	if (delta)
 	{
 		*delta = 0;
 	}
-	if (type)
+	if (typeData)
 	{
-		memset(type, 0, sizeof(struct type));
+		memset(typeData, 0, sizeof(struct type));
+	}
+
+	// if definition
+	struct symbol sym = { // initialize
+		.filename = filename,
+		.lineno   = lineno,
+		.type     = SYMBOL_VARIABLE
+	};
+	struct type t;
+	if (!type(&t)) // if type
+	{
+		if (token != SYMBOL) // must be, type symbol . | type symbol eq value
+		{
+			freeType(t);
+			fprintf(stderr, "%s:%zu: Expected symbol after type\n", filename, lineno);
+			errors++;
+			return 0;
+		}
+		// define variable
+		char *name = strdup(yytext); // duplicate name
+		if (!name) // failed to allocate
+		{
+			fprintf(stderr, "%s:%zu: Failed to allocate name `%s'\n", filename, lineno, yytext);
+			freeType(t);
+			token = (enum token)yylex(); // accept SYMBOL
+			errors++;
+			return 0;
+		}
+		token = (enum token)yylex(); // accept SYMBOL
+
+		sym.variable = defineVariable(name, t); // define
+		if (!sym.variable) // failed
+		{
+			free(name);
+			freeType(t);
+			errors++;
+			return 0;
+		}
+
+		if (token == EQUAL)
+		{
+			goto variable_equ; // handle the variable
+		}
+		// else
+		return 0; // just leave
 	}
 
 	// symbol getting
 	if (token == SYMBOL)
 	{
-		struct symbol sym;
 		if (getSymbol(yytext, &sym))
 		{
 			fprintf(stderr, "%s:%zu: Failed to find symbol, `%s' in current context.\n", filename, lineno, yytext);
@@ -37,9 +81,10 @@ _value (size_t *delta, struct type *type)
 			// check if it is being set
 			if (token == EQUAL)
 			{
+			variable_equ:
 				token = (enum token)yylex(); // accept
 
-				if (value(delta, type)) // get the value
+				if (value(delta, typeData)) // get the value
 				{
 					fprintf(stderr, "%s:%zu: Expected a value/expression after equal in variable setting\n", filename, lineno);
 					fprintf(stderr, " -> For variable `%s'\n", sym.variable->name);
@@ -48,7 +93,7 @@ _value (size_t *delta, struct type *type)
 				}
 				// else, got the value back
 				// check the type
-				if (!compareType(*type, sym.variable->type))
+				if (!compareType(*typeData, sym.variable->type))
 				{
 					fprintf(stderr, "%s:%zu: Type miss match when setting variable `%s'\n", filename, lineno, sym.variable->name);
 					errors++;
@@ -64,7 +109,7 @@ _value (size_t *delta, struct type *type)
 				errors++;
 				return 0;
 			}
-			if (copyType(type, sym.variable->type)) // copy type over
+			if (copyType(typeData, sym.variable->type)) // copy type over
 			{
 				fprintf(stderr, "%s:%zu: Failed to allocate type information for variable, `%s'\n", filename, lineno, sym.variable->name);
 				errors++;
@@ -74,7 +119,7 @@ _value (size_t *delta, struct type *type)
 			return 0;
 		case SYMBOL_EXTERNAL:
 			token = (enum token)yylex(); // accept SYMBOL
-			if (copyType(type, sym.external->type)) // copy type over
+			if (copyType(typeData, sym.external->type)) // copy type over
 			{
 				fprintf(stderr, "%s:%zu: Failed to allocate type information for external symbol, `%s', dereference.\n", filename, lineno, sym.external->name);
 				errors++;
@@ -83,9 +128,9 @@ _value (size_t *delta, struct type *type)
 			*delta = ctx->delta++; // new delta
 
 			fputc('\t', yyout);
-			printIRType(*type);
+			printIRType(*typeData);
 			fprintf(yyout, " %%%zu = read_", *delta);
-			printIRType(*type);
+			printIRType(*typeData);
 			fprintf(stdout, " @%s\n", sym.external->name);
 			return 0;
 		default:
@@ -107,9 +152,9 @@ _value (size_t *delta, struct type *type)
 		{
 			*delta = c;
 		}
-		if (type)
+		if (typeData)
 		{
-			type->base = TYPE_INT;
+			typeData->base = TYPE_INT;
 		}
 
 		token = (enum token)yylex(); // accept
@@ -121,7 +166,7 @@ _value (size_t *delta, struct type *type)
 	{
 		token = (enum token)yylex(); // accept
 
-		if (value(delta, type))
+		if (value(delta, typeData))
 		{
 			fprintf(stderr, "%s:%zu: Expected a value after left parenthesis.\n", filename, lineno);
 			errors++;
