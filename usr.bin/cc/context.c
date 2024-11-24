@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <errno.h>
 
+struct prototype *currentFunction = (struct prototype *)NULL;
+
 static struct context _ctx = {
     .external   = (struct external *)NULL,
     .externals  = 0,
@@ -18,6 +20,7 @@ static struct context _ctx = {
 	.variablecp = 0,
 
 	.delta = 0,
+	.label = 0,
 
 	.parent = (struct context *)NULL
 };

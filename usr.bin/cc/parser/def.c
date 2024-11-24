@@ -65,6 +65,7 @@ _func (struct type t, char *name)
 
 	// function fully accepted
 	pushContext();
+	currentFunction = p;
 
 	// define label
 	fprintf(yyout, "gx %s (", p->name);
@@ -121,6 +122,8 @@ _func (struct type t, char *name)
 		fprintf(stderr, "%s:%zu: Function expected a body.\n", filename, lineno);
 		errors++;
 	}
+
+	currentFunction = (struct prototype *)NULL; // don't worry about nesting because functions can't nest
 	popContext();
 
 	// if void, add implicit return

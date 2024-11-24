@@ -10,6 +10,10 @@ size_t lineno = 1;
 "extern" { // = Key words =
 	return EXTERN;
 }
+"return" {
+	return RETURN;
+}
+
 
 "void" { // = Types =
 	return VOID;

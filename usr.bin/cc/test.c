@@ -11,5 +11,14 @@ h (int lo, int x, const char **argv, const unsigned short hoi)
 	y = x+100*2;
 	x = 10-100+20+y;
 
-	1*(2+3*(x=1))-numbro;
+	return 1*(2+3*(x=1))-numbro;
+	return y;
+}
+
+void
+test (void)
+{
+	int j = 10;
+	return;
+	j = 10+23+j;
 }

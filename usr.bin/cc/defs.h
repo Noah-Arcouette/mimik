@@ -6,6 +6,7 @@ enum token
 	TEOF = 0,
 	// = Key Words =
 	EXTERN = 256,
+	RETURN,
 	// = Type =
 	VOID,
 	CHAR,
@@ -158,6 +159,7 @@ struct context
 	size_t           variablecp;
 
 	size_t delta; // current delta
+	size_t label; // current label
 
 	struct context *parent;
 };
@@ -167,6 +169,8 @@ extern void freeContexts (void);
 extern void freeContext  (struct context *);
 extern void pushContext  (void);
 extern void popContext   (void);
+
+extern struct prototype *currentFunction;
 
 // symbols.c
 struct symbol
@@ -223,5 +227,8 @@ extern int root (void);
 
 // parser/value.c, value/expressions
 extern int value (size_t *, struct type *);
+
+// parser/return.c, return from function
+extern int return_ (void);
 
 #endif
