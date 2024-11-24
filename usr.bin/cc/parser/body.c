@@ -32,6 +32,12 @@ body (void)
 			continue;
 		}
 
+		// return value? ;
+		if (!return_())
+		{
+			continue; // continue
+		}
+
 		// unexpected
 		fprintf(stderr, "%s:%zu: Unexpected first token in function body.\n", filename, lineno);
 		errors++;
