@@ -72,7 +72,7 @@ extern void printType   (struct type);
 extern void printIRType (struct type);
 extern void freeType    (struct type);
 extern int  compareType (struct type,   struct type); // returns one if they are the same
-extern int  copyType    (struct type *, struct type);
+extern int  copyType    (struct type *, struct type); // allocating a copy of a type
 
 extern enum dataType
 {
@@ -81,7 +81,7 @@ extern enum dataType
 	LLP64,
 	ILP32,
 	LP32
-} dataType;
+} dataType; // the underlying types of primitives
 
 // external.c
 struct external
@@ -108,7 +108,7 @@ struct prototype
 	size_t parameters;
 	size_t parametercp;
 
-	unsigned int isExternal  : 1;
+	unsigned int isExternal  : 1; // external with no body defined yet
 	unsigned int isMirroring : 1; // is defined already, match the definitions together (just don't allow two implementations)
 	struct {
 		      size_t parameters; // current parameter defined
@@ -117,7 +117,7 @@ struct prototype
 	} mirroring;
 };
 extern struct prototype *definePrototype   (struct type, char *, int);
-extern        int        doneWithPrototype (struct prototype *); // finished modifying a prototype
+extern        int        doneWithPrototype (struct prototype *); // finished modifying, or creating, a prototype
 extern        void       freePrototype     (struct prototype *);
 
 // param.c
@@ -127,7 +127,7 @@ struct parameter
 	char       *name; // warning may be null, not all parameters have names
 };
 
-extern int  defineParameter (struct prototype *, struct parameter);
+extern int  defineParameter (struct prototype *, struct parameter); // define and attach parameter to function prototype
 extern void freeParameter   (struct parameter *);
 
 // variable.c
@@ -135,12 +135,12 @@ struct variable
 {
 	struct type type;
 	char       *name;
-	size_t      delta;
+	size_t      delta; // current delta for that variable
 
 	      size_t lineno;
 	const char  *filename;
 };
-extern struct variable *defineVariable (char *, struct type);
+extern struct variable *defineVariable (char *, struct type); // define a variable, both must be allocated beforehand
 extern        void      freeVariable   (struct variable *);
 
 // context.c
@@ -166,12 +166,12 @@ extern struct context *ctx;
 extern size_t ctxLabel;
 extern size_t ctxDelta;
 
-extern void freeContexts (void);
+extern void freeContexts (void); // free all contexts
 extern void freeContext  (struct context *);
-extern void pushContext  (void);
+extern void pushContext  (void); // create new context
 extern void popContext   (void);
 
-extern struct prototype *currentFunction;
+extern struct prototype *currentFunction; // the current function we're in, or null if none
 
 // symbols.c
 struct symbol
