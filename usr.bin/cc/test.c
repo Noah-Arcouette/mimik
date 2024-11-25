@@ -4,6 +4,8 @@ extern int h (int lo, int, const char **argv, const unsigned short hoi);
 
 extern int numbro;
 
+extern int test (int);
+
 int
 h (int lo, int x, const char **argv, const unsigned short hoi)
 {
@@ -15,10 +17,17 @@ h (int lo, int x, const char **argv, const unsigned short hoi)
 	return y;
 }
 
-void
-test (void)
+int
+test (int i)
 {
 	int j = 10;
-	return;
+	return i+j;
 	j = 10+23+j;
+}
+
+int 
+vib (int j, int i)
+{
+	int x = test(i);
+	return vib(i, test(j)+x);
 }

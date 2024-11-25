@@ -190,6 +190,7 @@ struct symbol
 
 	size_t      lineno;
 	const char *filename;
+	      char *name;
 };
 extern int getSymbol (const char *restrict, struct symbol *restrict);
 
