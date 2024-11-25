@@ -24,6 +24,7 @@ getSymbol (const char *restrict name, struct symbol *restrict s)
 
 				s->lineno   = current->external[i].lineno;
 				s->filename = current->external[i].filename;
+				s->name     = current->external[i].name;
 				return 0;
 			}
 		}
@@ -45,6 +46,7 @@ getSymbol (const char *restrict name, struct symbol *restrict s)
 
 				s->lineno   = current->prototype[i].lineno;
 				s->filename = current->prototype[i].filename;
+				s->name     = current->prototype[i].name;
 				return 0;
 			}
 		}
@@ -66,6 +68,7 @@ getSymbol (const char *restrict name, struct symbol *restrict s)
 
 				s->lineno   = current->variable[i].lineno;
 				s->filename = current->variable[i].filename;
+				s->name     = current->variable[i].name;
 				return 0;
 			}
 		}

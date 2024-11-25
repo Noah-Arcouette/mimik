@@ -3,8 +3,8 @@
 void
 recover (void)
 {
-	// consume all until `}' or `;', or end of file
-	while (token != SEMICOLON && token != RCURLY && token != TEOF)
+	// consume all until `}', `;', ')', or end of file
+	while (token != SEMICOLON && token != RCURLY && token != TEOF && token != RPAREN)
 	{
 		token = (enum token)yylex();
 	}

@@ -134,8 +134,112 @@ value_value (size_t *delta, struct type *typeData)
 			printIRType(*typeData);
 			fprintf(stdout, " @%s\n", sym.external->name);
 			return 0;
+		case SYMBOL_PROTOTYPE:
+			token = (enum token)yylex(); // accept symbol
+			*delta = ctx->delta++;
+
+			if (token == LPAREN) // func (...)
+			{
+				size_t *deltas = (size_t *)malloc(sym.prototype->parameters*sizeof(size_t)); // allocate all the parameters
+				if (!deltas)
+				{
+					fprintf(stderr, "%s:%zu: Failed to allocate memory for function call arguments.\n", filename, lineno);
+					errors++;
+					recover();
+					return 0;
+				}
+
+				token = (enum token)yylex(); // accept
+			
+				size_t      argDelta;
+				struct type argType;
+				size_t      arg = 0;
+				while (1)
+				{
+					if (token == RPAREN)
+					{
+					rparen:
+						token = (enum token)yylex(); // accept
+						if (arg+1 != sym.prototype->parameters) // not enough args
+						{
+							errors++;
+							fprintf(stderr, "%s:%zu: Function call arguments less than amount expected.\n", filename, lineno);
+							fprintf(stderr, " -> Function `%s' seen on line %zu in file `%s'\n", sym.prototype->name, sym.lineno, sym.filename);
+						}
+						break; // leave
+					}
+				param:
+					if (value(&argDelta, &argType)) // not a value
+					{
+						fprintf(stderr, "%s:%zu: Expected a right parenthesis or value in function call.\n", filename, lineno);
+						errors++;
+						recover();
+						break;
+					}
+
+					if (arg >= sym.prototype->parameters) // too many args
+					{
+						fprintf(stderr, "%s:%zu: Function call arguments exceed the amount expected.\n", filename, lineno);
+						fprintf(stderr, " -> Function `%s' seen on line %zu in file `%s'\n", sym.prototype->name, sym.lineno, sym.filename);
+						errors++;
+					}
+
+					char        *paramName =  sym.prototype->parameter[arg].name;
+					struct type *paramType = &sym.prototype->parameter[arg].type;
+					if (!compareType(*paramType, argType)) // check types
+					{
+						fprintf(stderr, "%s:%zu: Argument miss matches with function type.\n", filename, lineno);
+						fprintf(stderr, " -> Function `%s' seen on line %zu in file `%s'\n", sym.prototype->name, sym.lineno, sym.filename);
+						
+						fprintf(stderr, " -> Argument %zu, ", arg+1); // argument expected
+						printType(*paramType);
+						fprintf(stderr, " %s\n", paramName);
+
+						fprintf(stderr, " -> Got ");
+						printType(argType);
+						fprintf(stderr, "\n");
+
+						errors++;
+					}
+
+					// output the function argument delta
+					freeType(argType);
+					deltas[arg] = argDelta;
+
+					if (token == COMA)
+					{
+						arg++;
+						token = (enum token)yylex();
+						goto param;
+					}
+					if (token != RPAREN)
+					{
+						fprintf(stderr, "%s:%zu: Unexpected token after value in function call.\n", filename, lineno);
+						errors++;
+					}
+					goto rparen;
+				}
+
+				// output the function
+				fputc('\t', yyout);
+				printIRType(sym.prototype->returnType);
+				fprintf(yyout, " %%%zu = %s", *delta, sym.prototype->name);
+				for (size_t i = 0; i<=arg; i++) // arguments
+				{
+					fprintf(yyout, " %%%zu", deltas[i]);
+				}
+				fprintf(yyout, "\n"); // end
+				free(deltas);
+
+				if (copyType(typeData, sym.prototype->returnType)) // copy the return type over
+				{
+					fprintf(stderr, "%s:%zu: Failed to copy function calls return type.\n", filename, lineno);
+					errors++;
+				}
+				return 0;
+			}
 		default:
-			fprintf(stderr, "%s:%zu: Symbol `%s' is unsupported for evaluation.\n", filename, lineno, yytext);
+			fprintf(stderr, "%s:%zu: Symbol `%s' is unsupported for evaluation.\n", filename, lineno, sym.name);
 			fprintf(stderr, " -> First seen on line %zu in file `%s'\n", sym.lineno, sym.filename);
 			errors++;
 			token = (enum token)yylex(); // accept SYMBOL
