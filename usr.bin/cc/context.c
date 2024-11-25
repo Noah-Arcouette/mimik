@@ -19,12 +19,12 @@ static struct context _ctx = {
 	.variables  = 0,
 	.variablecp = 0,
 
-	.delta = 0,
-	.label = 0,
-
 	.parent = (struct context *)NULL
 };
 struct context *ctx = &_ctx;
+
+size_t ctxDelta = 1;
+size_t ctxLabel = 1;
 
 void
 freeContext (struct context *ctx)
@@ -80,9 +80,6 @@ pushContext (void)
 	// nullify and set
 	memset(new, 0, sizeof(struct context));
 	new->parent = ctx;
-
-	// delta
-	new->delta = ctx->delta+1;
 
 	// push
 	ctx = new;

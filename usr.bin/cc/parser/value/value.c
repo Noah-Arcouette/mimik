@@ -126,7 +126,7 @@ value_value (size_t *delta, struct type *typeData)
 				errors++;
 				return 0;
 			}
-			*delta = ctx->delta++; // new delta
+			*delta = ctxDelta++; // new delta
 
 			fputc('\t', yyout);
 			printIRType(*typeData);
@@ -136,7 +136,7 @@ value_value (size_t *delta, struct type *typeData)
 			return 0;
 		case SYMBOL_PROTOTYPE:
 			token = (enum token)yylex(); // accept symbol
-			*delta = ctx->delta++;
+			*delta = ctxDelta++;
 
 			if (token == LPAREN) // func (...)
 			{
@@ -250,7 +250,7 @@ value_value (size_t *delta, struct type *typeData)
 	// integer/immediate tokens
 	if (token == IMM_INT)
 	{
-		size_t c = ctx->delta++;
+		size_t c = ctxDelta++;
 		fprintf(yyout, "\ti32 %%%zu = %s\n", c, yytext);
 
 		if (delta)

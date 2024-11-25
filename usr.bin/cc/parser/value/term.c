@@ -87,7 +87,7 @@ value_term (size_t *delta, struct type *type)
 			return 0;
 		}
 
-		c = ctx->delta++;
+		c = ctxDelta++;
 		// do the operation
 		fprintf(yyout, "\t");
 		printIRType(lt);
