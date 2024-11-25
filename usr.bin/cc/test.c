@@ -31,3 +31,14 @@ vib (int j, int i)
 	int x = test(i);
 	return vib(i, test(j)+x);
 }
+
+void
+contexts (void)
+{
+	int x = 10;
+	{
+		int y = 5;
+		x = 100;
+	}
+	int y = x+10;
+}

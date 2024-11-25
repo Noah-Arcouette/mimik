@@ -19,6 +19,10 @@ static struct context _ctx = {
 	.variables  = 0,
 	.variablecp = 0,
 
+	.breakTo    = 0,
+	.continueTo = 0,
+	.end        = 0,
+
 	.parent = (struct context *)NULL
 };
 struct context *ctx = &_ctx;
@@ -80,6 +84,11 @@ pushContext (void)
 	// nullify and set
 	memset(new, 0, sizeof(struct context));
 	new->parent = ctx;
+
+	// just continue along with things
+	new->breakTo    = ctx->breakTo;
+	new->continueTo = ctx->continueTo;
+	new->end        = ctx->end;
 
 	// push
 	ctx = new;

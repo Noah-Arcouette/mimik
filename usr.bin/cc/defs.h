@@ -158,6 +158,10 @@ struct context
 	size_t           variables;
 	size_t           variablecp;
 
+	size_t breakTo;
+	size_t continueTo;
+	size_t end;
+
 	struct context *parent;
 };
 extern struct context *ctx;

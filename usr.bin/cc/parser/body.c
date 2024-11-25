@@ -38,6 +38,15 @@ body (void)
 			continue; // continue
 		}
 
+		// { ... }
+		if (token == LCURLY)
+		{
+			pushContext();
+			body();
+			popContext();
+			continue;
+		}
+
 		// unexpected
 		fprintf(stderr, "%s:%zu: Unexpected first token in function body.\n", filename, lineno);
 		errors++;
