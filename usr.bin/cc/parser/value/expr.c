@@ -5,12 +5,12 @@
 #include "value.h"
 
 int
-value_expr (size_t *delta, struct type *type)
+value_expr (size_t *var, struct type *type)
 {
 	// nullify
-	if (delta)
+	if (var)
 	{
-		*delta = 0;
+		*var = 0;
 	}
 	if (type)
 	{
@@ -39,9 +39,9 @@ value_expr (size_t *delta, struct type *type)
 			op = "sub";
 			break;
 		default: // return what we already have
-			if (delta)
+			if (var)
 			{
-				*delta = l;
+				*var = l;
 			}
 			if (type)
 			{
@@ -84,7 +84,7 @@ value_expr (size_t *delta, struct type *type)
 			return 0;
 		}
 
-		c = ctxDelta++;
+		c = ctx->var++;
 		// do the operation
 		fprintf(yyout, "\t");
 		printIRType(lt);

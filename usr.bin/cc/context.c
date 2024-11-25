@@ -23,11 +23,12 @@ static struct context _ctx = {
 	.continueTo = 0,
 	.end        = 0,
 
+	.var = 0, // not used normally
+
 	.parent = (struct context *)NULL
 };
 struct context *ctx = &_ctx;
 
-size_t ctxDelta = 1;
 size_t ctxLabel = 1;
 
 void
@@ -89,6 +90,8 @@ pushContext (void)
 	new->breakTo    = ctx->breakTo;
 	new->continueTo = ctx->continueTo;
 	new->end        = ctx->end;
+
+	new->var = 1; // zeroth register is non-existant
 
 	// push
 	ctx = new;

@@ -5,12 +5,12 @@
 #include "./value.h"
 
 int
-value_value (size_t *delta, struct type *typeData)
+value_value (size_t *var, struct type *typeData)
 {
 	// nullify returns
-	if (delta)
+	if (var)
 	{
-		*delta = 0;
+		*var = 0;
 	}
 	if (typeData)
 	{
@@ -85,7 +85,7 @@ value_value (size_t *delta, struct type *typeData)
 			variable_equ:
 				token = (enum token)yylex(); // accept
 
-				if (value(delta, typeData)) // get the value
+				if (value(var, typeData)) // get the value
 				{
 					fprintf(stderr, "%s:%zu: Expected a value/expression after equal in variable setting\n", filename, lineno);
 					fprintf(stderr, " -> For variable `%s'\n", sym.variable->name);
@@ -100,11 +100,17 @@ value_value (size_t *delta, struct type *typeData)
 					errors++;
 					return 0;
 				}
-				sym.variable->delta = *delta; // set new delta
+
+				if (!sym.variable->var)
+				{
+					sym.variable->var = *var; // set the variable
+					return 0;
+				}
+				fprintf(yyout, "\t%%%zu = %%%zu\n", sym.variable->var, *var); // set the variable
 				return 0;
 			}
 			// else just return the symbol
-			if (!sym.variable->delta) // check if used before set
+			if (!sym.variable->var) // check if used before set
 			{
 				fprintf(stderr, "%s:%zu: Variable `%s' used before set.\n", filename, lineno, sym.variable->name);
 				errors++;
@@ -116,7 +122,7 @@ value_value (size_t *delta, struct type *typeData)
 				errors++;
 				return 0;
 			}
-			*delta = sym.variable->delta;
+			*var = sym.variable->var;
 			return 0;
 		case SYMBOL_EXTERNAL:
 			token = (enum token)yylex(); // accept SYMBOL
@@ -126,22 +132,22 @@ value_value (size_t *delta, struct type *typeData)
 				errors++;
 				return 0;
 			}
-			*delta = ctxDelta++; // new delta
+			*var = ctx->var++; // get next IR register
 
 			fputc('\t', yyout);
 			printIRType(*typeData);
-			fprintf(yyout, " %%%zu = read_", *delta);
+			fprintf(yyout, " %%%zu = read_", *var);
 			printIRType(*typeData);
 			fprintf(stdout, " @%s\n", sym.external->name);
 			return 0;
 		case SYMBOL_PROTOTYPE:
 			token = (enum token)yylex(); // accept symbol
-			*delta = ctxDelta++;
+			*var = ctx->var++;
 
 			if (token == LPAREN) // func (...)
 			{
-				size_t *deltas = (size_t *)malloc(sym.prototype->parameters*sizeof(size_t)); // allocate all the parameters
-				if (!deltas)
+				size_t *vars = (size_t *)malloc(sym.prototype->parameters*sizeof(size_t)); // allocate all the parameters
+				if (!vars)
 				{
 					fprintf(stderr, "%s:%zu: Failed to allocate memory for function call arguments.\n", filename, lineno);
 					errors++;
@@ -151,7 +157,7 @@ value_value (size_t *delta, struct type *typeData)
 
 				token = (enum token)yylex(); // accept
 			
-				size_t      argDelta;
+				size_t      argVar;
 				struct type argType;
 				size_t      arg = 0;
 				while (1)
@@ -169,7 +175,7 @@ value_value (size_t *delta, struct type *typeData)
 						break; // leave
 					}
 				param:
-					if (value(&argDelta, &argType)) // not a value
+					if (value(&argVar, &argType)) // not a value
 					{
 						fprintf(stderr, "%s:%zu: Expected a right parenthesis or value in function call.\n", filename, lineno);
 						errors++;
@@ -202,9 +208,9 @@ value_value (size_t *delta, struct type *typeData)
 						errors++;
 					}
 
-					// output the function argument delta
+					// output the function argument register
 					freeType(argType);
-					deltas[arg] = argDelta;
+					vars[arg] = argVar;
 
 					if (token == COMA)
 					{
@@ -223,13 +229,13 @@ value_value (size_t *delta, struct type *typeData)
 				// output the function
 				fputc('\t', yyout);
 				printIRType(sym.prototype->returnType);
-				fprintf(yyout, " %%%zu = %s", *delta, sym.prototype->name);
+				fprintf(yyout, " %%%zu = %s", *var, sym.prototype->name);
 				for (size_t i = 0; i<=arg; i++) // arguments
 				{
-					fprintf(yyout, " %%%zu", deltas[i]);
+					fprintf(yyout, " %%%zu", vars[i]);
 				}
 				fprintf(yyout, "\n"); // end
-				free(deltas);
+				free(vars);
 
 				if (copyType(typeData, sym.prototype->returnType)) // copy the return type over
 				{
@@ -250,12 +256,12 @@ value_value (size_t *delta, struct type *typeData)
 	// integer/immediate tokens
 	if (token == IMM_INT)
 	{
-		size_t c = ctxDelta++;
+		size_t c = ctx->var++;
 		fprintf(yyout, "\ti32 %%%zu = %s\n", c, yytext);
 
-		if (delta)
+		if (var)
 		{
-			*delta = c;
+			*var = c;
 		}
 		if (typeData)
 		{
@@ -271,7 +277,7 @@ value_value (size_t *delta, struct type *typeData)
 	{
 		token = (enum token)yylex(); // accept
 
-		if (value(delta, typeData))
+		if (value(var, typeData))
 		{
 			fprintf(stderr, "%s:%zu: Expected a value after left parenthesis.\n", filename, lineno);
 			errors++;

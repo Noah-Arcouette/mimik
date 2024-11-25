@@ -109,11 +109,11 @@ _func (struct type t, char *name)
 			errors++;
 			continue; // skip it
 		}
-		v->delta = ctxDelta++; // set the variables delta
+		v->var= ctx->var++; // set the variables register
 
 		fputc(' ', yyout);
 		printIRType(v->type);
-		fprintf(yyout, " %%%zu", v->delta);
+		fprintf(yyout, " %%%zu", v->var);
 	}
 	fprintf(yyout, " ): \n");
 

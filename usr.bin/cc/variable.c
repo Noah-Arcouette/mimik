@@ -45,7 +45,7 @@ defineVariable (char *name, struct type t)
 	v->name     = name;
 	v->lineno   = lineno;
 	v->filename = filename;
-	v->delta    = 0;
+	v->var      = 0;
 	memcpy(&v->type, &t, sizeof(struct type));
 
 	return v;

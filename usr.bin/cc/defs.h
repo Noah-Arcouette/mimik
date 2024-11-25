@@ -135,7 +135,7 @@ struct variable
 {
 	struct type type;
 	char       *name;
-	size_t      delta; // current delta for that variable
+	size_t      var; // IR register number
 
 	      size_t lineno;
 	const char  *filename;
@@ -158,6 +158,8 @@ struct context
 	size_t           variables;
 	size_t           variablecp;
 
+	size_t var; // current max IR register used
+
 	size_t breakTo;
 	size_t continueTo;
 	size_t end;
@@ -166,9 +168,8 @@ struct context
 };
 extern struct context *ctx;
 
-// current label and delta
+// current label
 extern size_t ctxLabel;
-extern size_t ctxDelta;
 
 extern void freeContexts (void); // free all contexts
 extern void freeContext  (struct context *);

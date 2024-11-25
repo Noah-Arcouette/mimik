@@ -18,13 +18,13 @@ return_ (void)
 		return 0;
 	}
 
-	size_t      delta;
+	size_t      var;
 	struct type t;
-	if (!value(&delta, &t)) // return VALUE ;
+	if (!value(&var, &t)) // return VALUE ;
 	{
 		fputs("\treturn_", yyout);
 		printIRType(t);
-		fprintf(yyout, " %%%zu\n\tunreachable\n", delta); // return the delta
+		fprintf(yyout, " %%%zu\n\tunreachable\n", var); // return the register
 
 		if (!compareType(t, currentFunction->returnType)) // doesn't match the return type
 		{

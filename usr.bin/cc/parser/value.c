@@ -5,7 +5,7 @@
 #include "./value/value.h"
 
 int
-value (size_t *delta, struct type *type)
+value (size_t *var, struct type *type)
 {
-	return value_expr(delta, type);
+	return value_expr(var, type);
 }
