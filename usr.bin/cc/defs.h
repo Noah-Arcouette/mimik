@@ -158,12 +158,13 @@ struct context
 	size_t           variables;
 	size_t           variablecp;
 
-	size_t delta; // current delta
-	size_t label; // current label
-
 	struct context *parent;
 };
 extern struct context *ctx;
+
+// current label and delta
+extern size_t ctxLabel;
+extern size_t ctxDelta;
 
 extern void freeContexts (void);
 extern void freeContext  (struct context *);

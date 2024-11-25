@@ -50,7 +50,7 @@ return_ (void)
 		}
 	}
 	// goto next block
-	fprintf(yyout, "x %zu:\n", ctx->label++);
+	fprintf(yyout, "x %zu:\n", ctxLabel++);
 
 	// check for the semicolon
 	if (token != SEMICOLON)
