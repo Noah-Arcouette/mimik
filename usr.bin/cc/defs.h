@@ -5,10 +5,11 @@ enum token
 {
 	TEOF = 0,
 	// = Key Words =
-	EXTERN = 256,
+	EXTERN,
 	RETURN,
 	IF,
 	ELSE,
+	WHILE,
 	// = Type =
 	VOID,
 	CHAR,
@@ -241,5 +242,8 @@ extern int return_ (void);
 
 // parser/if.c, if statement
 extern int if_ (void);
+
+// paser/while.c, while statement
+extern int while_ (void);
 
 #endif

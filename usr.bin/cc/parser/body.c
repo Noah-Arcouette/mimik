@@ -29,6 +29,12 @@ _line (void)
 		return 0;
 	}
 
+	// while ( value ) body
+	if (!while_())
+	{
+		return 0;
+	}
+
 	// { ... }
 	if (token == LCURLY)
 	{

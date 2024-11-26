@@ -22,9 +22,8 @@ if_ (void)
     }
 
     // get the conditions value
-    struct type ccType;
-    size_t      ccVar;
-    if (value(&ccVar, &ccType))
+    size_t ccVar;
+    if (value(&ccVar, (struct type*)NULL))
     {
         fprintf(stderr, "%s:%zu: Expected value in if statements condition.\n", filename, lineno);
         errors++;
@@ -48,7 +47,7 @@ if_ (void)
     // if statement check
     fprintf(yyout, "\tgoto @%zu, if %%%zu\n", start, ccVar);
     fprintf(yyout, "\tgoto @%zu\n",           end);
-    fprintf(yyout, "%zu:\n",                  start);
+    fprintf(yyout, "x %zu:\n",                  start);
 
     // if statement body
     pushContext();
@@ -67,7 +66,7 @@ if_ (void)
         size_t elseLabel = end; // get the else condition
         end = ctxLabel++;
         fprintf(yyout, "\tgoto @%zu\n", end); // goto the end
-        fprintf(yyout, "%zu:\n", elseLabel);  // the else label
+        fprintf(yyout, "x %zu:\n", elseLabel);  // the else label
         pushContext();
         if (body())
         {
@@ -79,7 +78,7 @@ if_ (void)
     }
 
     fprintf(yyout, "\tgoto @%zu\n", end);
-    fprintf(yyout, "%zu:\n",        end);
+    fprintf(yyout, "x %zu:\n",        end);
 
     return 0;
 }

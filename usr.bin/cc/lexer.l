@@ -19,6 +19,9 @@ size_t lineno = 1;
 "else" {
 	return ELSE;
 }
+"while" {
+	return WHILE;
+}
 
 
 "void" { // = Types =

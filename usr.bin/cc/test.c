@@ -47,3 +47,19 @@ contexts (void)
 		else if (y+1) x = 1;
 		else x = 1;
 }
+
+void
+loops ()
+{
+	int i = 255;
+	while (i)
+	{
+		if (i*100)
+		{
+			i = 100;
+			return;
+		}
+		
+		i = i - 1;
+	}
+}
