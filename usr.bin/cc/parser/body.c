@@ -38,6 +38,12 @@ body (void)
 			continue; // continue
 		}
 
+		// if ( value ) body
+		if (!if_())
+		{
+			continue;
+		}
+
 		// { ... }
 		if (token == LCURLY)
 		{

@@ -13,6 +13,9 @@ size_t lineno = 1;
 "return" {
 	return RETURN;
 }
+"if" { 
+	return IF;
+}
 
 
 "void" { // = Types =

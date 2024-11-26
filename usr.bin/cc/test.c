@@ -41,4 +41,9 @@ contexts (void)
 		x = 100;
 	}
 	int y = x+10;
+
+	if (x-10*2)
+	{
+		x = 1000;
+	}
 }

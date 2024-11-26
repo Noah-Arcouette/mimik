@@ -7,6 +7,7 @@ enum token
 	// = Key Words =
 	EXTERN = 256,
 	RETURN,
+	IF,
 	// = Type =
 	VOID,
 	CHAR,
@@ -162,7 +163,6 @@ struct context
 
 	size_t breakTo;
 	size_t continueTo;
-	size_t end;
 
 	struct context *parent;
 };
@@ -237,5 +237,8 @@ extern int value (size_t *, struct type *);
 
 // parser/return.c, return from function
 extern int return_ (void);
+
+// parser/if.c, if statement
+extern int if_ (void);
 
 #endif

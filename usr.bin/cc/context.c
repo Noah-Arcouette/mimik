@@ -21,7 +21,6 @@ static struct context _ctx = {
 
 	.breakTo    = 0,
 	.continueTo = 0,
-	.end        = 0,
 
 	.var = 0, // not used normally
 
@@ -89,7 +88,6 @@ pushContext (void)
 	// just continue along with things
 	new->breakTo    = ctx->breakTo;
 	new->continueTo = ctx->continueTo;
-	new->end        = ctx->end;
 
 	new->var = 1; // zeroth register is non-existant
 
