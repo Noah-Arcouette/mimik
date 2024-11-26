@@ -43,7 +43,5 @@ contexts (void)
 	int y = x+10;
 
 	if (x-10*2)
-	{
-		x = 1000;
-	}
+		if (y) x = 1000;
 }

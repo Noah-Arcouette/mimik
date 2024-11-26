@@ -89,7 +89,7 @@ pushContext (void)
 	new->breakTo    = ctx->breakTo;
 	new->continueTo = ctx->continueTo;
 
-	new->var = 1; // zeroth register is non-existant
+	new->var = ctx->var+1;
 
 	// push
 	ctx = new;
