@@ -59,7 +59,16 @@ loops ()
 			i = 100;
 			return;
 		}
+		else
+		{
+			break;
+		}
 		
 		i = i - 1;
+
+		if (i+2)
+		{
+			continue;
+		}
 	}
 }

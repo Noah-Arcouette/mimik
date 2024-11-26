@@ -22,6 +22,12 @@ size_t lineno = 1;
 "while" {
 	return WHILE;
 }
+"break" { 
+	return BREAK;
+}
+"continue" {
+	return CONTINUE;
+}
 
 
 "void" { // = Types =

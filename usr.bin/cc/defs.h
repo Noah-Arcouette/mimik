@@ -10,6 +10,8 @@ enum token
 	IF,
 	ELSE,
 	WHILE,
+	BREAK,
+	CONTINUE,
 	// = Type =
 	VOID,
 	CHAR,

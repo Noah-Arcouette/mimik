@@ -23,6 +23,62 @@ _line (void)
 		return 0;
 	}
 
+	// break ;
+	if (token == BREAK)
+	{
+		token = (enum token)yylex();
+		if (token != SEMICOLON)
+		{
+			fprintf(stderr, "%s:%zu: Expected semicolon after break keyword.\n", filename, lineno);
+			errors++;
+			// just continue
+		}
+		else
+		{
+			token = (enum token)yylex(); // accept break
+		}
+
+		if (!ctx->breakTo)
+		{
+			fprintf(stderr, "%s:%zu: No-where to break to\n", filename, lineno);
+			errors++;
+			return 0;
+		}
+		// else
+		// goto end
+		fprintf(yyout, "\tgoto @%zu\n", ctx->breakTo);
+		fprintf(yyout, "x %zu:\n", ctxLabel++);
+		return 0;
+	}
+
+	// continue ;
+	if (token == CONTINUE)
+	{
+		token = (enum token)yylex();
+		if (token != SEMICOLON)
+		{
+			fprintf(stderr, "%s:%zu: Expected semicolon after continue keyword.\n", filename, lineno);
+			errors++;
+			// just continue
+		}
+		else
+		{
+			token = (enum token)yylex(); // accept continue
+		}
+
+		if (!ctx->continueTo)
+		{
+			fprintf(stderr, "%s:%zu: No-where to continue to\n", filename, lineno);
+			errors++;
+			return 0;
+		}
+		// else
+		// goto end
+		fprintf(yyout, "\tgoto @%zu\n", ctx->continueTo);
+		fprintf(yyout, "x %zu:\n", ctxLabel++);
+		return 0;
+	}
+
 	// if ( value ) body
 	if (!if_())
 	{
