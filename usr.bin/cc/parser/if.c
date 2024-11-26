@@ -59,6 +59,25 @@ if_ (void)
     }
     popContext();
 
+    // else
+    if (token == ELSE)
+    {
+        token = (enum token)yylex(); // accept
+
+        size_t elseLabel = end; // get the else condition
+        end = ctxLabel++;
+        fprintf(yyout, "\tgoto @%zu\n", end); // goto the end
+        fprintf(yyout, "%zu:\n", elseLabel);  // the else label
+        pushContext();
+        if (body())
+        {
+            fprintf(stderr, "%s:%zu: Expected body after else statement.\n", filename, lineno);
+            errors++;
+        }
+        popContext();
+        // just continue
+    }
+
     fprintf(yyout, "\tgoto @%zu\n", end);
     fprintf(yyout, "%zu:\n",        end);
 

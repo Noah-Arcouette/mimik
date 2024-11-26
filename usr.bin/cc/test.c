@@ -44,4 +44,6 @@ contexts (void)
 
 	if (x-10*2)
 		if (y) x = 1000;
+		else if (y+1) x = 1;
+		else x = 1;
 }

@@ -8,6 +8,7 @@ enum token
 	EXTERN = 256,
 	RETURN,
 	IF,
+	ELSE,
 	// = Type =
 	VOID,
 	CHAR,
