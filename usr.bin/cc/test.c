@@ -76,5 +76,5 @@ loops ()
 void
 arrays (int x[10])
 {
-	int *y[10][20];
+	int *y[5][5];
 }

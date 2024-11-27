@@ -15,7 +15,7 @@ printType (struct type t)
 
 		if (t.bounding)
 		{
-			fprintf(stderr, "<%%%zu> ", t.bounding);
+			fprintf(stderr, "<%%%zu>", t.bounding);
 		}
 		else
 		{
@@ -126,6 +126,57 @@ printIRType (struct type t)
 			size);
 		break;
 	}
+}
+
+size_t
+sizeOfType (struct type *t)
+{
+	switch (t->base)
+	{
+	case TYPE_VOID:
+		return 0;
+	case TYPE_CHAR:
+		return 1;
+	case TYPE_SHORT:
+		return 2;
+	case TYPE_INT:
+		switch (dataType)
+		{
+		case LP64:
+			if (t->longness)
+			{
+				return 8;
+			}
+			return 4;
+		case ILP64:
+			return 8;
+		case LLP64:
+			if (t->longness > 1)
+			{
+				return 8;
+			}
+		case ILP32: // always 32bit
+			return 4;
+		case LP32:
+			if (t->longness)
+			{
+				return 4;
+			}
+			return 2;
+		}
+		break;
+	case TYPE_POINTER:
+		switch (dataType)
+		{
+		case ILP32:
+		case LP32:
+			return 4;
+		default:
+			return 8; // keep 64
+		}
+		break;
+	}
+	return 0;
 }
 
 void

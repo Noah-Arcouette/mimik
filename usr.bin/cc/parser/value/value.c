@@ -45,6 +45,37 @@ value_value (size_t *var, struct type *typeData)
 			return 0;
 		}
 
+		// stack allocate bounded arrays
+		if (sym.variable->type.bounding) // if last is bounded
+		{
+			struct type *currentType = &sym.variable->type;
+			size_t elements = ctx->var++;
+			struct type elemt = {
+				.base     = TYPE_INT,
+				.longness = 2
+			};
+			fprintf(yyout, "\t");
+			printIRType(elemt);
+			fprintf(yyout, " %%%zu = 1\n", elements);
+
+			while (currentType && currentType->bounding)
+			{
+				fprintf(yyout, "\t%%%zu = mul_", elements);
+				printIRType(elemt);
+				fprintf(yyout, " %%%zu %%%zu\n", elements, currentType->bounding);
+
+				currentType = currentType->down; // next type
+			}
+			fprintf(yyout, "\t%%%zu = mul_", elements);
+			printIRType(elemt);
+			fprintf(yyout, " %%%zu .", elements);
+			printIRType(elemt);
+			fprintf(yyout, " %zu\n", sizeOfType(currentType));
+
+			sym.variable->var = ctx->var++; // allocate the variable
+			fprintf(yyout, "\tptr %%%zu = alloc %%%zu\n", sym.variable->var, elements);
+		}
+
 		if (token == EQUAL)
 		{
 			goto variable_equ; // handle the variable

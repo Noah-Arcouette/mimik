@@ -77,11 +77,12 @@ struct type
 	struct type *down; // if pointer, this is the sub-type
 };
 
-extern void printType   (struct type);
-extern void printIRType (struct type);
-extern void freeType    (struct type);
-extern int  compareType (struct type,   struct type); // returns one if they are the same
-extern int  copyType    (struct type *, struct type); // allocating a copy of a type
+extern void   printType   (struct type);
+extern void   printIRType (struct type);
+extern void   freeType    (struct type);
+extern int    compareType (struct type,   struct type); // returns one if they are the same
+extern int    copyType    (struct type *, struct type); // allocating a copy of a type
+extern size_t sizeOfType  (struct type *);
 
 extern enum dataType
 {

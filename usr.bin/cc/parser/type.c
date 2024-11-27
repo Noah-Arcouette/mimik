@@ -61,6 +61,9 @@ _arrayType (struct type *t)
 	point.base    = TYPE_POINTER;
 	point.isConst = 1;
 
+	// get the bounds, if any
+	value(&point.bounding, NULL);
+
 	// allocate and attach original base type
 	point.down = (struct type *)malloc(sizeof(struct type));
 	if (!point.down) // failed to allocate
@@ -70,9 +73,6 @@ _arrayType (struct type *t)
 		fprintf(stderr, " -> Error %d: %s.\n", errnum, strerror(errnum));
 		return 1;
 	}
-
-	// get the bounds, if any
-	value(&t->bounding, NULL);
 
 	// closing bracket
 	if (token != RSQUARE)
