@@ -196,6 +196,10 @@ int
 // check if types are a exact match
 compareType (struct type a, struct type b)
 {
+	// bounding isn't checked here
+	a.bounding = 0;
+	b.bounding = 0;
+
 	// if pointers
 	if (a.base == TYPE_POINTER && b.base == TYPE_POINTER)
 	{

@@ -73,6 +73,8 @@ loops ()
 	}
 }
 
+extern void arrays (int [10]);
+
 void
 arrays (int x[10])
 {
