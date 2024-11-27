@@ -13,7 +13,8 @@ extern_ (void)
 	token = (enum token)yylex(); // accept
 
 	struct type t;
-	if (type(&t))
+	char *name;
+	if (type(&t, &name))
 	{
 		fprintf(stderr, "%s:%zu: Expected a type after keyword extern.\n", filename, lineno);
 		errors++;
@@ -21,7 +22,7 @@ extern_ (void)
 		return 0;
 	}
 
-	if (token != SYMBOL)
+	if (!name) // make sure there's a name
 	{
 		freeType(t);
 		fprintf(stderr, "%s:%zu: Expected a symbol name after type.\n", filename, lineno);
@@ -29,19 +30,6 @@ extern_ (void)
 		recover();
 		return 0;
 	}
-	char *name = strdup(yytext); // get a duplicate of the name
-	if (!name) // failed to allocate
-	{
-		freeType(t);
-		int errnum = errno;
-		fprintf(stderr, "%s:%zu: Failed to allocate memory.\n", filename, lineno);
-		fprintf(stderr, " -> Error %d: %s.\n", errnum, strerror(errnum));
-
-		errors++;
-		recover();
-		return 0;
-	}
-	token = (enum token)yylex(); // accept
 
 	// function external
 	if (token == LPAREN)
@@ -61,7 +49,7 @@ extern_ (void)
 
 		// get parameters
 		struct parameter param;
-		while (!parameter(&param))
+		while (!type(&param.type, &param.name))
 		{
 			if (defineParameter(p, param))
 			{

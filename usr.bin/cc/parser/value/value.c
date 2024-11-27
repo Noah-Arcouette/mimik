@@ -24,27 +24,18 @@ value_value (size_t *var, struct type *typeData)
 		.type     = SYMBOL_VARIABLE
 	};
 	struct type t;
-	if (!type(&t)) // if type
+	char       *name;
+	if (!type(&t, &name)) // if type
 	{
-		if (token != SYMBOL) // must be, type symbol . | type symbol eq value
+		if (!name) // must be, type symbol . | type symbol eq value
 		{
 			freeType(t);
 			fprintf(stderr, "%s:%zu: Expected symbol after type\n", filename, lineno);
 			errors++;
 			return 0;
 		}
-		// define variable
-		char *name = strdup(yytext); // duplicate name
-		if (!name) // failed to allocate
-		{
-			fprintf(stderr, "%s:%zu: Failed to allocate name `%s'\n", filename, lineno, yytext);
-			freeType(t);
-			token = (enum token)yylex(); // accept SYMBOL
-			errors++;
-			return 0;
-		}
-		token = (enum token)yylex(); // accept SYMBOL
 
+		// define variable
 		sym.variable = defineVariable(name, t); // define
 		if (!sym.variable) // failed
 		{
@@ -156,7 +147,7 @@ value_value (size_t *var, struct type *typeData)
 				}
 
 				token = (enum token)yylex(); // accept
-			
+
 				size_t      argVar;
 				struct type argType;
 				size_t      arg = 0;
@@ -196,7 +187,7 @@ value_value (size_t *var, struct type *typeData)
 					{
 						fprintf(stderr, "%s:%zu: Argument miss matches with function type.\n", filename, lineno);
 						fprintf(stderr, " -> Function `%s' seen on line %zu in file `%s'\n", sym.prototype->name, sym.lineno, sym.filename);
-						
+
 						fprintf(stderr, " -> Argument %zu, ", arg+1); // argument expected
 						printType(*paramType);
 						fprintf(stderr, " %s\n", paramName);

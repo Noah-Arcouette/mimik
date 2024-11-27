@@ -27,7 +27,7 @@ _func (struct type t, char *name)
 
 	// get, and attach, parameters
 	struct parameter param;
-	while (!parameter(&param))
+	while (!type(&param.type, &param.name))
 	{
 		if (defineParameter(p, param))
 		{
@@ -143,31 +143,20 @@ int
 definition (void)
 {
 	struct type t;
-	if (type(&t))
+	char       *name;
+	if (type(&t, &name))
 	{
 		return 1; // no type, not a defintion
 	}
 
-	// accept symbol
-	if (token != SYMBOL)
+	// make sure there's a name
+	if (!name)
 	{
 		fprintf(stderr, "%s:%zu: Expected a symbol name after type.\n", filename, lineno);
 		recover();
 		errors++;
 		return 0;
 	}
-	// save name
-	char *name = strdup(yytext);
-	if (!name)
-	{
-		freeType(t);
-		fprintf(stderr, "%s:%zu: Failed to allocate symbol name.\n", filename, lineno);
-		recover();
-		errors++;
-		return 0;
-	}
-	// accept
-	token = (enum token)yylex();
 
 	// check if function
 	if (!_func(t, name))

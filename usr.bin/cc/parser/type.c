@@ -59,9 +59,11 @@ _pointerType (struct type *t)
 }
 
 int
-type (struct type *t)
+type (struct type *t, char **name)
 {
 	memset(t, 0, sizeof(struct type));
+	*name = (char *)NULL; // nullify
+
 	// qualifiers
 	while (1)
 	{
@@ -124,6 +126,22 @@ leave:
 			freeType(*t);
 			return 0;
 		}
+	}
+
+	// check for a name/symbol
+	if (token == SYMBOL)
+	{
+		*name = strdup(yytext); // copy the name
+
+		// make sure the name got copied
+		if (!(*name))
+		{
+			fprintf(stderr, "%s:%zu: Failed to allocate symbol name, `%s', after type\n", filename, lineno, yytext);
+			errors++;
+		}
+
+		// accept the name
+		token = (enum token)yylex();
 	}
 
 	return 0;

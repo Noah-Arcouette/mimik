@@ -222,10 +222,7 @@ extern int extern_ (void);
 extern void recover (void);
 
 // parser/type.c, variable definition type
-extern int type (struct type *);
-
-// parser/param.c, function PROTOTYPE parameter
-extern int parameter (struct parameter *);
+extern int type (struct type *, char **);
 
 // parser/def.c, symbol definition (type symbol ...) any type of definition including functions and global variables
 extern int definition (void);
