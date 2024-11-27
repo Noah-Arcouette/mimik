@@ -109,7 +109,7 @@ _func (struct type t, char *name)
 			errors++;
 			continue; // skip it
 		}
-		v->var= ctx->var++; // set the variables register
+		v->var= ctxVar++; // set the variables register
 
 		fputc(' ', yyout);
 		printIRType(v->type);

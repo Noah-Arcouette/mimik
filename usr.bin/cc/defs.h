@@ -168,8 +168,6 @@ struct context
 	size_t           variables;
 	size_t           variablecp;
 
-	size_t var; // current max IR register used
-
 	size_t breakTo;
 	size_t continueTo;
 
@@ -177,8 +175,9 @@ struct context
 };
 extern struct context *ctx;
 
-// current label
+// current label, and variable
 extern size_t ctxLabel;
+extern size_t ctxVar;
 
 extern void freeContexts (void); // free all contexts
 extern void freeContext  (struct context *);

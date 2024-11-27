@@ -87,7 +87,7 @@ value_term (size_t *var, struct type *type)
 			return 0;
 		}
 
-		c = ctx->var++;
+		c = ctxVar++;
 		// do the operation
 		fprintf(yyout, "\t");
 		printIRType(lt);

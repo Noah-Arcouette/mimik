@@ -49,7 +49,7 @@ value_value (size_t *var, struct type *typeData)
 		if (sym.variable->type.bounding) // if last is bounded
 		{
 			struct type *currentType = &sym.variable->type;
-			size_t elements = ctx->var++;
+			size_t elements = ctxVar++;
 			struct type elemt = {
 				.base     = TYPE_INT,
 				.longness = 2
@@ -72,7 +72,7 @@ value_value (size_t *var, struct type *typeData)
 			printIRType(elemt);
 			fprintf(yyout, " %zu\n", sizeOfType(currentType));
 
-			sym.variable->var = ctx->var++; // allocate the variable
+			sym.variable->var = ctxVar++; // allocate the variable
 			fprintf(yyout, "\tptr %%%zu = alloc %%%zu\n", sym.variable->var, elements);
 		}
 
@@ -154,7 +154,7 @@ value_value (size_t *var, struct type *typeData)
 				errors++;
 				return 0;
 			}
-			*var = ctx->var++; // get next IR register
+			*var = ctxVar++; // get next IR register
 
 			fputc('\t', yyout);
 			printIRType(*typeData);
@@ -164,7 +164,7 @@ value_value (size_t *var, struct type *typeData)
 			return 0;
 		case SYMBOL_PROTOTYPE:
 			token = (enum token)yylex(); // accept symbol
-			*var = ctx->var++;
+			*var = ctxVar++;
 
 			if (token == LPAREN) // func (...)
 			{
@@ -278,7 +278,7 @@ value_value (size_t *var, struct type *typeData)
 	// integer/immediate tokens
 	if (token == IMM_INT)
 	{
-		size_t c = ctx->var++;
+		size_t c = ctxVar++;
 		fprintf(yyout, "\ti32 %%%zu = %s\n", c, yytext);
 
 		if (var)

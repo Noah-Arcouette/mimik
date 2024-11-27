@@ -22,13 +22,12 @@ static struct context _ctx = {
 	.breakTo    = 0,
 	.continueTo = 0,
 
-	.var = 0, // not used normally
-
 	.parent = (struct context *)NULL
 };
 struct context *ctx = &_ctx;
 
 size_t ctxLabel = 1;
+size_t ctxVar   = 1;
 
 void
 freeContext (struct context *ctx)
@@ -88,8 +87,6 @@ pushContext (void)
 	// just continue along with things
 	new->breakTo    = ctx->breakTo;
 	new->continueTo = ctx->continueTo;
-
-	new->var = ctx->var+1;
 
 	// push
 	ctx = new;
