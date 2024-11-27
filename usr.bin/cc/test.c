@@ -25,7 +25,7 @@ test (int i)
 	j = 10+23+j;
 }
 
-int 
+int
 vib (int j, int i)
 {
 	int x = test(i);
@@ -63,7 +63,7 @@ loops ()
 		{
 			break;
 		}
-		
+
 		i = i - 1;
 
 		if (i+2)
@@ -71,4 +71,10 @@ loops ()
 			continue;
 		}
 	}
+}
+
+void
+arrays (int x[10])
+{
+	int *y[10][20];
 }

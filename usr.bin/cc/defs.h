@@ -39,7 +39,9 @@ enum token
 	RPAREN,
 	COMA,
 	LCURLY,
-	RCURLY
+	RCURLY,
+	LSQUARE,
+	RSQUARE
 };
 
 // lexer.l
@@ -70,6 +72,8 @@ struct type
 	unsigned int isRestrict : 1;
 	unsigned int longness   : 2;
 	unsigned int isUnsigned : 1; // unsigned?
+
+	size_t       bounding; // >0 and pointer, than this is the bounding of a stack array (it's an IR register)
 	struct type *down; // if pointer, this is the sub-type
 };
 

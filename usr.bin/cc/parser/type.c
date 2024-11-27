@@ -31,15 +31,7 @@ _pointerType (struct type *t)
 	{
 		switch (token)
 		{
-		case UNSIGNED:
-			t->isUnsigned = 1;
-			break;
-		case SIGNED:
-			t->isUnsigned = 0;
-			break;
-		case LONG:
-			t->longness++;
-			break;
+		// UNSIGNED, SIGNED, and LONG are not allow on pointers
 		case CONST:
 			t->isConst = 1;
 			break;
@@ -56,6 +48,48 @@ _pointerType (struct type *t)
 	fprintf(stderr, "%s:%zu: Unexpected EOF.\n", filename, lineno);
 	errors++;
 	return 0; // hit EOF
+}
+
+// cannot failed safely, if called an array shall ALWAYS be there
+static int
+_arrayType (struct type *t)
+{
+	token = (enum token)yylex(); // accept the LSQUARE
+
+	struct type point;
+	memset(&point, 0, sizeof(struct type));
+	point.base    = TYPE_POINTER;
+	point.isConst = 1;
+
+	// allocate and attach original base type
+	point.down = (struct type *)malloc(sizeof(struct type));
+	if (!point.down) // failed to allocate
+	{
+		int errnum = errno;
+		fprintf(stderr, "%s:%zu: Failed to allocate memory.\n", filename, lineno);
+		fprintf(stderr, " -> Error %d: %s.\n", errnum, strerror(errnum));
+		return 1;
+	}
+
+	// get the bounds, if any
+	value(&t->bounding, NULL);
+
+	// closing bracket
+	if (token != RSQUARE)
+	{
+		fprintf(stderr, "%s:%zu: Expected a closing square bracket in array definition.\n", filename, lineno);
+		errors++;
+	}
+	else
+	{
+		// accept the token
+		token = (enum token)yylex();
+	}
+
+	memcpy(point.down, t, sizeof(struct type));
+	memcpy(t,     &point, sizeof(struct type));
+
+	return 0;
 }
 
 int
@@ -142,6 +176,16 @@ leave:
 
 		// accept the name
 		token = (enum token)yylex();
+	}
+
+	// check for arrays
+	while (token == LSQUARE)
+	{
+		if (_arrayType(t))
+		{
+			freeType(*t);
+			return 0;
+		}
 	}
 
 	return 0;

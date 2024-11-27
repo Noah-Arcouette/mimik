@@ -13,7 +13,7 @@ size_t lineno = 1;
 "return" {
 	return RETURN;
 }
-"if" { 
+"if" {
 	return IF;
 }
 "else" {
@@ -22,7 +22,7 @@ size_t lineno = 1;
 "while" {
 	return WHILE;
 }
-"break" { 
+"break" {
 	return BREAK;
 }
 "continue" {
@@ -108,6 +108,12 @@ size_t lineno = 1;
 }
 "}" {
 	return RCURLY;
+}
+"[" {
+	return LSQUARE;
+}
+"]" {
+	return RSQUARE;
 }
 
 %%

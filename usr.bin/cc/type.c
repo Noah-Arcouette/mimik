@@ -13,7 +13,14 @@ printType (struct type t)
 	{
 		printType(*t.down);
 
-		fprintf(stderr, "* ");
+		if (t.bounding)
+		{
+			fprintf(stderr, "<%%%zu> ", t.bounding);
+		}
+		else
+		{
+			fprintf(stderr, "* ");
+		}
 	}
 
 	if (t.isConst)
