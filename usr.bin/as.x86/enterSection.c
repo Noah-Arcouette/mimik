@@ -86,6 +86,8 @@ enterSection (const char *restrict section, const char *restrict flags)
 		case 'b':
 			currentSection->flags |= MIO_SECTION_FLAG_BSS;
 			break;
+		case 'a': // ignore for compatibility, for now
+			break;
 		default:
 			fprintf(stderr, "%s:%d: Unknown section flag `%c'.\n", filename, lineno-1, *flags);
 			break;

@@ -1,10 +1,9 @@
 .code16
-.file "loadStage2.S"
 
 .section .boot, "ax"
-.globl boot_loadPayload
-.type boot_loadPayload, @function
+.file "loadStage2.S"
 boot_loadPayload:
+.globl boot_loadPayload
 	mov $0, %dh // First head
 	mov $0, %ch // First cylinder
 	mov $2, %cl // Second sector, after MBR
@@ -29,10 +28,7 @@ boot_loadPayload.error:
 
 boot_loadPayload.ret:
 	ret
-.size boot_loadPayload, .-boot_loadPayload
 
 #include "../lang.h"
-.type readErrorMsg, @object
 readErrorMsg:
 	.asciz STAGE_TWO_READ_ERROR
-.size readErrorMsg, .-readErrorMsg

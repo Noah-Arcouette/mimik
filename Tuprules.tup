@@ -67,3 +67,6 @@ COMMONFLAGS+=-I$(ROOT)/include/
 TXTEND=
 # Host Archivor
 !host_ar = |> ^ HOST-AR %f -> %o^ $(AR) rcs %o %f |>
+
+# Testing!! Using our assembler
+!testing_as = | $(ROOT)/<toolchain> |> ^ AS %f -> %o^ $(CC) -E -P %f | $(VALGRIND) $(ROOT)/toolchain/as.x86 -o %o |>

@@ -1,16 +1,13 @@
 .code16
-.file "init.S"
 
-.bss
-.globl bootDisk
-.type bootDisk, @object
+.section .bss, "aw" // this'll change to "brw" when mio is used completely
+.file "init.S"
 bootDisk: .byte 0
-.size bootDisk, .-bootDisk
+.globl bootDisk
 
 .section .boot.init, "ax"
-.globl boot_init
-.type boot_init, @function
 boot_init:
+.globl boot_init
 	// Clear segments
 	xor %ax, %ax
 
@@ -51,4 +48,3 @@ boot_init_bss_clear:
 
 	// Set Code segment and jump to boot
 	ljmp $0,$_boot
-.size boot_init, .-boot_init

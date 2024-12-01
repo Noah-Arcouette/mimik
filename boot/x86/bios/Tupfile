@@ -35,6 +35,10 @@ endif
 : foreach ./*.c ^unreal.c | lang.h |> !cc $(FLAGS) -m16                         |> ./obj/%B.o {obj}
 : {obj}                            |> !ld -Tbios.ld                             |> bios.elf
 
+# try using our assembler for the assembly files
+: foreach ./boot/*.S | lang.h |> !testing_as |> ./mio-obj/boot/%B.o
+: foreach ./boot/*.S | lang.h |> !testing_as |> ./mio-obj/strap/%B.o
+
 : bios.elf |> !objcopy -O binary --only-section=.boot   |> $(DIST)/boot/boot-sector.bin
 : bios.elf |> !objcopy -O binary --remove-section=.boot |> $(DIST)/boot/mbr-break.bin
 

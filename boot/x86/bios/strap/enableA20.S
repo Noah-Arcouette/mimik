@@ -1,10 +1,9 @@
 .code16
-.file "enableA20.S"
 
-.text
-.globl stageTwo_enableA20
-.type stageTwo_enableA20, @function
+.section .text, "ax"
+.file "enableA20.S"
 stageTwo_enableA20:
+.globl stageTwo_enableA20
 	call stageTwo_checkA20 // check A20 line
 	cmp  $0, %ax
 	je stageTwo_enableA20.noA20 // fail if it isn't pre set from BIOS/CSM
@@ -13,7 +12,6 @@ stageTwo_enableA20:
 stageTwo_enableA20.noA20:
 	mov $stageTwo_enableA20.noA20Msg, %bx // panic
 	jmp  boot_panic
-.size stageTwo_enableA20, .-stageTwo_enableA20
 
 // ax: 0, if A20 disabled
 stageTwo_checkA20:

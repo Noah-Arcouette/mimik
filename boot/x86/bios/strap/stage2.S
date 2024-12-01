@@ -1,10 +1,9 @@
 .code16
-.file "stage2.S"
 
-.text
-.type _stageTwo, @function
-.globl _stageTwo
+.section .text, "ax"
+.file "stage2.S"
 _stageTwo:
+.globl _stageTwo
 	call stageTwo_enableA20
 
 	cli // dissable interrupts
@@ -37,4 +36,3 @@ _stageTwo.unreal:
 	sti // bring back interrupts
 
 	jmp _unreal // jump to C
-.size _stageTwo, .-_stageTwo

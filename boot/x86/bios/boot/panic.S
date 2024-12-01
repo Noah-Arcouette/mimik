@@ -1,10 +1,9 @@
 .code16
-.file "panic.S"
 
 .section .boot, "ax"
-.globl boot_panic
-.type boot_panic, @function
+.file "panic.S"
 boot_panic:
+.globl boot_panic
 	mov $0, %di // start of video memory
 boot_setupVideo.fillVideo:
 	movb $' ',  %fs:(%di)
@@ -21,7 +20,7 @@ boot_panic.loop:
 	cmp $0, %al // check if terminator
 	je boot_panic.halt // leave on terminator
 
-	movb %al, %fs:(%di) // print character
+	mov %al, %fs:(%di) // print character
 	inc %di
 	movb $0x40, %fs:(%di) // red background
 
@@ -33,4 +32,3 @@ boot_panic.halt:
 	cli // stop interrupts
 	hlt // await interrupts
 	jmp boot_panic.halt // loop forever
-.size boot_panic, .-boot_panic
