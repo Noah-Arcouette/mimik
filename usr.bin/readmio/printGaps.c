@@ -41,7 +41,7 @@ printGaps (FILE *fp, struct MiO_Section s)
 		}
 		if (entry.type & MIO_GAP_FLAG_EXECUTE)
 		{
-			printf("Executing");
+			printf("Executing ");
 		}
 		switch (entry.type & MIO_GAP_TYPE_MASK)
 		{
