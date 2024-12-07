@@ -33,4 +33,10 @@ printSection (FILE *fp, struct MiO_Section s)
 		printf("Last");
 	}
 	printf("\n");
+
+	// is it a special section
+	if (!strncmp((char *)s.name, MIO_LIB_NAME, sizeof(s.name)))
+	{
+		printLibraries(fp, s);
+	}
 }

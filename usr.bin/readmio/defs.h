@@ -23,6 +23,10 @@ extern void printSection (FILE *, struct MiO_Section);
 // printData.c
 extern void printData (struct MiO_Data);
 
+// printLibraries.c
+extern void printLibraries (FILE *, struct MiO_Section);
+
+
 // dataStart.c
 extern size_t dataStart;
 extern void   getDataStart (FILE *fp);
