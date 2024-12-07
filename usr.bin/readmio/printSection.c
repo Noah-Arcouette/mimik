@@ -39,4 +39,8 @@ printSection (FILE *fp, struct MiO_Section s)
 	{
 		printLibraries(fp, s);
 	}
+	else if (!strncmp((char *)s.name, MIO_SYMLIST_NAME, sizeof(s.name)))
+	{
+		printSymbolList(fp, s);
+	}
 }
