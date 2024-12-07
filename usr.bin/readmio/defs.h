@@ -29,6 +29,9 @@ extern void printLibraries (FILE *, struct MiO_Section);
 // printSymbolList.c
 extern void printSymbolList (FILE *, struct MiO_Section);
 
+// printGaps.c
+extern void printGaps (FILE *, struct MiO_Section);
+
 
 // dataStart.c
 extern size_t dataStart;

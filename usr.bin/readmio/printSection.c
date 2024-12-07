@@ -43,4 +43,8 @@ printSection (FILE *fp, struct MiO_Section s)
 	{
 		printSymbolList(fp, s);
 	}
+	else if (!strncmp((char *)s.name, MIO_GAP_NAME, sizeof(s.name)))
+	{
+		printGaps(fp, s);
+	}
 }
