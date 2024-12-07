@@ -35,6 +35,8 @@ extern void printGaps (FILE *, struct MiO_Section);
 // printMap.c
 extern void printMap (FILE *, struct MiO_Section);
 
+// printSeg.c
+extern void printSeg (FILE *, struct MiO_Section);
 
 // dataStart.c
 extern size_t dataStart;

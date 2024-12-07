@@ -51,4 +51,8 @@ printSection (FILE *fp, struct MiO_Section s)
 	{
 		printMap(fp, s);
 	}
+	else if (!strncmp((char *)s.name, MIO_SEG_NAME, sizeof(s.name)))
+	{
+		printSeg(fp, s);
+	}
 }
