@@ -26,6 +26,7 @@ main (int argc, const char **argv)
 		// else
 		printf("\n%s:\n", argv[i]); // say what file we're in
 
+		printMiO(f);
 
 		// close when finished
 		fclose(f);
