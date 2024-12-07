@@ -29,7 +29,7 @@ printGaps (FILE *fp, struct MiO_Section s)
 		}
 
 		printf("\n\tName:  `%.*s'\n", (int)sizeof(entry.name), entry.name);
-		printf("\tOffset: %ld\n", le64toh(*(uint64_t *)s.offset));
+		printf("\tOffset: %ld\n", le64toh(*(uint64_t *)entry.offset));
 		printf("\tFlags:  ");
 		if (entry.type & MIO_GAP_FLAG_READ)
 		{
