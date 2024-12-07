@@ -33,6 +33,8 @@ printMiO (FILE *f)
 		}
 
 		// print header
+		printHeader(header);
+
 		// print sections
 		//   until last section
 
