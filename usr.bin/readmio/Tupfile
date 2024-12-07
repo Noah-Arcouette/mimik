@@ -1,0 +1,8 @@
+include_rules
+
+# toolchain build, doesn't really need to be though
+: foreach *.c |> !host_cc   |> ./obj/%B.o {obj}
+: {obj}       |> !host_ccld |> $(ROOT)/toolchain/readmio | $(ROOT)/<toolchain>
+
+: foreach *.S |> !testing_as |> ./obj-mio/%B.o {as}
+: {as} | $(ROOT)/<toolchain> |> $(VALGRIND) $(ROOT)/toolchain/readmio %f |>
