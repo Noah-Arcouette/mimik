@@ -47,4 +47,8 @@ printSection (FILE *fp, struct MiO_Section s)
 	{
 		printGaps(fp, s);
 	}
+	else if (!strncmp((char *)s.name, MIO_MAP_NAME, sizeof(s.name)))
+	{
+		printMap(fp, s);
+	}
 }
