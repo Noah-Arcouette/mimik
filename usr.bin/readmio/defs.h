@@ -1,7 +1,8 @@
 #ifndef __DEFS_H__
 #define __DEFS_H__
-#include <mio.h>
+#include <stddef.h>
 #include <stdio.h>
+#include <mio.h>
 
 // readmio.c
 extern const char *self;
@@ -15,6 +16,10 @@ extern void printMiO (FILE *);
 
 // printHeader.c
 extern void printHeader (struct MiO_Header);
+
+// printSection.c
+extern void printSection (FILE *, struct MiO_Section);
+
 
 // dataStart.c
 extern size_t dataStart;

@@ -54,6 +54,8 @@ struct MiO_Data    data;
 				return;
 			}
 
+			printSection(f, section);
+
 			sectionIdx++; // next section
 		} while(!(section.flags & MIO_SECTION_FLAG_LAST)); // until last section
 		// read data
