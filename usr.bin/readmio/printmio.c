@@ -13,6 +13,8 @@ printMiO (FILE *f)
 	size_t headerIdx = 0;
 	size_t sectionIdx;
 	struct MiO_Section section;
+struct MiO_Data    data;
+	getDataStart(f);
 	do
 	{
 		printf("\nHeader[%zu]:\n", headerIdx); // say what header we're in

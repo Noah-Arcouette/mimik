@@ -16,4 +16,8 @@ extern void printMiO (FILE *);
 // printHeader.c
 extern void printHeader (struct MiO_Header);
 
+// dataStart.c
+extern size_t dataStart;
+extern void   getDataStart (FILE *fp);
+
 #endif
