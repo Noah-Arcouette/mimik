@@ -31,7 +31,13 @@ printHeader (struct MiO_Header h)
 		case MIO_UARCH_I386:
 			printf("i386\n");
 			break;
+		default:
+			printf("(unrecognized)\n");
+			break;
 		}
+		break;
+	default:
+		printf("(unrecognized)\n");
 		break;
 	}
 
