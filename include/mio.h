@@ -88,6 +88,9 @@ struct MiO_Gap
 
 #define MIO_MAP_NAME ".map"
 #define MIO_MAP_FLAG_BSS 1 // map uninitialized symbols
+#define MIO_MAP_FLAG_READ    2
+#define MIO_MAP_FLAG_WRITE   4
+#define MIO_MAP_FLAG_EXECUTE 8
 struct MiO_Map
 {
 	MiO_byte flags;
@@ -101,6 +104,9 @@ struct MiO_Map
 
 #define MIO_SEG_NAME ".segments"
 #define MIO_SEG_FLAG_BSS 1 // map uninitialized symbols
+#define MIO_SEG_FLAG_READ    2
+#define MIO_SEG_FLAG_WRITE   4
+#define MIO_SEG_FLAG_EXECUTE 8
 struct MiO_Seg
 {
 	MiO_byte flags;

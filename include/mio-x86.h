@@ -20,4 +20,12 @@ MiO Intel x86 16/32/64bit
 #define MIO_GAP_RELATIVE_QWORD 0b00111000
 #define MIO_GAP_TYPE_MASK      0b00111000
 
+#define MIO_SEG_ES 0b000
+#define MIO_SEG_CS 0b001
+#define MIO_SEG_SS 0b010
+#define MIO_SEG_DS 0b011
+// i386+
+#define MIO_SEG_FS 0b100
+#define MIO_SEG_GS 0b101
+
 #endif
