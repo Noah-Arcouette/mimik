@@ -20,6 +20,8 @@ extern void printHeader (struct MiO_Header);
 // printSection.c
 extern void printSection (FILE *, struct MiO_Section);
 
+// printData.c
+extern void printData (struct MiO_Data);
 
 // dataStart.c
 extern size_t dataStart;

@@ -13,7 +13,7 @@ printMiO (FILE *f)
 	size_t headerIdx = 0;
 	size_t sectionIdx;
 	struct MiO_Section section;
-struct MiO_Data    data;
+	struct MiO_Data    data;
 	getDataStart(f);
 	do
 	{
@@ -58,7 +58,15 @@ struct MiO_Data    data;
 
 			sectionIdx++; // next section
 		} while(!(section.flags & MIO_SECTION_FLAG_LAST)); // until last section
-		// read data
+
+		// read data header
+		if (fread(&data, sizeof(struct MiO_Header), 1, f) != 1)
+		{
+			// failed
+			printError(errno, "Failed to read data header.\n");
+			return; // leave
+		}
+		printData(data);
 
 		headerIdx++; // next header
 	} while (!(currentHeader.flags & MIO_HEADER_FLAG_LAST)); // until last header
