@@ -68,4 +68,4 @@ ld_input (const char *file)
 
 close_and_leave:
 	fclose(fp);
-	}
+}
