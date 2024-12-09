@@ -34,6 +34,10 @@ struct file
 // ld.c
 extern const char *self;
 
+// error.c
+extern size_t errors;
+extern void error (int, const char *, ...);
+
 // free.c
 extern void freeAll     (void);
 extern void freeSection (struct section *);

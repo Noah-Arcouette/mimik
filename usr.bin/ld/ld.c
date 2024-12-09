@@ -13,4 +13,5 @@ main (int argc, const char **const argv)
 	}
 
 	atexit(freeAll);
+	return errors;
 }
