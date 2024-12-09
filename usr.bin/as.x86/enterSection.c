@@ -60,6 +60,7 @@ enterSection (const char *restrict section, const char *restrict flags)
 	currentSection->firstGap    = (struct gap    *)NULL;
 	currentSection->bssz        = 0;
 	currentSection->flags       = 0;
+	currentSection->next        = (struct section *)NULL;
 
 	// assign name
 	currentSection->name = strdup(section);
@@ -96,15 +97,11 @@ enterSection (const char *restrict section, const char *restrict flags)
 		flags++;
 	}
 
-	// add into list
-	if (firstSection)
+	// add into end of list
+	struct section **curr = &firstSection;
+	while (*curr)
 	{
-		struct section *tail = firstSection->next;
-		firstSection  ->next = currentSection;
-		currentSection->next = tail;
-		return;
+		curr = &(*curr)->next;
 	}
-
-	currentSection->next = (struct section *)NULL;
-	firstSection         = currentSection;
+	*curr = currentSection;
 }
