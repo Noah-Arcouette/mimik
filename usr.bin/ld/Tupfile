@@ -4,4 +4,5 @@ include_rules
 : foreach *.c |> !host_cc   |> ./obj/%B.o {obj}
 : {obj}       |> !host_ccld |> $(ROOT)/toolchain/ld | $(ROOT)/<toolchain>
 
-:  | $(ROOT)/<toolchain> |> $(VALGRIND) $(ROOT)/toolchain/ld |>
+: foreach *.S |> !testing_as |> ./mio/%B.o {mio}
+: {mio} | $(ROOT)/<toolchain> |> $(VALGRIND) $(ROOT)/toolchain/ld %f |>
