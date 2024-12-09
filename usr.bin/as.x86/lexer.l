@@ -38,7 +38,7 @@ setString (void)
 	yylval.lineno = lineno;
 	return DFILE;
 }
-[ \t]*".globl"[ \t]* {
+[ \t]*".glob"a?"l"[ \t]* {
 	printf("Lexer : GLOBAL: `%s'\n", yytext);
 
 	yylval.lineno = lineno;
