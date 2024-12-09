@@ -42,5 +42,7 @@ extern void error (int, const char *, ...);
 extern void freeAll     (void);
 extern void freeSection (struct section *);
 
+// ld_func/input.c
+extern void ld_input (const char *);
 
 #endif

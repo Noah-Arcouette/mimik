@@ -13,5 +13,10 @@ main (int argc, const char **const argv)
 	}
 
 	atexit(freeAll);
+	for (int i = 1; i<argc; i++)
+	{
+		ld_input(argv[i]);
+	}
+
 	return errors;
 }

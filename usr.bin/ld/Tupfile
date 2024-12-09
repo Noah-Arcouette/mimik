@@ -1,8 +1,9 @@
 include_rules
 
 # toolchain build
-: foreach *.c |> !host_cc   |> ./obj/%B.o {obj}
-: {obj}       |> !host_ccld |> $(ROOT)/toolchain/ld | $(ROOT)/<toolchain>
+: foreach ./ld_func/*.c |> !host_cc   |> ./obj/ld_func/%B.o {obj}
+: foreach *.c           |> !host_cc   |> ./obj/%B.o {obj}
+: {obj}                 |> !host_ccld |> $(ROOT)/toolchain/ld | $(ROOT)/<toolchain>
 
 : foreach *.S |> !testing_as |> ./mio/%B.o {mio}
 : {mio} | $(ROOT)/<toolchain> |> $(VALGRIND) $(ROOT)/toolchain/ld %f |>
