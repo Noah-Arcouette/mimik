@@ -34,5 +34,9 @@ struct file
 // ld.c
 extern const char *self;
 
+// free.c
+extern void freeAll     (void);
+extern void freeSection (struct section *);
+
 
 #endif

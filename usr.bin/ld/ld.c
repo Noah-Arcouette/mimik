@@ -12,5 +12,5 @@ main (int argc, const char **const argv)
 		self = argv[0];
 	}
 
-	return 0;
+	atexit(freeAll);
 }
