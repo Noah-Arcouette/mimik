@@ -1,51 +1,44 @@
 
-Boot loader:
-	- Load kernel from file system
-	- Load initial processes and services from file system
-	- Use kernel, unreal-mode stub, to load and boot strap the kernel structures
+```C
+// errors
+typedef enum KernelError err_t;
+err_t geterr (pid_t);
+
+// process information
+pid_t getpid (void);  // get calling processes PID, never fails
+pid_t fork   (pid_t); // create a duplicate of a PID
+void  kill   (pid_t); // destroy a PID
+void  swtch  (pid_t); // switch current execution to a PID
+
+// memory mapping
+virt_t  map (pid_t, virt_t, void *, size_t, flags_t); // create a new virtual data point for a section of memory, or modify memory, or split memory
+void  unmap (pid_t, virt_t);                          // destroy a virtual data point
+
+// context, ctx includes registers and system call jump point
+void  push (pid_t, off_t, ctx_t); // push a new context at an offset
+void  drop (pid_t, off_t);        // drop a context at an offset
+ctx_t pull (pid_t, off_t);        // pull a context at an offset
+void  put  (pid_t, off_t, ctx_t); // put, in place, a new context at an offset
+off_t last (pid_t);               // get last context offset
+
+// capabilities
+caps_t capget (pid_t);         // get capabilities
+caps_t capset (pid_t, caps_t); // set capabilities
+
+// interrupts
+void capture    (vec_t, pid_t, void *); // capture an interrupt
+void relinquish (vec_t, pid_t);         // relinquish an interrupt
+void trigger    (vec_t);                // trigger an interrupt
 
 
-Message Protocol:
-	Fork Message:
-		duplicate all data
+// init process, for each thread
+struct process {
+	const char *path;
+	pid_t       pid;
+	struct map  map;
+};
+void noreturn _init (struct memory *, struct kernel *, struct process *procs);
 
-fork():
- -> Fork all message channels
-
-execv():
- -> Replace core image
-
-// setup paging
-// setup GDT
-// setup TSS
-// setup IDT
-// enable interrupts
-// setup system call stuff
-
-// Processes:
-// pid_t fork   (pid_t, struct ctx); // TSS
-// int   kill   (pid_t            ); // (IPI)
-// pid_t getpid (                 );
-
-// Context:
-// int push (pid_t, struct ctx   ); // TSS (IPI)
-// int drop (pid_t               ); // TSS (IPI)
-// int swch (pid_t to, pid_t from); // TSS (IPI)
-
-// Memory:
-// int   map (pid_t, void **virt, void **phys, perm_t, size_t pagesize); // Paging
-// int unmap (pid_t,  void *virt                                      ); // Paging (IPI)
-
-// Interrupts:
-// int cap (pid_t, vec_t, void *jump); // capture    : IDT (APIC)
-// int rqs (       vec_t            ); // relinquish : IDT (APIC)
-
-// int cnt (pid_t, void *jump); // control system calls
-// int rel (pid_t            ); // release back to system
-
-// Capabilities:
-// caps_t capget (pid_t        );
-// caps_t capset (pid_t, caps_t);
-
-// Architecture Dependent:
-// port i/o
+// mimik abi
+void noreturn _start (struct memory *, struct proc *, struct vfs *, struct net *, ...);
+```
