@@ -1,4 +1,7 @@
 #include <string.h>
+#include <stdlib.h>
+#include <endian.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <errno.h>
 #include <mio.h>
@@ -70,7 +73,7 @@ ld_input (const char *file)
 
 	// upon loading please keep track of file name and add a symbol between sections
 	struct MiO_Section *s;
-size_t sections  = 0; // use a vector locally, then shrink it to fit later
+	size_t sections  = 0; // use a vector locally, then shrink it to fit later
 	size_t sectioncp = 0;
 	do
 	{
