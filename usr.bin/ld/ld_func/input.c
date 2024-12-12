@@ -105,6 +105,14 @@ size_t sections  = 0; // use a vector locally, then shrink it to fit later
 		}
 	} while (!(s->flags & MIO_SECTION_FLAG_LAST));
 
+	// shrink the section vector
+	s = (struct MiO_Section *)realloc(inputfile->section, sections*sizeof(struct MiO_Section));
+	if (!s)
+	{
+		error(errno, "Failed to skrink section vector\n");
+		goto close_and_leave; // not fatal so just let it continue with a final error
+	}
+	inputfile->section = s;
 close_and_leave:
 	fclose(fp);
 	return;
