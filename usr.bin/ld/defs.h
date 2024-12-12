@@ -24,7 +24,7 @@ struct section
 	struct MiO_Map map;
 };
 
-struct file
+struct outputfile
 {
 	struct section *section;
 	size_t          sections;
@@ -38,11 +38,19 @@ extern const char *self;
 extern size_t errors;
 extern void error (int, const char *, ...);
 
+// ld_func/input.c
+struct inputfile
+{
+	char               *filename;
+	struct MiO_Section *section;
+	char               *data;
+	size_t              datasz;
+};
+extern void ld_input (const char *);
+
 // free.c
 extern void freeAll     (void);
 extern void freeSection (struct section *);
-
-// ld_func/input.c
-extern void ld_input (const char *);
+extern void freeFile    (struct inputfile *);
 
 #endif
