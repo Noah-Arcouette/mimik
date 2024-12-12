@@ -40,5 +40,13 @@ freeFile (struct inputfile *f)
 void
 freeAll (void)
 {
-	// nothing to do for now
+	// free input files
+	while (inputfiles--)
+	{
+		freeFile(&inputfile[inputfiles]);
+	}
+	free(inputfile);
+	inputfiles  = 0;
+	inputfilecp = 0;
+	inputfile   = (struct inputfile *)NULL;
 }

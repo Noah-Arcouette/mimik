@@ -4,6 +4,10 @@
 #include <mio.h>
 #include "../defs.h"
 
+struct inputfile *inputfile   = (struct inputfile *)NULL;
+size_t            inputfiles  = 0;
+size_t            inputfilecp = 0;
+
 void
 ld_input (const char *file)
 {

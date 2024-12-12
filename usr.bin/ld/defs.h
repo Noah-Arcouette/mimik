@@ -3,10 +3,10 @@
 #include <stddef.h>
 #include <mio.h>
 
-struct section 
+struct section
 {
 	char *name;
-	
+
 	struct MiO_SymList *symbol;
 	size_t              symbols;
 	size_t              symbolcp;
@@ -46,6 +46,9 @@ struct inputfile
 	char               *data;
 	size_t              datasz;
 };
+extern struct inputfile *inputfile;
+extern size_t            inputfiles;
+extern size_t            inputfilecp;
 extern void ld_input (const char *);
 
 // free.c
