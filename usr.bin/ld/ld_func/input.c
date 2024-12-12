@@ -61,6 +61,13 @@ ld_input (const char *file)
 	currfile = &inputfile[inputfiles-1];
 	memset(currfile, 0, sizeof(struct inputfile)); // nullify
 
+	// set file name
+	if (!(currfile->filename = strdup(file)))
+	{
+		error(errno, "Failed to allocate file name\n");
+		goto kill_file_and_leave;
+	}
+
 	// upon loading please keep track of file name and add a symbol between sections
 	struct MiO_Section s;
 	do
@@ -89,5 +96,10 @@ ld_input (const char *file)
 	} while (!(s.flags & MIO_SECTION_FLAG_LAST));
 
 close_and_leave:
+	fclose(fp);
+	return;
+kill_file_and_leave:
+	inputfiles--;
+	freeFile(currfile);
 	fclose(fp);
 }
