@@ -69,31 +69,41 @@ ld_input (const char *file)
 	}
 
 	// upon loading please keep track of file name and add a symbol between sections
-	struct MiO_Section s;
+	struct MiO_Section *s;
+size_t sections  = 0; // use a vector locally, then shrink it to fit later
+	size_t sectioncp = 0;
 	do
 	{
+		// allocate new section
+		sections++;
+		if (sections > sectioncp)
+		{
+			sectioncp = (3*sections)/2;
+			s = (struct MiO_Section *)realloc(inputfile->section, sectioncp*sizeof(struct MiO_Section));
+			if (!s)
+			{
+				error(errno, "Failed to allocate new sections for file");
+				goto kill_file_and_leave;
+			}
+			inputfile->section = s;
+		}
+		s = &inputfile->section[sections-1];
+
 		// read new section
-		if (fread(&s, sizeof(struct MiO_Section), 1, fp) != 1)
+		if (fread(s, sizeof(struct MiO_Section), 1, fp) != 1)
 		{
 			error(errno, "%s: Failed to read section from file\n", file);
-			goto close_and_leave;
+			goto kill_file_and_leave;
 		}
 
-		// if not a special section, then create it in the output file
-		if (!strncmp((const char *)s.name, MIO_SYMLIST_NAME, sizeof(s.name)) ||
-			!strncmp((const char *)s.name, MIO_GAP_NAME,     sizeof(s.name)))
-		{
-			continue; // skip these
-		}
-		if (!strncmp((const char *)s.name, MIO_MAP_NAME, sizeof(s.name)) ||
-		    !strncmp((const char *)s.name, MIO_SEG_NAME, sizeof(s.name)))
+		// make sure the file isn't already linked
+		if (!strncmp((const char *)s->name, MIO_MAP_NAME, sizeof(s->name)) ||
+		    !strncmp((const char *)s->name, MIO_SEG_NAME, sizeof(s->name)))
 		{
 			error(0, "%s: File already linked\n", file); // error on these
-			goto close_and_leave;
+			goto kill_file_and_leave;
 		}
-
-		// add section to file
-	} while (!(s.flags & MIO_SECTION_FLAG_LAST));
+	} while (!(s->flags & MIO_SECTION_FLAG_LAST));
 
 close_and_leave:
 	fclose(fp);
