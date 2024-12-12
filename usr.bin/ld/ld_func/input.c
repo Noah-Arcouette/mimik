@@ -43,6 +43,24 @@ ld_input (const char *file)
 		goto close_and_leave;
 	}
 
+	// allocate new file
+	struct inputfile *currfile;
+	inputfiles++;
+	if (inputfiles > inputfilecp)
+	{
+		inputfilecp = (3*inputfiles)/2;
+		currfile = (struct inputfile *)realloc(inputfile, inputfilecp*sizeof(struct inputfile)); // using currfile as a temp
+		if (!currfile)
+		{
+			inputfilecp = --inputfiles;
+			error(errno, "Failed to allocate new file\n");
+			goto close_and_leave;
+		}
+		inputfile = currfile;
+	}
+	currfile = &inputfile[inputfiles-1];
+	memset(currfile, 0, sizeof(struct inputfile)); // nullify
+
 	// upon loading please keep track of file name and add a symbol between sections
 	struct MiO_Section s;
 	do
