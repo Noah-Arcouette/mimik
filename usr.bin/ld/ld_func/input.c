@@ -113,6 +113,29 @@ size_t sections  = 0; // use a vector locally, then shrink it to fit later
 		goto close_and_leave; // not fatal so just let it continue with a final error
 	}
 	inputfile->section = s;
+
+	// load file data
+	struct MiO_Data data;
+	if (fread(&data, sizeof(struct MiO_Data), 1, fp) != 1)
+	{
+		error(errno, "Failed to read data structure from file.\n");
+		goto kill_file_and_leave;
+	}
+
+	// read data into data
+	currfile->datasz = le64toh(*(uint64_t *)data.size);
+	currfile->data   = (char *)malloc(currfile->datasz);
+	if (!currfile)
+	{
+		error(errno, "Failed to allocate memory for data.\n");
+		goto kill_file_and_leave;
+	}
+	if (fread(currfile->data, 1, currfile->datasz, fp) != currfile->datasz)
+	{
+		error(errno, "Failed to read data from file.\n");
+		goto kill_file_and_leave;
+	}
+
 close_and_leave:
 	fclose(fp);
 	return;
