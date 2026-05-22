@@ -33,3 +33,5 @@ menu "Build"
 		string "Distribution directory"
 		default "dist"
 endmenu
+
+source "usr.bin/Kconfig"

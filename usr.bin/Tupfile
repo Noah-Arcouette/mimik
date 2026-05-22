@@ -1,0 +1,8 @@
+include_rules
+FILES=
+
+ifeq (@(USR_BIN_UNAME),y)
+FILES+=uname.c
+endif
+
+: foreach $(FILES) |> !ccld |> $(DIST)/usr/bin/%B
