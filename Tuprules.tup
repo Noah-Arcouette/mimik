@@ -17,4 +17,5 @@ ifeq (@(BUILD_HOST),y)
 !cc = !hostcc
 endif
 
+# For compressible text file specifically
 !txtcp = |> ^ TXTCP    %b^ cp %f %o |>
