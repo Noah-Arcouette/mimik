@@ -17,4 +17,8 @@ ifeq (@(USR_BIN_LOGNAME),y)
 FILES+=logname.c
 endif
 
+ifeq (@(USR_BIN_ECHO),y)
+FILES+=echo.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/usr/bin/%B
