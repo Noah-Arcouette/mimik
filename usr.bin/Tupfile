@@ -5,4 +5,8 @@ ifeq (@(USR_BIN_UNAME),y)
 FILES+=uname.c
 endif
 
+ifeq (@(USR_BIN_TTY),y)
+FILES+=tty.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/usr/bin/%B

@@ -14,5 +14,6 @@ menu "Default Builds"
 	config DEFAULT_POSIX
 		bool "POSIX required functionality"
 		imply USR_BIN_UNAME
+		imply USR_BIN_TTY
 		default y
 endmenu

@@ -4,4 +4,9 @@ menu "usr.bin/ - non-essential user binaries"
 		help
 			Print system identification information
 		imply SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_UNAME
+
+	config USR_BIN_TTY
+		bool "tty"
+		help
+			Get user's terminal name
 endmenu
