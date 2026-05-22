@@ -60,7 +60,7 @@ Description of standard output use
 
 # Output Files
 
-Description of ouput file format and use
+Description of output file format and use
 
 
 # Standard Error
