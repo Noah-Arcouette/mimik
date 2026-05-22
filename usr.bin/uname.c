@@ -1,4 +1,5 @@
 #include <sys/utsname.h>
+#include <locale.h>
 #include <unistd.h>
 #include <stdio.h>
 
@@ -11,6 +12,8 @@
 int
 main (int argc, char *argv[])
 {
+	setlocale(LC_ALL, "");
+
 	int c;
 	int errors = 0;
 
