@@ -87,7 +87,7 @@ None.
 # Exit Status
 
 `>0`
-	An error occured.
+	An error occurred.
 
 `0`
 	Successful.

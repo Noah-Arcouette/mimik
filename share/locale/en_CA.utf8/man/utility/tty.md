@@ -70,7 +70,7 @@ None.
 # Exit Status
 
 `>1`
-	An error occured.
+	An error occurred.
 
 `1`
 	Error not connected to a TTY.
