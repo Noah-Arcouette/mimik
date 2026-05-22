@@ -4,4 +4,7 @@ menu "utility/ -- Utility manuals"
 
 	config SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_TTY
 		bool "tty"
+
+	config SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_HEAD
+		bool "head"
 endmenu

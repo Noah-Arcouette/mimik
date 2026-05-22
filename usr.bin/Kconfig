@@ -15,4 +15,5 @@ menu "usr.bin/ - non-essential user binaries"
 		bool "head"
 		help
 			Copy the first parts of a file
+		imply SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_HEAD
 endmenu

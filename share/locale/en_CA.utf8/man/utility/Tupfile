@@ -10,5 +10,9 @@ ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_TTY),y)
 FILES+=tty.md
 endif
 
+ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_HEAD),y)
+FILES+=head.md
+endif
+
 : foreach $(FILES) |> !txtcp \
 	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b
