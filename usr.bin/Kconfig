@@ -10,4 +10,9 @@ menu "usr.bin/ - non-essential user binaries"
 		help
 			Get user's terminal name
 		imply SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_TTY
+
+	config USR_BIN_HEAD
+		bool "head"
+		help
+			Copy the first parts of a file
 endmenu

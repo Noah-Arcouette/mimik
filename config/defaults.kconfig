@@ -15,5 +15,6 @@ menu "Default Builds"
 		bool "POSIX required functionality"
 		imply USR_BIN_UNAME
 		imply USR_BIN_TTY
+		imply USR_BIN_HEAD
 		default y
 endmenu

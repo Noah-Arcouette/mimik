@@ -9,4 +9,8 @@ ifeq (@(USR_BIN_TTY),y)
 FILES+=tty.c
 endif
 
+ifeq (@(USR_BIN_HEAD),y)
+FILES+=head.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/usr/bin/%B
