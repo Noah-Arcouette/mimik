@@ -1,0 +1,5 @@
+menuconfig SHARE_LOCALE_EN_CA_UTF8
+	bool "en_CA.utf8/ -- UTF-8 Canadian English"
+if SHARE_LOCALE_EN_CA_UTF8
+	source "share/locale/en_CA.utf8/man/Kconfig"
+endif
