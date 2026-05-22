@@ -1,10 +1,14 @@
 #include <libintl.h>
+#include <locale.h>
 #include <unistd.h>
 #include <stdio.h>
 
 int
 main (void)
 {
+	setlocale(LC_ALL, "");
+	textdomain("tty");
+
 	// not a tty
 	if (!isatty(STDIN_FILENO))
 	{
