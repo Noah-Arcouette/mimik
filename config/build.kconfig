@@ -24,6 +24,8 @@ menu "Build"
 	# 	config BUILD_TARGET
 	# endif
 
+	# config BUILD_TOOL_COMPRESS
+
 	config BUILD_OBJ
 		string "Object and temporary directory"
 		default "obj"
