@@ -15,6 +15,10 @@ ifeq (@(USR_BIN_HEAD),y)
 FILES+=head.md
 endif
 
+ifeq (@(USR_BIN_LOGNAME),y)
+FILES+=logname.md
+endif
+
 : foreach $(FILES) |> !txtcp \
 	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b
 
