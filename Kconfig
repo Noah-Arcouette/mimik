@@ -1,37 +1,4 @@
 mainmenu "Mimik (Alpha)"
 
-menu "Build"
-	comment "Host toolchain"
-	config BUILD_CC
-		string "C compiler"
-		default "clang"
-	config BUILD_CFLAGS
-		string "C Flags"
-		default "-Wall -Wextra -O0 -g"
-
-	config BUILD_EXEC
-		string "Execution environment"
-		default "valgrind --show-reachable --leak-check=full --error-exitcode=1"
-		help
-			This is used to run built tools in for testing purposes
-
-	comment "Output control"
-	config BUILD_HOST
-		bool "Build for this system"
-
-	if !BUILD_HOST
-		# config BUILD_UNITY
-		# config BUILD_IMAGE # boot image
-		# config BUILD_TOOL_{CC,AS,LD,MIO2BIN,MKFS,FDISK}
-		# config BUILD_TARGET
-	endif
-
-	config BUILD_OBJ
-		string "Object and temporary directory"
-		default "obj"
-	config BUILD_DIST
-		string "Distribution directory"
-		default "dist"
-endmenu
-
+source "config/build.kconfig"
 source "usr.bin/Kconfig"
