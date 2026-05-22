@@ -16,3 +16,5 @@ ifeq (@(BUILD_HOST),y)
 !ccld = !hostccld
 !cc = !hostcc
 endif
+
+!txtcp = |> ^ TXTCP    %b^ cp %f %o |>
