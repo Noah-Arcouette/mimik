@@ -16,5 +16,6 @@ menu "Default Builds"
 		imply USR_BIN_UNAME
 		imply USR_BIN_TTY
 		imply USR_BIN_HEAD
+		imply USR_BIN_LOGNAME
 		default y
 endmenu

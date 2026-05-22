@@ -13,4 +13,8 @@ ifeq (@(USR_BIN_HEAD),y)
 FILES+=head.c
 endif
 
+ifeq (@(USR_BIN_LOGNAME),y)
+FILES+=logname.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/usr/bin/%B

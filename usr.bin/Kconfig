@@ -14,4 +14,8 @@ menu "usr.bin/ - non-essential user binaries"
 		help
 			Copy the first parts of a file
 
+	config USR_BIN_LOGNAME
+		bool "logname"
+		help
+			Print the user's login name
 endmenu
