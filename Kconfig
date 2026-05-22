@@ -1,4 +1,6 @@
 mainmenu "Mimik (Alpha)"
 
 source "config/build.kconfig"
+source "config/defaults.kconfig"
+
 source "usr.bin/Kconfig"

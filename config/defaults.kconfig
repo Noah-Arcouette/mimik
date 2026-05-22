@@ -1,0 +1,6 @@
+menu "Default Builds"
+	config DEFAULT_POSIX
+		bool "POSIX required functionality"
+		imply USR_BIN_UNAME
+		default y
+endmenu
