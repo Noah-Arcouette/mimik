@@ -1,0 +1,7 @@
+include_rules
+
+ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_TEMPLATE),y)
+
+: foreach *.md |> !txtcp |> $(DIST)/usr/share/locale/en_CA.utf8/man/template/%b
+
+endif
