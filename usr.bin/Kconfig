@@ -9,4 +9,5 @@ menu "usr.bin/ - non-essential user binaries"
 		bool "tty"
 		help
 			Get user's terminal name
+		imply SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_TTY
 endmenu
