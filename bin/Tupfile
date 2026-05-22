@@ -1,0 +1,8 @@
+include_rules
+FILES=
+
+ifeq (@(BIN_ECHO),y)
+FILES+=echo.c
+endif
+
+: foreach $(FILES) |> !ccld |> $(DIST)/bin/%B

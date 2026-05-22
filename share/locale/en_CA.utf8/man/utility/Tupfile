@@ -19,7 +19,7 @@ ifeq (@(USR_BIN_LOGNAME),y)
 FILES+=logname.md
 endif
 
-ifeq (@(USR_BIN_ECHO),y)
+ifeq (@(BIN_ECHO),y)
 FILES+=echo.md
 endif
 

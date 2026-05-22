@@ -18,9 +18,4 @@ menu "usr.bin/ - non-essential user binaries"
 		bool "logname"
 		help
 			Print the user's login name
-
-	config USR_BIN_ECHO
-		bool "echo"
-		help
-			Print strings
 endmenu

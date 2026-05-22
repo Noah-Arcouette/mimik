@@ -1,0 +1,6 @@
+menu "bin/ - essential user binaries"
+	config BIN_ECHO
+		bool "echo"
+		help
+			Print strings
+endmenu
