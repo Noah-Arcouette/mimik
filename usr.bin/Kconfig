@@ -3,17 +3,15 @@ menu "usr.bin/ - non-essential user binaries"
 		bool "uname"
 		help
 			Print system identification information
-		imply SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_UNAME
 
 	config USR_BIN_TTY
 		bool "tty"
 		help
 			Get user's terminal name
-		imply SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_TTY
 
 	config USR_BIN_HEAD
 		bool "head"
 		help
 			Copy the first parts of a file
-		imply SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_HEAD
+
 endmenu

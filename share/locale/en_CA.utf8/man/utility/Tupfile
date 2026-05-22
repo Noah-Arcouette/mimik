@@ -1,18 +1,21 @@
 include_rules
 
+ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY),y)
 FILES=
 
-ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_UNAME),y)
+ifeq (@(USR_BIN_UNAME),y)
 FILES+=uname.md
 endif
 
-ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_TTY),y)
+ifeq (@(USR_BIN_TTY),y)
 FILES+=tty.md
 endif
 
-ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY_HEAD),y)
+ifeq (@(USR_BIN_HEAD),y)
 FILES+=head.md
 endif
 
 : foreach $(FILES) |> !txtcp \
 	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b
+
+endif
