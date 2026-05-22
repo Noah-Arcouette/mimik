@@ -1,4 +1,16 @@
 menu "Default Builds"
+	config DEFAULT_MANUALS
+		bool "Include manuals"
+		imply SHARE_LOCALE_EN_CA_UTF8_MAN
+		default y
+
+	menu "Locales"
+		config DEFAULT_LOCALE_EN_CA_UTF8
+			bool "en_CA.utf8"
+			imply SHARE_LOCALE_EN_CA_UTF8
+			default y
+	endmenu
+
 	config DEFAULT_POSIX
 		bool "POSIX required functionality"
 		imply USR_BIN_UNAME
