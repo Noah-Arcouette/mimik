@@ -23,7 +23,7 @@ ifeq (@(BIN_ECHO),y)
 FILES+=echo.md
 endif
 
-: foreach $(FILES) |> !txtcp \
-	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b
+: foreach $(FILES) |> !comp \
+	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b$(COMP_EXT)
 
 endif
