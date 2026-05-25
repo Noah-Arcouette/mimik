@@ -13,10 +13,10 @@ menu "Default Builds"
 
 	config DEFAULT_POSIX
 		bool "POSIX required functionality"
-		imply USR_BIN_UNAME
-		imply USR_BIN_TTY
-		imply USR_BIN_HEAD
-		imply USR_BIN_LOGNAME
+		imply BIN_UNAME
+		imply BIN_TTY
+		imply BIN_HEAD
+		imply BIN_LOGNAME
 		imply BIN_ECHO
 		default y
 endmenu

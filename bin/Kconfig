@@ -3,4 +3,24 @@ menu "bin/ - essential user binaries"
 		bool "echo"
 		help
 			Print strings
+
+	config BIN_UNAME
+		bool "uname"
+		help
+			Print system identification information
+
+	config BIN_TTY
+		bool "tty"
+		help
+			Get user's terminal name
+
+	config BIN_HEAD
+		bool "head"
+		help
+			Copy the first parts of a file
+
+	config BIN_LOGNAME
+		bool "logname"
+		help
+			Print the user's login name
 endmenu

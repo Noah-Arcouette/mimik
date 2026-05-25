@@ -5,4 +5,24 @@ ifeq (@(BIN_ECHO),y)
 FILES+=echo.c
 endif
 
+ifeq (@(BIN_UNAME),y)
+FILES+=uname.c
+endif
+
+ifeq (@(BIN_TTY),y)
+FILES+=tty.c
+endif
+
+ifeq (@(BIN_HEAD),y)
+FILES+=head.c
+endif
+
+ifeq (@(BIN_LOGNAME),y)
+FILES+=logname.c
+endif
+
+ifeq (@(BIN_ECHO),y)
+FILES+=echo.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/bin/%B

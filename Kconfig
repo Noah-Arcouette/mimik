@@ -5,4 +5,3 @@ source "config/defaults.kconfig"
 
 source "bin/Kconfig"
 source "share/Kconfig"
-source "usr.bin/Kconfig"

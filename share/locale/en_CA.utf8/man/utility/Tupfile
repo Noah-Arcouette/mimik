@@ -3,19 +3,19 @@ include_rules
 ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY),y)
 FILES=
 
-ifeq (@(USR_BIN_UNAME),y)
+ifeq (@(BIN_UNAME),y)
 FILES+=uname.md
 endif
 
-ifeq (@(USR_BIN_TTY),y)
+ifeq (@(BIN_TTY),y)
 FILES+=tty.md
 endif
 
-ifeq (@(USR_BIN_HEAD),y)
+ifeq (@(BIN_HEAD),y)
 FILES+=head.md
 endif
 
-ifeq (@(USR_BIN_LOGNAME),y)
+ifeq (@(BIN_LOGNAME),y)
 FILES+=logname.md
 endif
 
