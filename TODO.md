@@ -2,21 +2,15 @@
 
 # POSIX Utils
 
-c17
-admin
 alias
 ar
-asa
 at
 awk
 basename
 batch
 bc
-bg
-cal
 cat
 cd
-cflow
 chgrp
 chmod
 chown
@@ -24,34 +18,25 @@ cksum
 cmp
 comm
 command
-compress
 cp
 crontab
 csplit
-ctags
 cut
-cxref
 date
 dd
-delta
 df
 diff
 dirname
 du
 ed
 env
-ex
 expand
 expr
 false
-fc
-fg
 file
 find
 fold
-fuser
 gencat
-get
 getconf
 getopts
 gettext
@@ -59,13 +44,8 @@ grep
 hash
 iconv
 id
-ipcrm
-ipcs
-jobs
 join
 kill
-lex
-link
 ln
 locale
 localedef
@@ -74,19 +54,13 @@ lp
 ls
 m4
 mailx
-make
-man
 mesg
 mkdir
 mkfifo
-more
 msgfmt
 mv
 newgrp
 ngettext
-nice
-nl
-nm
 nohup
 od
 paste
@@ -95,7 +69,6 @@ pathchk
 pax
 pr
 printf
-prs
 ps
 pwd
 read
@@ -103,21 +76,16 @@ readlink
 realpath
 renice
 rm
-rmdel
 rmdir
-sact
-sccs
 sed
 sh
 sleep
 sort
 split
 strings
-strip
 stty
 tabs
 tail
-talk
 tee
 test
 time
@@ -127,31 +95,70 @@ tput
 tr
 true
 tsort
-type
 ulimit
 umask
 unalias
-uncompress
 unexpand
-unget
 uniq
-unlink
-uucp
-uudecode
-uuencode
-uustat
-uux
-val
-vi
 wait
 wc
-what
 who
 write
 xargs
-xgettext
-yacc
-zcat
+
+[SD]:
+	make
+	nm
+	strip
+[CD]:
+	c17
+	ctags
+	lex
+	yacc
+	xgettext
+[XSI]:
+	admin
+	cal
+	cflow
+	compress
+	uncompress
+	cxref
+	delta
+	fuser
+	get
+	ipcrm
+	ipcs
+	link
+	unlink
+	nice
+	nl
+	prs
+	rmdel
+	sact
+	sccs
+	type
+	unget
+	val
+	what
+	zcat
+[FR]:
+	asa
+[UP]:
+	bg
+	ex
+	fc
+	fg
+	jobs
+	man
+	more
+	talk
+	vi
+[UU]:
+	uucp
+	uudecode
+	uuencode
+	uustat
+	uux
 
 
 # Toolchain
