@@ -1,10 +1,6 @@
 include_rules
 FILES=
 
-ifeq (@(BIN_ECHO),y)
-FILES+=echo.c
-endif
-
 ifeq (@(BIN_UNAME),y)
 FILES+=uname.c
 endif
