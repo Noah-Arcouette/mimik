@@ -4,6 +4,7 @@
 #include <locale.h>
 #include <string.h>
 #include <stdio.h>
+#include <errno.h>
 
 /**
  * Read in the head of a file
@@ -29,7 +30,8 @@ headFile (const char *filename, int lines, int bytes)
 		fp = fopen(filename, "r");
 		if (!fp)
 		{
-			perror("fopen");
+			int error = errno;
+			fprintf(stderr, gettext("%s: %s\n"), filename, strerror(error));
 			return 1;
 		}
 	}
