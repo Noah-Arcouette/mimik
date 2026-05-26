@@ -182,12 +182,28 @@ boot.efi
 
 # Kernel-ish
 
-kernel
+kernel:
+	replace kill?, yield-to?, jump-point?
+	fork pid = child
+	caps pid caps = caps (some kind of capability or bitfield security)
+	capture vec_t pid
+	wait = vec_t ... (wait for a captured interrupt, or preemption)
+	union pid pid (merge to process execution memory and level, can be used
+		with kernel; this is just for optimization)
+	in/out (port i/o stuff)
 init
-services: vfs, mem, net, proc, ui, acct
+services:
+	fabric (
+		the core IPC -- in user-space -- using memory pages and map for
+		security.
+		blocking client writing when being used and returning it after the
+		command is finished or some other thing
+	)
+	vfs, mem, net, proc, ui, acct
 drivers:
 	ahci, scsi
 	acpi
+	apic, mp (multiprocessor stuff)
 	uefi
 	pci
 	nvme
