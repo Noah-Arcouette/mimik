@@ -3,6 +3,10 @@ include_rules
 ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY),y)
 FILES=
 
+ifeq (@(BIN_CAT),y)
+FILES+=cat.md
+endif
+
 ifeq (@(BIN_UNAME),y)
 FILES+=uname.md
 endif
