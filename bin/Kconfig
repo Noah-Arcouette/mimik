@@ -1,4 +1,9 @@
 menu "bin/ - essential user binaries"
+	config BIN_CAT
+		bool "cat"
+		help
+			Concatenate files together
+
 	config BIN_ECHO
 		bool "echo"
 		help

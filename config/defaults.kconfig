@@ -13,6 +13,7 @@ menu "Default Builds"
 
 	config DEFAULT_POSIX
 		bool "POSIX required functionality"
+		imply BIN_CAT
 		imply BIN_UNAME
 		imply BIN_TTY
 		imply BIN_HEAD

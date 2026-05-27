@@ -1,6 +1,10 @@
 include_rules
 FILES=
 
+ifeq (@(BIN_CAT),y)
+FILES+=cat.c
+endif
+
 ifeq (@(BIN_UNAME),y)
 FILES+=uname.c
 endif
