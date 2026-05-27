@@ -23,6 +23,7 @@ menu "Default Builds"
 
 	config DEFAULT_BUILD_TOOLS
 		bool "Build tools"
+		depends on !BUILD_HOST
 		imply USR_BIN_AS
 		default y
 endmenu
