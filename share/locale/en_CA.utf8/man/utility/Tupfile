@@ -3,6 +3,7 @@ include_rules
 ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_UTILITY),y)
 FILES=
 
+# bin
 ifeq (@(BIN_CAT),y)
 FILES+=cat.md
 endif
@@ -25,6 +26,12 @@ endif
 
 ifeq (@(BIN_ECHO),y)
 FILES+=echo.md
+endif
+
+
+# usr.bin
+ifeq (@(USR_BIN_AS),y)
+FILES+=as.md
 endif
 
 : foreach $(FILES) |> !comp \
