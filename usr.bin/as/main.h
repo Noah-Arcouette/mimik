@@ -1,5 +1,6 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
+#include <stdio.h>
 
 /// @brief The command line argument options
 extern struct arguments
@@ -15,5 +16,53 @@ extern struct arguments
  * @file args.c
  */
 extern int args (int argc, char *argv[]);
+
+/// @brief A lexer token type
+enum tokenType
+{
+	TOK_EOF,
+	TOK_NEWLINE,
+	TOK_COLON,
+	// directives
+	TOK_ARCH,
+	TOK_SECTION,
+	TOK_GLOBAL,
+	// values
+	TOK_SYMBOL
+};
+
+/// @brief A lexer token
+struct token
+{
+	enum tokenType type;
+
+	long lineno; // the current line number
+	long offset; // the current character offset
+	long size;   // the size of the current token buffer
+
+	long  bufcp; // the buffer capacity
+	void *buf;   // the token buffer
+};
+
+/**
+ * Create a token
+ * @param tok The token to initialize
+ * @file token.c
+ */
+extern void createToken (struct token *tok);
+
+/**
+ * Reset a token to the initial state
+ * @param tok The token to reset
+ * @file token.c
+ */
+extern void resetToken (struct token *tok);
+
+/**
+ * Free the data from a token
+ * @param tok The token to free
+ * @file token.c
+ */
+extern void destroyToken (struct token *tok);
 
 #endif

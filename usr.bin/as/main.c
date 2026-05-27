@@ -1,3 +1,4 @@
+#include <unistd.h>
 #include "main.h"
 
 int
@@ -9,7 +10,19 @@ main (int argc, char *argv[])
 		return 1;
 	}
 
-	// lexer
+	// lexer testing
+	struct token tok;
+	createToken(&tok);
+	for (int i = optind; i<argc; i++)
+	{
+		// open the file
+		// get each token and debug it
+
+		resetToken(&tok);
+	}
+	destroyToken(&tok);
+
+
 	// parser:
 	//  - sections
 	//  - architecture
