@@ -25,4 +25,8 @@ ifeq (@(BIN_ECHO),y)
 FILES+=echo.c
 endif
 
+ifeq (@(BIN_TRUE),y)
+FILES+=true.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/bin/%B

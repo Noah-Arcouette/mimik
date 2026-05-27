@@ -28,4 +28,9 @@ menu "bin/ - essential user binaries"
 		bool "logname"
 		help
 			Print the user's login name
+
+	config BIN_TRUE
+		bool "true"
+		help
+			Return true
 endmenu
