@@ -9,7 +9,6 @@ awk
 basename
 batch
 bc
-cat
 cd
 chgrp
 chmod
