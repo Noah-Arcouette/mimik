@@ -1,7 +1,14 @@
+#include "main.h"
+
 int
-main (void)
+main (int argc, char *argv[])
 {
 	// parse arguments
+	if (args(argc, argv))
+	{
+		return 1;
+	}
+
 	// lexer
 	// parser:
 	//  - sections
