@@ -20,4 +20,9 @@ menu "Default Builds"
 		imply BIN_LOGNAME
 		imply BIN_ECHO
 		default y
+
+	config DEFAULT_BUILD_TOOLS
+		bool "Build tools"
+		imply USR_BIN_AS
+		default y
 endmenu
