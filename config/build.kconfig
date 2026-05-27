@@ -9,7 +9,7 @@ menu "Build"
 
 	config BUILD_EXEC
 		string "Execution environment"
-		default "valgrind --show-reachable --leak-check=full --error-exitcode=1"
+		default "valgrind -q --show-reachable=yes --leak-check=full --error-exitcode=1"
 		help
 			This is used to run built tools in for testing purposes
 
@@ -31,14 +31,16 @@ menu "Build"
 			bool "Build a bootable image"
 
 			# x86-64
-			# select BOOT_X86_MBR_BIN if BUILD_TARGET_X86_64
+			select BOOT_X86_MBR_BIN if BUILD_TARGET_X86_64
 		config BUILD_IMAGE_FILE
 			string "Image file"
 			default "mimik.x64.img" if BUILD_TARGET_X86_64
 			depends on BUILD_IMAGE
-	endif
 
-	# config BUILD_TOOL_AS
+		# cross compile only tools
+		config BUILD_TOOL_AS
+			bool "Assembler"
+	endif
 
 	# config BUILD_TOOL_COMPRESS
 
