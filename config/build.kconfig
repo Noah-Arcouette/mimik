@@ -36,13 +36,16 @@ menu "Build"
 			string "Image file"
 			default "mimik.x64.img" if BUILD_TARGET_X86_64
 			depends on BUILD_IMAGE
-
-		# cross compile only tools
-		config BUILD_TOOL_AS
-			bool "Assembler"
 	endif
 
-	# config BUILD_TOOL_COMPRESS
+	menu "Tools"
+		config BUILD_TOOL_AS
+			bool "Assembler"
+			depends on !BUILD_HOST
+
+		# config BUILD_TOOL_COMPRESS
+	endmenu
+
 
 	config BUILD_OBJ
 		string "Object and temporary directory"
