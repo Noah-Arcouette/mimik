@@ -20,6 +20,7 @@ menu "Default Builds"
 		imply BIN_LOGNAME
 		imply BIN_ECHO
 		imply BIN_TRUE
+		imply BIN_FALSE
 		default y
 
 	config DEFAULT_BUILD_TOOLS

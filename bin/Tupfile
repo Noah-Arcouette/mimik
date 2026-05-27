@@ -29,4 +29,8 @@ ifeq (@(BIN_TRUE),y)
 FILES+=true.c
 endif
 
+ifeq (@(BIN_FALSE),y)
+FILES+=false.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/bin/%B

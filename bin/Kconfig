@@ -33,4 +33,9 @@ menu "bin/ - essential user binaries"
 		bool "true"
 		help
 			Return true
+
+	config BIN_FALSE
+		bool "false"
+		help
+			Return false
 endmenu

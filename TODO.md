@@ -31,7 +31,6 @@ ed
 env
 expand
 expr
-false
 file
 find
 fold
