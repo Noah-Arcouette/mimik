@@ -1,0 +1,9 @@
+if !BUILD_HOST
+
+menu "boot/"
+	if BUILD_TARGET_X86_64
+		source "boot/x86/Kconfig"
+	endif
+endmenu
+
+endif

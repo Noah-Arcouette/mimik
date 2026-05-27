@@ -15,6 +15,10 @@ EXEC=@(BUILD_EXEC)
 ifeq (@(BUILD_HOST),y)
 !ccld = !hostccld
 !cc = !hostcc
+else
+# not implemented so just us this for testing
+!ccld = !hostccld
+!cc = !hostcc
 endif
 
 !cp   = |> ^ CP       %b^ cp %f %o |>

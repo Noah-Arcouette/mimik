@@ -15,14 +15,30 @@ menu "Build"
 
 	comment "Output control"
 	config BUILD_HOST
-		bool "Build for this system"
+		bool "Build for the host system"
 
-	# if !BUILD_HOST
+	if !BUILD_HOST
 	# 	config BUILD_UNITY
-	# 	config BUILD_IMAGE # boot image
-	# 	config BUILD_TOOL_{CC,AS,LD,MIO2BIN,MKFS,FDISK}
-	# 	config BUILD_TARGET
-	# endif
+
+		choice BUILD_TARGET
+			bool "The build target"
+
+			config BUILD_TARGET_X86_64
+				bool "x86-64bit"
+		endchoice
+
+		config BUILD_IMAGE # boot image
+			bool "Build a bootable image"
+
+			# x86-64
+			# select BOOT_X86_MBR_BIN if BUILD_TARGET_X86_64
+		config BUILD_IMAGE_FILE
+			string "Image file"
+			default "mimik.x64.img" if BUILD_TARGET_X86_64
+			depends on BUILD_IMAGE
+	endif
+
+	# config BUILD_TOOL_AS
 
 	# config BUILD_TOOL_COMPRESS
 

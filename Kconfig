@@ -3,5 +3,6 @@ mainmenu "Mimik (Alpha)"
 source "config/build.kconfig"
 source "config/defaults.kconfig"
 
+source "boot/Kconfig"
 source "bin/Kconfig"
 source "share/Kconfig"
