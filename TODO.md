@@ -92,7 +92,6 @@ timeout
 touch
 tput
 tr
-true
 tsort
 ulimit
 umask
