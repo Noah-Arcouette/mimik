@@ -24,3 +24,7 @@ endif
 !cp   = |> ^ CP       %b^ cp %f %o |>
 !comp = !cp
 COMP_EXT=
+
+ifeq (@(BUILD_TOOL_AS),y)
+!as = | $(OBJ)/tool/<as> |> ^ AS       %b^ $(EXEC) $(OBJ)/tool/as -o %o %f |>
+endif

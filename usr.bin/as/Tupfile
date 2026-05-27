@@ -1,0 +1,7 @@
+include_rules
+
+# toolchain build
+ifeq (@(BUILD_TOOL_AS),y)
+: foreach *.c |> !hostcc |> $(OBJ)/tool/as.d/%B.o {obj}
+: {obj} |> !hostccld |> $(OBJ)/tool/as | $(OBJ)/tool/<as>
+endif

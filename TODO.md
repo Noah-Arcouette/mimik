@@ -162,7 +162,8 @@ xargs
 
 # Toolchain
 
-assembler, disassembler
+assembler (in-progress)
+disassembler
 cc, lib-c-parser, c-metrics, c-analysis, libir
 linker, readmio
 mio2bin, mio2pe32+
@@ -172,7 +173,7 @@ tup, kconfig, git
 
 # Boot Image
 
-mbr.bin
+mbr.bin (in-progress)
 vbr.bin
 mkfs
 fdisk
