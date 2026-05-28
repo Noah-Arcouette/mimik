@@ -2,6 +2,12 @@
 #define __MAIN_H__
 #include <stdio.h>
 
+/**
+ * The name of the current program
+ * @file main.c
+ */
+extern const char *self;
+
 /// @brief The command line argument options
 extern struct arguments
 {
@@ -21,6 +27,7 @@ extern int args (int argc, char *argv[]);
 enum tokenType
 {
 	TOK_EOF,
+	TOK_UNKNOWN,
 	TOK_NEWLINE,
 	TOK_COLON,
 	// directives
@@ -41,8 +48,18 @@ struct token
 	long size;   // the size of the current token buffer
 
 	long  bufcp; // the buffer capacity
-	void *buf;   // the token buffer
+	char *buf;   // the token buffer
 };
+
+/**
+ * Parse a token from a file
+ * @param filename The name of the current file
+ * @param fp The file to gain the token from
+ * @param tok The token to fill
+ * @returns True upon error
+ * @file lex.c
+ */
+extern int lex (const char *filename, FILE *fp, struct token *tok);
 
 /**
  * Create a token
