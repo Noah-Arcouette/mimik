@@ -4,4 +4,5 @@ menuconfig SHARE_LOCALE_EN_CA_UTF8_MAN
 if SHARE_LOCALE_EN_CA_UTF8_MAN
 	source "share/locale/en_CA.utf8/man/template/Kconfig"
 	source "share/locale/en_CA.utf8/man/utility/Kconfig"
+	source "share/locale/en_CA.utf8/man/format/Kconfig"
 endif
