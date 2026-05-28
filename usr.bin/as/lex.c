@@ -35,6 +35,7 @@ _pushc (struct token *tok, char c)
 int
 lex (const char *filename, FILE *fp, struct token *tok)
 {
+_try_again:
 	tok->offset += tok->size;
 	tok->size    = 0;
 
@@ -42,6 +43,10 @@ lex (const char *filename, FILE *fp, struct token *tok)
 
 	switch (c)
 	{
+	case ' ':
+	case '\t':
+		tok->size++;
+		goto _try_again;
 	case '\n':
 		tok->lineno++;
 		tok->offset = 0;
