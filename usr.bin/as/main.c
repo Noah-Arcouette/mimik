@@ -1,6 +1,8 @@
 #include <libintl.h>
 #include <unistd.h>
 #include <locale.h>
+#include <string.h>
+#include <errno.h>
 #include "main.h"
 
 const char *self;
@@ -21,7 +23,30 @@ main (int argc, char *argv[])
 	// lexer testing
 	for (int i = optind; i<argc; i++)
 	{
+		// open the file
+		lfilename = argv[i];
+		if (!strcmp(lfilename, "-"))
+		{
+			lfp = stdin;
+		}
+		else
+		{
+			lfp = fopen(lfilename, "r");
+			if (!lfp)
+			{
+				int error = errno;
+				fprintf(stderr, gettext("%s: %s: %s\n"),
+					self, lfilename, strerror(error));
+				errors++;
+				continue; // skip if there's an error
+			}
+		}
+
+		// parse the new file
 		parse();
+
+		// free the file
+		fclose(lfp);
 
 		resetToken();
 	}

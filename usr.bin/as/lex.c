@@ -6,7 +6,7 @@
 #include "main.h"
 
 FILE *lfp;
-const char *filename;
+const char *lfilename;
 
 /**
  * Push a character onto a token, ensuring that the buffer stays null terminated
