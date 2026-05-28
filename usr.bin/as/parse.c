@@ -1,7 +1,7 @@
 #include "main.h"
 
 void
-parse (const char *filename)
+parse (void)
 {
 	// sections
 	// architecture

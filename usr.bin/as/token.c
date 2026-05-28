@@ -1,40 +1,38 @@
 #include <stdlib.h>
 #include "main.h"
 
+struct token ltok = {
+	.type = TOK_EOF,
+
+	.lineno = 1,
+	.offset = 0,
+	.size   = 0,
+
+	.bufcp = 0,
+	.buf   = NULL
+};
+
 void
-createToken (struct token *tok)
+resetToken (void)
 {
-	tok->type = TOK_EOF;
+	ltok.type = TOK_EOF;
 
-	tok->lineno = 1;
-	tok->offset = 0;
-	tok->size   = 0;
-
-	tok->bufcp = 0;
-	tok->buf   = NULL;
+	ltok.lineno = 1;
+	ltok.offset = 0;
+	ltok.size   = 0;
 }
 
 void
-resetToken (struct token *tok)
+destroyToken (void)
 {
-	tok->type = TOK_EOF;
+	free(ltok.buf);
 
-	tok->lineno = 1;
-	tok->offset = 0;
-	tok->size   = 0;
-}
+	ltok.type = TOK_EOF;
 
-void
-destroyToken (struct token *tok)
-{
-	free(tok->buf);
+	ltok.lineno = 0;
+	ltok.offset = 0;
+	ltok.size   = 0;
 
-	tok->type = TOK_EOF;
-
-	tok->lineno = 0;
-	tok->offset = 0;
-	tok->size   = 0;
-
-	tok->bufcp = 0;
-	tok->buf   = NULL;
+	ltok.bufcp = 0;
+	ltok.buf   = NULL;
 }

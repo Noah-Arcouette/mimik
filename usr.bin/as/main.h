@@ -57,40 +57,45 @@ struct token
 };
 
 /**
- * Parse a token from a file
- * @param filename The name of the current file
- * @param fp The file to gain the token from
- * @param tok The token to fill
+ * The current file pointer to lex
  * @file lex.c
  */
-extern void lex (const char *filename, FILE *fp, struct token *tok);
+extern FILE *lfp;
 
 /**
- * Create a token
- * @param tok The token to initialize
+ * The current file name being lexed
+ * @file lex.c
+ */
+extern const char *lfilename;
+
+/**
+ * The current token
  * @file token.c
  */
-extern void createToken (struct token *tok);
+extern struct token ltok;
 
 /**
- * Reset a token to the initial state
- * @param tok The token to reset
+ * Parse the token from a file
+ * @file lex.c
+ */
+extern void lex (void);
+
+/**
+ * Reset the token to the initial state
  * @file token.c
  */
-extern void resetToken (struct token *tok);
+extern void resetToken (void);
 
 /**
- * Free the data from a token
- * @param tok The token to free
+ * Free the data from the token
  * @file token.c
  */
-extern void destroyToken (struct token *tok);
+extern void destroyToken (void);
 
 /**
- * Parse the given file
- * @param filename The file to open and parse
+ * Parse the current file
  * @file parse.c
  */
-extern void parse (const char *filename);
+extern void parse (void);
 
 #endif

@@ -19,15 +19,13 @@ main (int argc, char *argv[])
 	if (errors) return 1;
 
 	// lexer testing
-	struct token tok;
-	createToken(&tok);
 	for (int i = optind; i<argc; i++)
 	{
-		parse(argv[i]);
+		parse();
 
-		resetToken(&tok);
+		resetToken();
 	}
-	destroyToken(&tok);
+	destroyToken();
 
 	if (errors) return 1;
 
