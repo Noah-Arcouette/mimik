@@ -47,6 +47,10 @@ lex (const char *filename, FILE *fp, struct token *tok)
 		tok->offset = 0;
 		tok->type = TOK_NEWLINE;
 		break;
+	case ':':
+		_pushc(tok, c);
+		tok->type = TOK_COLON;
+		break;
 	case EOF:
 		tok->type = TOK_EOF;
 		break;
