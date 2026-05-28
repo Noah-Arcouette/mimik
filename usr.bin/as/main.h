@@ -86,4 +86,11 @@ extern void resetToken (struct token *tok);
  */
 extern void destroyToken (struct token *tok);
 
+/**
+ * Parse the given file
+ * @param filename The file to open and parse
+ * @file parse.c
+ */
+extern void parse (const char *filename);
+
 #endif

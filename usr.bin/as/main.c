@@ -23,7 +23,7 @@ main (int argc, char *argv[])
 	createToken(&tok);
 	for (int i = optind; i<argc; i++)
 	{
-		// parse(argv[i]);
+		parse(argv[i]);
 
 		resetToken(&tok);
 	}
@@ -31,14 +31,6 @@ main (int argc, char *argv[])
 
 	if (errors) return 1;
 
-	// parser:
-	//  - sections
-	//  - architecture
-	//  - symbols
-	//  - gaps
-	//  - emit data
-	//  - reserve data
-	//  - x86-16
 	// create architecture section
 	// create symbol section
 	// create gap section
