@@ -1,4 +1,5 @@
 #include <libintl.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <ctype.h>
@@ -58,6 +59,22 @@ lex (const char *filename, FILE *fp, struct token *tok)
 				c = fgetc(fp);
 			}
 			ungetc(c, fp); // unget the non-matching character
+
+			if (!strcmp(tok->buf, ".arch"))
+			{
+				tok->type = TOK_ARCH;
+				break;
+			}
+			if (!strcmp(tok->buf, ".section"))
+			{
+				tok->type = TOK_SECTION;
+				break;
+			}
+			if (!strcmp(tok->buf, ".global"))
+			{
+				tok->type = TOK_GLOBAL;
+				break;
+			}
 
 			tok->type = TOK_SYMBOL;
 			break;
