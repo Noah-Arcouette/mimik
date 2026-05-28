@@ -5,11 +5,9 @@ struct arguments arguments = {
 	.outputfile = "a.out"
 };
 
-int
+void
 args (int argc, char *argv[])
 {
-	int errors = 0;
-
 	int c;
 	do
 	{
@@ -26,6 +24,4 @@ args (int argc, char *argv[])
 			break;
 		}
 	} while (c != -1);
-
-	return errors;
 }

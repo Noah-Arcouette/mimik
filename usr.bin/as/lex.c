@@ -9,10 +9,9 @@
  * Push a character onto a token, ensuring that the buffer stays null terminated
  * @param tok The token
  * @param c The character
- * @returns True upon error
  * @file lex.c
  */
-static int
+static void
 _pushc (struct token *tok, char c)
 {
 	tok->size++;
@@ -23,16 +22,16 @@ _pushc (struct token *tok, char c)
 		if (!buf)
 		{
 			fprintf(stderr, gettext("%s: Failed to allocate memory\n"), self);
-			return 1;
+			errors++;
+			return;
 		}
 		tok->buf = buf;
 	}
 	tok->buf[tok->size-1] = c;
 	tok->buf[tok->size  ] = '\0';
-	return 0;
 }
 
-int
+void
 lex (const char *filename, FILE *fp, struct token *tok)
 {
 _try_again:
@@ -53,7 +52,7 @@ _try_again:
 		tok->type = TOK_NEWLINE;
 		break;
 	case ':':
-		if (_pushc(tok, c)) return 1;
+		_pushc(tok, c);
 		tok->type = TOK_COLON;
 		break;
 	case EOF:
@@ -64,7 +63,7 @@ _try_again:
 		{
 			while (isalnum(c) || c == '.' || c == '_')
 			{
-				if (_pushc(tok, c)) return 1;
+				_pushc(tok, c);
 				c = fgetc(fp);
 			}
 			ungetc(c, fp); // unget the non-matching character
@@ -90,10 +89,8 @@ _try_again:
 		}
 		// else
 
-		if (_pushc(tok, c)) return 1;
+		_pushc(tok, c);
 		tok->type = TOK_UNKNOWN;
 		break;
 	}
-
-	return 0;
 }

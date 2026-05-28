@@ -8,6 +8,12 @@
  */
 extern const char *self;
 
+/**
+ * The total errors encountered
+ * @file main.c
+ */
+extern int errors;
+
 /// @brief The command line argument options
 extern struct arguments
 {
@@ -18,10 +24,9 @@ extern struct arguments
  * Parse the command line arguments
  * @param argc The argument count
  * @param argv The argument values
- * @returns True if an error occurred
  * @file args.c
  */
-extern int args (int argc, char *argv[]);
+extern void args (int argc, char *argv[]);
 
 /// @brief A lexer token type
 enum tokenType
@@ -56,10 +61,9 @@ struct token
  * @param filename The name of the current file
  * @param fp The file to gain the token from
  * @param tok The token to fill
- * @returns True upon error
  * @file lex.c
  */
-extern int lex (const char *filename, FILE *fp, struct token *tok);
+extern void lex (const char *filename, FILE *fp, struct token *tok);
 
 /**
  * Create a token

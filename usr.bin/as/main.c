@@ -4,6 +4,7 @@
 #include "main.h"
 
 const char *self;
+int errors = 0;
 
 int
 main (int argc, char *argv[])
@@ -14,23 +15,21 @@ main (int argc, char *argv[])
 	self = argv[0];
 
 	// parse arguments
-	if (args(argc, argv))
-	{
-		return 1;
-	}
+	args(argc, argv);
+	if (errors) return 1;
 
 	// lexer testing
-	int errors = 0;
 	struct token tok;
 	createToken(&tok);
 	for (int i = optind; i<argc; i++)
 	{
-		// errors += parse(argv[i]);
+		// parse(argv[i]);
 
 		resetToken(&tok);
 	}
 	destroyToken(&tok);
 
+	if (errors) return 1;
 
 	// parser:
 	//  - sections
@@ -45,5 +44,6 @@ main (int argc, char *argv[])
 	// create gap section
 	// emit the mio file
 
-	return errors;
+	if (errors) return 1;
+	return 0;
 }
