@@ -1,6 +1,7 @@
 #include <libintl.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 #include "main.h"
 
 /**
@@ -37,7 +38,6 @@ lex (const char *filename, FILE *fp, struct token *tok)
 	tok->size    = 0;
 
 	int c = fgetc(fp);
-	if (_pushc(tok, c)) return 1;
 
 	switch (c)
 	{
@@ -50,6 +50,21 @@ lex (const char *filename, FILE *fp, struct token *tok)
 		tok->type = TOK_EOF;
 		break;
 	default:
+		if (isalpha(c) || c == '.' || c == '_')
+		{
+			while (isalnum(c) || c == '.' || c == '_')
+			{
+				if (_pushc(tok, c)) return 1;
+				c = fgetc(fp);
+			}
+			ungetc(c, fp); // unget the non-matching character
+
+			tok->type = TOK_SYMBOL;
+			break;
+		}
+		// else
+
+		if (_pushc(tok, c)) return 1;
 		tok->type = TOK_UNKNOWN;
 		break;
 	}
