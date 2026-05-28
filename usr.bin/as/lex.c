@@ -53,7 +53,7 @@ _try_again:
 		tok->type = TOK_NEWLINE;
 		break;
 	case ':':
-		_pushc(tok, c);
+		if (_pushc(tok, c)) return 1;
 		tok->type = TOK_COLON;
 		break;
 	case EOF:
