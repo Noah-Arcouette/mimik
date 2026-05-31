@@ -38,4 +38,9 @@ menu "bin/ - essential user binaries"
 		bool "false"
 		help
 			Return false
+
+	config BIN_TEE
+		bool "tee"
+		help
+			Save the contents of standard input
 endmenu

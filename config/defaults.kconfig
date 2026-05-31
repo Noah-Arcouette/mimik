@@ -21,6 +21,7 @@ menu "Default Builds"
 		imply BIN_ECHO
 		imply BIN_TRUE
 		imply BIN_FALSE
+		imply BIN_TEE
 		default y
 
 	config DEFAULT_BUILD_TOOLS

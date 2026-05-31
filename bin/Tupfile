@@ -33,4 +33,8 @@ ifeq (@(BIN_FALSE),y)
 FILES+=false.c
 endif
 
+ifeq (@(BIN_TEE),y)
+FILES+=tee.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/bin/%B

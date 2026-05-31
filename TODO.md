@@ -84,7 +84,6 @@ strings
 stty
 tabs
 tail
-tee
 test
 time
 timeout
