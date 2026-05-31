@@ -36,6 +36,10 @@ ifeq (@(BIN_FALSE),y)
 FILES+=false.md
 endif
 
+ifeq (@(BIN_TEE),y)
+FILES+=tee.md
+endif
+
 
 # usr.bin
 ifeq (@(USR_BIN_AS),y)
