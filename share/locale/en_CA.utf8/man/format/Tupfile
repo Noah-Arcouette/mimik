@@ -1,0 +1,14 @@
+include_rules
+
+ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_FORMAT),y)
+FILES=
+
+# usr.bin
+ifeq (@(USR_BIN_AS),y)
+FILES+=s.md
+endif
+
+: foreach $(FILES) |> !comp \
+	|> $(DIST)/usr/share/locale/en_CA.utf8/man/format/%b$(COMP_EXT)
+
+endif
