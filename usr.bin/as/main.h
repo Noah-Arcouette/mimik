@@ -109,4 +109,11 @@ extern void parse (void);
  */
 extern void recover (void);
 
+/**
+ * Print a message about the current token
+ * @param fmt The format string
+ * @file prettyprint.c
+ */
+extern void prettyprint (const char *fmt, ...);
+
 #endif
