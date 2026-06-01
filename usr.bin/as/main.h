@@ -37,6 +37,11 @@ enum tokenType
 	TOK_COLON,
 	// directives
 	TOK_ARCH,
+	TOK_UARCH,
+	TOK_ARCHFLAG,
+	TOK_SYS,
+	TOK_USYS,
+	TOK_SYSFLAG,
 	TOK_SECTION,
 	TOK_GLOBAL,
 	// values

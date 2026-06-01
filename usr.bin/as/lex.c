@@ -75,6 +75,31 @@ _try_again:
 				ltok.type = TOK_ARCH;
 				break;
 			}
+			if (!strcmp(ltok.buf, ".uarch"))
+			{
+				ltok.type = TOK_UARCH;
+				break;
+			}
+			if (!strcmp(ltok.buf, ".archflag"))
+			{
+				ltok.type = TOK_ARCHFLAG;
+				break;
+			}
+			if (!strcmp(ltok.buf, ".sys"))
+			{
+				ltok.type = TOK_SYS;
+				break;
+			}
+			if (!strcmp(ltok.buf, ".usys"))
+			{
+				ltok.type = TOK_USYS;
+				break;
+			}
+			if (!strcmp(ltok.buf, ".sysflag"))
+			{
+				ltok.type = TOK_SYSFLAG;
+				break;
+			}
 			if (!strcmp(ltok.buf, ".section"))
 			{
 				ltok.type = TOK_SECTION;
