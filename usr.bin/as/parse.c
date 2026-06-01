@@ -1,13 +1,30 @@
+#include <libintl.h>
 #include "main.h"
 
 void
 parse (void)
 {
-	// sections
-	// architecture
-	// symbols
-	// gaps
-	// emit data
-	// reserve data
-	// x86-16
+	lex();
+	do
+	{
+		// sections
+		// architecture
+		// symbols
+		// gaps
+		// emit data
+		// reserve data
+		// x86-16
+
+		// ignore newline
+		if (ltok.type == TOK_NEWLINE)
+		{
+			lex();
+			continue;
+		}
+
+		// loose token
+		prettyprint(gettext("Uncaught token\n"));
+		errors++;
+		recover();
+	} while (ltok.type != TOK_EOF);
 }
