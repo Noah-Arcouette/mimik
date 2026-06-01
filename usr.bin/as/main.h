@@ -103,4 +103,10 @@ extern void destroyToken (void);
  */
 extern void parse (void);
 
+/**
+ * Recover to a newline or EOF
+ * @file recover.c
+ */
+extern void recover (void);
+
 #endif
