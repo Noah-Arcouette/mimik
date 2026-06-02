@@ -40,6 +40,10 @@ ifeq (@(BIN_TEE),y)
 FILES+=tee.md
 endif
 
+ifeq (@(BIN_READLINK),y)
+FILES+=readlink.md
+endif
+
 
 # usr.bin
 ifeq (@(USR_BIN_AS),y)
