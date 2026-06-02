@@ -70,7 +70,6 @@ printf
 ps
 pwd
 read
-readlink
 realpath
 renice
 rm

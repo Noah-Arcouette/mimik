@@ -37,4 +37,8 @@ ifeq (@(BIN_TEE),y)
 FILES+=tee.c
 endif
 
+ifeq (@(BIN_READLINK),y)
+FILES+=readlink.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/bin/%B

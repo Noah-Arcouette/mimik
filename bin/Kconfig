@@ -43,4 +43,9 @@ menu "bin/ - essential user binaries"
 		bool "tee"
 		help
 			Save the contents of standard input
+
+	config BIN_READLINK
+		bool "readlink"
+		help
+			Show where a symbolic link leads to
 endmenu
