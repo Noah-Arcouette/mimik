@@ -3,6 +3,7 @@
 #include <locale.h>
 #include <string.h>
 #include <errno.h>
+#include "emit.h"
 #include "main.h"
 
 const char *self;
@@ -52,12 +53,11 @@ main (int argc, char *argv[])
 	}
 	destroyToken();
 
-	if (errors) return 1;
-
 	// create architecture section
 	// create symbol section
 	// create gap section
 	// emit the mio file
+	freeEmit();
 
 	if (errors) return 1;
 	return 0;
