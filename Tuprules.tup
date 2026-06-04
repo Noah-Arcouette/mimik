@@ -6,8 +6,10 @@ OBJ=$(ROOT)/@(BUILD_OBJ)/
 DIST=$(ROOT)/@(BUILD_DIST)/
 
 # Host Toolchain
-!hostccld = |> ^ HOSTCCLD %b^ @(BUILD_CC) @(BUILD_CFLAGS)    -o %o %f |>
-!hostcc   = |> ^ HOSTCC   %b^ @(BUILD_CC) @(BUILD_CFLAGS) -c -o %o %f |>
+HOSTCFLAGS=@(BUILD_CFLAGS)
+HOSTCFLAGS+=-I$(ROOT)/include/
+!hostccld = |> ^ HOSTCCLD %b^ @(BUILD_CC) $(HOSTCFLAGS)    -o %o %f |>
+!hostcc   = |> ^ HOSTCC   %b^ @(BUILD_CC) $(HOSTCFLAGS) -c -o %o %f |>
 
 EXEC=@(BUILD_EXEC)
 
