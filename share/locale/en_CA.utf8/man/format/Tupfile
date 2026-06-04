@@ -6,6 +6,8 @@ FILES=
 # usr.bin
 ifeq (@(USR_BIN_AS),y)
 FILES+=s.md
+
+FILES+=mio.md
 endif
 
 : foreach $(FILES) |> !comp \
