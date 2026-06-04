@@ -8,6 +8,8 @@ ifeq (@(USR_BIN_AS),y)
 FILES+=s.md
 
 FILES+=mio.md
+FILES+=o.md
+FILES+=so.md
 endif
 
 : foreach $(FILES) |> !comp \
