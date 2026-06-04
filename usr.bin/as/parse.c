@@ -1,4 +1,5 @@
 #include <libintl.h>
+#include "parse.h"
 #include "main.h"
 
 void
@@ -8,6 +9,8 @@ parse (void)
 	do
 	{
 		// sections
+		if (parse_section()) continue;
+
 		// architecture
 		// symbols
 		// gaps
