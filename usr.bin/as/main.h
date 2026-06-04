@@ -116,4 +116,10 @@ extern void recover (void);
  */
 extern void prettyprint (const char *fmt, ...);
 
+/**
+ * Emit the output file
+ * @file writeOutput.c
+ */
+extern void writeOutput (void);
+
 #endif

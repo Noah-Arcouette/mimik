@@ -56,7 +56,9 @@ main (int argc, char *argv[])
 	// create architecture section
 	// create symbol section
 	// create gap section
+
 	// emit the mio file
+	if (!errors) writeOutput();
 	freeEmit();
 
 	if (errors) return 1;
