@@ -3,6 +3,20 @@
 #include <mio.h>
 
 /**
+ * The offset into emitbuf where the current section is, or negative if not in a
+ * section
+ * @file emit/section.c
+ */
+extern long currentSection;
+
+/**
+ * Enter a new section
+ * @file emit/section.c
+ * @param name The name of the new section to create
+ */
+extern void emitSection (const char *name);
+
+/**
  * The raw buffer of the output file
  * @file emit.c
  */
