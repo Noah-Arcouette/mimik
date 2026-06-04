@@ -1,0 +1,8 @@
+menuconfig INCLUDE
+	bool "include/ -- Source language include files"
+if INCLUDE
+	config INCLUDE_MIO_H
+		bool "mio.h"
+		help
+			The Mimik Object format
+endif

@@ -1,0 +1,9 @@
+include_rules
+
+FILES=
+
+ifeq (@(INCLUDE_MIO_H),y)
+FILES+=mio.h
+endif
+
+: foreach $(FILES) |> !cp |> $(DIST)/usr/include/%b
