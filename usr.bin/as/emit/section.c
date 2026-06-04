@@ -23,10 +23,8 @@ emitSection (const char *name)
 	}
 
 	// create empty section
-	memset(newSection.name, 0, sizeof(newSection.name));
-	newSection.flags = 0;
-	newSection.size  = 0;
-	memcpy(newSection.magic, MIO_MAGIC, 4);
+	memset(&newSection, 0, sizeof(newSection));
+	memcpy(newSection.magic, MIO_MAGIC, sizeof(newSection.magic));
 
 	// add the name
 	strncpy((void *)newSection.name, name, sizeof(newSection.name));
