@@ -1,3 +1,2 @@
 config USR_BIN_AS
 	bool "as"
-	depends on !BUILD_HOST

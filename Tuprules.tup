@@ -12,14 +12,9 @@ DIST=$(ROOT)/@(BUILD_DIST)/
 EXEC=@(BUILD_EXEC)
 
 # Built Toolchain
-ifeq (@(BUILD_HOST),y)
+# not implemented so just use this for testing
 !ccld = !hostccld
 !cc = !hostcc
-else
-# not implemented so just us this for testing
-!ccld = !hostccld
-!cc = !hostcc
-endif
 
 !cp   = |> ^ CP       %b^ cp %f %o |>
 !comp = !cp

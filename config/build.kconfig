@@ -14,34 +14,28 @@ menu "Build"
 			This is used to run built tools in for testing purposes
 
 	comment "Output control"
-	config BUILD_HOST
-		bool "Build for the host system"
+	# config BUILD_UNITY
 
-	if !BUILD_HOST
-	# 	config BUILD_UNITY
+	choice BUILD_TARGET
+		bool "The build target"
 
-		choice BUILD_TARGET
-			bool "The build target"
+		config BUILD_TARGET_X86_64
+			bool "x86-64bit"
+	endchoice
 
-			config BUILD_TARGET_X86_64
-				bool "x86-64bit"
-		endchoice
+	config BUILD_IMAGE # boot image
+		bool "Build a bootable image"
 
-		config BUILD_IMAGE # boot image
-			bool "Build a bootable image"
-
-			# x86-64
-			select BOOT_X86_MBR_BIN if BUILD_TARGET_X86_64
-		config BUILD_IMAGE_FILE
-			string "Image file"
-			default "mimik.x64.img" if BUILD_TARGET_X86_64
-			depends on BUILD_IMAGE
-	endif
+		# x86-64
+		select BOOT_X86_MBR_BIN if BUILD_TARGET_X86_64
+	config BUILD_IMAGE_FILE
+		string "Image file"
+		default "mimik.x64.img" if BUILD_TARGET_X86_64
+		depends on BUILD_IMAGE
 
 	menu "Tools"
 		config BUILD_TOOL_AS
 			bool "Assembler"
-			depends on !BUILD_HOST
 
 		# config BUILD_TOOL_COMPRESS
 	endmenu
