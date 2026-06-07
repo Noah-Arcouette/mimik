@@ -16,7 +16,7 @@ arbitrary sequence. The two planes of sections -- data and virtual -- shall
 always be considered separate and non-overlapping. Data sections have the
 section header followed by the specified length of data. Whist virtual sections
 shall have no following data and shall instead be considered an allocation of
-zero filled data in a separate addressable domain.
+zero filled data in a separately addressable domain.
 
 ## The File
 
@@ -101,7 +101,78 @@ present and the virtual memory region shall be attributed to this named section.
 
 ## Special Sections
 
-As of current, no special sections are defined.
+### Architecture information
+
+The section with the name `mio.arch` shall have the following structure of data
+in the given order -- with no additional padding.
+
+A 16bit major architecture number defining the **backwards incompatible**
+architecture. Followed by a 16bit minor architecture number, where all higher
+values are compatible with lower values. Then a 64bit bit-field of architecture
+flags, which may be inter-compatible, incompatible, masked numbers, or any mix
+of the given; this field is depended completely on the architecture major.
+
+Then following the architecture information is the same structure but in-regards
+to the running or execution system. A 16bit major system, 16bit minor system,
+and 64bit system-specific bit-field. Note, major system are not compatible, but
+all minor system must be backwards compatible with lower values.
+
+Examples:
+	x86-32 : 32bit x86, this is must match exactly.
+	i586   : Pentium I class, this must match exactly or a higher number -- not
+		lower.
+	-      : No flags are given in this example
+
+	Some System : Some System, this must be exactly the running system
+	v6          : Version 6, this must be exactly the same or higher I.E this is
+		implicitly v6+
+	-           : No flags are given in this example
+
+The following values are defined for these fields:
+
++-------------+------------+-----------------------------------------------+
+| Value (hex) | Arch Major |                     Notes                     |
++-------------+------------+-----------------------------------------------+
+| 0000        | Undefined  | This object does not contain executable code  |
+| 0001        | 16bit x86  | Specifically 16bit x86 code                   |
++-------------+------------+-----------------------------------------------+
+
+
++---------------+-------------+------------+-------------------------+
+| Arch Major(s) | Value (hex) | Arch Minor |          Notes          |
++---------------+-------------+------------+-------------------------+
+| Undefined     | ----------- | ---------- | Minors shall be ignored |
+| 16bit x86     | 0000        | i8086      | The original i8086      |
++---------------+-------------+------------+-------------------------+
+
+
++---------------+-------------+------+-------------------------------------+
+| Arch Major(s) | Value (hex) | Flag |                Notes                |
++---------------+-------------+------+-------------------------------------+
+| Undefined     | ----------- | ---- | Flags shall be ignored              |
+| 16bit x86     | ----------- | ---- | Flags shall be considered an error  |
++---------------+-------------+------+-------------------------------------+
+
+
++-------------+-----------+-------------------------------------------------+
+| Value (hex) | Sys Major |                      Notes                      |
++-------------+-----------+-------------------------------------------------+
+| 0000        | Undefined | This object does not contain system useful code |
++-------------+-----------+-------------------------------------------------+
+
+
++--------------+-------------+-----------+-------------------------+
+| Sys Major(s) | Value (hex) | Sys Minor |          Notes          |
++--------------+-------------+-----------+-------------------------+
+| Undefined    | ----------- | --------- | Minors shall be ignored |
++--------------+-------------+-----------+-------------------------+
+
+
++--------------+-------------+------+-------------------------------------+
+| Sys Major(s) | Value (hex) | Flag |                Notes                |
++--------------+-------------+------+-------------------------------------+
+| Undefined    | ----------- | ---- | Flags shall be ignored              |
++--------------+-------------+------+-------------------------------------+
 
 
 # Rationale
@@ -118,7 +189,6 @@ The split between virtual and data regions is designed almost entirely for the
 Possible new special sections:
  - *mio.symbols* : Named symbols
  - *mio.gaps*    : Load time data gaps
- - *mio.arch*    : Architecture and system information
  - *mio.info*    : User informative information
  - *mio.sigs*    : Section data signatures
  - *mio.chks*    : Section data checksums
