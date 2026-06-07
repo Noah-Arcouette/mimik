@@ -162,9 +162,15 @@ xargs
 
 # Toolchain
 
-assembler (in-progress)
+manuals:
+	include/mio.h
+	format/s.x86_16
+assembler:
+	architecture
+	symbols
+	globals
+	x86-16 et al
 disassembler
-cc, lib-c-parser, c-metrics, c-analysis, libir
 linker, readmio
 mio2bin, mio2pe32+
 fuzzy testing, valgrind
@@ -173,7 +179,13 @@ tup, kconfig, git
 
 # Boot Image
 
-mbr.bin (in-progress)
+mbr.bin:
+	initiate state and relocate
+	find active partition
+	load partition and hand-off
+	MBR partitioning support
+	EBR partitioning support
+	GPT partitioning support
 vbr.bin
 mkfs
 fdisk
