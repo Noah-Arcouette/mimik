@@ -28,7 +28,7 @@ struct MiO_Arch
 	uint16_t sys; // The system
 	uint16_t usys; // The system minor
 	uint64_t sysflags; // The system flags
-};
+} __attribute__((packed));
 
 // Undefined for mio architecture
 #define MIO_ARCH_ARCH_UNDEFINED 0
