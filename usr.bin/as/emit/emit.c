@@ -42,6 +42,18 @@ emitRaw (const void *buf, long sz)
 	return emitsz-sz;
 }
 
+long
+emit (const void *buf, long sz)
+{
+	if (currentSection >= 0)
+	{
+		struct MiO *section = (void *)&emitbuf[currentSection];
+		size_t oldSize = le64toh(section->size);
+		section->size  = htole64(oldSize+sz);
+	}
+	return emitRaw(buf, sz);
+}
+
 void
 freeEmit (void)
 {

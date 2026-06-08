@@ -39,4 +39,15 @@ extern void freeEmit (void);
  */
 extern long emitRaw (const void *buf, long sz);
 
+/**
+ * Emit a buffer, updating section and symbol data
+ * @param buf The buffer to emit
+ * @param sz The buffer size
+ * @returns The offset of the start of the buffer in emitbuf
+ * @returns Negative upon error
+ * @file emit.c
+ */
+extern long emit (const void *buf, long sz);
+
+
 #endif
