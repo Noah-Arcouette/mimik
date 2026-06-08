@@ -54,6 +54,8 @@ main (int argc, char *argv[])
 	destroyToken();
 
 	// create architecture section
+	emitArchitecture();
+
 	// create symbol section
 	// create gap section
 

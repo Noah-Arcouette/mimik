@@ -49,5 +49,16 @@ extern long emitRaw (const void *buf, long sz);
  */
 extern long emit (const void *buf, long sz);
 
+/**
+ * The current architecture
+ * @file arch.c
+ */
+extern struct MiO_Arch currentArchitecture;
+
+/**
+ * Emit the current architecture as a section
+ * @file arch.c
+ */
+extern void emitArchitecture (void);
 
 #endif
