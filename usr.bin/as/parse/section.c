@@ -61,7 +61,10 @@ parse_section (void)
 		recover();
 		errors++;
 	}
-	lex();
+	else // so we don't consume anything twice
+	{
+		lex();
+	}
 
 	return 1;
 }
