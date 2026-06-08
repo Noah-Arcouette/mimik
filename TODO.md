@@ -166,7 +166,6 @@ manuals:
 	include/mio.h
 	format/s.x86_16
 assembler:
-	architecture
 	symbols
 	globals
 	x86-16 et al

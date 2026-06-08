@@ -8,4 +8,11 @@
  */
 extern int parse_section (void);
 
+/**
+ * Attempt to consume an architecture
+ * @returns True if an architecture was consumed
+ * @file parse/architecture.c
+ */
+extern int parse_architecture (void);
+
 #endif

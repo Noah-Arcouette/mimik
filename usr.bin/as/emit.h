@@ -61,4 +61,11 @@ extern struct MiO_Arch currentArchitecture;
  */
 extern void emitArchitecture (void);
 
+/**
+ * Set architecture
+ * @param arch The architecture to set to
+ * @file setArch.c
+ */
+extern void setArch (const char *arch);
+
 #endif

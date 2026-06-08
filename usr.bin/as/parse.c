@@ -12,6 +12,8 @@ parse (void)
 		if (parse_section()) continue;
 
 		// architecture
+		if (parse_architecture()) continue;
+
 		// symbols
 		// gaps
 		// emit data
