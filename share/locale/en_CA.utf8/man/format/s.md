@@ -87,6 +87,15 @@ note that, multiple architecture major and thus instruction sets may be in the
 same assembler input, only the last architecture major shall be that of the
 output object file. Instructions may only occur in data sections not virtual.
 
+Almost all instructions follow the form:
+`instruction %register [address] literal`
+
+All registers are prepended by `%`, address are wrapped in square brackets, and
+literals are left as plain symbols or numbers. The amount, order, variation, etc
+of operands are depended on the architecture and instruction. Each operand is
+delimited by a space. Ambiguous instructions are general suffixed with a size
+character.
+
 
 # Rationale
 
