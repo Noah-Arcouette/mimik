@@ -2,14 +2,32 @@ include_rules
 
 # toolchain build
 ifeq (@(BUILD_TOOL_AS),y)
-: foreach parse/*.c |> !hostcc |> $(OBJ)/tool/as.d/parse/%B.o {tool-obj}
+FLAGS=
+
+ifeq (@(BUILD_TOOL_AS_X86_16),y)
+FLAGS+=-DX86_16
+
+: foreach x86_16/*.c |> !hostcc $(FLAGS) |> \
+	$(OBJ)/tool/as.d/x86_16/%B.o {tool-obj}
+endif
+
+: foreach parse/*.c |> !hostcc $(FLAGS) |> \
+	$(OBJ)/tool/as.d/parse/%B.o {tool-obj}
 : foreach emit/*.c |> !hostcc |> $(OBJ)/tool/as.d/emit/%B.o {tool-obj}
 : foreach *.c |> !hostcc |> $(OBJ)/tool/as.d/%B.o {tool-obj}
 : {tool-obj} |> !hostccld |> $(OBJ)/tool/as | $(OBJ)/tool/<as>
 endif
 
 ifeq (@(USR_BIN_AS),y)
-: foreach parse/*.c |> !cc |> $(OBJ)/usr.bin/as/parse/%B.o {obj}
+FLAGS=
+
+ifeq (@(USR_BIN_AS_X86_16),y)
+FLAGS+=-DX86_16
+
+: foreach x86_16/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/as/x86_16/%B.o {obj}
+endif
+
+: foreach parse/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/as/parse/%B.o {obj}
 : foreach emit/*.c |> !cc |> $(OBJ)/usr.bin/as/emit/%B.o {obj}
 : foreach *.c |> !cc |> $(OBJ)/usr.bin/as/%B.o {obj}
 : {obj} |> !ccld |> $(DIST)/usr/bin/as

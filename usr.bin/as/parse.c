@@ -1,5 +1,7 @@
 #include <libintl.h>
+#include <endian.h>
 #include "parse.h"
+#include "emit.h"
 #include "main.h"
 
 void
@@ -18,7 +20,14 @@ parse (void)
 		// gaps
 		// emit data
 		// reserve data
+
 		// x86-16
+	#ifdef X86_16
+		if (le16toh(currentArchitecture.arch) == MIO_ARCH_ARCH_X86_16)
+		{
+			parse_x86_16();
+		}
+	#endif
 
 		// ignore newline
 		if (ltok.type == TOK_NEWLINE)

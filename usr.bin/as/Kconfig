@@ -1,2 +1,6 @@
 config USR_BIN_AS
 	bool "as"
+
+config USR_BIN_AS_X86_16
+	bool "x86 16bit assembly"
+	depends on USR_BIN_AS

@@ -36,6 +36,9 @@ menu "Build"
 	menu "Tools"
 		config BUILD_TOOL_AS
 			bool "Assembler"
+		config BUILD_TOOL_AS_X86_16
+			bool "x86 16bit assembly"
+			depends on BUILD_TOOL_AS
 
 		# config BUILD_TOOL_COMPRESS
 	endmenu

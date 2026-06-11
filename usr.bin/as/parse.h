@@ -15,4 +15,13 @@ extern int parse_section (void);
  */
 extern int parse_architecture (void);
 
+#ifdef X86_16
+/**
+ * Consume and emit an x86-16 instructions
+ * @returns True if consumed
+ * @file x86_16/parse.c
+ */
+extern int parse_x86_16 (void);
+#endif
+
 #endif
