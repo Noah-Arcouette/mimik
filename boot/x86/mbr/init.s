@@ -2,6 +2,6 @@
 .section .init x
 
 _init:
-	njmp _init
+	sjmp _init
 
 .global _init
