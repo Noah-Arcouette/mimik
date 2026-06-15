@@ -14,6 +14,13 @@ static long _emitcp = 0;
 long
 emitRaw (const void *buf, long sz)
 {
+	if (symbolFlags & MIO_SYMBOL_FLAG_VIRTUAL)
+	{
+		prettyprint("Cannot emit data into virtual section\n");
+		errors++;
+		return -1;
+	}
+
 	emitsz += sz;
 	if (emitsz > _emitcp)
 	{
@@ -50,6 +57,12 @@ emit (const void *buf, long sz)
 		struct MiO *section = (void *)&emitbuf[currentSection];
 		size_t oldSize = le64toh(section->size);
 		section->size  = htole64(oldSize+sz);
+	}
+	if (currentSymbol >= 0)
+	{
+		struct MiO_Symbol *s = &symbol[currentSymbol];
+		size_t oldSize = le64toh(s->size);
+		s->size        = htole64(oldSize+sz);
 	}
 	return emitRaw(buf, sz);
 }

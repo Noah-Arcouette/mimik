@@ -17,6 +17,43 @@ extern long currentSection;
 extern void emitSection (const char *name);
 
 /**
+ * Enter a new symbol
+ * @file emit/symbol.c
+ * @param name The name of the new symbol to create
+ */
+extern void emitSymbol (const char *name);
+
+/**
+ * Emit symbol data into the output stream
+ * @file emit/symbol.c
+ */
+extern void emitSymbolData (void);
+
+/**
+ * The current symbol flags
+ * @file emit/symbol.c
+ */
+extern int symbolFlags;
+
+/**
+ * The current symbol we're in, offset into *symbol* or negative
+ * @file emit/symbol.c
+ */
+extern long currentSymbol;
+
+/**
+ * The symbol buffer
+ * @file emit/symbol.c
+ */
+extern struct MiO_Symbol *symbol;
+
+/**
+ * Current offset of the virtual data region
+ * @file emit/reserve.c
+ */
+extern long virtualOffset;
+
+/**
  * The raw buffer of the output file
  * @file emit.c
  */

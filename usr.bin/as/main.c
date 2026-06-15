@@ -57,6 +57,7 @@ main (int argc, char *argv[])
 	emitArchitecture();
 
 	// create symbol section
+	emitSymbolData();
 
 	// create gap section
 	emitGapData();

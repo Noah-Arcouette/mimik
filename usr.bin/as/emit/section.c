@@ -11,6 +11,7 @@ emitSection (const char *name)
 	struct MiO newSection;
 
 	currentSection = -1; // clear current section
+	currentSymbol  = -1;
 
 	// check if the name can fix
 	if (strlen(name) > sizeof(newSection.name))

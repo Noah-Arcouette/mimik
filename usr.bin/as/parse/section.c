@@ -24,6 +24,8 @@ parse_section (void)
 	// flags (optional)
 	if (ltok.type == TOK_SYMBOL)
 	{
+		currentSymbol = -1;
+		symbolFlags   = 0;
 		if (currentSection >= 0)
 		{
 			struct MiO *section = (void *)&emitbuf[currentSection];
@@ -34,14 +36,17 @@ parse_section (void)
 				switch (*s)
 				{
 				case 'x':
+					symbolFlags |= MIO_SYMBOL_FLAG_EXECUTABLE;
+					break;
 				case 'r':
+					symbolFlags |= MIO_SYMBOL_FLAG_READABLE;
+					break;
 				case 'w':
-					prettyprint(gettext(
-						"Section flag `%c' is current not implemented\n"), *s);
-					errors++;
+					symbolFlags |= MIO_SYMBOL_FLAG_WRITABLE;
 					break;
 				case 'v':
 					section->flags |= MIO_FLAG_VIRTUAL;
+					symbolFlags    |= MIO_SYMBOL_FLAG_VIRTUAL;
 					break;
 				case '-':
 				case '\0':
