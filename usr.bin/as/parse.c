@@ -29,6 +29,9 @@ parse (void)
 		}
 	#endif
 
+		// label
+		if (parse_label()) continue;
+
 		// ignore newline
 		if (ltok.type == TOK_NEWLINE)
 		{

@@ -15,6 +15,13 @@ extern int parse_section (void);
  */
 extern int parse_architecture (void);
 
+/**
+ * Attempt to consume a label
+ * @returns True if a label was consumed
+ * @file parse/label.c
+ */
+extern int parse_label (void);
+
 #ifdef X86_16
 /**
  * Consume and emit an x86-16 instructions
