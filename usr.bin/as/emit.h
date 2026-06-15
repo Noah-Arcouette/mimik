@@ -1,5 +1,6 @@
 #ifndef __EMIT_H__
 #define __EMIT_H__
+#include <stddef.h>
 #include <mio.h>
 
 /**
@@ -46,6 +47,7 @@ extern long currentSymbol;
  * @file emit/symbol.c
  */
 extern struct MiO_Symbol *symbol;
+extern size_t             symbols;
 
 /**
  * Current offset of the virtual data region
