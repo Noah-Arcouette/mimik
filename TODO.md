@@ -164,10 +164,6 @@ xargs
 
 manuals:
 	include/mio.h
-assembler:
-	symbols
-	globals
-	x86-16 et al
 disassembler
 linker, readmio
 mio2bin, mio2pe32+
