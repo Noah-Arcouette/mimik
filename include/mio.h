@@ -50,7 +50,7 @@ struct MiO_Gap
 	uint16_t type;
 
 	/// The symbol to reference the given data for
-	char symbol[256];
+	uint8_t symbol[256];
 };
 
 #define MIO_GAP_TYPE_LIT_BYTE   0x0000 // literal byte
