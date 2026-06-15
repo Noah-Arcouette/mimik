@@ -76,4 +76,10 @@ extern void setArch (const char *arch);
  */
 extern void emitGap (const char *symbol, int type);
 
+/**
+ * Emit gap data into the output stream
+ * @file emit/gap.c
+ */
+extern void emitGapData (void);
+
 #endif
