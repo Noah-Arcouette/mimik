@@ -68,4 +68,12 @@ extern void emitArchitecture (void);
  */
 extern void setArch (const char *arch);
 
+/**
+ * Create a gap at the current offset
+ * @param symbol The symbol to reference for this gap
+ * @param type The type of this gap
+ * @file emit/gap.c
+ */
+extern void emitGap (const char *symbol, int type);
+
 #endif
