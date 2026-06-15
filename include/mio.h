@@ -38,4 +38,38 @@ struct MiO_Arch
 #define MIO_ARCH_ARCH_X86_16          0x0001 // x86 16bit major
 #define MIO_ARCH_ARCH_X86_UARCH_I8086 0x0000 // i8086 minor
 
+#define MIO_SPECIAL_MIO_GAPS (uint8_t *)"mio.gaps"
+/// @brief A single MiO gap
+struct MiO_Gap
+{
+	/// A positive offset in bytes from the start of the file into a data
+	/// section defining where the gap starts
+	uint64_t offset;
+
+	/// The type of this gap
+	uint16_t type;
+
+	/// The symbol to reference the given data for
+	char symbol[256];
+};
+
+#define MIO_GAP_TYPE_LIT_BYTE   0x0000 // literal byte
+#define MIO_GAP_TYPE_LIT_LE16   0x0001 // literal little-endian 16bit
+#define MIO_GAP_TYPE_LIT_LE32   0x0002 // literal little-endian 32bit
+#define MIO_GAP_TYPE_LIT_LE64   0x0003 // literal little-endian 64bit
+#define MIO_GAP_TYPE_LIT_LE128  0x0004 // literal little-endian 128bit
+#define MIO_GAP_TYPE_LIT_BE16   0x0005 // literal big-endian 16bit
+#define MIO_GAP_TYPE_LIT_BE32   0x0006 // literal big-endian 32bit
+#define MIO_GAP_TYPE_LIT_BE64   0x0007 // literal big-endian 64bit
+#define MIO_GAP_TYPE_LIT_BE128  0x0008 // literal big-endian 128bit
+#define MIO_GAP_TYPE_DISP_BYTE  0x0009 // displacement byte
+#define MIO_GAP_TYPE_DISP_LE16  0x000a // displacement little-endian 16bit
+#define MIO_GAP_TYPE_DISP_LE32  0x000b // displacement little-endian 32bit
+#define MIO_GAP_TYPE_DISP_LE64  0x000c // displacement little-endian 64bit
+#define MIO_GAP_TYPE_DISP_LE128 0x000d // displacement little-endian 128bit
+#define MIO_GAP_TYPE_DISP_BE16  0x000e // displacement big-endian 16bit
+#define MIO_GAP_TYPE_DISP_BE32  0x000f // displacement big-endian 32bit
+#define MIO_GAP_TYPE_DISP_BE64  0x0010 // displacement big-endian 64bit
+#define MIO_GAP_TYPE_DISP_BE128 0x0011 // displacement big-endian 128bit
+
 #endif

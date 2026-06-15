@@ -174,6 +174,58 @@ The following values are defined for these fields:
 | Undefined    | ----------- | ---- | Flags shall be ignored              |
 +--------------+-------------+------+-------------------------------------+
 
+### Gap Data
+
+The section `mio.gaps` shall contain a list of gap structures used to at load
+time to fill in missing symbol data. Gaps shall be preserved until loading to
+allow for symbol movement and removal without needed relocation. Gaps are not
+relocation and do not function similar to ELF or PE. A gap contains an offset
+into a data section that shall be filled as specified by the gap information at
+load time. The gap section shall contain a list of the following data:
+
++--------+--------+------+----------------------------------------------------+
+|  Name  | Offset | Size |                      Meaning                       |
++--------+--------+------+----------------------------------------------------+
+| Offset | +0B    | 8B   | The offset from the start of the file into a data  |
+|        |        |      | section, defining the start of the gap.            |
+| Type   | +8B    | 2B   | The type of this gap                               |
+| Symbol | +10B   | 256B | The symbol of which to derive gap information from |
++--------+--------+------+----------------------------------------------------+
+
+The *type* portion shall be as follows:
+
+*literal* -- Meaning the value portion of the symbol entry shall be copied
+	verbatim.
+
+*displacement* -- Meaning the positive or negative (two's compliment) offset
+	from the given gap start to the start (value) of the provided symbol after
+	loading into memory.
+
++-------------+-------------------------------------------+
+| Value (hex) |                  Meaning                  |
++-------------+-------------------------------------------+
+| 0000        | A literal byte                            |
+| 0001        | A literal little endian 16bit value       |
+| 0002        | A literal little endian 32bit value       |
+| 0003        | A literal little endian 64bit value       |
+| 0004        | A literal little endian 128bit value      |
+| 0005        | A literal big endian 16bit value          |
+| 0006        | A literal big endian 32bit value          |
+| 0007        | A literal big endian 64bit value          |
+| 0008        | A literal big endian 128bit value         |
+| 0009        | A displacement byte                       |
+| 000a        | A displacement little endian 16bit value  |
+| 000b        | A displacement little endian 32bit value  |
+| 000c        | A displacement little endian 64bit value  |
+| 000d        | A displacement little endian 128bit value |
+| 000e        | A displacement big endian 16bit value     |
+| 000f        | A displacement big endian 32bit value     |
+| 0010        | A displacement big endian 64bit value     |
+| 0011        | A displacement big endian 128bit value    |
+| 0012-efff   | Reserved for future use                   |
+| f000-ffff   | Reserved for implementation/system use    |
++-------------+-------------------------------------------+
+
 
 # Rationale
 
@@ -188,7 +240,6 @@ The split between virtual and data regions is designed almost entirely for the
 
 Possible new special sections:
  - *mio.symbols* : Named symbols
- - *mio.gaps*    : Load time data gaps
  - *mio.info*    : User informative information
  - *mio.sigs*    : Section data signatures
  - *mio.chks*    : Section data checksums
