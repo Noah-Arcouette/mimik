@@ -83,7 +83,6 @@ stty
 tabs
 tail
 test
-time
 timeout
 touch
 tput

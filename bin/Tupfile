@@ -45,4 +45,8 @@ ifeq (@(BIN_SLEEP),y)
 FILES+=sleep.c
 endif
 
+ifeq (@(BIN_TIME),y)
+FILES+=time.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/bin/%B

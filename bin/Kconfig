@@ -53,4 +53,9 @@ menu "bin/ - essential user binaries"
 		bool "sleep"
 		help
 			Pause execution
+
+	config BIN_TIME
+		bool "time"
+		help
+			Return the execution timing of a command
 endmenu
