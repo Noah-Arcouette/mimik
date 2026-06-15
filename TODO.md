@@ -76,7 +76,6 @@ rm
 rmdir
 sed
 sh
-sleep
 sort
 split
 strings
