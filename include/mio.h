@@ -53,23 +53,27 @@ struct MiO_Gap
 	uint8_t symbol[256];
 };
 
-#define MIO_GAP_TYPE_LIT_BYTE   0x0000 // literal byte
-#define MIO_GAP_TYPE_LIT_LE16   0x0001 // literal little-endian 16bit
-#define MIO_GAP_TYPE_LIT_LE32   0x0002 // literal little-endian 32bit
-#define MIO_GAP_TYPE_LIT_LE64   0x0003 // literal little-endian 64bit
-#define MIO_GAP_TYPE_LIT_LE128  0x0004 // literal little-endian 128bit
-#define MIO_GAP_TYPE_LIT_BE16   0x0005 // literal big-endian 16bit
-#define MIO_GAP_TYPE_LIT_BE32   0x0006 // literal big-endian 32bit
-#define MIO_GAP_TYPE_LIT_BE64   0x0007 // literal big-endian 64bit
-#define MIO_GAP_TYPE_LIT_BE128  0x0008 // literal big-endian 128bit
-#define MIO_GAP_TYPE_DISP_BYTE  0x0009 // displacement byte
-#define MIO_GAP_TYPE_DISP_LE16  0x000a // displacement little-endian 16bit
-#define MIO_GAP_TYPE_DISP_LE32  0x000b // displacement little-endian 32bit
-#define MIO_GAP_TYPE_DISP_LE64  0x000c // displacement little-endian 64bit
-#define MIO_GAP_TYPE_DISP_LE128 0x000d // displacement little-endian 128bit
-#define MIO_GAP_TYPE_DISP_BE16  0x000e // displacement big-endian 16bit
-#define MIO_GAP_TYPE_DISP_BE32  0x000f // displacement big-endian 32bit
-#define MIO_GAP_TYPE_DISP_BE64  0x0010 // displacement big-endian 64bit
-#define MIO_GAP_TYPE_DISP_BE128 0x0011 // displacement big-endian 128bit
+#define MIO_GAP_TYPE_LIT_BYTE   0x000 // literal byte
+#define MIO_GAP_TYPE_LIT_LE16   0x001 // literal little-endian 16bit
+#define MIO_GAP_TYPE_LIT_LE32   0x002 // literal little-endian 32bit
+#define MIO_GAP_TYPE_LIT_LE64   0x003 // literal little-endian 64bit
+#define MIO_GAP_TYPE_LIT_LE128  0x004 // literal little-endian 128bit
+#define MIO_GAP_TYPE_LIT_BE16   0x005 // literal big-endian 16bit
+#define MIO_GAP_TYPE_LIT_BE32   0x006 // literal big-endian 32bit
+#define MIO_GAP_TYPE_LIT_BE64   0x007 // literal big-endian 64bit
+#define MIO_GAP_TYPE_LIT_BE128  0x008 // literal big-endian 128bit
+#define MIO_GAP_TYPE_DISP_BYTE  0x009 // displacement byte
+#define MIO_GAP_TYPE_DISP_LE16  0x00a // displacement little-endian 16bit
+#define MIO_GAP_TYPE_DISP_LE32  0x00b // displacement little-endian 32bit
+#define MIO_GAP_TYPE_DISP_LE64  0x00c // displacement little-endian 64bit
+#define MIO_GAP_TYPE_DISP_LE128 0x00d // displacement little-endian 128bit
+#define MIO_GAP_TYPE_DISP_BE16  0x00e // displacement big-endian 16bit
+#define MIO_GAP_TYPE_DISP_BE32  0x00f // displacement big-endian 32bit
+#define MIO_GAP_TYPE_DISP_BE64  0x010 // displacement big-endian 64bit
+#define MIO_GAP_TYPE_DISP_BE128 0x011 // displacement big-endian 128bit
+
+#define MIO_GAP_TYPE_READING   0x4000
+#define MIO_GAP_TYPE_WRITING   0x2000
+#define MIO_GAP_TYPE_EXECUTING 0x1000
 
 #endif

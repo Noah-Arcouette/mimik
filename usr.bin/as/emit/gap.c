@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <endian.h>
+#include <assert.h>
 #include <stdio.h>
 #include <errno.h>
 
@@ -71,7 +72,7 @@ emitGap (const char *symbol, int type)
 
 	// emit zeros data
 	int size = 0;
-	switch (type)
+	switch (type & 0xfff)
 	{
 	case MIO_GAP_TYPE_LIT_BYTE:
 	case MIO_GAP_TYPE_DISP_BYTE:
@@ -101,6 +102,8 @@ emitGap (const char *symbol, int type)
 	case MIO_GAP_TYPE_LIT_BE128:
 		size = 16;
 		break;
+	default:
+		assert(1);
 	}
 
 	char zeros[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };

@@ -204,27 +204,36 @@ The *type* portion shall be as follows:
 +-------------+-------------------------------------------+
 | Value (hex) |                  Meaning                  |
 +-------------+-------------------------------------------+
-| 0000        | A literal byte                            |
-| 0001        | A literal little endian 16bit value       |
-| 0002        | A literal little endian 32bit value       |
-| 0003        | A literal little endian 64bit value       |
-| 0004        | A literal little endian 128bit value      |
-| 0005        | A literal big endian 16bit value          |
-| 0006        | A literal big endian 32bit value          |
-| 0007        | A literal big endian 64bit value          |
-| 0008        | A literal big endian 128bit value         |
-| 0009        | A displacement byte                       |
-| 000a        | A displacement little endian 16bit value  |
-| 000b        | A displacement little endian 32bit value  |
-| 000c        | A displacement little endian 64bit value  |
-| 000d        | A displacement little endian 128bit value |
-| 000e        | A displacement big endian 16bit value     |
-| 000f        | A displacement big endian 32bit value     |
-| 0010        | A displacement big endian 64bit value     |
-| 0011        | A displacement big endian 128bit value    |
-| 0012-efff   | Reserved for future use                   |
-| f000-ffff   | Reserved for implementation/system use    |
+|  000        | A literal byte                            |
+|  001        | A literal little endian 16bit value       |
+|  002        | A literal little endian 32bit value       |
+|  003        | A literal little endian 64bit value       |
+|  004        | A literal little endian 128bit value      |
+|  005        | A literal big endian 16bit value          |
+|  006        | A literal big endian 32bit value          |
+|  007        | A literal big endian 64bit value          |
+|  008        | A literal big endian 128bit value         |
+|  009        | A displacement byte                       |
+|  00a        | A displacement little endian 16bit value  |
+|  00b        | A displacement little endian 32bit value  |
+|  00c        | A displacement little endian 64bit value  |
+|  00d        | A displacement little endian 128bit value |
+|  00e        | A displacement big endian 16bit value     |
+|  00f        | A displacement big endian 32bit value     |
+|  010        | A displacement big endian 64bit value     |
+|  011        | A displacement big endian 128bit value    |
+|  012-eff    | Reserved for future use                   |
+|  f00-fff    | Reserved for implementation/system use    |
 +-------------+-------------------------------------------+
+
+The first four bits (most significant) shall be used as follows:
+
++--------------+-----------+----------+----------+----------+
+| Offset (LSB) | +0b  0001 | +1b 0010 | +2b 0100 | +3b 1000 |
+| Meaning      | Executing | Reading  | Writing  | Reserved |
++--------------+-----------+----------+----------+----------+
+
+This allows for simple error checking of symbol permissions.
 
 
 # Rationale

@@ -27,7 +27,7 @@ parse_x86_16_jmp (void)
 		char buf = 0b11101011;
 		emit(&buf, 1);
 
-		emitGap(ltok.buf, MIO_GAP_TYPE_DISP_BYTE);
+		emitGap(ltok.buf, MIO_GAP_TYPE_DISP_BYTE|MIO_GAP_TYPE_EXECUTING);
 
 		lex();
 		return 1;
