@@ -76,4 +76,26 @@ struct MiO_Gap
 #define MIO_GAP_TYPE_WRITING   0x2000
 #define MIO_GAP_TYPE_EXECUTING 0x1000
 
+#define MIO_SPECIAL_MIO_SYMBOLS (uint8_t *)"mio.symbols"
+/// @brief A single MiO symbol
+struct MiO_Symbol
+{
+	/// A positive offset in bytes from the start of the file into a data
+	/// section defining where the symbol starts, or an offset into the virtual
+	/// data region
+	uint64_t offset;
+
+	uint64_t size; /// the size of the symbol
+	uint16_t flags; /// the symbol flags
+
+	uint8_t name[256]; /// the symbol name
+};
+
+#define MIO_SYMBOL_FLAG_VIRTUAL    0x0001
+#define MIO_SYMBOL_FLAG_READABLE   0x0002
+#define MIO_SYMBOL_FLAG_WRITABLE   0x0004
+#define MIO_SYMBOL_FLAG_EXECUTABLE 0x0008
+#define MIO_SYMBOL_FLAG_GLOBAL     0x0010
+#define MIO_SYMBOL_FLAG_LITERAL    0x0020
+
 #endif

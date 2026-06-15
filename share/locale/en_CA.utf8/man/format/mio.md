@@ -174,6 +174,54 @@ The following values are defined for these fields:
 | Undefined    | ----------- | ---- | Flags shall be ignored              |
 +--------------+-------------+------+-------------------------------------+
 
+### Symbol Data
+
+The section `mio.symbols` shall contain a list of named data or virtual
+segments designed for use mainly in gaps. Each symbols shall be as follows:
+
++--------+--------+------+-----------------------------------------------+
+|  Name  | Offset | Size |                    Meaning                    |
++--------+--------+------+-----------------------------------------------+
+| Offset | +0B    | 8B   | Offset into the file for data symbols or the  |
+|        |        |      | virtual data section                          |
+| Size   | +8B    | 8B   | The amount of bytes taken up by the symbol    |
+| Flags  | +16B   | 2B   | The specific flags for this symbol            |
+| Name   | +18B   | 256B | The name of the symbol                        |
++--------+--------+------+-----------------------------------------------+
+
+The flags word shall be defined as follows
+
++--------------+-------------+
+| Offset (LSB) |   Meaning   |
++--------------+-------------+
+| +0b     0001 | Virtual     |
+| +1b     0002 | Readable    |
+| +2b     0004 | Writable    |
+| +3b     0008 | Executable  |
+| +4b     0010 | Global      |
+| +5b     0020 | Literal     |
+| +6b...       | Reserved    |
++--------------+-------------+
+
+`Virtual` shall change the offset value from meaning the offset from the start
+of the file, to meaning the offset from the start of the virtual data region.
+
+`Readable` shall allow reading gaps access to this symbol, along with
+`Writable`, and `Executable`.
+
+`Global` shall allow this symbol to be used in gaps from other object files, if
+the files in question do not already define this symbol. If this is set the
+symbol name shall not be changed by any linking or loading utility. If not set
+the name of this symbol must only be consistent to originating object file and
+its gap; therefore during linking this name and the relating gaps should change
+to a unique non-colliding name.
+
+`Literal` this symbol's offset shall be treated as a literal values and not be
+mapped and translated into a virtual memory address.
+
+**NOTE** : The offsets start from the most right bit; `+0b` being the value `1`,
+	`+1b` being `2` and so forth.
+
 ### Gap Data
 
 The section `mio.gaps` shall contain a list of gap structures used to at load
@@ -248,7 +296,6 @@ The split between virtual and data regions is designed almost entirely for the
 # Future Directions
 
 Possible new special sections:
- - *mio.symbols* : Named symbols
  - *mio.info*    : User informative information
  - *mio.sigs*    : Section data signatures
  - *mio.chks*    : Section data checksums
