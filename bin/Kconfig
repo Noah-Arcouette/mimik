@@ -48,4 +48,9 @@ menu "bin/ - essential user binaries"
 		bool "readlink"
 		help
 			Show where a symbolic link leads to
+
+	config BIN_SLEEP
+		bool "sleep"
+		help
+			Pause execution
 endmenu

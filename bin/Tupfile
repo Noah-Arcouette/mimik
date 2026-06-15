@@ -41,4 +41,8 @@ ifeq (@(BIN_READLINK),y)
 FILES+=readlink.c
 endif
 
+ifeq (@(BIN_SLEEP),y)
+FILES+=sleep.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/bin/%B

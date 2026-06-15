@@ -23,6 +23,7 @@ menu "Default Builds"
 		imply BIN_FALSE
 		imply BIN_TEE
 		imply BIN_READLINK
+		imply BIN_SLEEP
 		default y
 
 	config DEFAULT_BUILD_TOOLS
