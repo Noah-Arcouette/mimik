@@ -22,6 +22,13 @@ extern int parse_architecture (void);
  */
 extern int parse_label (void);
 
+/**
+ * Attempt to consume a global directive
+ * @returns True if a global directive was consumed
+ * @file parse/global.c
+ */
+extern int parse_global (void);
+
 #ifdef X86_16
 /**
  * Consume and emit an x86-16 instructions

@@ -19,6 +19,9 @@ parse (void)
 		// emit data
 		// reserve data
 
+		// global
+		if (parse_global()) continue;
+
 		// x86-16
 	#ifdef X86_16
 		if (le16toh(currentArchitecture.arch) == MIO_ARCH_ARCH_X86_16)
