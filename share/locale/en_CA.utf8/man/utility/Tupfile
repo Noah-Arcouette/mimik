@@ -48,6 +48,10 @@ ifeq (@(BIN_SLEEP),y)
 FILES+=sleep.md
 endif
 
+ifeq (@(BIN_TIME),y)
+FILES+=time.md
+endif
+
 
 # usr.bin
 ifeq (@(USR_BIN_AS),y)
