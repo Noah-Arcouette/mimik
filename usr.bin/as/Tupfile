@@ -14,7 +14,7 @@ endif
 : foreach parse/*.c |> !hostcc $(FLAGS) |> \
 	$(OBJ)/tool/as.d/parse/%B.o {tool-obj}
 : foreach emit/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/as.d/emit/%B.o {tool-obj}
-: foreach *.c |> !hostcc |> $(OBJ)/tool/as.d/%B.o {tool-obj}
+: foreach *.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/as.d/%B.o {tool-obj}
 : {tool-obj} |> !hostccld |> $(OBJ)/tool/as | $(OBJ)/tool/<as>
 endif
 
@@ -30,6 +30,6 @@ endif
 
 : foreach parse/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/as/parse/%B.o {obj}
 : foreach emit/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/as/emit/%B.o {obj}
-: foreach *.c |> !cc |> $(OBJ)/usr.bin/as/%B.o {obj}
+: foreach *.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/as/%B.o {obj}
 : {obj} |> !ccld |> $(DIST)/usr/bin/as
 endif
