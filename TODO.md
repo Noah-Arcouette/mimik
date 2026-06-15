@@ -164,7 +164,6 @@ xargs
 
 manuals:
 	include/mio.h
-	format/s.x86_16
 assembler:
 	symbols
 	globals
