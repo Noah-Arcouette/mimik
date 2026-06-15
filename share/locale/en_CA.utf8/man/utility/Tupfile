@@ -44,6 +44,10 @@ ifeq (@(BIN_READLINK),y)
 FILES+=readlink.md
 endif
 
+ifeq (@(BIN_SLEEP),y)
+FILES+=sleep.md
+endif
+
 
 # usr.bin
 ifeq (@(USR_BIN_AS),y)
