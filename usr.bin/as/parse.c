@@ -16,8 +16,6 @@ parse (void)
 		// architecture
 		if (parse_architecture()) continue;
 
-		// symbols
-		// gaps
 		// emit data
 		// reserve data
 
