@@ -34,6 +34,10 @@ ifeq (@(USR_BIN_AS),y)
 FILES+=as.md
 endif
 
+ifeq (@(USR_BIN_READMIO),y)
+FILES+=readmio.md
+endif
+
 : foreach $(FILES) |> !comp \
 	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b$(COMP_EXT)
 
