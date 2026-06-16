@@ -1,0 +1,2 @@
+config USR_BIN_LD
+	bool "ld"

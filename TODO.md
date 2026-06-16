@@ -165,26 +165,6 @@ xargs
 manuals:
 	include/mio.h
 disassembler
-linker:
-	inputs:
-		object files
-		IR files
-		shared objects
-		archive files
-	script:
-		architecture
-		sections
-		symbols
-		gaps
-		literal symbols
-		memory mapping
-	outputs:
-		shared objects
-		object files
-		executable files
-		signatures and checksums
-		information section
-		execution restrictions
 readmio
 mio2bin, mio2pe32+
 fuzzy testing, valgrind

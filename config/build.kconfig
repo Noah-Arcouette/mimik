@@ -40,6 +40,9 @@ menu "Build"
 			bool "x86 16bit assembly"
 			depends on BUILD_TOOL_AS
 
+		config BUILD_TOOL_LD
+			bool "Linker"
+
 		# config BUILD_TOOL_COMPRESS
 	endmenu
 

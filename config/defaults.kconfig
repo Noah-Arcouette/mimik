@@ -24,5 +24,6 @@ menu "Default Builds"
 	config DEFAULT_BUILD_TOOLS
 		bool "Build tools"
 		imply USR_BIN_AS
+		imply USR_BIN_LD
 		default y
 endmenu

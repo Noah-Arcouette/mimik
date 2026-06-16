@@ -1,3 +1,4 @@
 menu "usr.bin/ - non-essential user binaries"
 	source "usr.bin/as/Kconfig"
+	source "usr.bin/ld/Kconfig"
 endmenu

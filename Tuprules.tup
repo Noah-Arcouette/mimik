@@ -25,3 +25,9 @@ COMP_EXT=
 ifeq (@(BUILD_TOOL_AS),y)
 !as = | $(OBJ)/tool/<as> |> ^ AS       %b^ $(EXEC) $(OBJ)/tool/as -o %o %f |>
 endif
+
+ifeq (@(BUILD_TOOL_LD),y)
+!ld = | $(OBJ)/tool/<ld> |> ^ LD       %b^ $(EXEC) $(OBJ)/tool/ld -o %o %f |>
+!ldscript = | $(OBJ)/tool/<ld> |> ^ LD       %b^ \
+	$(EXEC) $(OBJ)/tool/ld -T$(SCRIPT) -o %o %f |>
+endif
