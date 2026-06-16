@@ -31,3 +31,8 @@ ifeq (@(BUILD_TOOL_LD),y)
 !ldscript = | $(OBJ)/tool/<ld> |> ^ LD       %b^ \
 	$(EXEC) $(OBJ)/tool/ld -T$(SCRIPT) -o %o %f |>
 endif
+
+ifeq (@(BUILD_TOOL_READMIO),y)
+!readmio = | $(OBJ)/tool/<readmio> |> ^ READMIO  %b^ \
+	$(EXEC) $(OBJ)/tool/readmio %f |>
+endif
