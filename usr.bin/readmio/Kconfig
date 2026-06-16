@@ -1,0 +1,4 @@
+config USR_BIN_READMIO
+	bool "readmio"
+	help
+		Dump the raw information from a MiO file

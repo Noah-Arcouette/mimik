@@ -25,5 +25,6 @@ menu "Default Builds"
 		bool "Build tools"
 		imply USR_BIN_AS
 		imply USR_BIN_LD
+		imply USR_BIN_READMIO
 		default y
 endmenu

@@ -165,7 +165,6 @@ xargs
 manuals:
 	include/mio.h
 disassembler
-readmio
 mio2bin, mio2pe32+
 fuzzy testing, valgrind
 tup, kconfig, git

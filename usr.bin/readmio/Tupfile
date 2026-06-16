@@ -1,0 +1,13 @@
+include_rules
+
+# toolchain build
+ifeq (@(BUILD_TOOL_READMIO),y)
+: foreach *.c |> !hostcc |> $(OBJ)/tool/readmio.d/%B.o {tool-obj}
+: {tool-obj} |> !hostccld |> $(OBJ)/tool/readmio | $(OBJ)/tool/<readmio>
+endif
+
+
+ifeq (@(USR_BIN_READMIO),y)
+: foreach *.c |> !cc |> $(OBJ)/usr.bin/readmio/%B.o {obj}
+: {obj} |> !ccld |> $(DIST)/usr/bin/readmio
+endif

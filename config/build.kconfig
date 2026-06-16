@@ -43,6 +43,9 @@ menu "Build"
 		config BUILD_TOOL_LD
 			bool "Linker"
 
+		config BUILD_TOOL_READMIO
+			bool "Read MIO"
+
 		# config BUILD_TOOL_COMPRESS
 	endmenu
 
