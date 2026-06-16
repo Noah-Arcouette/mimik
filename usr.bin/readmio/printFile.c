@@ -9,7 +9,7 @@ printFile (const char *file)
 {
 	// open the file
 	FILE *fp;
-	if (!strcmp(file, "-"))
+	if (strcmp(file, "-"))
 	{
 		fp = fopen(file, "r");
 	}
