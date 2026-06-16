@@ -33,10 +33,10 @@ printFile (const char *file)
 	printf(gettext("\n%s:\n"), file);
 
 	// print each section
-	// while (printSection(fp))
-	// {
+	while (printSection(fp, file))
+	{
 		// do nada
-	// }
+	}
 
 	fclose(fp);
 }
