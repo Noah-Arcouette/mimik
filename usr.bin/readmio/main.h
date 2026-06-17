@@ -39,4 +39,12 @@ extern int printSection (FILE *fp, const char *path);
  */
 extern void printArch (FILE *fp, unsigned long long size);
 
+/**
+ * Print out symbols data section, seeking to the next section
+ * @param fp The file pointer
+ * @param size The size of this ection
+ * @file printSymbols.c
+ */
+extern void printSymbols (FILE *fp, unsigned long long size);
+
 #endif

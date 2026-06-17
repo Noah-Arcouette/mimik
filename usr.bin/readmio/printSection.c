@@ -85,7 +85,21 @@ printSection (FILE *fp, const char *path)
 			printArch(fp, size);
 		}
 	}
-	// mio.symbols
+	else if (!strncmp( // mio.symbols
+		(char *)section.name,
+		(char *)MIO_SPECIAL_MIO_SYMBOLS,
+		sizeof(section.name)))
+	{
+		if (section.flags & MIO_FLAG_VIRTUAL)
+		{
+			printf(gettext("\n\tError, refusing to read from virtual data\n"));
+			errors++;
+		}
+		else
+		{
+			printSymbols(fp, size);
+		}
+	}
 	// mio.gaps
 	else // just skip the data
 	{
