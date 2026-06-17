@@ -15,6 +15,7 @@ EXEC=@(BUILD_EXEC)
 
 # Built Toolchain
 # not implemented so just use this for testing
+# don't forget to use unity builds too
 !ccld = !hostccld
 !cc = !hostcc
 
