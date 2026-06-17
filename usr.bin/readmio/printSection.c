@@ -40,12 +40,19 @@ printSection (FILE *fp, const char *path)
 		section.magic[2] == MIO_MAGIC[2] &&
 		section.magic[3] == MIO_MAGIC[3]
 	);
-	printf(gettext("\tMagic: %02x%02x%02x%02x (%s)\n"),
+	printf(gettext("\tMagic: %02x%02x%02x%02x ("),
 		section.magic[0],
 		section.magic[1],
 		section.magic[2],
-		section.magic[3],
-		magicGood ? gettext("Good") : gettext("Bad"));
+		section.magic[3]);
+	if (magicGood)
+	{
+		printf(gettext("Good)\n"));
+	}
+	else
+	{
+		printf(gettext("Bad)\n"));
+	}
 
 	// flags
 	printf(gettext("\tFlags: %02x ("), section.flags);
