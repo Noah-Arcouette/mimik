@@ -100,7 +100,21 @@ printSection (FILE *fp, const char *path)
 			printSymbols(fp, size);
 		}
 	}
-	// mio.gaps
+	else if (!strncmp( // mio.gaps
+		(char *)section.name,
+		(char *)MIO_SPECIAL_MIO_GAPS,
+		sizeof(section.name)))
+	{
+		if (section.flags & MIO_FLAG_VIRTUAL)
+		{
+			printf(gettext("\n\tError, refusing to read from virtual data\n"));
+			errors++;
+		}
+		else
+		{
+			printGaps(fp, size);
+		}
+	}
 	else // just skip the data
 	{
 		fseek(fp, size, SEEK_CUR);

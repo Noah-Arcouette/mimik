@@ -42,9 +42,17 @@ extern void printArch (FILE *fp, unsigned long long size);
 /**
  * Print out symbols data section, seeking to the next section
  * @param fp The file pointer
- * @param size The size of this ection
+ * @param size The size of this section
  * @file printSymbols.c
  */
 extern void printSymbols (FILE *fp, unsigned long long size);
+
+/**
+ * Print out gaps data section, seeking to the next section
+ * @param fp The file pointer
+ * @param size The size of this section
+ * @file printGaps.c
+ */
+extern void printGaps (FILE *fp, unsigned long long size);
 
 #endif
