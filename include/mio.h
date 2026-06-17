@@ -71,6 +71,7 @@ struct MiO_Gap
 #define MIO_GAP_TYPE_DISP_BE32  0x00f // displacement big-endian 32bit
 #define MIO_GAP_TYPE_DISP_BE64  0x010 // displacement big-endian 64bit
 #define MIO_GAP_TYPE_DISP_BE128 0x011 // displacement big-endian 128bit
+#define MIO_GAP_TYPE_MASK       0xfff
 
 #define MIO_GAP_TYPE_READING   0x4000
 #define MIO_GAP_TYPE_WRITING   0x2000
