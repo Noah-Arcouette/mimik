@@ -21,63 +21,72 @@ printArch (FILE *fp, unsigned long long size)
 
 	// print architecture information
 	int archMajor = le16toh(arch.arch);
-	const char *archMajorName = "unknown";
-
 	int archMinor = le16toh(arch.uarch);
-	const char *archMinorName = "unknown";
-
 	int archFlags = le64toh(arch.archflags);
 
 	switch (archMajor)
 	{
 	case MIO_ARCH_ARCH_UNDEFINED:
-		archMajorName = "undefined";
+		printf(gettext("\n\tArch: %04x(undefined) %04x(unknown) %016x( )\n"),
+			archMajor,
+			archMinor,
+			archFlags);
 		break;
 	case MIO_ARCH_ARCH_X86_16:
-		archMajorName = "x86-16";
-
 		switch (archMinor)
 		{
 		case MIO_ARCH_ARCH_X86_UARCH_I8086:
-			archMinorName = "i8086";
+			printf(
+				gettext("\n\tArch: %04x(x86-16) %04x(i8086) %016x( )\n"),
+				archMajor,
+				archMinor,
+				archFlags);
+			break;
+		default:
+			printf(
+				gettext("\n\tArch: %04x(x86-16) %04x(unknown) %016x( )\n"),
+				archMajor,
+				archMinor,
+				archFlags);
 			break;
 		}
 		break;
+	default:
+		printf(
+			gettext("\n\tArch: %04x(unknown) %04x(unknown) %016x( )\n"),
+			archMajor,
+			archMinor,
+			archFlags);
+		break;
 	}
-	printf(gettext("\n\tArch: %04x(%s) %04x(%s) %016x( )\n"),
-		archMajor,
-		archMajorName,
-		archMinor,
-		archMinorName,
-		archFlags);
 
 	// print system information
 	int sysMajor = le16toh(arch.sys);
-	const char *sysMajorName = "unknown";
-
 	int sysMinor = le16toh(arch.usys);
-	const char *sysMinorName = "unknown";
-
 	int sysFlags = le64toh(arch.sysflags);
 
 	switch (sysMajor)
 	{
 	case MIO_ARCH_SYS_UNDEFINED:
-		sysMajorName = "undefined";
+		printf(gettext("\tSys : %04x(undefined) %04x(unknown) %016x( )\n"),
+			sysMajor,
+			sysMinor,
+			sysFlags);
+		break;
+	default:
+		printf(
+			gettext("\tArch: %04x(unknown) %04x(unknown) %016x( )\n"),
+			sysMajor,
+			sysMinor,
+			sysFlags);
 		break;
 	}
-	printf(gettext("\tSys : %04x(%s) %04x(%s) %016x( )\n"),
-		sysMajor,
-		sysMajorName,
-		sysMinor,
-		sysMinorName,
-		sysFlags);
 
 	// check if the size is different than sizeof(arch)
 	if (sizeof(arch) != size)
 	{
 		printf(gettext(
-			"Error, architecture data size mismatched with section size\n"));
+			"\tError, architecture data size mismatched with section size\n"));
 		errors++;
 		fseek(fp, off+size, SEEK_SET);
 	}
