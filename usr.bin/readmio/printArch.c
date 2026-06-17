@@ -72,4 +72,13 @@ printArch (FILE *fp, unsigned long long size)
 		sysMinor,
 		sysMinorName,
 		sysFlags);
+
+	// check if the size is different than sizeof(arch)
+	if (sizeof(arch) != size)
+	{
+		printf(gettext(
+			"Error, architecture data size mismatched with section size\n"));
+		errors++;
+		fseek(fp, off+size, SEEK_SET);
+	}
 }
