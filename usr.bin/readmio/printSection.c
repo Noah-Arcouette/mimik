@@ -63,11 +63,26 @@ printSection (FILE *fp, const char *path)
 	}
 
 	// check the name of the section
-	// mio.arch
+	if (!strncmp( // mio.arch
+		(char *)section.name,
+		(char *)MIO_SPECIAL_MIO_ARCH,
+		sizeof(section.name)))
+	{
+		if (section.flags & MIO_FLAG_VIRTUAL)
+		{
+			printf(gettext("\n\tError, refusing to read from virtual data\n"));
+			errors++;
+		}
+		else
+		{
+			printArch(fp, size);
+		}
+	}
 	// mio.symbols
 	// mio.gaps
-
-	// else, just skip the data
-	fseek(fp, size, SEEK_CUR);
+	else // just skip the data
+	{
+		fseek(fp, size, SEEK_CUR);
+	}
 	return 1;
 }

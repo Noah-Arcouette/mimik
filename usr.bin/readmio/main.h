@@ -31,4 +31,12 @@ extern void printFile (const char *path);
  */
 extern int printSection (FILE *fp, const char *path);
 
+/**
+ * Print out an architecture data section, seeking to the next section
+ * @param fp The file pointer
+ * @param size The size of this section
+ * @file printArch.c
+ */
+extern void printArch (FILE *fp, unsigned long long size);
+
 #endif
