@@ -25,7 +25,7 @@ None.
 # Operands
 
 *files*
-	A pathname to an input file or `-` for standard input.
+	A pathname to an input file, `-` shall be treated as the name of a file.
 
 
 # Environment Variables
@@ -36,7 +36,7 @@ None.
 
 # Standard Input
 
-Used on occurrence of `-` in the input *files*.
+Not used.
 
 
 # Input Files
@@ -95,7 +95,8 @@ None.
 
 # Rationale
 
-None.
+Standard input shall not be read as seeking between sections does not work for
+pipes.
 
 
 # Future Directions

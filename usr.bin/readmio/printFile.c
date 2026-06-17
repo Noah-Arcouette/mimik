@@ -8,15 +8,7 @@ void
 printFile (const char *file)
 {
 	// open the file
-	FILE *fp;
-	if (strcmp(file, "-"))
-	{
-		fp = fopen(file, "r");
-	}
-	else
-	{
-		fp = stdin;
-	}
+	FILE *fp = fopen(file, "r");
 
 	// failed
 	if (!fp)
