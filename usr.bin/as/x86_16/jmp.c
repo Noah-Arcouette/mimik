@@ -57,6 +57,7 @@ parse_x86_16_jmp (void)
 		lex();
 		return 1;
 	}
+	// else
 
 	return 0;
 }

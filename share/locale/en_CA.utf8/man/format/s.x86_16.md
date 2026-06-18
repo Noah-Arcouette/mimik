@@ -24,6 +24,8 @@ This document only applies in the context of `.arch x86_16`.
 
 `jmp *literal*` -- Near (16bit displacement) jump
 
+`hlt` -- Halt until an interrupt
+
 
 # Rationale
 
