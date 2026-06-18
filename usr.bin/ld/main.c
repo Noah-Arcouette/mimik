@@ -17,5 +17,21 @@ main (int argc, char *argv[])
 	args(argc, argv);
 	if (errors) return 1;
 
+	// open input files
+	// resolve conflicting symbols (rename static, crash on global)
+
+	// run the linker script:
+	// expressions and literal symbols
+	// ENTRY
+	// SECTIONS:
+	//  - section
+	//  - memory
+	//  - symbols
+	//  - gaps
+	// ARCH, UARCH, ARCHFLAGS
+	// SYS, USYS, SYSFLAGS
+
+	// emit the output
+
 	return 1;
 }

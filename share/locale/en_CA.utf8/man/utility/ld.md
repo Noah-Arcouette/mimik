@@ -135,6 +135,8 @@ None.
 
 `format/mio` -- The MiO file format
 
+`format/ld` -- The linker script format
+
 `utility/c17` -- The C compiler utility
 
 `utility/as` -- The assembler utility
