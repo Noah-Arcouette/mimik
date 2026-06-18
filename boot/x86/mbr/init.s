@@ -2,6 +2,6 @@
 .section .init x
 
 _init:
-	sjmp _init
+	jmp halt
 
 .global _init
