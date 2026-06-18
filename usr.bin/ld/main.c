@@ -1,34 +1,21 @@
+#include "main.h"
+#include <libintl.h>
+#include <locale.h>
+#include <stdio.h>
+
+long errors = 0;
+
+const char *self;
+
 int
-main (void)
+main (int argc, char *argv[])
 {
-	// parse arguments:
-	//   library search path
-	//   add shared libraries
-	//   add archive libraries (adding its files only as needed)
-	//   output file
-	//   script file
+	self = argv[0];
+	setlocale(LC_ALL, "");
+	textdomain("ld");
 
-	// inputs:
-	//   object files
-	//   IR files (compile to object)
-	//   shared objects (add to shared libraries)
-	//   archive files (read as multiple files)
-	// rename conflicting static symbols
-
-	// script:
-	//   architecture
-	//   sections
-	//   symbols
-	//   gaps
-	//   literal symbols
-	//   memory mappings
-
-	// outputs:
-	//   mapped object (shared library, executables)
-	//   non-mapped (object files)
-	//   signatures and checksums
-	//   information section
-	//   execution restrictions
+	args(argc, argv);
+	if (errors) return 1;
 
 	return 1;
 }
