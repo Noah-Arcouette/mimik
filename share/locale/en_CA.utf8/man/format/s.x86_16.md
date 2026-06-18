@@ -26,6 +26,8 @@ This document only applies in the context of `.arch x86_16`.
 
 `hlt` -- Halt until an interrupt
 
+`cli` -- Clear interrupt allow flag
+
 
 # Rationale
 
