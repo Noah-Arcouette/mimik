@@ -50,6 +50,7 @@ openInputFile (const char *path)
 	inp->data    = NULL;
 	inp->size    = 0;
 
+	long symbolsOffset = -1;
 	// read in the file
 	while (1)
 	{
@@ -70,6 +71,31 @@ openInputFile (const char *path)
 		long size = le64toh(header.size);
 
 		// check for symbols
+		if (!strncmp(
+			(void *)header.name,
+			(void *)MIO_SPECIAL_MIO_SYMBOLS,
+			sizeof(header.name)))
+		{
+			if (symbolsOffset >= 0) // already found one
+			{
+				fprintf(stderr,
+					gettext("%s: `%s' has more than one symbol section\n"),
+					self, path);
+				errors++;
+			}
+			if (header.flags & MIO_FLAG_VIRTUAL) // is a virtual
+			{
+				fprintf(stderr,
+					gettext(
+						"%s: Refusing to use virtual symbol section, `%s'\n"),
+					self, path);
+				errors++;
+			}
+
+			// save the offset and size
+			symbolsOffset = inp->size+sizeof(struct MiO);
+			inp->symbols  = size/sizeof(struct MiO_Symbol);
+		}
 		// check for gaps
 
 		// allocate data for it
@@ -110,6 +136,12 @@ openInputFile (const char *path)
 
 		// merge architecture section
 		// error on maps section
+	}
+
+	// add the offsets
+	if (symbolsOffset > 0)
+	{
+		inp->symbol = &inp->data[symbolsOffset];
 	}
 
 	fclose(fp);
