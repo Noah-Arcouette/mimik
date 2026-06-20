@@ -99,4 +99,6 @@ struct MiO_Symbol
 #define MIO_SYMBOL_FLAG_GLOBAL     0x0010
 #define MIO_SYMBOL_FLAG_LITERAL    0x0020
 
+#define MIO_SPECIAL_MIO_MAPS (uint8_t *)"mio.maps"
+
 #endif
