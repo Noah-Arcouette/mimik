@@ -98,7 +98,7 @@ openInputFile (const char *path)
 			inp->symbols  = size/sizeof(struct MiO_Symbol);
 		}
 		// check for gaps
-		if (!strncmp(
+		else if (!strncmp(
 			(void *)header.name,
 			(void *)MIO_SPECIAL_MIO_GAPS,
 			sizeof(header.name)))
@@ -124,7 +124,7 @@ openInputFile (const char *path)
 		}
 		/// @todo merge architecture section
 		// error on maps section
-		if (!strncmp(
+		else if (!strncmp(
 			(void *)header.name,
 			(void *)MIO_SPECIAL_MIO_MAPS,
 			sizeof(header.name)))
