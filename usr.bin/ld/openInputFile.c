@@ -51,6 +51,7 @@ openInputFile (const char *path)
 	inp->size    = 0;
 
 	long symbolsOffset = -1;
+	long gapsOffset    = -1;
 	// read in the file
 	while (1)
 	{
@@ -97,6 +98,30 @@ openInputFile (const char *path)
 			inp->symbols  = size/sizeof(struct MiO_Symbol);
 		}
 		// check for gaps
+		if (!strncmp(
+			(void *)header.name,
+			(void *)MIO_SPECIAL_MIO_GAPS,
+			sizeof(header.name)))
+		{
+			if (gapsOffset >= 0) // already found one
+			{
+				fprintf(stderr,
+					gettext("%s: `%s' has more than one gap section\n"),
+					self, path);
+				errors++;
+			}
+			if (header.flags & MIO_FLAG_VIRTUAL) // may not be a virtual
+			{
+				fprintf(stderr,
+					gettext("%s: Refusing to use virtual gap section, `%s'\n"),
+					self, path);
+				errors++;
+			}
+
+			// save the offset and size
+			gapsOffset = inp->size+sizeof(struct MiO);
+			inp->gaps  = size/sizeof(struct MiO_Gap);
+		}
 
 		// allocate data for it
 		long oldSize = inp->size;
@@ -142,6 +167,10 @@ openInputFile (const char *path)
 	if (symbolsOffset > 0)
 	{
 		inp->symbol = &inp->data[symbolsOffset];
+	}
+	if (gapsOffset > 0)
+	{
+		inp->gap = &inp->data[gapsOffset];
 	}
 
 	fclose(fp);
