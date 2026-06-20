@@ -1,5 +1,6 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
+#include <mio.h>
 
 /**
  * The amount of error encounter
@@ -30,5 +31,39 @@ extern int argFlags; // The argument flags
 extern const char *entry; // The entry symbol
 extern const char *outputFile; // the output file
 extern const char *scriptFile; // the script file
+
+/**
+ * Open an input file and load it into the input list
+ * @param path The file path
+ * @file openInputFile.c
+ */
+extern void openInputFile (const char *path);
+
+struct inputFile
+{
+	const char *path; // not allocated
+
+	struct MiO_Gap *gap;
+	long            gaps;
+
+	struct MiO_Symbol *symbol;
+	long               symbols;
+
+	void *data;
+	long  size;
+};
+
+/**
+ * The input object files
+ * @file openInputFile.c
+ */
+extern struct inputFile *input;
+extern long              inputs;
+
+/**
+ * Close all input files
+ * @file closeInputFiles.c
+ */
+extern void closeInputFiles (void);
 
 #endif

@@ -1,5 +1,6 @@
 #include "main.h"
 #include <libintl.h>
+#include <unistd.h>
 #include <locale.h>
 #include <stdio.h>
 
@@ -18,6 +19,10 @@ main (int argc, char *argv[])
 	if (errors) return 1;
 
 	// open input files
+	for (int i = optind; i<argc; i++)
+	{
+		openInputFile(argv[i]);
+	}
 	// resolve conflicting symbols (rename static, crash on global)
 
 	// run the linker script:
@@ -30,6 +35,11 @@ main (int argc, char *argv[])
 	//  - gaps
 	// ARCH, UARCH, ARCHFLAGS
 	// SYS, USYS, SYSFLAGS
+
+	// check for unused symbols and section
+
+	// raw input data isn't needed anymore
+	closeInputFiles();
 
 	// emit the output
 
