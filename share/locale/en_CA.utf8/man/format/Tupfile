@@ -12,6 +12,10 @@ FILES+=o.md
 FILES+=so.md
 endif
 
+ifeq (@(USR_BIN_AS_X86_16),y)
+FILES+=s.x86_16.md
+endif
+
 : foreach $(FILES) |> !comp \
 	|> $(DIST)/usr/share/locale/en_CA.utf8/man/format/%b$(COMP_EXT)
 
