@@ -134,6 +134,14 @@ openInputFile (const char *path)
 				self, path);
 			errors++;
 		}
+		// check for other non-handled special sections
+		else if (header.name[0] != '.')
+		{
+			fprintf(stderr,
+				gettext("%s: Unhandled special section `%.*s' in file `%s'\n"),
+				self, (int)sizeof(header.name), header.name, path);
+			errors++;
+		}
 
 		// allocate data for it
 		if (header.flags & MIO_FLAG_VIRTUAL)
