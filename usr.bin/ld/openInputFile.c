@@ -122,6 +122,18 @@ openInputFile (const char *path)
 			gapsOffset = inp->size+sizeof(struct MiO);
 			inp->gaps  = size/sizeof(struct MiO_Gap);
 		}
+		/// @todo merge architecture section
+		// error on maps section
+		if (!strncmp(
+			(void *)header.name,
+			(void *)MIO_SPECIAL_MIO_MAPS,
+			sizeof(header.name)))
+		{
+			fprintf(stderr,
+				gettext("%s: Refusing to linked loadable object, `%s'"),
+				self, path);
+			errors++;
+		}
 
 		// allocate data for it
 		if (header.flags & MIO_FLAG_VIRTUAL)
@@ -167,9 +179,6 @@ openInputFile (const char *path)
 				break;
 			}
 		}
-
-		// merge architecture section
-		// error on maps section
 	}
 
 	// add the offsets
