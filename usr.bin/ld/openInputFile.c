@@ -124,6 +124,11 @@ openInputFile (const char *path)
 		}
 
 		// allocate data for it
+		if (header.flags & MIO_FLAG_VIRTUAL)
+		{
+			size = 0; // no physical size
+		}
+
 		long oldSize = inp->size;
 		inp->size += size+sizeof(struct MiO);
 		void *buf = realloc(inp->data, inp->size);
@@ -139,24 +144,28 @@ openInputFile (const char *path)
 
 		// read in the data
 		memcpy(&inp->data[oldSize], (void *)&header, sizeof(header));
-		if ((long)fread(&inp->data[oldSize+sizeof(struct MiO)], 1, size, fp)
-			!= size)
+
+		if (size) // only if data needs to be read in
 		{
-			if (feof(fp))
+			void *startOfSection = &inp->data[oldSize+sizeof(struct MiO)];
+			if ((long)fread(startOfSection, 1, size, fp) != size)
 			{
+				if (feof(fp))
+				{
+					fprintf(stderr,
+						gettext("%s: Premature end of file `%s'\n"),
+						self, path);
+					errors++;
+					break;
+				}
+
+				int error = errno;
 				fprintf(stderr,
-					gettext("%s: Premature end of file `%s'\n"),
-					self, path);
+					gettext("%s: Failed to read from file `%s', %s\n"),
+					self, path, strerror(error));
 				errors++;
 				break;
 			}
-
-			int error = errno;
-			fprintf(stderr,
-				gettext("%s: Failed to read from file `%s', %s\n"),
-				self, path, strerror(error));
-			errors++;
-			break;
 		}
 
 		// merge architecture section
