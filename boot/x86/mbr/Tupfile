@@ -4,7 +4,7 @@ include_rules
 : foreach *.s |> !as |> $(OBJ)/boot/x86/mbr/%B.o {obj}
 
 SCRIPT=linker.ld
-: {obj} |> !ldscript |> $(OBJ)/boot/mbr/mbr {bin}
+: {obj} |> !ldscript |> $(OBJ)/boot/x86/mbr/mbr {bin}
 # : {bin} |> !mio2bin |> $(DIST)/boot/mbr.bin
 
 endif
