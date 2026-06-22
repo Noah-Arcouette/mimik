@@ -71,6 +71,51 @@ openInputFile (const char *path)
 
 		long size = le64toh(header.size);
 
+		// allocate data for it
+		if (header.flags & MIO_FLAG_VIRTUAL)
+		{
+			size = 0; // no physical size
+		}
+
+		long oldSize = inp->size;
+		inp->size += size+sizeof(struct MiO);
+		void *buf = realloc(inp->data, inp->size);
+		if (!buf)
+		{
+			int error = errno;
+			fprintf(stderr, gettext("%s: %s\n"), self, strerror(error));
+			errors++;
+			inp->size -= size-sizeof(struct MiO);
+			break;
+		}
+		inp->data = buf;
+
+		// read in the data
+		memcpy(&inp->data[oldSize], (void *)&header, sizeof(header));
+
+		void *startOfSection = &inp->data[oldSize+sizeof(struct MiO)];
+		if (size) // only if data needs to be read in
+		{
+			if ((long)fread(startOfSection, 1, size, fp) != size)
+			{
+				if (feof(fp))
+				{
+					fprintf(stderr,
+						gettext("%s: Premature end of file `%s'\n"),
+						self, path);
+					errors++;
+					break;
+				}
+
+				int error = errno;
+				fprintf(stderr,
+					gettext("%s: Failed to read from file `%s', %s\n"),
+					self, path, strerror(error));
+				errors++;
+				break;
+			}
+		}
+
 		// check for symbols
 		if (!strncmp(
 			(void *)header.name,
@@ -122,7 +167,34 @@ openInputFile (const char *path)
 			gapsOffset = inp->size+sizeof(struct MiO);
 			inp->gaps  = size/sizeof(struct MiO_Gap);
 		}
-		/// @todo merge architecture section
+		// merge architecture section
+		else if (!strncmp(
+			(void *)header.name,
+			(void *)MIO_SPECIAL_MIO_ARCH,
+			sizeof(header.name)))
+		{
+			if (header.flags & MIO_FLAG_VIRTUAL) // may not be a virtual
+			{
+				fprintf(stderr, gettext(
+					"%s: Refusing to use virtual architecture section, `%s'\n"),
+					self, path);
+				errors++;
+			}
+			// check the size
+			else if (size != sizeof(struct MiO_Arch))
+			{
+				fprintf(stderr, gettext(
+					"%s: Improper size of architecture section in file `%s'\n"),
+					self, path);
+				errors++;
+			}
+			// merge the architecture
+			else
+			{
+				struct MiO_Arch *arch = (struct MiO_Arch *)startOfSection;
+				mergeArchitecture(path, arch);
+			}
+		}
 		// error on maps section
 		else if (!strncmp(
 			(void *)header.name,
@@ -141,51 +213,6 @@ openInputFile (const char *path)
 				gettext("%s: Unhandled special section `%.*s' in file `%s'\n"),
 				self, (int)sizeof(header.name), header.name, path);
 			errors++;
-		}
-
-		// allocate data for it
-		if (header.flags & MIO_FLAG_VIRTUAL)
-		{
-			size = 0; // no physical size
-		}
-
-		long oldSize = inp->size;
-		inp->size += size+sizeof(struct MiO);
-		void *buf = realloc(inp->data, inp->size);
-		if (!buf)
-		{
-			int error = errno;
-			fprintf(stderr, gettext("%s: %s\n"), self, strerror(error));
-			errors++;
-			inp->size -= size-sizeof(struct MiO);
-			break;
-		}
-		inp->data = buf;
-
-		// read in the data
-		memcpy(&inp->data[oldSize], (void *)&header, sizeof(header));
-
-		if (size) // only if data needs to be read in
-		{
-			void *startOfSection = &inp->data[oldSize+sizeof(struct MiO)];
-			if ((long)fread(startOfSection, 1, size, fp) != size)
-			{
-				if (feof(fp))
-				{
-					fprintf(stderr,
-						gettext("%s: Premature end of file `%s'\n"),
-						self, path);
-					errors++;
-					break;
-				}
-
-				int error = errno;
-				fprintf(stderr,
-					gettext("%s: Failed to read from file `%s', %s\n"),
-					self, path, strerror(error));
-				errors++;
-				break;
-			}
 		}
 	}
 

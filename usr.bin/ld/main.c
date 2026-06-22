@@ -41,7 +41,12 @@ main (int argc, char *argv[])
 	// raw input data isn't needed anymore
 	closeInputFiles();
 
+	// emit architecture section
+	// emit gaps section
+	// emit symbols section
+	// emit maps section
 	// emit the output
 
-	return 1;
+	if (errors) return 1;
+	return 0;
 }

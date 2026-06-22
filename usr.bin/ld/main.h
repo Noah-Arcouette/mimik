@@ -66,4 +66,12 @@ extern long              inputs;
  */
 extern void closeInputFiles (void);
 
+/**
+ * Merge input architectures together
+ * @file mergeArchitecture.c
+ * @param path The file name path
+ * @param arch The architecture to merge
+ */
+extern void mergeArchitecture (const char *path, const struct MiO_Arch *arch);
+
 #endif
