@@ -9,6 +9,31 @@ parse_x86_16_jmp (void)
 	if (ltok.type != TOK_SYMBOL) return 0;
 	// symbol
 
+	// call
+	if (!strcmp(ltok.buf, "call"))
+	{
+		lex();
+
+		// symbol
+		if (ltok.type != TOK_SYMBOL)
+		{
+			prettyprint("Expected a symbol\n");
+			errors++;
+			recover();
+			return 1;
+		}
+
+		// emit the data
+		char buf = 0b11101000;
+		emit(&buf, 1);
+
+		emitGap(ltok.buf, MIO_GAP_TYPE_DISP_LE16|MIO_GAP_TYPE_EXECUTING);
+
+		lex();
+		return 1;
+	}
+	// else
+
 	// jmp
 	if (!strcmp(ltok.buf, "jmp"))
 	{

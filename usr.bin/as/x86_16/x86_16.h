@@ -2,7 +2,7 @@
 #define __X86_16_H__
 
 /**
- * jump family of instructions (sjmp, jmp, ljmp)
+ * jump family of instructions (sjmp, jmp, ljmp, call, lcall)
  * @file x86_16/jmp.c
  * @returns True if an instruction was consumed
  */
