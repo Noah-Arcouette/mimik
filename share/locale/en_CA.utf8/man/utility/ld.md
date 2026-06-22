@@ -125,6 +125,9 @@ builds, and shared library support.
 Addition of library search support: **-l library**, **-L link-search-path**,
 **-R load-search-path**, **-Bdynamic | -Bstatic**.
 
+Addition of compressed executable files **-z algorithm**, and support for
+compressed input object files.
+
 
 # History
 

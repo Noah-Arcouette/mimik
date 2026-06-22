@@ -20,6 +20,10 @@ menu "Build"
 			This compiles all program sources at once, which is much slower for
 			recompilation but allows for more optimization
 
+	config BUILD_COMPRESS
+		bool "Compile the system with compressed output objects"
+		select BUILD_TOOL_COMPRESS
+
 	choice BUILD_TARGET
 		bool "The build target"
 

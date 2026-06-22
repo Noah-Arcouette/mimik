@@ -6,7 +6,9 @@ MiO - Mimik Object file
 # Synopsis
 
 The MiO format documents a lightweight named section based object file. Mainly
-designed for use with executable linking, loading, and utilization.
+designed for use with executable linking, loading, and utilization. It is
+important to note that the major MiO implementation supports loading from
+compressed files within system supported algorithms.
 
 
 # Description
