@@ -246,8 +246,9 @@ The *type* portion shall be as follows:
 	verbatim.
 
 *displacement* -- Meaning the positive or negative (two's compliment) offset
-	from the given gap start to the start (value) of the provided symbol after
-	loading into memory.
+	from the given gap end to the start (value) of the provided symbol after
+	loading into memory. A filled-out gap of zero will be the first byte after
+	the gap.
 
 +-------------+-------------------------------------------+
 | Value (hex) |                  Meaning                  |
