@@ -28,6 +28,10 @@ ifeq (@(BIN_ECHO),y)
 FILES+=echo.md
 endif
 
+ifeq (@(BIN_TRUE),y)
+FILES+=true.md
+endif
+
 
 # usr.bin
 ifeq (@(USR_BIN_AS),y)
