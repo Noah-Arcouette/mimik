@@ -57,7 +57,6 @@ menu "Build"
 		# config BUILD_TOOL_COMPRESS
 	endmenu
 
-
 	config BUILD_OBJ
 		string "Object and temporary directory"
 		default "obj"
