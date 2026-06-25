@@ -38,9 +38,3 @@ tests and other invocations of built work.
 3. Run `./share/scripts/oldconfig` or `./share/scripts/menuconfig`. The defaults
 	are there to quickly create a useful output without the minuet configuration
 4. Run `tup init` then `tup` to build the system
-
-***NOTE:*** Selecting `BUILD_HOST` in the configuration will limit the output,
-as it builds a distribution for the current system using its compilers. Without
-setting this, the system will cross-compile with its own compiler to the target
-set -- optionally creating a bootible image. The built distribution is generally
-a source based system with git, tup, and kconfig being the update mechanism.
