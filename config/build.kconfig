@@ -6,6 +6,12 @@ menu "Build"
 	config BUILD_CFLAGS
 		string "C Flags"
 		default "-Wall -Wextra -O0 -g"
+	config BUILD_AR
+		string "Binary archivor"
+		default "ar"
+	config BUILD_LDSO
+		string "Shared object linker"
+		default "ld.lld -shared -O0"
 
 	config BUILD_EXEC
 		string "Execution environment"
