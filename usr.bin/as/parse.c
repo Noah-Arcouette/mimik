@@ -10,6 +10,13 @@ parse (void)
 	lex();
 	do
 	{
+		// comments
+		if (ltok.type == TOK_SEMICOLON)
+		{
+			recover();
+			continue;
+		}
+
 		// sections
 		if (parse_section()) continue;
 

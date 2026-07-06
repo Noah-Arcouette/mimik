@@ -57,6 +57,10 @@ _try_again:
 		_pushc(c);
 		ltok.type = TOK_COLON;
 		break;
+	case ';':
+		_pushc(c);
+		ltok.type = TOK_SEMICOLON;
+		break;
 	case EOF:
 		ltok.type = TOK_EOF;
 		break;

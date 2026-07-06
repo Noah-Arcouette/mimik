@@ -35,6 +35,7 @@ enum tokenType
 	TOK_UNKNOWN,
 	TOK_NEWLINE,
 	TOK_COLON,
+	TOK_SEMICOLON,
 	// directives
 	TOK_ARCH,
 	TOK_UARCH,
