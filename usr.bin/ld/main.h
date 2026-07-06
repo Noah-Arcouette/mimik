@@ -74,4 +74,11 @@ extern void closeInputFiles (void);
  */
 extern void mergeArchitecture (const char *path, const struct MiO_Arch *arch);
 
+/**
+ * Find conflicting symbols, if they're static then rename them,
+ * if they're global then crash
+ * @file resolveConflictSymbols.c
+ */
+extern void resolveConflictSymbols (void);
+
 #endif

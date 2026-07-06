@@ -1,8 +1,10 @@
 #include "main.h"
 #include <libintl.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <locale.h>
 #include <stdio.h>
+#include <time.h>
 
 long errors = 0;
 
@@ -14,6 +16,7 @@ main (int argc, char *argv[])
 	self = argv[0];
 	setlocale(LC_ALL, "");
 	textdomain("ld");
+	srand(time(NULL));
 
 	args(argc, argv);
 	if (errors) return 1;
@@ -24,6 +27,7 @@ main (int argc, char *argv[])
 		openInputFile(argv[i]);
 	}
 	// resolve conflicting symbols (rename static, crash on global)
+	resolveConflictSymbols();
 
 	// run the linker script:
 	// expressions and literal symbols
