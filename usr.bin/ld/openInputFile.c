@@ -139,7 +139,7 @@ openInputFile (const char *path)
 			}
 
 			// save the offset and size
-			symbolsOffset = inp->size+sizeof(struct MiO);
+			symbolsOffset = inp->size-size;
 			inp->symbols  = size/sizeof(struct MiO_Symbol);
 		}
 		// check for gaps
@@ -164,7 +164,7 @@ openInputFile (const char *path)
 			}
 
 			// save the offset and size
-			gapsOffset = inp->size+sizeof(struct MiO);
+			gapsOffset = inp->size-size;
 			inp->gaps  = size/sizeof(struct MiO_Gap);
 		}
 		// merge architecture section
