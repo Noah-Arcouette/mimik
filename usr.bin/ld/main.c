@@ -29,16 +29,8 @@ main (int argc, char *argv[])
 	// resolve conflicting symbols (rename static, crash on global)
 	resolveConflictSymbols();
 
-	// run the linker script:
-	// expressions and literal symbols
-	// ENTRY
-	// SECTIONS:
-	//  - section
-	//  - memory
-	//  - symbols
-	//  - gaps
-	// ARCH, UARCH, ARCHFLAGS
-	// SYS, USYS, SYSFLAGS
+	// run the linker script
+	linker();
 
 	// check for unused symbols and section
 
