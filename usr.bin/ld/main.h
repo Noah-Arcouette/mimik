@@ -81,4 +81,10 @@ extern void mergeArchitecture (const char *path, const struct MiO_Arch *arch);
  */
 extern void resolveConflictSymbols (void);
 
+/**
+ * The linker script parser
+ * @file linker.c
+ */
+extern void linker (void);
+
 #endif
