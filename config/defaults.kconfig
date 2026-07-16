@@ -26,6 +26,12 @@ menu "Default Builds"
 		imply BIN_SLEEP
 		imply BIN_TIME
 		default y
+	config DEFAULT_POSIX_XSI
+		bool "POSIX XSI extension group"
+		imply USR_LIB_LIBZIO_LZW
+		imply USR_LIB_LIBZIO_GZIP
+		imply USR_LIB_LIBZIO_DEFAULT_COMPRESS_LZW
+		default y
 
 	config DEFAULT_BUILD_TOOLS
 		bool "Build tools"
