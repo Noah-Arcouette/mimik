@@ -5,4 +5,9 @@ if INCLUDE
 		bool "mio.h"
 		help
 			The Mimik Object format
+
+	config INCLUDE_ZIO_H
+		bool "zio.h"
+		help
+			Alternative encoding file i/o
 endif
