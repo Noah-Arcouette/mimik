@@ -2,4 +2,33 @@ menu "usr.bin/ - non-essential user binaries"
 	source "usr.bin/as/Kconfig"
 	source "usr.bin/ld/Kconfig"
 	source "usr.bin/readmio/Kconfig"
+
+	config USR_BIN_COMPRESS
+		bool "compress"
+		help
+			Lossless generic data compressor
+		select USR_LIB_LIBZIO
+	config USR_BIN_UNCOMPRESS
+		bool "uncompress"
+		help
+			Generic data uncompressor
+		select USR_BIN_COMPRESS
+	config USR_BIN_ZCAT
+		bool "zcat"
+		help
+			Dump uncompressed data to stdout
+		select USR_BIN_COMPRESS
+
+	config USR_BIN_GZIP
+		bool "gzip"
+		help
+			GZip data compressor
+		select USR_BIN_COMPRESS
+		select USR_LIB_LIBZIO_GZIP
+	config USR_BIN_GUNZIP
+		bool "gunzip"
+		help
+			GZip data uncompressor
+		select USR_BIN_COMPRESS
+		select USR_LIB_LIBZIO_GZIP
 endmenu

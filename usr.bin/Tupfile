@@ -1,0 +1,31 @@
+include_rules
+
+ifeq (@(USR_BIN_COMPRESS),y)
+: compress.c | $(OBJ)/usr.lib/<libzio> |> !ccld -lzio |> $(DIST)/usr/bin/%B
+endif
+
+COPIES=
+
+ifeq (@(USR_BIN_UNCOMPRESS),y)
+COPIES+=uncompress
+endif
+
+ifeq (@(USR_BIN_ZCAT),y)
+COPIES+=zcat
+endif
+
+ifeq (@(USR_BIN_GZIP),y)
+COPIES+=gzip
+endif
+
+ifeq (@(USR_BIN_GUNZIP),y)
+COPIES+=gunzip
+endif
+
+: foreach $(COPIES) |> !cp |> $(DIST)/usr/bin/%b
+
+# toolchain build
+ifeq (@(BUILD_COMPRESS),y)
+: compress.c | $(OBJ)/tool/<libzio> |> !hostccld $(OBJ)/tool/libzio.a \
+	|> $(OBJ)/tool/%B | $(OBJ)/tool/<compress>
+endif
