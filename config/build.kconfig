@@ -27,8 +27,19 @@ menu "Build"
 			recompilation but allows for more optimization
 
 	config BUILD_COMPRESS
-		bool "Compile the system with compressed output objects"
+		bool "Compress as many files as possible"
 		select BUILD_TOOL_COMPRESS
+	choice BUILD_COMPRESS_WITH
+		bool "Compress with"
+		depends on BUILD_COMPRESS
+
+		config BUILD_COMPRESS_WITH_LZW
+			bool "LZW"
+		config BUILD_COMPRESS_WITH_DEFLATE
+			bool "Deflate"
+		config BUILD_COMPRESS_WITH_GZIP
+			bool "GZip"
+	endchoice
 
 	choice BUILD_TARGET
 		bool "The build target"

@@ -1,0 +1,136 @@
+menuconfig USR_LIB_LIBZIO
+	bool "libzio"
+	help
+		Alternative encoding library
+if USR_LIB_LIBZIO
+	comment "Outputs"
+	config USR_LIB_LIBZIO_SO
+		bool "libzio.so"
+	config USR_LIB_LIBZIO_A
+		bool "libzio.a"
+
+	comment "Formats"
+	config USR_LIB_LIBZIO_LZW
+		bool "lzw"
+		help
+			LZW, this is the legacy unix compress utility
+	# config USR_LIB_LIBZIO_PACK
+
+	config USR_LIB_LIBZIO_DEFLATE
+		bool "deflate"
+		help
+			This is one of the most common stream compression methods.
+			Usually wrapped in gzip or zip
+	config USR_LIB_LIBZIO_GZIP
+		bool "gzip"
+		help
+			The ubiquitous compressor for most unix-like systems
+		select USR_LIB_LIBZIO_DEFLATE
+	# config USR_LIB_LIBZIO_ZLIB
+	# config USR_LIB_LIBZIO_ZIP
+
+	# config USR_LIB_LIBZIO_LZMA
+	# config USR_LIB_LIBZIO_LZMA2
+	# config USR_LIB_LIBZIO_XZ
+	# config USR_LIB_LIBZIO_LZIP
+	# config USR_LIB_LIBZIO_7ZIP
+
+	# config USR_LIB_LIBZIO_ZSTD
+	# config USR_LIB_LIBZIO_BROTLI
+
+	# config USR_LIB_LIBZIO_BZIP
+	# config USR_LIB_LIBZIO_BZIP2
+	# config USR_LIB_LIBZIO_BZIP3
+	# config USR_LIB_LIBZIO_RZIP
+
+	# config USR_LIB_LIBZIO_LZ4
+	# config USR_LIB_LIBZIO_LZO
+	# config USR_LIB_LIBZIO_SNAPPY
+
+	# config USR_LIB_LIBZIO_TAR
+	# config USR_LIB_LIBZIO_USTAR
+	# config USR_LIB_LIBZIO_PAX
+	# config USR_LIB_LIBZIO_CPIO
+	# config USR_LIB_LIBZIO_AR
+
+	# config USR_LIB_LIBZIO_REED_SOLOMON
+	# config USR_LIB_LIBZIO_BCH
+	# config USR_LIB_LIBZIO_LDPC
+	# config USR_LIB_LIBZIO_HAMMING_CODE
+	# config USR_LIB_LIBZIO_INTERLEAVING
+	# config USR_LIB_LIBZIO_LUBY_CODE
+
+	# config USR_LIB_LIBZIO_AES
+	# config USR_LIB_LIBZIO_DES
+
+	# config USR_LIB_LIBZIO_UUENCODE
+
+	comment "Defaults"
+	choice USR_LIB_LIBZIO_DEFAULT_COMPRESS
+		bool "Default compression method"
+
+		config USR_LIB_LIBZIO_DEFAULT_COMPRESS_LZW
+			bool "lzw"
+			select USR_LIB_LIBZIO_LZW
+			help
+				This is not very efficient nor is it common place anymore
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_PACK
+
+		config USR_LIB_LIBZIO_DEFAULT_COMPRESS_DEFLATE
+			bool "deflate"
+			select USR_LIB_LIBZIO_DEFLATE
+			help
+				This is a streaming compression algorithm and is not recommended
+				as the default, use zlib at least please
+		config USR_LIB_LIBZIO_DEFAULT_COMPRESS_GZIP
+			bool "gzip"
+			select USR_LIB_LIBZIO_GZIP
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_ZLIB
+
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_LZMA
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_LZMA2
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_XZ
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_LZIP
+
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_ZSTD
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_BROTLI
+
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_BZIP
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_BZIP2
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_BZIP3
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_RZIP
+
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_LZ4
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_LZO
+		# config USR_LIB_LIBZIO_DEFAULT_COMPRESS_SNAPPY
+	endchoice
+
+	# choice USR_LIB_LIBZIO_DEFAULT_ARCHIVE
+	# 	bool "Default archiving method"
+
+		# config USR_LIB_LIBZIO_DEFAULT_ARCHIVE_ZIP
+		# config USR_LIB_LIBZIO_DEFAULT_ARCHIVE_7ZIP
+		# config USR_LIB_LIBZIO_DEFAULT_ARCHIVE_TAR
+		# config USR_LIB_LIBZIO_DEFAULT_ARCHIVE_USTAR
+		# config USR_LIB_LIBZIO_DEFAULT_ARCHIVE_PAX
+		# config USR_LIB_LIBZIO_DEFAULT_ARCHIVE_CPIO
+		# config USR_LIB_LIBZIO_DEFAULT_ARCHIVE_AR
+	# endchoice
+
+	# choice USR_LIB_LIBZIO_DEFAULT_PROTECT
+	# 	bool "Default protection method"
+
+		# config USR_LIB_LIBZIO_DEFAULT_PROTECT_BCH
+		# config USR_LIB_LIBZIO_DEFAULT_PROTECT_LDPC
+		# config USR_LIB_LIBZIO_DEFAULT_PROTECT_HAMMING_CODE
+		# config USR_LIB_LIBZIO_DEFAULT_PROTECT_INTERLEAVING
+		# config USR_LIB_LIBZIO_DEFAULT_PROTECT_LUBY_CODE
+	# endchoice
+
+	# choice USR_LIB_LIBZIO_DEFAULT_ENCRYPT
+	# 	bool "Default encryption method"
+
+		# config USR_LIB_LIBZIO_DEFAULT_ENCRYPT_AES
+		# config USR_LIB_LIBZIO_DEFAULT_ENCRYPT_DES
+	# endchoice
+endif
