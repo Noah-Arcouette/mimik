@@ -20,7 +20,7 @@ extern int z_format_from_name (const char *suffix);
 
 (case insensitive) `deflate` -- ZIO_FORMAT_DEFLATE
 
-(case insensitive) `gzip` -- ZIO_FORMAT_GZIP
+(case insensitive) `gzip`, `gz` -- ZIO_FORMAT_GZIP
 
 
 # Return Value

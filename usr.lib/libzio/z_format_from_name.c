@@ -31,6 +31,10 @@ z_format_from_name (const char *name)
 		return -1;
 	case 'g':
 	case 'G':
+		if (!strcasecmp(name+1, "z"))
+		{
+			return ZIO_FORMAT_GZIP;
+		}
 		if (!strcasecmp(name+1, "zip"))
 		{
 			return ZIO_FORMAT_GZIP;
