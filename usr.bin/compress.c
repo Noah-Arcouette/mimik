@@ -1,14 +1,18 @@
+#include <sys/stat.h>
 #include <libintl.h>
 #include <locale.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 #include <stdio.h>
+#include <time.h>
 #include <zio.h>
 
 const char *self;
 int errors = 0;
 
-#define OPTS_STDIN    1
+#define OPTS_STDOUT   1
 #define OPTS_DECOMP   2
 #define OPTS_FORCE    4
 #define OPTS_KEEP     8
@@ -42,13 +46,195 @@ _setformat (int f)
 static void
 _compress (const char *path)
 {
-	errors = 1;
-	fprintf(stderr, gettext("%s: Not implemented\n"), self);
+	zFILE *out     = NULL;
+	char  *outname = NULL;
+	FILE  *in      = NULL;
+
+	if (opts & OPTS_STDOUT) // compress -c
+	{
+		if (isatty(STDOUT_FILENO)) // make sure its not a tty
+		{
+			fprintf(stderr, gettext("%s: Refusing to write to a tty\n"), self);
+			errors++;
+			return;
+		}
+
+		outname = "<stdout>";
+		out = zdopen(STDOUT_FILENO, "w", format);
+		if (!out)
+		{
+			fprintf(stderr, gettext("%s: Failed to zopen file, `%s', %s\n"),
+				self, outname, strerror(errno));
+			errors++;
+			goto comp_leave;
+		}
+	}
+	else
+	{
+		// make file name
+		const char *suffix = z_suffix_from_format(format);
+		outname = malloc(
+			strlen(path)
+			+1 // period
+			+strlen(suffix)
+			+1 // terminator
+		);
+
+		if (!outname)
+		{
+			fprintf(stderr, gettext("%s: %s\n"), self, strerror(errno));
+			errors++;
+			return;
+		}
+		strcpy(outname, path);
+		strcat(outname, ".");
+		strcat(outname, suffix);
+
+		// check if it already exists
+		if (!(opts & OPTS_FORCE))
+		{
+			if (!access(outname, F_OK))
+			{
+				fprintf(stderr,
+					gettext("%s: File `%s' already exists, overwrite? "),
+					self, outname);
+
+				/// @todo if (!yesno())
+				{
+					errors++;
+					goto comp_leave;
+				}
+			}
+		}
+
+		// zopen file
+		out = zopen(outname, "w", format);
+		if (!out)
+		{
+			fprintf(stderr, gettext("%s: Failed to zopen file, `%s', %s\n"),
+				self, outname, strerror(errno));
+			errors++;
+			goto comp_leave;
+		}
+
+		// stat input
+		struct stat statbuf;
+		if (stat(path, &statbuf))
+		{
+			fprintf(stderr, gettext("%s: Failed to stat file, `%s', %s\n"),
+				self, path, strerror(errno));
+			errors++;
+			goto comp_leave;
+		}
+
+		// copy meta data, we don't care if it fails
+		zchown(out, statbuf.st_uid, statbuf.st_gid);
+		zchmod(out, statbuf.st_mode);
+		struct timespec t[2];
+		t[0].tv_nsec = statbuf.st_atim.tv_nsec;
+		t[0].tv_sec  = statbuf.st_atim.tv_sec;
+		t[1].tv_nsec = statbuf.st_mtim.tv_nsec;
+		t[1].tv_sec  = statbuf.st_mtim.tv_sec;
+		zutimens(out, t);
+	}
+
+	// open path
+	in = fopen(path, "r");
+	if (!in)
+	{
+		fprintf(stderr, gettext("%s: Failed to open file, `%s', %s\n"),
+			self, path, strerror(errno));
+		errors++;
+		goto comp_leave;
+	}
+
+	// copy data
+	char buf[BUFSIZ];
+	size_t amt;
+	size_t inpsiz = 0;
+	do
+	{
+		amt = fread(buf, 1, BUFSIZ, in);
+		if (amt < BUFSIZ)
+		{
+			int error = errno;
+			if (ferror(in))
+			{
+				fprintf(stderr, gettext("%s: Failed to read from, `%s', %s\n"),
+					self, path, strerror(error));
+				errors++;
+				goto comp_leave;
+			}
+		}
+		inpsiz += amt;
+
+		if (zwrite(buf, 1, amt, out) != amt)
+		{
+			fprintf(stderr, gettext("%s: Failed to write to, `%s', %s\n"),
+				self, outname, strerror(errno));
+			errors++;
+			goto comp_leave;
+		}
+	} while (amt == BUFSIZ);
+
+	// check size
+	if (!(opts & OPTS_STDOUT))
+	{
+		struct stat statbuf;
+		if (stat(outname, &statbuf))
+		{
+			if (opts & OPTS_VERBOSE)
+			{
+				fprintf(stderr, gettext("%s: `%s' -> `%s' (%02f%%)\n"),
+					self, path, outname,
+					((float)statbuf.st_size*100.0f)/(float)inpsiz);
+			}
+			if (!(opts & OPTS_FORCE))
+			{
+				if ((size_t)statbuf.st_size >= inpsiz)
+				{
+					opts |= OPTS_BIGGER;
+					unlink(outname);
+					fprintf(stderr,
+						gettext("%s: Failed to compress file `%s'\n"),
+						self, path);
+					goto comp_leave;
+				}
+			}
+		}
+		else
+		{
+			fprintf(stderr, gettext("%s: Failed to stat file, `%s'\n"),
+				self, outname);
+		}
+	}
+
+	// delete file
+	if (!(opts & OPTS_KEEP))
+	{
+		unlink(path);
+	}
+
+	// clean up
+comp_leave:
+	if (!(opts & OPTS_STDOUT))
+	{
+		free(outname);
+	}
+	if (out) zclose(out);
+	if (in) fclose(in);
 }
 
 static void
 _decompress (const char *path)
 {
+	/// @todo make file name
+	/// @todo zopen path
+	/// @todo copy metadata
+	/// @todo open file
+	/// @todo copy data
+	/// @todo clean up
+
 	errors = 1;
 	fprintf(stderr, gettext("%s: Not implemented\n"), self);
 }
@@ -73,7 +259,7 @@ main (int argc, char *argv[])
 			level = strtol(optarg, NULL, 0);
 			break;
 		case 'c':
-			opts |= OPTS_STDIN;
+			opts |= OPTS_STDOUT;
 			break;
 		case 'd':
 			opts |= OPTS_DECOMP;
@@ -138,7 +324,7 @@ main (int argc, char *argv[])
 	}
 	else
 	{
-		if (opts & OPTS_STDIN) // compress -c
+		if (opts & OPTS_STDOUT) // compress -c
 		{
 			if (argc == optind) // compress -c
 			{
