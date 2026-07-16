@@ -1,4 +1,5 @@
 #include "main.h"
+#include "lex.h"
 
 void
 linker (void)
@@ -24,4 +25,5 @@ linker (void)
 	// }
 
 	// close up script file
+	lex_free();
 }
