@@ -32,8 +32,27 @@ EXEC=@(BUILD_EXEC)
 !ldso = !hostldso
 
 !cp   = |> ^ CP       %b^ cp %f %o |>
+
+ifeq (@(BUILD_COMPRESS_WITH_LZW),y)
+!comp = | $(OBJ)/tool/<compress> \
+	|> ^ LZW      %b^ $(EXEC) $(OBJ)/tool/compress -kc %f > %o |>
+COMP_EXT=.Z
+else
+ifeq (@(BUILD_COMPRESS_WITH_DEFLATE),y)
+!comp = | $(OBJ)/tool/<compress> \
+	|> ^ DEFLATE  %b^ $(EXEC) $(OBJ)/tool/compress -kc %f > %o |>
+COMP_EXT=.deflate
+else
+ifeq (@(BUILD_COMPRESS_WITH_GZIP),y)
+!comp = | $(OBJ)/tool/<compress> \
+	|> ^ GZIP     %b^ $(EXEC) $(OBJ)/tool/compress -kc %f > %o |>
+COMP_EXT=.gz
+else
 !comp = !cp
-COMP_EXT=
+endif
+endif
+endif
+
 
 ifeq (@(BUILD_TOOL_AS),y)
 !as = | $(OBJ)/tool/<as> |> ^ AS       %b^ $(EXEC) $(OBJ)/tool/as -o %o %f |>
