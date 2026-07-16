@@ -70,6 +70,22 @@ ifeq (@(USR_BIN_COMPRESS),y)
 FILES+=compress.md
 endif
 
+ifeq (@(USR_BIN_UNCOMPRESS),y)
+FILES+=uncompress.md
+endif
+
+ifeq (@(USR_BIN_zcat),y)
+FILES+=zcat.md
+endif
+
+ifeq (@(USR_BIN_GZIP),y)
+FILES+=gzip.md
+endif
+
+ifeq (@(USR_BIN_GUNZIP),y)
+FILES+=gunzip.md
+endif
+
 : foreach $(FILES) |> !comp \
 	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b$(COMP_EXT)
 
