@@ -92,6 +92,16 @@ extern zFILE *zopen (const char *restrict path, const char *restrict mode,
 	int format);
 
 /**
+ * Open an alternative encoding file based on a file descriptor
+ * @param fildes The given file descriptor
+ * @param mode The given mode string
+ * @param format The given format of the file, or -1 to auto-detect
+ * @returns NULL upon error, or a new zFILE pointer to use
+ * @file usr.lib/libzio/zdopen.c
+ */
+extern zFILE *zdopen (int filedes, const char *mode, int format);
+
+/**
  * Close a file, freeing and flushing underlying data
  * @param fp The file to free
  * @retval 0 Success
