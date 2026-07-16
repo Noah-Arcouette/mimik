@@ -66,6 +66,10 @@ ifeq (@(USR_BIN_LD),y)
 FILES+=ld.md
 endif
 
+ifeq (@(USR_BIN_COMPRESS),y)
+FILES+=compress.md
+endif
+
 : foreach $(FILES) |> !comp \
 	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b$(COMP_EXT)
 
