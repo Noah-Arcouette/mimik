@@ -16,22 +16,23 @@ endif
 # Formats
 ifeq (@(USR_LIB_LIBZIO_LZW),y)
 FLAGS+=-DLZW
-: foreach ./lzw/*.c |> !cc |> $(OBJ)/usr.lib/libzio/lzw/%B.o {obj}
+: foreach ./lzw/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.lib/libzio/lzw/%B.o {obj}
 endif
 
 ifeq (@(USR_LIB_LIBZIO_DEFLATE),y)
 FLAGS+=-DDEFLATE
-: foreach ./deflate/*.c |> !cc |> $(OBJ)/usr.lib/libzio/deflate/%B.o {obj}
+: foreach ./deflate/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.lib/libzio/deflate/%B.o \
+	{obj}
 endif
 
 ifeq (@(USR_LIB_LIBZIO_GZIP),y)
 FLAGS+=-DGZIP
-: foreach ./gzip/*.c |> !cc |> $(OBJ)/usr.lib/libzio/gzip/%B.o {obj}
+: foreach ./gzip/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.lib/libzio/gzip/%B.o {obj}
 endif
 
 # Core files
 ifeq (@(USR_LIB_LIBZIO),y)
-: foreach *.c |> !cc |> $(OBJ)/usr.lib/libzio/%B.o {obj}
+: foreach *.c |> !cc $(FLAGS) |> $(OBJ)/usr.lib/libzio/%B.o {obj}
 : {obj}       |> !ar |> $(OBJ)/usr.lib/libzio.a | $(OBJ)/usr.lib/<libzio> {a}
 endif
 
@@ -50,21 +51,24 @@ FLAGS=
 
 ifeq (@(BUILD_COMPRESS_WITH_LZW),y)
 FLAGS+=-DLZW -DDEFAULT_LZW
-: foreach ./lzw/*.c |> !hostcc |> $(OBJ)/tool/libzio/lzw/%B.o {tool-obj}
+: foreach ./lzw/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/libzio/lzw/%B.o \
+	{tool-obj}
 endif
 
 ifeq (@(BUILD_COMPRESS_WITH_DEFLATE),y)
 FLAGS+=-DDEFLATE -DDEFAULT_DEFLATE
-: foreach ./deflate/*.c |> !hostcc |> $(OBJ)/tool/libzio/deflate/%B.o {tool-obj}
+: foreach ./deflate/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/libzio/deflate/%B.o \
+	{tool-obj}
 endif
 
 ifeq (@(BUILD_COMPRESS_WITH_GZIP),y)
 FLAGS+=-DGZIP -DDEFLATE -DDEFAULT_GZIP
-: foreach ./gzip/*.c |> !hostcc |> $(OBJ)/tool/libzio/gzip/%B.o {tool-obj}
+: foreach ./gzip/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/libzio/gzip/%B.o \
+	{tool-obj}
 endif
 
 # Core files
-: foreach *.c |> !hostcc |> $(OBJ)/tool/libzio/%B.o {tool-obj}
+: foreach *.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/libzio/%B.o {tool-obj}
 : {tool-obj}  |> !hostar |> $(OBJ)/tool/libzio.a | $(OBJ)/tool/<libzio>
 
 endif
