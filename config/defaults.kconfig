@@ -28,6 +28,9 @@ menu "Default Builds"
 		default y
 	config DEFAULT_POSIX_XSI
 		bool "POSIX XSI extension group"
+		imply USR_BIN_COMPRESS
+		imply USR_BIN_UNCOMPRESS
+		imply USR_BIN_ZCAT
 		imply USR_LIB_LIBZIO_LZW
 		imply USR_LIB_LIBZIO_GZIP
 		imply USR_LIB_LIBZIO_DEFAULT_COMPRESS_LZW
