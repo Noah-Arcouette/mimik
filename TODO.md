@@ -113,8 +113,6 @@ xargs
 	admin
 	cal
 	cflow
-	compress
-	uncompress
 	cxref
 	delta
 	fuser
@@ -133,7 +131,6 @@ xargs
 	unget
 	val
 	what
-	zcat
 [FR]:
 	asa
 [UP]:
