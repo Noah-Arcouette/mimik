@@ -1,0 +1,11 @@
+include_rules
+
+ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_LIBRARY),y)
+
+ifeq (@(USR_LIB_LIBZIO),y)
+
+: foreach *.md |> !comp \
+	|> $(DIST)/usr/share/locale/en_CA.utf8/man/library/libzio/%b$(COMP_EXT)
+
+endif
+endif
