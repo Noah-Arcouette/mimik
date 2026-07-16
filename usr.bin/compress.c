@@ -39,15 +39,15 @@ _setformat (int f)
 	}
 }
 
-void
-compress (const char *path)
+static void
+_compress (const char *path)
 {
 	errors = 1;
 	fprintf(stderr, gettext("%s: Not implemented\n"), self);
 }
 
-void
-decompress (const char *path)
+static void
+_decompress (const char *path)
 {
 	errors = 1;
 	fprintf(stderr, gettext("%s: Not implemented\n"), self);
@@ -129,11 +129,11 @@ main (int argc, char *argv[])
 	{
 		for (int i = optind; i<argc; i++) // compress -d files...
 		{
-			decompress(argv[i]);
+			_decompress(argv[i]);
 		}
 		if (argc == optind) // compress -d
 		{
-			decompress("-");
+			_decompress("-");
 		}
 	}
 	else
@@ -142,11 +142,11 @@ main (int argc, char *argv[])
 		{
 			if (argc == optind) // compress -c
 			{
-				compress("-");
+				_compress("-");
 			}
 			else if (argc == (optind+1)) // compress -c file
 			{
-				compress(argv[optind]);
+				_compress(argv[optind]);
 			}
 			else // compress -c files...
 			{
@@ -160,11 +160,11 @@ main (int argc, char *argv[])
 		{
 			for (int i = optind; i<argc; i++) // compress files...
 			{
-				compress(argv[i]);
+				_compress(argv[i]);
 			}
 			if (argc == optind) // compress
 			{
-				compress("-");
+				_compress("-");
 			}
 		}
 	}
