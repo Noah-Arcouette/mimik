@@ -1,0 +1,3 @@
+config SHARE_LOCALE_EN_CA_UTF8_MAN_LIBRARY
+	bool "library/ -- Library manuals"
+	default y

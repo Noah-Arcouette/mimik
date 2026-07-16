@@ -1,0 +1,14 @@
+include_rules
+
+ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_LIBRARY),y)
+FILES=
+
+# usr.lib
+ifeq (@(USR_LIB_LIBZIO),y)
+FILES+=libzio.md
+endif
+
+: foreach $(FILES) |> !comp \
+	|> $(DIST)/usr/share/locale/en_CA.utf8/man/library/%b$(COMP_EXT)
+
+endif
