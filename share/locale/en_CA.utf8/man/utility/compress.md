@@ -81,7 +81,7 @@ format.
 	+-----------------+----------+-----------------+
 
 	But also includes all non-archiving compressing formats supported by
-	libzio.Description of standard output use
+	libzio.
 
 **-p threads**
 	Set the amount of threads to use to decompress or compress files.
