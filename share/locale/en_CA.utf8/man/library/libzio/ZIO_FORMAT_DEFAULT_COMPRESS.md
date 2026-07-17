@@ -8,7 +8,7 @@ ZIO_FORMAT_DEFAULT_COMPRESS -- The default compression algorithm
 ```c
 #include <zio.h>
 
-#define ZIO_FORMAT_DEFAULT_COMPRESS 0
+#define ZIO_FORMAT_DEFAULT_COMPRESS 1
 ```
 
 

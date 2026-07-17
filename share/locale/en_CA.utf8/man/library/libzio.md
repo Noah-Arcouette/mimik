@@ -9,8 +9,9 @@ libzio -- The alternative encoding i/o library
 #include <zio.h>
 
 /// @defgroup Formats
+#define ZIO_FORMAT_NONE 0
 // Defaults
-#define ZIO_FORMAT_DEFAULT_COMPRESS 0
+#define ZIO_FORMAT_DEFAULT_COMPRESS 1
 // Misc
 #define ZIO_FORMAT_LZW 10
 // Deflate based

@@ -16,6 +16,8 @@ extern int z_format_from_name (const char *suffix);
 
 `z_format_from_name` shall return based on the following information:
 
+(case insensitive) `none` -- ZIO_FORMAT_NONE
+
 (case insensitive) `lzw` -- ZIO_FORMAT_LZW
 
 (case insensitive) `deflate` -- ZIO_FORMAT_DEFLATE

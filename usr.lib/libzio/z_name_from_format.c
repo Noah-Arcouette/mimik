@@ -9,6 +9,8 @@ z_name_from_format (int format)
 	{
 	case ZIO_FORMAT_DEFAULT_COMPRESS:
 		return z_suffix_from_format(_ZIO_DEFAULT_COMPRESS);
+	case ZIO_FORMAT_NONE:
+		return "none";
 	case ZIO_FORMAT_LZW:
 		return "lzw";
 	case ZIO_FORMAT_DEFLATE:

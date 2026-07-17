@@ -19,6 +19,7 @@ extern int z_format_is_archived (int format);
 +--------------------+-------+
 |       Format       | Value |
 +--------------------+-------+
+| ZIO_FORMAT_NONE    | 0     |
 | ZIO_FORMAT_LZW     | 0     |
 | ZIO_FORMAT_DEFLATE | 0     |
 | ZIO_FORMAT_GZIP    | 0     |

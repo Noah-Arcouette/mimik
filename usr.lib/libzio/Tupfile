@@ -14,6 +14,8 @@ FLAGS+=-DDEFAULT_GZIP
 endif
 
 # Formats
+: foreach ./none/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.lib/libzio/none/%B.o {obj}
+
 ifeq (@(USR_LIB_LIBZIO_LZW),y)
 FLAGS+=-DLZW
 : foreach ./lzw/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.lib/libzio/lzw/%B.o {obj}
@@ -68,6 +70,8 @@ FLAGS+=-DGZIP -DDEFLATE -DDEFAULT_GZIP
 endif
 
 # Core files
+: foreach none/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/libzio/none/%B.o \
+	{tool-obj}
 : foreach *.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/libzio/%B.o {tool-obj}
 : {tool-obj}  |> !hostar |> $(OBJ)/tool/libzio.a | $(OBJ)/tool/<libzio>
 

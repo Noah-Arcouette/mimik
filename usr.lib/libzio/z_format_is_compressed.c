@@ -11,6 +11,7 @@ z_format_is_compressed (int format)
 	case ZIO_FORMAT_DEFLATE:
 	case ZIO_FORMAT_GZIP:
 		return 1;
+	case ZIO_FORMAT_NONE:
 	default:
 		return 0;
 	}

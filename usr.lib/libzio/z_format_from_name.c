@@ -13,6 +13,14 @@ z_format_from_name (const char *name)
 
 	switch (name[0])
 	{
+	case 'n':
+	case 'N':
+		if (!strcasecmp(name+1, "one"))
+		{
+			return ZIO_FORMAT_NONE;
+		}
+		errno = EINVAL;
+		return -1;
 	case 'l':
 	case 'L':
 		if (!strcasecmp(name+1, "zw"))

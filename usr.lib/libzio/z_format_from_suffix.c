@@ -16,6 +16,8 @@ z_format_from_suffix (const char *suffix)
 
 	switch (suffix[0])
 	{
+	case '\0':
+		return ZIO_FORMAT_NONE;
 	case 'Z':
 		if (suffix[1] == 0)
 		{

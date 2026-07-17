@@ -19,6 +19,7 @@ extern const char *z_name_from_format (int format);
 +--------------------+-----------+
 |       Format       |   Value   |
 +--------------------+-----------+
+| ZIO_FORMAT_NONE    | "none"    |
 | ZIO_FORMAT_LZW     | "lzw"     |
 | ZIO_FORMAT_DEFLATE | "deflate" |
 | ZIO_FORMAT_GZIP    | "gzip"    |
