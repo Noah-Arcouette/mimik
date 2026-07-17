@@ -1,6 +1,6 @@
 # Name
 
-ZIO_FORMAT_DEFAULT_DEFLATE -- A raw deflate stream
+ZIO_FORMAT_DEFLATE -- A raw deflate stream
 
 
 # Synopsys

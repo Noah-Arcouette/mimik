@@ -1,6 +1,6 @@
 # Name
 
-ZIO_FORMAT_DEFAULT_LZW -- The unix `compress` format
+ZIO_FORMAT_LZW -- The unix `compress` format
 
 
 # Synopsys

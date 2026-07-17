@@ -1,6 +1,6 @@
 # Name
 
-ZIO_FORMAT_DEFAULT_GZIP -- A GZip file
+ZIO_FORMAT_GZIP -- A GZip file
 
 
 # Synopsys
