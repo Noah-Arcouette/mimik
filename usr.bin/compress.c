@@ -310,6 +310,21 @@ main (int argc, char *argv[])
 
 	if (errors) return 1;
 
+	// check format, format stuff
+	if (z_format_is_archived(format))
+	{
+		fprintf(stderr, gettext("%s: Format `%s' is archiving\n"), self,
+			z_name_from_format(format));
+		return 1;
+	}
+
+	if (!z_format_is_compressed(format))
+	{
+		fprintf(stderr, gettext("%s: Format `%s' is not compressing\n"), self,
+			z_name_from_format(format));
+		return 1;
+	}
+
 	// parse operands
 	if (opts & OPTS_DECOMP) // compress -d
 	{
