@@ -48,10 +48,10 @@ Any errno value returnable by `library/libc/open`.
 Aswell as the following:
 
 `EINVAL`
-	*format* was invalid, or failed to be auto-detected. *mode* was invalid.
+	*format* was invalid. *mode* was invalid.
 
 `ENOSYS`
-	*format* is not implemented on the system.
+	*format* is not implemented on the system, or auto-detection failed.
 
 `ENOSUP`
 	One of the *mode* options is not supported by the format.
