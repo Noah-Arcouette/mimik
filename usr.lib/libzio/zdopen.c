@@ -43,6 +43,7 @@ zdopen (int fildes, const char *restrict mode, int format)
 			errno = EINVAL;
 			return NULL;
 		}
+		s++;
 	}
 
 	// setup backing
