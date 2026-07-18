@@ -320,6 +320,92 @@ extern int z_set_codeword_bits (zFILE *fp, int bits);
  * @file usr.lib/libzio/z_get_codeword_bits.c
  */
 extern int z_get_codeword_bits (zFILE *fp);
+
+/// LZW specifics
+struct lzw /// LZW file format (Little Endian)
+{
+	#define LZW_MAGIC (uint16_t)(0x9f1f)
+	uint16_t magic;
+
+	#define LZW_FLAG_CODE_BITS_MASK 0x1f // max code bits amount (bit mask)
+	#define LZW_FLAG_RESERVED       0x60
+	#define LZW_FLAG_BLOCK_MODE     0x80 // Include code (256) - Flush table
+	uint8_t flags;
+
+	/// LZW encoded stream, note, its buggy (see documentation)
+};
+
+/// GZip specifics
+struct gzip /// GZip file format (Little Endian)
+{
+	#define GZIP_MAGIC (uint16_t)(0x8b1f)
+	uint16_t magic;
+
+	#define GZIP_METHOD_DEFLATE 8
+	uint8_t method; /// The compression algorithm
+
+	#define GZIP_FLAG_TEXT        1 /// Content is probably ASCII
+	#define GZIP_FLAG_HEADER_CRC  2 /// Header CRC is included
+	#define GZIP_FLAG_EXTRA       4 /// Extra fields are included
+	#define GZIP_FLAG_NAME        8 /// File name is included
+	#define GZIP_FLAG_COMMENT    16 /// File comment is included
+	#define GZIP_FLAG_RESERVED  224 /// Reserved flags
+	uint8_t flags;
+
+	uint32_t mtime; /// Unix time of last modification
+
+	#define GZIP_EXTRA_DEFLATE_BEST 2 /// best deflate compression was used
+	#define GZIP_EXTRA_DEFLATE_FAST 4 /// fastest deflate compression was used
+	uint8_t eflags; /// Extra flags, because why not
+
+	#define GZIP_OS_FAT       0
+	#define GZIP_OS_AMIGA     1
+	#define GZIP_OS_OPENVMS   2
+	#define GZIP_OS_UNIX      3
+	#define GZIP_OS_VM_CMS    4
+	#define GZIP_OS_ATARI_TOS 5
+	#define GZIP_OS_HPFS      6
+	#define GZIP_OS_MACINTOSH 7
+	#define GZIP_OS_Z_SYSTEM  8
+	#define GZIP_OS_CPM       9
+	#define GZIP_OS_TOPS_20   10
+	#define GZIP_OS_NTFS      11
+	#define GZIP_OS_QDOS      12
+	#define GZIP_OS_RISCOS    13
+	#define GZIP_OS_MIMIK     225 // NOTE: this is not standard
+	#define GZIP_OS_UNKNOWN   255
+	uint8_t os;
+
+	// Extra fields, if Extra is set
+	// Original file name, if Name is set (null terminated)
+	// File comment, if Comment is set (null terminated)
+
+	// Header CRC, least two significant bytes of a CRC-32 of all bytes in the
+	// gzip up to (not including) this field, present if Header CRC is set
+
+	// Deflate stream
+
+	// gzip tail
+};
+
+struct gzip_extra_fields
+{
+	uint16_t len; // length of all extra fields
+	// extra fields
+};
+
+struct gzip_extra_field
+{
+	uint16_t id; // field identifier
+	uint16_t len; // length of data in the field
+	// data in the field
+};
+
+struct gzip_tail
+{
+	uint32_t crc;  // CRC-32 of the uncompressed data
+	uint32_t size; // Size of the uncompressed data (modulo 2^32)
+};
 ```
 
 
