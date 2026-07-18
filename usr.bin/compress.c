@@ -138,14 +138,23 @@ _compress (const char *path)
 		zutimens(out, t);
 	}
 
-	// open path
-	in = fopen(path, "r");
-	if (!in)
+	// check for stdin
+	if (!strcmp(path, "-"))
 	{
-		fprintf(stderr, gettext("%s: Failed to open file, `%s', %s\n"),
-			self, path, strerror(errno));
-		errors++;
-		goto comp_leave;
+		in = stdin;
+		path = "<stdin>";
+	}
+	else
+	{
+		// open path
+		in = fopen(path, "r");
+		if (!in)
+		{
+			fprintf(stderr, gettext("%s: Failed to open file, `%s', %s\n"),
+				self, path, strerror(errno));
+			errors++;
+			goto comp_leave;
+		}
 	}
 
 	// copy data
@@ -210,7 +219,7 @@ _compress (const char *path)
 	}
 
 	// delete file
-	if (!(opts & OPTS_KEEP))
+	if (!(opts & OPTS_KEEP) && strcmp(path, "<stdin>"))
 	{
 		unlink(path);
 	}
