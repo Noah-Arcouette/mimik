@@ -43,7 +43,8 @@ format.
 	be between one and nine inclusive, with a default of six.
 
 	Specifically for LZW compression, this shall be the maximum number of code
-	bits to use, and shall be higher than eight with a default of sixteen.
+	bits to use, and shall be higher than eight with a default of sixteen. It is
+	recommended not to set about sixteen for compatibility reasons.
 
 **-c**
 	Write to standard output, no input files shall be modified and no output
