@@ -63,7 +63,7 @@ _compress (const char *path)
 		out = zdopen(STDOUT_FILENO, "w", format);
 		if (!out)
 		{
-			fprintf(stderr, gettext("%s: Failed to zopen file, `%s', %s\n"),
+			fprintf(stderr, gettext("%s: Failed to zdopen file, `%s', %s\n"),
 				self, outname, strerror(errno));
 			errors++;
 			goto comp_leave;
