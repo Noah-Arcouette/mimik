@@ -1,6 +1,6 @@
 # Name
 
-z_format_is_archived -- Test if a zio format is archived
+z_format_is_filed -- Test if a zio format is filed
 
 
 # Synopsys
@@ -8,20 +8,20 @@ z_format_is_archived -- Test if a zio format is archived
 ```c
 #include <zio.h>
 
-extern int z_format_is_archived (int format);
+extern int z_format_is_filed (int format);
 ```
 
 
 # Description
 
-`z_format_is_archived` shall return based on the following table:
+`z_format_is_filed` shall return based on the following table:
 
 +--------------------+-------+
 |       Format       | Value |
 +--------------------+-------+
 | ZIO_FORMAT_NONE    | 1     |
-| ZIO_FORMAT_LZW     | 0     |
-| ZIO_FORMAT_DEFLATE | 0     |
+| ZIO_FORMAT_LZW     | 1     |
+| ZIO_FORMAT_DEFLATE | 1     |
 | ZIO_FORMAT_GZIP    | 1     |
 | *unknown*          | 0     |
 +--------------------+-------+
@@ -33,11 +33,10 @@ returned value depends on the underlying format set.
 # Return Value
 
 `0`
-	The format is not archived, and may not be opened with the `zopendir` family
-	of functions.
+	The format is not archived, and may not be opened with the `zopen` family of functions.
 
 `1`
-	The format is archived, and may be opened with the `zopendir` family of
+	The format is archived, and may be opened with the `zopen` family of
 	functions.
 
 
@@ -48,7 +47,7 @@ None.
 
 # Application Usage
 
-This is designed to tell if a given format may be opened with `zopendir` family
+This is designed to tell if a given format may be opened with `zopen` family
 of functions; note, a format may support both file-based and directory-based
 opening and access methods.
 

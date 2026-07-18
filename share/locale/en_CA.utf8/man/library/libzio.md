@@ -36,6 +36,14 @@ extern int z_format_is_compressed (int format);
 extern int z_format_is_archived (int format);
 
 /**
+ * Check if a format is filed
+ * @param format The format in question
+ * @returns True if the given format is filed
+ * @file usr.lib/libzio/z_format_is_filed.c
+ */
+extern int z_format_is_filed (int format);
+
+/**
  * Check if a format is protected
  * @param format The format in question
  * @returns True if the given format is protected

@@ -123,6 +123,13 @@ zdopen (int fildes, const char *restrict mode, int format)
 		return NULL;
 	}
 
+	// check if it can be opened as a file
+	if (!z_format_is_filed(f.format))
+	{
+		errno = EISDIR;
+		return NULL;
+	}
+
 	// all good
 
 	// duplicate

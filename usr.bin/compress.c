@@ -320,9 +320,11 @@ main (int argc, char *argv[])
 	if (errors) return 1;
 
 	// check format, format stuff
-	if (z_format_is_archived(format))
+	if (!z_format_is_filed(format))
 	{
-		fprintf(stderr, gettext("%s: Format `%s' is archiving\n"), self,
+		fprintf(stderr,
+			gettext("%s: Format `%s' is not a filed-based format\n"),
+			self,
 			z_name_from_format(format));
 		return 1;
 	}

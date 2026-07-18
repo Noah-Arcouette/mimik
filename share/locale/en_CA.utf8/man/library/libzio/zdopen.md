@@ -49,6 +49,9 @@ Any errno value returnable by `library/libc/read`.
 
 Aswell as the following:
 
+`EISDIR`
+	*format* is not able to be opened as a file.
+
 `EINVAL`
 	*format* was invalid. *mode* was invalid.
 

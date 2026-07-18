@@ -80,7 +80,7 @@ format.
 	| GZip            | gzip     | .gz             |
 	+-----------------+----------+-----------------+
 
-	But also includes all non-archiving compressing formats supported by
+	But also includes all file-based compressing formats supported by
 	libzio.
 
 **-p threads**
