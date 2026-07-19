@@ -43,13 +43,122 @@ struct zFILE
 
 	int format;
 
+	/// @note BIG NOTE: the none options send the request to the backing for
+	/// VFS based things this is almost always needed to be called, please keep
+	/// that in-mind for implementation
+
+	/**
+	 * Read from backing into buf
+	 */
+	size_t (*read)(zFILE *restrict fp, void *restrict buf, size_t size);
+
+	/**
+	 * Write from buf into backing
+	 */
+	size_t (*write)(zFILE *restrict fp, const void *restrict buf, size_t size);
+
+	/**
+	 * Seek, if possible
+	 */
+	off_t (*seek)(zFILE *fp, off_t offset, int whence);
+
+	/**
+	 * VFS options, usually just pass down to backing
+	 */
+	int (*stat)   (zFILE *restrict fp, struct stat *restrict statbuf);
+	int (*chown)  (zFILE *fp, uid_t user, gid_t group);
+	int (*chmod)  (zFILE *fp, mode_t mode);
+	int (*utimens)(zFILE *fp, struct timespec t[2]);
+
 	char buf[BUFSIZ];
 	long size;   // amount of data read into the buffer
 	long offset; // current offset within the buffer
 };
 
 // None
+/**
+ * Setup only for backing file
+ * @param fp The file in question
+ * @returns True upon error
+ * @file none/_zio_setup_none.c
+ */
 extern int _zio_setup_none (zFILE *fp);
+
+/**
+ * Read from backing into buffer
+ * @note useful for other implementation to get backing data
+ * @param fp The file in question
+ * @param buf The buffer to fill
+ * @param size The amount to read
+ * @returns The amount read, will set error flag and errno on error
+ * @file none/_zio_read_none.c
+ */
+extern size_t _zio_read_none (zFILE *restrict fp, void *restrict buf,
+	size_t size);
+
+/**
+ * Write to backing from buffer
+ * @note useful for other implementation to put backing data
+ * @param fp The file in question
+ * @param buf The buffer to read from
+ * @param size The amount to write
+ * @returns The amount written, will set error flag and errno on error
+ * @file none/_zio_write_none.c
+ */
+extern size_t _zio_write_none (zFILE *restrict fp, const void *restrict buf,
+	size_t size);
+
+/**
+ * Seek into the backing device
+ * @note useful for other implementation to seek the backing device
+ * @param fp The file in question
+ * @param offset The offset to seek to
+ * @param whence Starting point of the seek
+ * @returns The current offset (the tell), or -1 on error
+ * @file none/_zio_seek_none.c
+ */
+extern off_t _zio_seek_none (zFILE *fp, off_t offset, int whence);
+
+/**
+ * Stat the backing device
+ * @note useful for other implementation to stat the backing device
+ * @param fp The file in question
+ * @param statbuf The stat buffer to fill
+ * @returns Non-zero on failure
+ * @file none/_zio_stat_none.c
+ */
+extern int _zio_stat_none (zFILE *restrict fp, struct stat *restrict statbuf);
+
+/**
+ * Change ownership the backing device
+ * @note useful for other implementation to update the backing device
+ * @param fp The file in question
+ * @param user The user to set to
+ * @param group The group to set to
+ * @returns Non-zero on failure
+ * @file none/_zio_chown_none.c
+ */
+extern int _zio_chown_none (zFILE *fp, uid_t user, gid_t group);
+
+/**
+ * Change mode the backing device
+ * @note useful for other implementation to update the backing device
+ * @param fp The file in question
+ * @param mode The mode to set to
+ * @returns Non-zero on failure
+ * @file none/_zio_chmod_none.c
+ */
+extern int _zio_chmod_none (zFILE *fp, mode_t mode);
+
+/**
+ * Change times the backing device
+ * @note useful for other implementation to update the backing device
+ * @param fp The file in question
+ * @param t Access time, modification time
+ * @returns Non-zero on failure
+ * @file none/_zio_utimens_none.c
+ */
+extern int _zio_utimens_none (zFILE *fp, struct timespec t[2]);
 
 // LZW
 /**
