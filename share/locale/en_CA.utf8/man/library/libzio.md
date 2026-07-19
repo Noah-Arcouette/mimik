@@ -198,6 +198,16 @@ extern size_t zwrite (const void *restrict buf, size_t size, size_t n,
 	zFILE *restrict fp);
 
 /**
+ * Seek to a specific position in a file
+ * @param fp The file in question
+ * @param offset The offset
+ * @param whence The start of the seeking operation
+ * @returns -1 upon error, zero upon success
+ * @file usr.lib/libzio/zseek.c
+ */
+extern int zseek (zFILE *fp, long offset, int whence);
+
+/**
  * Test for file error
  * @param fp The file to test
  * @returns Non-zero if the error indicator is set
