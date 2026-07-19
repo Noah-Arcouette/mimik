@@ -8,7 +8,7 @@ zchmod -- Change file mode
 ```c
 #include <zio.h>
 
-extern int zchmod (zFILE *restrict fp, mode_t mode);
+extern int zchmod (zFILE *fp, mode_t mode);
 ```
 
 
