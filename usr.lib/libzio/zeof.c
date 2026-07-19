@@ -1,8 +1,17 @@
 #include "_zio.h"
+#include <errno.h>
 
 int
 zeof (zFILE *fp)
 {
 	if (!fp) return 0;
-	return (fp->flags & _ZFILE_FLAGS_EOF);
+
+	int error = errno;
+
+	zlockfile(fp);
+	int val = (fp->flags & _ZFILE_FLAGS_EOF);
+	zunlockfile(fp);
+
+	errno = error;
+	return val;
 }

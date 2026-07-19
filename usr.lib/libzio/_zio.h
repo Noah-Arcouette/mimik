@@ -1,5 +1,6 @@
 #ifndef __ZIO_H__
 #define __ZIO_H__
+#include <pthread.h>
 #include <stdio.h>
 #include <zio.h>
 
@@ -25,11 +26,13 @@ struct zFILE
 {
 	#define _ZFILE_FLAGS_READABLE  1ul
 	#define _ZFILE_FLAGS_WRITABLE  2ul
-	#define _ZFILE_FLAGS_LOCKED    4ul
-	#define _ZFILE_FLAGS_ERROR     8ul
-	#define _ZFILE_FLAGS_EOF      16ul
-	#define _ZFILE_FLAGS_SECURE   32ul
+	#define _ZFILE_FLAGS_ERROR     4ul
+	#define _ZFILE_FLAGS_EOF       8ul
+	#define _ZFILE_FLAGS_SECURE   16ul
 	unsigned long flags;
+
+	long locks;
+	_Atomic pthread_t lock;
 
 	enum _zFILE_backing backing;
 	union

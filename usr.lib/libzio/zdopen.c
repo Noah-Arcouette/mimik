@@ -46,6 +46,9 @@ zdopen (int fildes, const char *restrict mode, int format)
 		s++;
 	}
 
+	f.locks = 0;
+	f.lock  = 0; // leave it unlocked for now
+
 	// setup backing
 	f.backing = _ZFILE_BACKING_FD;
 	f.fd      = fildes;
