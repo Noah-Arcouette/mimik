@@ -190,7 +190,7 @@ extern size_t zread (void *restrict buf, size_t size, size_t n,
  * @returns The number of elements written
  * @file usr.lib/libzio/zwrite.c
  */
-extern size_t zwrite (void *restrict buf, size_t size, size_t n,
+extern size_t zwrite (const void *restrict buf, size_t size, size_t n,
 	zFILE *restrict fp);
 
 /**
