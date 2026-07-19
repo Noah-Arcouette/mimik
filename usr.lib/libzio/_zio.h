@@ -90,7 +90,7 @@ extern int _zio_setup_none (zFILE *fp);
  * @param fp The file in question
  * @param buf The buffer to fill
  * @param size The amount to read
- * @returns The amount read, will set error flag and errno on error
+ * @returns The amount read or -1, will set error flag and errno on error
  * @file none/_zio_read_none.c
  */
 extern size_t _zio_read_none (zFILE *restrict fp, void *restrict buf,
@@ -102,7 +102,7 @@ extern size_t _zio_read_none (zFILE *restrict fp, void *restrict buf,
  * @param fp The file in question
  * @param buf The buffer to read from
  * @param size The amount to write
- * @returns The amount written, will set error flag and errno on error
+ * @returns The amount written or -1, will set error flag and errno on error
  * @file none/_zio_write_none.c
  */
 extern size_t _zio_write_none (zFILE *restrict fp, const void *restrict buf,
