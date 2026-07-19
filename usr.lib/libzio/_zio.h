@@ -48,6 +48,9 @@ struct zFILE
 	long offset; // current offset within the buffer
 };
 
+// None
+extern int _zio_setup_none (zFILE *fp);
+
 // LZW
 /**
  * Return true if the given data in the fp's buffer is an LZW file

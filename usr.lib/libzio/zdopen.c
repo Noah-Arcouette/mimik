@@ -144,6 +144,13 @@ zdopen (int fildes, const char *restrict mode, int format)
 	// setup format
 	switch (f.format)
 	{
+	case ZIO_FORMAT_NONE:
+		if (_zio_setup_none(fp))
+		{
+			free(fp);
+			return NULL;
+		}
+		break;
 	#ifdef LZW
 	case ZIO_FORMAT_LZW:
 		if (_zio_setup_lzw(fp))
@@ -171,8 +178,6 @@ zdopen (int fildes, const char *restrict mode, int format)
 		}
 		break;
 	#endif
-	case ZIO_FORMAT_NONE:
-		break;
 	}
 
 	// return
