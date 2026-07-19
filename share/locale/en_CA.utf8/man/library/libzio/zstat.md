@@ -8,7 +8,7 @@ zstat -- Get file metadata
 ```c
 #include <zio.h>
 
-extern int zstat (zFILE *restrict fp, struct stat *statbuf);
+extern int zstat (zFILE *restrict fp, struct stat *restrict statbuf);
 ```
 
 
