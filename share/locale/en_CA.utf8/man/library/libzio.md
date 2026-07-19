@@ -208,6 +208,32 @@ extern size_t zwrite (const void *restrict buf, size_t size, size_t n,
 extern int zseek (zFILE *fp, long offset, int whence);
 
 /**
+ * Tell the current offset of a file
+ * @param fp The file in question
+ * @returns -1 upon error, or the current offset on success
+ * @file usr.lib/libzio/ztell.c
+ */
+extern long ztell (zFILE *fp);
+
+/**
+ * Seek to a specific position in a file
+ * @param fp The file in question
+ * @param offset The offset
+ * @param whence The start of the seeking operation
+ * @returns -1 upon error, zero upon success
+ * @file usr.lib/libzio/zseeko.c
+ */
+extern int zseeko (zFILE *fp, off_t offset, int whence);
+
+/**
+ * Tell the current offset of a file
+ * @param fp The file in question
+ * @returns -1 upon error, or the current offset on success
+ * @file usr.lib/libzio/ztello.c
+ */
+extern off_t ztello (zFILE *fp);
+
+/**
  * Test for file error
  * @param fp The file to test
  * @returns Non-zero if the error indicator is set
