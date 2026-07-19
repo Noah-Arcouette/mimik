@@ -31,8 +31,9 @@ struct zFILE
 	#define _ZFILE_FLAGS_SECURE   16ul
 	unsigned long flags;
 
-	long locks;
-	_Atomic pthread_t lock;
+	long      locks;
+	pthread_t locker;
+	_Atomic int lock; // general access lock, no touching locks or locker if set
 
 	enum _zFILE_backing backing;
 	union
