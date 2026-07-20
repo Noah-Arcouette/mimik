@@ -121,6 +121,34 @@ struct _zFILE_impl
 	int (*stat)(zFILE *restrict fp, struct stat *restrict statbuf);
 };
 
+// any of these may be null
+struct _zFILE_options
+{
+	/**
+	 * Set/get the amount of cores for encoding/decoding
+	 * @param fp The file to set
+	 * @param cores The cores value (-1 to not set)
+	 * @returns The current cores value (-1 if not supported)
+	 */
+	int (*cores)(zFILE *fp, int cores);
+
+	/**
+	 * Set/get the amount of bits for codewords
+	 * @param fp The file to set
+	 * @param bits The bits value (-1 to not set)
+	 * @returns The current bits value (-1 if not supported)
+	 */
+	int (*codeword_bits)(zFILE *fp, int bits);
+
+	/**
+	 * Set/get the encoding level
+	 * @param fp The file to set
+	 * @param level The level value (-1 to not set)
+	 * @returns The current level value (-1 if not supported)
+	 */
+	int (*compression_level)(zFILE *fp, int level);
+};
+
 struct zFILE
 {
 	// flags
@@ -159,6 +187,7 @@ struct zFILE
 		// void none;
 	};
 	struct _zFILE_impl formatImpl;
+	struct _zFILE_options options;
 };
 
 // Backing Impls
@@ -226,6 +255,10 @@ extern int _zio_stat_none (zFILE *restrict fp, struct stat *restrict statbuf);
 	_zio_chmod_fd, /* chmod */ \
 	_zio_utimens_fd, /* utimens */ \
 	_zio_stat_fd /* stat */ }
+#define _ZFILE_FORMAT_NONE_OPTIONS (struct _zFILE_options){ \
+	NULL, /* cores */ \
+	NULL, /* code bits*/ \
+	NULL, /* level*/ }
 
 // LZW
 /**
@@ -238,10 +271,12 @@ extern int _zio_guess_lzw (zFILE *fp);
 
 // #define _ZFILE_FORMAT_LZW_IMPL _ZFILE_NO_IMPL
 #define _ZFILE_FORMAT_LZW_IMPL _ZFILE_FORMAT_NONE_IMPL
+#define _ZFILE_FORMAT_LZW_OPTIONS _ZFILE_FORMAT_NONE_OPTIONS
 
 // Deflate
 // #define _ZFILE_FORMAT_DEFLATE_IMPL _ZFILE_NO_IMPL
 #define _ZFILE_FORMAT_DEFLATE_IMPL _ZFILE_FORMAT_NONE_IMPL
+#define _ZFILE_FORMAT_DEFLATE_OPTIONS _ZFILE_FORMAT_NONE_OPTIONS
 
 // GZip
 /**
@@ -254,5 +289,6 @@ extern int _zio_guess_gzip (zFILE *fp);
 
 // #define _ZFILE_FORMAT_GZIP_IMPL _ZFILE_NO_IMPL
 #define _ZFILE_FORMAT_GZIP_IMPL _ZFILE_FORMAT_NONE_IMPL
+#define _ZFILE_FORMAT_GZIP_OPTIONS _ZFILE_FORMAT_NONE_OPTIONS
 
 #endif

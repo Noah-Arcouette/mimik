@@ -156,20 +156,24 @@ zdopen (int fildes, const char *restrict mode, int format)
 	{
 	case ZIO_FORMAT_NONE:
 		fp->formatImpl = _ZFILE_FORMAT_NONE_IMPL;
+		fp->options = _ZFILE_FORMAT_NONE_OPTIONS;
 		break;
 	#ifdef LZW
 	case ZIO_FORMAT_LZW:
 		fp->formatImpl = _ZFILE_FORMAT_LZW_IMPL;
+		fp->options = _ZFILE_FORMAT_LZW_OPTIONS;
 		break;
 	#endif
 	#ifdef DEFLATE
 	case ZIO_FORMAT_DEFLATE:
 		fp->formatImpl = _ZFILE_FORMAT_DEFLATE_IMPL;
+		fp->options = _ZFILE_FORMAT_DEFLATE_OPTIONS;
 		break;
 	#endif
 	#ifdef GZIP
 	case ZIO_FORMAT_GZIP:
 		fp->formatImpl = _ZFILE_FORMAT_GZIP_IMPL;
+		fp->options = _ZFILE_FORMAT_GZIP_OPTIONS;
 		break;
 	#endif
 	}
