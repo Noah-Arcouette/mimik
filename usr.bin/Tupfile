@@ -1,7 +1,19 @@
 include_rules
 
 ifeq (@(USR_BIN_COMPRESS),y)
-: compress.c | $(OBJ)/usr.lib/<libzio> |> !ccld -lzio |> $(DIST)/usr/bin/%B
+
+ifeq (@(USR_LIB_LIBZIO_DEFAULT_COMPRESS_LZW),y)
+FLAGS=-DDEFAULT_LZW
+endif
+ifeq (@(USR_LIB_LIBZIO_DEFAULT_COMPRESS_DEFLATE),y)
+FLAGS=-DDEFAULT_DEFLATE
+endif
+ifeq (@(USR_LIB_LIBZIO_DEFAULT_COMPRESS_GZIP),y)
+FLAGS=-DDEFAULT_GZIP
+endif
+
+: compress.c | $(OBJ)/usr.lib/<libzio> |> !ccld $(FLAGS) -lzio \
+	|> $(DIST)/usr/bin/%B
 endif
 
 COPIES=
@@ -26,6 +38,16 @@ endif
 
 # toolchain build
 ifeq (@(BUILD_COMPRESS),y)
-: compress.c | $(OBJ)/tool/<libzio> |> !hostccld $(OBJ)/tool/libzio.a \
+ifeq (@(BUILD_COMPRESS_WITH_LZW),y)
+FLAGS=-DDEFAULT_LZW
+endif
+ifeq (@(BUILD_COMPRESS_WITH_DEFLATE),y)
+FLAGS=-DDEFAULT_DEFLATE
+endif
+ifeq (@(BUILD_COMPRESS_WITH_GZIP),y)
+FLAGS=-DDEFAULT_GZIP
+endif
+
+: compress.c | $(OBJ)/tool/<libzio> |> !hostccld $(FLAGS) $(OBJ)/tool/libzio.a \
 	|> $(OBJ)/tool/%B | $(OBJ)/tool/<compress>
 endif

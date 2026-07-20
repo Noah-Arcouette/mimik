@@ -359,7 +359,15 @@ main (int argc, char *argv[])
 	// set defaults
 	if (format == -1)
 	{
-		_setformat(ZIO_FORMAT_DEFAULT_COMPRESS);
+	#if defined(DEFAULT_LZW)
+		_setformat(ZIO_FORMAT_LZW);
+	#elif defined(DEFAULT_DEFLATE)
+		_setformat(ZIO_FORMAT_DEFLATE);
+	#elif defined(DEFAULT_GZIP)
+		_setformat(ZIO_FORMAT_GZIP);
+	#else
+	# 	error "No default format found"
+	#endif
 	}
 
 	if (errors) return 1;
