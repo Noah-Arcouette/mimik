@@ -19,7 +19,7 @@
 
 enum _zFILE_backing
 {
-	_zFILE_BACKING_FD
+	_ZFILE_BACKING_FD
 };
 
 // any of the defined functions may also be NULL
@@ -33,7 +33,7 @@ struct _zFILE_impl
 	int (*open)(zFILE *fp);
 
 	/**
-	 * Close implementation specific data
+	 * Close implementation specific data (flush was already done)
 	 * @param fp The file pointer to free
 	 * @returns True upon error
 	 */
@@ -150,5 +150,68 @@ struct zFILE
 	};
 	struct _zFILE_impl formatImpl;
 };
+
+// Backing Impls
+#define _ZFILE_BACKING_NO_IMPL (struct _zFILE_impl){ \
+	NULL, /* open */ \
+	NULL, /* close */ \
+	NULL, /* flush */ \
+	NULL, /* sync */ \
+	NULL, /* read */ \
+	NULL, /* write */ \
+	NULL, /* seek */ \
+	NULL, /* chown */ \
+	NULL, /* chmod */ \
+	NULL, /* utimens */ \
+	NULL /* stat */ }
+
+// FD
+/**
+ * Close an fd backed file
+ * @file fd/_zio_close_fd.c
+ */
+extern int _zio_close_fd (zFILE *fp);
+
+#define _ZFILE_BACKING_FD_IMPL (struct _zFILE_impl){ \
+	NULL, /* open */ \
+	_zio_close_fd, /* close */ \
+	NULL, /* flush */ \
+	NULL, /* sync */ \
+	NULL, /* read */ \
+	NULL, /* write */ \
+	NULL, /* seek */ \
+	NULL, /* chown */ \
+	NULL, /* chmod */ \
+	NULL, /* utimens */ \
+	NULL /* stat */ }
+
+// Format Impls
+// None
+#define _ZFILE_FORMAT_NONE_IMPL _ZFILE_BACKING_NO_IMPL
+
+// LZW
+/**
+ * Guess if a file is LZW (must be able to short seek)
+ * @param fp The file to guess from
+ * @returns True if the file is an LZW
+ * @file lzw/_zio_guess_lzw.c
+ */
+extern int _zio_guess_lzw (zFILE *fp);
+
+#define _ZFILE_FORMAT_LZW_IMPL _ZFILE_BACKING_NO_IMPL
+
+// Deflate
+#define _ZFILE_FORMAT_DEFLATE_IMPL _ZFILE_BACKING_NO_IMPL
+
+// GZip
+/**
+ * Guess if a file is GZIP (must be able to short seek)
+ * @param fp The file to guess from
+ * @returns True if the file is an GZIP
+ * @file gzip/_zio_guess_gzip.c
+ */
+extern int _zio_guess_gzip (zFILE *fp);
+
+#define _ZFILE_FORMAT_GZIP_IMPL _ZFILE_BACKING_NO_IMPL
 
 #endif
