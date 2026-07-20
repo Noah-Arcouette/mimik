@@ -70,12 +70,11 @@ struct zFILE
 	int (*chmod)  (zFILE *fp, mode_t mode);
 	int (*utimens)(zFILE *fp, struct timespec t[2]);
 
-	// backing data buffer
-	char buf[BUFSIZ];
-	long size;   // amount of data read into the buffer
-	long offset; // current offset within the buffer
-
-	// internal compression and format data, and buffers
+	// backing data buffer (main i/o to the backing)
+	char  *buf;
+	size_t bufcp; // capacity of the buffer
+	size_t bufsz; // amount of data in the buffer
+	size_t bufof; // offset of the data in the buffer (for reading)
 };
 
 // None
@@ -93,7 +92,7 @@ extern int _zio_setup_none (zFILE *fp);
  * @param fp The file in question
  * @param buf The buffer to fill
  * @param size The amount to read
- * @returns The amount read or -1, will set error flag and errno on error
+ * @returns The amount read, will set error flag and errno on error
  * @file none/_zio_read_none.c
  */
 extern size_t _zio_read_none (zFILE *restrict fp, void *restrict buf,
@@ -105,7 +104,7 @@ extern size_t _zio_read_none (zFILE *restrict fp, void *restrict buf,
  * @param fp The file in question
  * @param buf The buffer to read from
  * @param size The amount to write
- * @returns The amount written or -1, will set error flag and errno on error
+ * @returns The amount written, will set error flag and errno on error
  * @file none/_zio_write_none.c
  */
 extern size_t _zio_write_none (zFILE *restrict fp, const void *restrict buf,

@@ -21,21 +21,23 @@ zwrite (const void *restrict buf, size_t size, size_t n, zFILE *restrict fp)
 		return 0;
 	}
 
-	const char *dat = buf;
-	size_t amt;
-
-	for (amt = 0; amt<n; amt++)
+	if (!fp->write)
 	{
-		for (size_t i = 0; i<size; i++)
-		{
-			if (zputc_unlocked(*dat, fp) == EOF)
-			{
-				zunlockfile(fp);
-				return amt;
-			}
-			dat++; // gross but it works
-		}
+		fp->flags |= _ZFILE_FLAGS_ERROR;
+		errno = ENOTSUP;
+		zunlockfile(fp);
+		return 0;
 	}
+
+	if (!(fp->flags & _ZFILE_FLAGS_WRITABLE))
+	{
+		fp->flags |= _ZFILE_FLAGS_ERROR;
+		errno = ENOTSUP;
+		zunlockfile(fp);
+		return 0;
+	}
+
+	size_t amt = fp->write(fp, buf, size*n)/size;
 
 	zunlockfile(fp);
 	return amt;
