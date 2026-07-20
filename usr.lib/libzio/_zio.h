@@ -147,6 +147,14 @@ struct _zFILE_options
 	 * @returns The current level value (-1 if not supported)
 	 */
 	int (*compression_level)(zFILE *fp, int level);
+
+	/**
+	 * Set/get the original file name
+	 * @param fp The file to set
+	 * @param name The name to set it to (NULL if only getting)
+	 * @returns The current name (or NULL)
+	 */
+	const char *(*original_name)(zFILE *fp, const char *name);
 };
 
 struct zFILE
@@ -258,7 +266,8 @@ extern int _zio_stat_none (zFILE *restrict fp, struct stat *restrict statbuf);
 #define _ZFILE_FORMAT_NONE_OPTIONS (struct _zFILE_options){ \
 	NULL, /* cores */ \
 	NULL, /* code bits*/ \
-	NULL, /* level*/ }
+	NULL, /* level*/ \
+	NULL /* original name */ }
 
 // LZW
 /**
