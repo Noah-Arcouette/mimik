@@ -307,6 +307,14 @@ extern int zutimens (zFILE *fp, struct timespec t[2]);
 extern int z_set_cores (zFILE *fp, int cores);
 
 /**
+ * Attempt to get the amount of cores used to decode/encode a file
+ * @param fp The file in question
+ * @returns The amount of cores, or -1 upon error
+ * @file usr.lib/libzio/z_get_cores.c
+ */
+extern int z_get_cores (zFILE *fp);
+
+/**
  * Attempt to save the original name of the file
  * @param fp The file to save it to
  * @param name The name to save
