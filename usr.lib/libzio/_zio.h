@@ -72,7 +72,7 @@ struct _zFILE_impl
 	size_t (*write)(zFILE *restrict fp, const void *restrict buf, size_t amt);
 
 	/**
-	 * Seek into the file
+	 * Seek into the file (flush was already done)
 	 * @param fp The file to seek into
 	 * @param off The offset to seek to
 	 * @param whence Where to seek from

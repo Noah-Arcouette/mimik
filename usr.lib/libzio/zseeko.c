@@ -19,12 +19,27 @@ zseeko (zFILE *fp, off_t offset, int whence)
 
 	if (!fp->formatImpl.seek)
 	{
-		errno = ENOTSUP;
 		zunlockfile(fp);
+		errno = ENOTSUP;
 		return -1;
 	}
 
+	// flush
+	if (fp->formatImpl.flush)
+	{
+		if (fp->formatImpl.flush(fp))
+		{
+			int error = errno;
+			zunlockfile(fp);
+			errno = error;
+			return -1;
+		}
+	}
+
+	// seek
 	int resp = fp->formatImpl.seek(fp, offset, whence);
+	int error = errno;
 	zunlockfile(fp);
+	errno = error;
 	return resp;
 }
