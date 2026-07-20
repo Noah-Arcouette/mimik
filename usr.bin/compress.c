@@ -172,6 +172,7 @@ _compress (const char *path)
 
 	// set compression options
 	z_set_cores(out, threads);
+	z_set_original_name(out, path);
 	if (format == ZIO_FORMAT_LZW)
 	{
 		z_set_codeword_bits(out, level);
