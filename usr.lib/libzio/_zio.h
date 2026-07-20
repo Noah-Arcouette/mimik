@@ -54,7 +54,7 @@ struct _zFILE_impl
 	int (*sync)(zFILE *fp);
 
 	/**
-	 * Read data from the file
+	 * Read data from the file (flushing was done if needed)
 	 * @param fp The file to read from
 	 * @param buf The buffer to fill
 	 * @param amt The amount of bytes to read
@@ -63,7 +63,7 @@ struct _zFILE_impl
 	size_t (*read)(zFILE *restrict fp, void *restrict buf, size_t amt);
 
 	/**
-	 * Write data to the file
+	 * Write data to the file (flushing was done if needed)
 	 * @param fp The file to write to
 	 * @param buf The buffer to fill
 	 * @param amt The amount of bytes to write
@@ -122,6 +122,9 @@ struct zFILE
 	unsigned int readable : 1;
 	unsigned int writable : 1;
 	unsigned int secure   : 1;
+	unsigned int rw       : 1;
+	#define _ZFILE_RW_WRITING 0
+	#define _ZFILE_RW_READING 1
 
 	volatile int lock; // general access lock
 	pthread_t locker;  // owner of the locks

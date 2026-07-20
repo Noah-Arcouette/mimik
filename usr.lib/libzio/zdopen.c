@@ -32,10 +32,12 @@ zdopen (int fildes, const char *restrict mode, int format)
 			break;
 		case 'r':
 			f.readable = 1;
+			f.rw       = _ZFILE_RW_READING;
 			break;
 		case 'w':
 		case 'a':
 			f.writable = 1;
+			f.rw       = _ZFILE_RW_WRITING;
 			break;
 		case '+':
 			f.readable = 1;
