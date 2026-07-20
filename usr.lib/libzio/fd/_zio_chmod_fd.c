@@ -1,6 +1,5 @@
 #include "../_zio.h"
 #include <sys/stat.h>
-#include <errno.h>
 
 int
 _zio_chmod_fd (zFILE *fp, mode_t mode)
