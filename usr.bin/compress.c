@@ -175,11 +175,25 @@ _compress (const char *path)
 	z_set_original_name(out, path);
 	if (format == ZIO_FORMAT_LZW)
 	{
-		z_set_codeword_bits(out, level);
+		if (z_set_codeword_bits(out, level))
+		{
+			fprintf(stderr,
+				gettext("%s: Failed to set codeword bits for file `%s', %s\n"),
+				self, outname, strerror(errno));
+			errors++;
+			goto comp_leave;
+		}
 	}
 	else
 	{
-		z_set_compression_level(out, level);
+		if (z_set_compression_level(out, level))
+		{
+			fprintf(stderr,	gettext(
+				"%s: Failed to set compression level for file `%s', %s\n"),
+				self, outname, strerror(errno));
+			errors++;
+			goto comp_leave;
+		}
 	}
 
 	// copy data
