@@ -12,7 +12,7 @@ struct gzip_extra_field
 {
 	uint16_t id;
 	uint16_t len;
-};
+} __attribute__((packed));
 ```
 
 

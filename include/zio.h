@@ -365,7 +365,7 @@ struct lzw /// LZW file format (Little Endian)
 	uint8_t flags;
 
 	/// LZW encoded stream, note, its buggy (see documentation)
-};
+} __attribute__((packed));
 
 /// GZip specifics
 struct gzip /// GZip file format (Little Endian)
@@ -418,25 +418,25 @@ struct gzip /// GZip file format (Little Endian)
 	// Deflate stream
 
 	// gzip tail
-};
+} __attribute__((packed));
 
 struct gzip_extra_fields
 {
 	uint16_t len; // length of all extra fields
 	// extra fields
-};
+} __attribute__((packed));
 
 struct gzip_extra_field
 {
 	uint16_t id; // field identifier
 	uint16_t len; // length of data in the field
 	// data in the field
-};
+} __attribute__((packed));
 
 struct gzip_tail
 {
 	uint32_t crc;  // CRC-32 of the uncompressed data
 	uint32_t size; // Size of the uncompressed data (modulo 2^32)
-};
+} __attribute__((packed));
 
 #endif

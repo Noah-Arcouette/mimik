@@ -11,7 +11,7 @@ gzip_extra_fields -- The gzip file extra fields
 struct gzip_extra_fields
 {
 	uint16_t len;
-};
+} __attribute__((packed));
 ```
 
 

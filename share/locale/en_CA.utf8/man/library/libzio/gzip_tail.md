@@ -12,7 +12,7 @@ struct gzip_tail
 {
 	uint32_t crc;
 	uint32_t size;
-};
+} __attribute__((packed));
 ```
 
 

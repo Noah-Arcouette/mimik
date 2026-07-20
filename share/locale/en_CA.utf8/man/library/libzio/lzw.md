@@ -17,7 +17,7 @@ struct lzw
 	#define LZW_FLAG_RESERVED       0x60
 	#define LZW_FLAG_BLOCK_MODE     0x80
 	uint8_t flags;
-};
+} __attribute__((packed));
 ```
 
 
