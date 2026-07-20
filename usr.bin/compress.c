@@ -170,6 +170,17 @@ _compress (const char *path)
 		}
 	}
 
+	// set compression options
+	z_set_cores(out, threads);
+	if (format == ZIO_FORMAT_LZW)
+	{
+		z_set_codeword_bits(out, level);
+	}
+	else
+	{
+		z_set_compression_level(out, level);
+	}
+
 	// copy data
 	char buf[BUFSIZ];
 	size_t amt;
