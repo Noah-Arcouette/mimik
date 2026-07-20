@@ -59,6 +59,7 @@ struct _zFILE_impl
 	 * @param buf The buffer to fill
 	 * @param amt The amount of bytes to read
 	 * @returns The amount of bytes read
+	 * @note may and usually should, need to call the backing impl (for format)
 	 */
 	size_t (*read)(zFILE *restrict fp, void *restrict buf, size_t amt);
 
@@ -68,6 +69,7 @@ struct _zFILE_impl
 	 * @param buf The buffer to fill
 	 * @param amt The amount of bytes to write
 	 * @returns The amount of bytes written
+	 * @note may and usually should, need to call the backing impl (for format)
 	 */
 	size_t (*write)(zFILE *restrict fp, const void *restrict buf, size_t amt);
 
@@ -77,6 +79,7 @@ struct _zFILE_impl
 	 * @param off The offset to seek to
 	 * @param whence Where to seek from
 	 * @returns The current offset, or -1 on error
+	 * @note may and usually should, need to call the backing impl (for format)
 	 */
 	off_t (*seek)(zFILE *fp, off_t off, int whence);
 
@@ -86,6 +89,7 @@ struct _zFILE_impl
 	 * @param user The user to set to
 	 * @param group The group to set
 	 * @returns True upon error
+	 * @note may and usually should, need to call the backing impl (for format)
 	 */
 	int (*chown)(zFILE *fp, uid_t user, gid_t group);
 
@@ -94,6 +98,7 @@ struct _zFILE_impl
 	 * @param fp The file to modify
 	 * @param mode The mode to set to
 	 * @returns True upon error
+	 * @note may and usually should, need to call the backing impl (for format)
 	 */
 	int (*chmod)(zFILE *fp, mode_t mode);
 
@@ -102,6 +107,7 @@ struct _zFILE_impl
 	 * @param fp The file to modify
 	 * @param t The times to set to: Access time, Modification time
 	 * @returns True upon error
+	 * @note may and usually should, need to call the backing impl (for format)
 	 */
 	int (*utimens)(zFILE *fp, struct timespec t[2]);
 
@@ -110,6 +116,7 @@ struct _zFILE_impl
 	 * @param fp The file to stat
 	 * @param statbuf The stat structure to fill
 	 * @returns True upon error
+	 * @note may and usually should, need to call the backing impl (for format)
 	 */
 	int (*stat)(zFILE *restrict fp, struct stat *restrict statbuf);
 };
@@ -197,7 +204,28 @@ extern int _zio_stat_fd (zFILE *restrict fp, struct stat *restrict statbuf);
 
 // Format Impls
 // None
-#define _ZFILE_FORMAT_NONE_IMPL _ZFILE_BACKING_NO_IMPL
+extern size_t _zio_read_none (zFILE *restrict fp, void *restrict buf,
+	size_t amt);
+extern size_t _zio_write_none (zFILE *restrict fp, const void *restrict buf,
+	size_t amt);
+extern off_t _zio_seek_none (zFILE *fp, off_t off, int whence);
+extern int _zio_chown_none (zFILE *fp, uid_t user, gid_t group);
+extern int _zio_chmod_none (zFILE *fp, mode_t mode);
+extern int _zio_utimens_none (zFILE *fp, struct timespec t[2]);
+extern int _zio_stat_none (zFILE *restrict fp, struct stat *restrict statbuf);
+
+#define _ZFILE_FORMAT_NONE_IMPL (struct _zFILE_impl){ \
+	NULL, /* open */ \
+	NULL, /* close */ \
+	NULL, /* flush */ \
+	NULL, /* sync */ \
+	_zio_read_fd, /* read */ \
+	_zio_write_fd, /* write */ \
+	_zio_seek_fd, /* seek */ \
+	_zio_chown_fd, /* chown */ \
+	_zio_chmod_fd, /* chmod */ \
+	_zio_utimens_fd, /* utimens */ \
+	_zio_stat_fd /* stat */ }
 
 // LZW
 /**
