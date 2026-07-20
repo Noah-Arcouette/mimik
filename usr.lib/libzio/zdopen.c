@@ -59,12 +59,9 @@ zdopen (int fildes, const char *restrict mode, int format)
 	// setup backing
 	f.backing = _ZFILE_BACKING_FD;
 	f.fd.fd = fildes;
-	f.fd.buf  = malloc(BUFSIZ);
-	if (!f.fd.buf) return NULL;
-	f.fd.bufcp = BUFSIZ;
-	f.fd.bufsz = 0;
-	f.fd.bufof = 0;
 	f.backingImpl = _ZFILE_BACKING_FD_IMPL;
+
+	if (f.backingImpl.open(&f)) return NULL;
 
 	// setup format
 	if (format == ZIO_FORMAT_DEFAULT_COMPRESS) format = _ZIO_DEFAULT_COMPRESS;
@@ -102,7 +99,7 @@ zdopen (int fildes, const char *restrict mode, int format)
 		if (!f.readable)
 		{
 			errno = ENOTSUP;
-			free(f.fd.buf);
+			if (f.backingImpl.close) f.backingImpl.close(&f);
 			return NULL;
 		}
 
@@ -123,13 +120,13 @@ zdopen (int fildes, const char *restrict mode, int format)
 	#endif
 		{
 			errno = ENOSYS;
-			free(f.fd.buf);
+			if (f.backingImpl.close) f.backingImpl.close(&f);
 			return NULL;
 		}
 		break;
 	default:
 		errno = EINVAL;
-			free(f.fd.buf);
+		if (f.backingImpl.close) f.backingImpl.close(&f);
 		return NULL;
 	}
 
@@ -137,7 +134,7 @@ zdopen (int fildes, const char *restrict mode, int format)
 	if (!z_format_is_filed(f.format))
 	{
 		errno = EISDIR;
-		free(f.fd.buf);
+		if (f.backingImpl.close) f.backingImpl.close(&f);
 		return NULL;
 	}
 
@@ -147,7 +144,7 @@ zdopen (int fildes, const char *restrict mode, int format)
 	zFILE *fp = malloc(sizeof(zFILE));
 	if (!fp)
 	{
-		free(f.fd.buf);
+		if (f.backingImpl.close) f.backingImpl.close(&f);
 		return NULL;
 	}
 	memcpy(fp, &f, sizeof(f));

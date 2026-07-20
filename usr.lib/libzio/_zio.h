@@ -166,6 +166,7 @@ struct zFILE
 	NULL /* stat */ }
 
 // FD
+extern int _zio_open_fd (zFILE *fp);
 extern int _zio_close_fd (zFILE *fp);
 extern int _zio_flush_fd (zFILE *fp);
 extern int _zio_sync_fd (zFILE *fp);
@@ -179,7 +180,7 @@ extern int _zio_utimens_fd (zFILE *fp, struct timespec t[2]);
 extern int _zio_stat_fd (zFILE *restrict fp, struct stat *restrict statbuf);
 
 #define _ZFILE_BACKING_FD_IMPL (struct _zFILE_impl){ \
-	NULL, /* open */ \
+	_zio_open_fd, /* open */ \
 	_zio_close_fd, /* close */ \
 	_zio_flush_fd, /* flush */ \
 	_zio_sync_fd, /* sync */ \
