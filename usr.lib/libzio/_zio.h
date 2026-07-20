@@ -22,6 +22,7 @@ enum _zFILE_backing
 	_zFILE_BACKING_FD
 };
 
+// any of the defined functions may also be NULL
 struct _zFILE_impl
 {
 	/**
