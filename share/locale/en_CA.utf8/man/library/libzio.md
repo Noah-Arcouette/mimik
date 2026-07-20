@@ -157,23 +157,6 @@ extern void zunlockfile (zFILE *fp);
 extern int ztrylockfile (zFILE *fp);
 
 /**
- * User locking read
- * @param fp The file to read from
- * @returns The next byte the file, or EOF
- * @file usr.lib/libzio/zgetc_unlocked.c
- */
-extern int zgetc_unlocked (zFILE *fp);
-
-/**
- * User locking write
- * @param c The byte to write
- * @param fp The file to write to
- * @returns The byte written or EOF
- * @file usr.lib/libzio/zputc_unlocked.c
- */
-extern int zputc_unlocked (int c, zFILE *fp);
-
-/**
  * Read a number of bytes from a file
  * @param buf The buffer to read into
  * @param size The size of each element to read
