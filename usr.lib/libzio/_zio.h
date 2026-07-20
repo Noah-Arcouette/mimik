@@ -166,24 +166,30 @@ struct zFILE
 	NULL /* stat */ }
 
 // FD
-/**
- * Close an fd backed file
- * @file fd/_zio_close_fd.c
- */
 extern int _zio_close_fd (zFILE *fp);
+extern int _zio_flush_fd (zFILE *fp);
+extern int _zio_sync_fd (zFILE *fp);
+extern size_t _zio_read_fd (zFILE *restrict fp, void *restrict buf, size_t amt);
+extern size_t _zio_write_fd (zFILE *restrict fp, const void *restrict buf,
+	size_t amt);
+extern off_t _zio_seek_fd (zFILE *fp, off_t off, int whence);
+extern int _zio_chown_fd (zFILE *fp, uid_t user, gid_t group);
+extern int _zio_chmod_fd (zFILE *fp, mode_t mode);
+extern int _zio_utimens_fd (zFILE *fp, struct timespec t[2]);
+extern int _zio_stat_fd (zFILE *restrict fp, struct stat *restrict statbuf);
 
 #define _ZFILE_BACKING_FD_IMPL (struct _zFILE_impl){ \
 	NULL, /* open */ \
 	_zio_close_fd, /* close */ \
-	NULL, /* flush */ \
-	NULL, /* sync */ \
-	NULL, /* read */ \
-	NULL, /* write */ \
-	NULL, /* seek */ \
-	NULL, /* chown */ \
-	NULL, /* chmod */ \
-	NULL, /* utimens */ \
-	NULL /* stat */ }
+	_zio_flush_fd, /* flush */ \
+	_zio_sync_fd, /* sync */ \
+	_zio_read_fd, /* read */ \
+	_zio_write_fd, /* write */ \
+	_zio_seek_fd, /* seek */ \
+	_zio_chown_fd, /* chown */ \
+	_zio_chmod_fd, /* chmod */ \
+	_zio_utimens_fd, /* utimens */ \
+	_zio_stat_fd /* stat */ }
 
 // Format Impls
 // None
