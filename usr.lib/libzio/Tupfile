@@ -32,6 +32,9 @@ FLAGS+=-DGZIP
 : foreach ./gzip/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.lib/libzio/gzip/%B.o {obj}
 endif
 
+# Backing implementations
+: foreach fd/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.lib/libzio/fd/%B.o {obj}
+
 # Core files
 ifeq (@(USR_LIB_LIBZIO),y)
 : foreach *.c |> !cc $(FLAGS) |> $(OBJ)/usr.lib/libzio/%B.o {obj}
@@ -68,6 +71,9 @@ FLAGS+=-DGZIP -DDEFLATE -DDEFAULT_GZIP
 : foreach ./gzip/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/libzio/gzip/%B.o \
 	{tool-obj}
 endif
+
+# The backing implementations
+: foreach fd/*.c |> !cc $(FLAGS) |> $(OBJ)/tool/libzio/fd/%B.o {tool-obj}
 
 # Core files
 : foreach none/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/libzio/none/%B.o \
