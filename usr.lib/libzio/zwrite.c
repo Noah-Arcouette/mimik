@@ -14,13 +14,15 @@ zwrite (const void *restrict buf, size_t size, size_t n, zFILE *restrict fp)
 
 	if (!fp->formatImpl.write || !fp->writable)
 	{
-		errno = ENOTSUP;
 		fp->error = 1;
 		zunlockfile(fp);
+		errno = ENOTSUP;
 		return 0;
 	}
 
 	size_t amount = fp->formatImpl.write(fp, buf, size*n)/size;
+	int error = errno;
 	zunlockfile(fp);
+	errno = error;
 	return amount;
 }

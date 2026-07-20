@@ -14,14 +14,16 @@ zchown (zFILE *fp, uid_t user, gid_t group)
 
 	if (!fp->formatImpl.chown)
 	{
-		errno = ENOTSUP;
 		zunlockfile(fp);
+		errno = ENOTSUP;
 		return -1;
 	}
 
 	if (fp->formatImpl.chown(fp, user, group))
 	{
+		int error = errno;
 		zunlockfile(fp);
+		errno = error;
 		return -1;
 	}
 	zunlockfile(fp);

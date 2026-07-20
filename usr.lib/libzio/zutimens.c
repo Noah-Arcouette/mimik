@@ -14,14 +14,16 @@ zutimens (zFILE *fp, struct timespec t[2])
 
 	if (!fp->formatImpl.utimens)
 	{
-		errno = ENOTSUP;
 		zunlockfile(fp);
+		errno = ENOTSUP;
 		return -1;
 	}
 
 	if (fp->formatImpl.utimens(fp, t))
 	{
+		int error = errno;
 		zunlockfile(fp);
+		errno = error;
 		return -1;
 	}
 	zunlockfile(fp);

@@ -14,14 +14,16 @@ zchmod (zFILE *fp, mode_t mode)
 
 	if (!fp->formatImpl.chmod)
 	{
-		errno = ENOTSUP;
 		zunlockfile(fp);
+		errno = ENOTSUP;
 		return -1;
 	}
 
 	if (fp->formatImpl.chmod(fp, mode))
 	{
+		int error = errno;
 		zunlockfile(fp);
+		errno = error;
 		return -1;
 	}
 	zunlockfile(fp);
