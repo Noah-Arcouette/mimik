@@ -116,11 +116,11 @@ struct _zFILE_impl
 struct zFILE
 {
 	// flags
-	int error    : 1;
-	int eof      : 1;
-	int readable : 1;
-	int writable : 1;
-	int secure   : 1;
+	unsigned int error    : 1;
+	unsigned int eof      : 1;
+	unsigned int readable : 1;
+	unsigned int writable : 1;
+	unsigned int secure   : 1;
 
 	volatile int lock; // general access lock
 	pthread_t locker;  // owner of the locks
