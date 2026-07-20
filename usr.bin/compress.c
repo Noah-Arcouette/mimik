@@ -50,7 +50,10 @@ _compress (const char *path)
 	char  *outname = NULL;
 	FILE  *in      = NULL;
 
-	if (opts & OPTS_STDOUT) // compress -c
+	int _stdin = 0;
+	if (!strcmp(path, "-")) _stdin = 1;
+
+	if (opts & OPTS_STDOUT || _stdin) // compress -c
 	{
 		if (isatty(STDOUT_FILENO)) // make sure its not a tty
 		{
@@ -117,30 +120,40 @@ _compress (const char *path)
 			goto comp_leave;
 		}
 
-		// stat input
-		struct stat statbuf;
-		if (stat(path, &statbuf))
+		if (!_stdin)
 		{
-			fprintf(stderr, gettext("%s: Failed to stat file, `%s', %s\n"),
-				self, path, strerror(errno));
+			// stat input
+			struct stat statbuf;
+			if (stat(path, &statbuf))
+			{
+				fprintf(stderr, gettext("%s: Failed to stat file, `%s', %s\n"),
+					self, path, strerror(errno));
+				errors++;
+				goto comp_leave;
+			}
+
+			// copy meta data, we don't care if it fails
+			zchown(out, statbuf.st_uid, statbuf.st_gid);
+			zchmod(out, statbuf.st_mode);
+			struct timespec t[2];
+			t[0].tv_nsec = statbuf.st_atim.tv_nsec;
+			t[0].tv_sec  = statbuf.st_atim.tv_sec;
+			t[1].tv_nsec = statbuf.st_mtim.tv_nsec;
+			t[1].tv_sec  = statbuf.st_mtim.tv_sec;
+			zutimens(out, t);
+		}
+	}
+
+	// check for stdin
+	if (_stdin)
+	{
+		if (isatty(STDIN_FILENO)) // make sure its not a tty
+		{
+			fprintf(stderr, gettext("%s: Refusing to read from a tty\n"), self);
 			errors++;
 			goto comp_leave;
 		}
 
-		// copy meta data, we don't care if it fails
-		zchown(out, statbuf.st_uid, statbuf.st_gid);
-		zchmod(out, statbuf.st_mode);
-		struct timespec t[2];
-		t[0].tv_nsec = statbuf.st_atim.tv_nsec;
-		t[0].tv_sec  = statbuf.st_atim.tv_sec;
-		t[1].tv_nsec = statbuf.st_mtim.tv_nsec;
-		t[1].tv_sec  = statbuf.st_mtim.tv_sec;
-		zutimens(out, t);
-	}
-
-	// check for stdin
-	if (!strcmp(path, "-"))
-	{
 		in = stdin;
 		path = "<stdin>";
 	}
@@ -186,11 +199,17 @@ _compress (const char *path)
 		}
 	} while (amt == BUFSIZ);
 
+	// close output file
+	zclose(out);
+	out = NULL;
+	fclose(in);
+	in = NULL;
+
 	// check size
 	if (!(opts & OPTS_STDOUT))
 	{
 		struct stat statbuf;
-		if (stat(outname, &statbuf))
+		if (!stat(outname, &statbuf))
 		{
 			if (opts & OPTS_VERBOSE)
 			{
@@ -213,8 +232,8 @@ _compress (const char *path)
 		}
 		else
 		{
-			fprintf(stderr, gettext("%s: Failed to stat file, `%s'\n"),
-				self, outname);
+			fprintf(stderr, gettext("%s: Failed to stat file, `%s', %s\n"),
+				self, outname, strerror(errno));
 		}
 	}
 
