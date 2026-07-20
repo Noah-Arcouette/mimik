@@ -48,12 +48,12 @@ struct zFILE
 	/// that in-mind for implementation
 
 	/**
-	 * Read from backing into buf
+	 * Read from backing into *buf* (dencoding)
 	 */
 	size_t (*read)(zFILE *restrict fp, void *restrict buf, size_t size);
 
 	/**
-	 * Write from buf into backing
+	 * Write from *buf* into backing (encoding)
 	 */
 	size_t (*write)(zFILE *restrict fp, const void *restrict buf, size_t size);
 
@@ -70,9 +70,12 @@ struct zFILE
 	int (*chmod)  (zFILE *fp, mode_t mode);
 	int (*utimens)(zFILE *fp, struct timespec t[2]);
 
+	// backing data buffer
 	char buf[BUFSIZ];
 	long size;   // amount of data read into the buffer
 	long offset; // current offset within the buffer
+
+	// internal compression and format data, and buffers
 };
 
 // None
