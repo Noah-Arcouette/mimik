@@ -162,7 +162,7 @@ struct zFILE
 };
 
 // Backing Impls
-#define _ZFILE_BACKING_NO_IMPL (struct _zFILE_impl){ \
+#define _ZFILE_NO_IMPL (struct _zFILE_impl){ \
 	NULL, /* open */ \
 	NULL, /* close */ \
 	NULL, /* flush */ \
@@ -236,10 +236,12 @@ extern int _zio_stat_none (zFILE *restrict fp, struct stat *restrict statbuf);
  */
 extern int _zio_guess_lzw (zFILE *fp);
 
-#define _ZFILE_FORMAT_LZW_IMPL _ZFILE_BACKING_NO_IMPL
+// #define _ZFILE_FORMAT_LZW_IMPL _ZFILE_NO_IMPL
+#define _ZFILE_FORMAT_LZW_IMPL _ZFILE_FORMAT_NONE_IMPL
 
 // Deflate
-#define _ZFILE_FORMAT_DEFLATE_IMPL _ZFILE_BACKING_NO_IMPL
+// #define _ZFILE_FORMAT_DEFLATE_IMPL _ZFILE_NO_IMPL
+#define _ZFILE_FORMAT_DEFLATE_IMPL _ZFILE_FORMAT_NONE_IMPL
 
 // GZip
 /**
@@ -250,6 +252,7 @@ extern int _zio_guess_lzw (zFILE *fp);
  */
 extern int _zio_guess_gzip (zFILE *fp);
 
-#define _ZFILE_FORMAT_GZIP_IMPL _ZFILE_BACKING_NO_IMPL
+// #define _ZFILE_FORMAT_GZIP_IMPL _ZFILE_NO_IMPL
+#define _ZFILE_FORMAT_GZIP_IMPL _ZFILE_FORMAT_NONE_IMPL
 
 #endif

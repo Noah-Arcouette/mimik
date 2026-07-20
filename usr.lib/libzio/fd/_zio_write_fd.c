@@ -14,7 +14,7 @@ _zio_write_fd (zFILE *restrict fp, const void *restrict buf, size_t amt)
 	while (1)
 	{
 		size_t amountLeft = bufcp-*bufsz; // amount left to fill in buffer
-		if (amt > amountLeft)
+		if (amt >= amountLeft)
 		{
 			// save it
 			memcpy(inbuf+*bufsz, buf, amountLeft);
@@ -27,11 +27,12 @@ _zio_write_fd (zFILE *restrict fp, const void *restrict buf, size_t amt)
 			}
 			amountWritten += bufcp;
 			buf += amountLeft;
+			amt -= amountLeft;
 			continue;
 		}
 		// else
 		memcpy(inbuf+*bufsz, buf, amt);
 		*bufsz += amt;
-		return amountWritten;
+		return amountWritten+amt;
 	}
 }
