@@ -23,6 +23,7 @@ _zio_write_fd (zFILE *restrict fp, const void *restrict buf, size_t amt)
 			// dump it all
 			if (write(fp->fd.fd, inbuf, bufcp) < bufcp)
 			{
+				fp->error = 1;
 				return amountWritten;
 			}
 			amountWritten += bufcp;

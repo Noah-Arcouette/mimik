@@ -11,7 +11,11 @@ _zio_flush_fd (zFILE *fp)
 	if (fp->rw == _ZFILE_RW_WRITING)
 	{
 		// write the end to the file
-		if (write(fp->fd.fd, fp->fd.buf, bufsz) < bufsz) return 1;
+		if (write(fp->fd.fd, fp->fd.buf, bufsz) < bufsz)
+		{
+			fp->error = 1;
+			return 1;
+		}
 	}
 	return 0;
 }
