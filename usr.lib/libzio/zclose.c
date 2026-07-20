@@ -1,4 +1,5 @@
 #include "_zio.h"
+#include <stdlib.h>
 #include <errno.h>
 
 int
