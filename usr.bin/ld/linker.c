@@ -70,6 +70,9 @@ linker (void)
 		case LTYPE_SYSFLAGS:
 			printf("sysflags ");
 			break;
+		case LTYPE_SECTIONS:
+			printf("sections ");
+			break;
 		// values
 		case LTYPE_SYMBOL:
 			printf("sym<%s> ", ltoken.buf);
