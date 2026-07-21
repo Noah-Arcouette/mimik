@@ -98,16 +98,15 @@ _lex:
 	case '-':
 	case '/':
 	case '*':
-	case '.':
 		ltoken.type = c;
 		break;
 	case EOF:
 		ltoken.type = LTYPE_EOF;
 		break;
 	default:
-		if (isalpha(c) || c == '_')
+		if (isalpha(c) || c == '_' || c == '.')
 		{
-			while (isalnum(c) || c == '_')
+			while (isalnum(c) || c == '_' || c == '.')
 			{
 				c = _getc();
 			}

@@ -16,7 +16,6 @@ enum ltype
 	LTYPE_SUBTRACT    = '-',
 	LTYPE_DIVIDE      = '/',
 	LTYPE_MULTIPLY    = '*',
-	LTYPE_PERIOD      = '.',
 	// others
 	LTYPE_EOF = 0xff,
 	LTYPE_UNKNOWN,
