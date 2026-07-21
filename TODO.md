@@ -222,7 +222,6 @@ libzio:
 		sync
 		read
 		write
-		seek
 		chown
 		chmod
 		utimens
@@ -234,7 +233,6 @@ libzio:
 		sync
 		read
 		write
-		seek
 		chown
 		chmod
 		utimens
@@ -246,7 +244,6 @@ libzio:
 		sync
 		read
 		write
-		seek
 		chown
 		chmod
 		utimens
@@ -255,16 +252,11 @@ libzio:
 		read
 	lzw options:
 		cores
-		level
-		original name
 	deflate options:
 		cores
-		codeword bits
 		level
-		original name
 	gzip options:
 		cores
-		codeword bits
 		level
 		original name
 libc, libm...
