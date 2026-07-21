@@ -25,6 +25,7 @@ menu "Default Builds"
 		imply BIN_READLINK
 		imply BIN_SLEEP
 		imply BIN_TIME
+		imply BIN_CHOWN
 		default y
 
 	config DEFAULT_BUILD_TOOLS

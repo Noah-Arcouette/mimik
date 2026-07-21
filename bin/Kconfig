@@ -58,4 +58,9 @@ menu "bin/ - essential user binaries"
 		bool "time"
 		help
 			Return the execution timing of a command
+
+	config BIN_CHOWN
+		bool "chown"
+		help
+			Change file ownership
 endmenu

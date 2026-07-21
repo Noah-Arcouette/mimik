@@ -12,7 +12,6 @@ bc
 cd
 chgrp
 chmod
-chown
 cksum
 cmp
 comm

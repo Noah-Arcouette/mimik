@@ -52,6 +52,10 @@ ifeq (@(BIN_TIME),y)
 FILES+=time.md
 endif
 
+ifeq (@(BIN_CHOWN),y)
+FILES+=chown.md
+endif
+
 
 # usr.bin
 ifeq (@(USR_BIN_AS),y)

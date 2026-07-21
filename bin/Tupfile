@@ -49,4 +49,8 @@ ifeq (@(BIN_TIME),y)
 FILES+=time.c
 endif
 
+ifeq (@(BIN_CHOWN),y)
+FILES+=chown.c
+endif
+
 : foreach $(FILES) |> !ccld |> $(DIST)/bin/%B
