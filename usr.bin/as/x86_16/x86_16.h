@@ -19,10 +19,18 @@ extern int parse_x86_16_singlet (const char *instruction, int opcode);
 
 /**
  * Consume an 8bit register
- * @file x86_16/bitwise.c
+ * @file x86_16/reg8.c
  * @param reg The register value
  * @returns True if it was consumed
  */
 extern int parse_x86_16_reg8 (int *reg);
+
+/**
+ * Consume a 16bit register
+ * @file x86_16/reg16.c
+ * @param reg The register value
+ * @returns True if it was consumed
+ */
+extern int parse_x86_16_reg16 (int *reg);
 
 #endif

@@ -30,6 +30,16 @@ This document only applies in the context of `.arch x86_16`.
  - `%dh` -- The high 8bits of `%dx`
  - `%dl` -- The low 8bits of `%dx`
 
+*reg16* -- An sixteen bit register:
+ - `%ax` -- Accumulator
+ - `%bx` -- Base
+ - `%cx` -- Counter
+ - `%dx` -- Data
+ - `%sp` -- Stack Pointer
+ - `%bp` -- Base Pointer
+ - `%si` -- Source Index
+ - `%di` -- Destination Index
+
 `sjmp *literal*` -- Short (8bit displacement) jump
 
 `jmp *literal*` -- Near (16bit displacement) jump
