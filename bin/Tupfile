@@ -53,4 +53,9 @@ ifeq (@(BIN_CHOWN),y)
 FILES+=chown.c
 endif
 
+ifeq (@(BIN_CHGRP),y)
+FILES+=chgrp.c
+endif
+
+
 : foreach $(FILES) |> !ccld |> $(DIST)/bin/%B

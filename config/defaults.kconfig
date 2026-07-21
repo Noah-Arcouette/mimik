@@ -26,6 +26,7 @@ menu "Default Builds"
 		imply BIN_SLEEP
 		imply BIN_TIME
 		imply BIN_CHOWN
+		imply BIN_CHGRP
 		default y
 
 	config DEFAULT_BUILD_TOOLS

@@ -10,7 +10,6 @@ basename
 batch
 bc
 cd
-chgrp
 chmod
 cksum
 cmp

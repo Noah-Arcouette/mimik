@@ -56,6 +56,10 @@ ifeq (@(BIN_CHOWN),y)
 FILES+=chown.md
 endif
 
+ifeq (@(BIN_CHGRP),y)
+FILES+=chgrp.md
+endif
+
 
 # usr.bin
 ifeq (@(USR_BIN_AS),y)
