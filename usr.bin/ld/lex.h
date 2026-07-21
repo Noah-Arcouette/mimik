@@ -19,7 +19,7 @@ enum ltype
 	LTYPE_PERIOD      = '.',
 	// others
 	LTYPE_EOF = 0xff,
-	LTYPE_UKNOWN,
+	LTYPE_UNKNOWN,
 	// macros
 	LTYPE_ENTRY,
 	LTYPE_ARCH,

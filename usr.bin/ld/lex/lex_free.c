@@ -12,4 +12,10 @@ lex_free (void)
 
 	free(ltoken.buf);
 	ltoken.buf = NULL;
+
+	if (lfp)
+	{
+		fclose(lfp);
+		lfp = NULL;
+	}
 }
