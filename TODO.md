@@ -212,6 +212,63 @@ drivers:
 
 # Userland
 
+compression:
+	decompression
+libzio:
+	format/gz,Z,deflate
+	lzw implementation:
+		open
+		close
+		flush
+		sync
+		read
+		write
+		seek
+		chown
+		chmod
+		utimens
+		stat
+	deflate implementation:
+		open
+		close
+		flush
+		sync
+		read
+		write
+		seek
+		chown
+		chmod
+		utimens
+		stat
+	gzip implementation:
+		open
+		close
+		flush
+		sync
+		read
+		write
+		seek
+		chown
+		chmod
+		utimens
+		stat
+	fd implementation:
+		read
+	lzw options:
+		cores
+		codeword bits
+		level
+		original name
+	deflate options:
+		cores
+		codeword bits
+		level
+		original name
+	gzip options:
+		cores
+		codeword bits
+		level
+		original name
 libc, libm...
 fsck, sys-admin...
 protect -- error correction encoding
