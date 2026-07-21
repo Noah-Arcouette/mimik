@@ -40,6 +40,29 @@ This document only applies in the context of `.arch x86_16`.
  - `%si` -- Source Index
  - `%di` -- Destination Index
 
+*mem* -- A memory address or register:
+ - `[%bx+%si]` with optional `+*literal*`
+ - `[%bx+%di]` with optional `+*literal*`
+ - `[%bp*%si]` with optional `+*literal*`
+ - `[%bp+%di]` with optional `+*literal*`
+ - `[%si]` with optional `+*literal*`
+ - `[%di]` with optional `+*literal*`
+ - `[%bp]` with optional `+*literal*`
+ - `[%bx]` with optional `+*literal*`
+ - `[*literal*]`
+
+*algr* -- A standard algorithm operand, left side is always destination:
+ - *reg8* *reg8*
+ - *reg8* *mem*
+ - *reg8* *literal*
+ - *reg16* *reg16*
+ - *reg16* *mem*
+ - *reg16* *literal*
+ - .byte *mem* *reg8*
+ - .byte *mem* *literal*
+ - .word *mem* *reg16*
+ - .word *mem* *literal*
+
 `sjmp *literal*` -- Short (8bit displacement) jump
 
 `jmp *literal*` -- Near (16bit displacement) jump
@@ -47,6 +70,8 @@ This document only applies in the context of `.arch x86_16`.
 `hlt` -- Halt until an interrupt
 
 `cli` -- Clear interrupt allow flag
+
+`nop` -- Do nothing
 
 
 # Rationale
