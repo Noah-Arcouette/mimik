@@ -64,6 +64,15 @@ _try_again:
 	case EOF:
 		ltok.type = TOK_EOF;
 		break;
+	case '%':
+		while (isalnum(c) || c == '%')
+		{
+			_pushc(c);
+			c = fgetc(lfp);
+		}
+		ungetc(c, lfp); // unget the non-matching character
+		ltok.type = TOK_REGISTER;
+		break;
 	default:
 		if (isalpha(c) || c == '.' || c == '_')
 		{

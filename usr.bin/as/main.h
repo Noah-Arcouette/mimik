@@ -46,7 +46,8 @@ enum tokenType
 	TOK_SECTION,
 	TOK_GLOBAL,
 	// values
-	TOK_SYMBOL
+	TOK_SYMBOL,
+	TOK_REGISTER
 };
 
 /// @brief A lexer token

@@ -20,6 +20,16 @@ This document only applies in the context of `.arch x86_16`.
 
 *literal* -- A literal may be either a symbol or an integer
 
+*reg8* -- An eight bit register:
+ - `%ah` -- The high 8bits of `%ax`
+ - `%al` -- The low 8bits of `%ax`
+ - `%bh` -- The high 8bits of `%bx`
+ - `%bl` -- The low 8bits of `%bx`
+ - `%ch` -- The high 8bits of `%cx`
+ - `%cl` -- The low 8bits of `%cx`
+ - `%dh` -- The high 8bits of `%dx`
+ - `%dl` -- The low 8bits of `%dx`
+
 `sjmp *literal*` -- Short (8bit displacement) jump
 
 `jmp *literal*` -- Near (16bit displacement) jump
