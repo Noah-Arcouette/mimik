@@ -248,9 +248,9 @@ main (int argc, char *argv[])
 		struct group *grp = getgrnam(group);
 		if (!grp)
 		{
-			// GLibC is crap, it sets errno to ESUCCESS instead of not modifying it
-			// like POSIX says. Therefore this isn't useful until mimik libc comes
-			// out
+			// GLibC is crap, it sets errno to ESUCCESS instead of not modifying
+			// it like POSIX says. Therefore this isn't useful until mimik libc
+			// comes out
 
 			// if (errno >= 0)
 			// {
