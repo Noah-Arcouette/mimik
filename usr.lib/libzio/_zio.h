@@ -193,6 +193,14 @@ struct zFILE
 	union
 	{
 		// void none;
+	#ifdef LZW
+		struct
+		{
+			// if the header may be modified (1) or not (0)
+			unsigned int headerOpen : 1;
+			struct lzw header;
+		} lzw;
+	#endif
 	};
 	struct _zFILE_impl formatImpl;
 	struct _zFILE_options options;
@@ -278,14 +286,35 @@ extern int _zio_stat_none (zFILE *restrict fp, struct stat *restrict statbuf);
  */
 extern int _zio_guess_lzw (zFILE *fp);
 
-// #define _ZFILE_FORMAT_LZW_IMPL _ZFILE_NO_IMPL
-#define _ZFILE_FORMAT_LZW_IMPL _ZFILE_FORMAT_NONE_IMPL
-#define _ZFILE_FORMAT_LZW_OPTIONS _ZFILE_FORMAT_NONE_OPTIONS
+extern int _zio_open_lzw (zFILE *fp);
+
+extern int _zio_codeword_bits_lzw (zFILE *fp, int bits);
+
+#ifdef LZW
+#	define _ZFILE_FORMAT_LZW_IMPL (struct _zFILE_impl){ \
+	_zio_open_lzw, /* open */ \
+	NULL, /* close */ \
+	NULL, /* flush */ \
+	NULL, /* sync */ \
+	NULL, /* read */ \
+	NULL, /* write */ \
+	NULL, /* seek */ \
+	NULL, /* chown */ \
+	NULL, /* chmod */ \
+	NULL, /* utimens */ \
+	NULL /* stat */ }
+#	define _ZFILE_FORMAT_LZW_OPTIONS (struct _zFILE_options){ \
+	NULL, /* cores */ \
+	_zio_codeword_bits_lzw, /* code bits*/ \
+	NULL, /* level*/ \
+	NULL /* original name */ }
+#endif
 
 // Deflate
-// #define _ZFILE_FORMAT_DEFLATE_IMPL _ZFILE_NO_IMPL
-#define _ZFILE_FORMAT_DEFLATE_IMPL _ZFILE_FORMAT_NONE_IMPL
-#define _ZFILE_FORMAT_DEFLATE_OPTIONS _ZFILE_FORMAT_NONE_OPTIONS
+#ifdef DEFLATE
+#	define _ZFILE_FORMAT_DEFLATE_IMPL _ZFILE_NO_IMPL
+#	define _ZFILE_FORMAT_DEFLATE_OPTIONS _ZFILE_FORMAT_NONE_OPTIONS
+#endif
 
 // GZip
 /**
@@ -296,8 +325,9 @@ extern int _zio_guess_lzw (zFILE *fp);
  */
 extern int _zio_guess_gzip (zFILE *fp);
 
-// #define _ZFILE_FORMAT_GZIP_IMPL _ZFILE_NO_IMPL
-#define _ZFILE_FORMAT_GZIP_IMPL _ZFILE_FORMAT_NONE_IMPL
-#define _ZFILE_FORMAT_GZIP_OPTIONS _ZFILE_FORMAT_NONE_OPTIONS
+#ifdef GZIP
+#	define _ZFILE_FORMAT_GZIP_IMPL _ZFILE_NO_IMPL
+#	define _ZFILE_FORMAT_GZIP_OPTIONS _ZFILE_FORMAT_NONE_OPTIONS
+#endif
 
 #endif

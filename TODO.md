@@ -217,7 +217,6 @@ compression:
 libzio:
 	format/gz,Z,deflate
 	lzw implementation:
-		open
 		close
 		flush
 		sync
@@ -256,7 +255,6 @@ libzio:
 		read
 	lzw options:
 		cores
-		codeword bits
 		level
 		original name
 	deflate options:
