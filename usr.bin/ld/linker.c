@@ -19,23 +19,32 @@ linker (void)
 	}
 	lfilename = scriptFile;
 
-	// ENTRY(symbol)
-	// ARCH(arch)
-	// UARCH(uarch)
-	// ARCHFLAGS(archflag...)
-	// SYS(sys)
-	// USYS(usys)
-	// SYSFLAGS(sysflag...)
+	lex();
+	while (ltoken.type != LTYPE_EOF)
+	{
+		// ENTRY(symbol)
+		// ARCH(arch)
+		// UARCH(uarch)
+		// ARCHFLAGS(archflag...)
+		// SYS(sys)
+		// USYS(usys)
+		// SYSFLAGS(sysflag...)
 
-	// SECTIONS {
-	//   symbol = expr;
-	//   section [expr] [(noload)] : [expr]
-	//   {
-	//      file(section...) // glob matching
-	//      ...
-	//   }
-	//   ...
-	// }
+		// SECTIONS {
+		//   symbol = expr;
+		//   section [expr] [(noload)] : [expr]
+		//   {
+		//      file(section...) // glob matching
+		//      ...
+		//   }
+		//   ...
+		// }
+
+		// error
+		prettyprint("Uncaught token\n");
+		errors++;
+		lex();
+	}
 
 	// close up script file
 	lex_free();

@@ -70,4 +70,11 @@ extern void lex (void);
  */
 extern void lex_free (void);
 
+/**
+ * Print a file debug line
+ * @param fmt printf format string
+ * @file lex/prettyprint.c
+ */
+extern void prettyprint (const char *fmt, ...);
+
 #endif
