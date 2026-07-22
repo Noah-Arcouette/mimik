@@ -15,7 +15,7 @@ struct MiO
 	uint8_t name[256];
 
 	uint64_t size;
-};
+} __attribute__((packed));
 
 #define MIO_SPECIAL_MIO_ARCH (uint8_t *)"mio.arch"
 /// @brief The mio architecture data
@@ -51,7 +51,7 @@ struct MiO_Gap
 
 	/// The symbol to reference the given data for
 	uint8_t symbol[256];
-};
+} __attribute__((packed));
 
 #define MIO_GAP_TYPE_LIT_BYTE   0x000 // literal byte
 #define MIO_GAP_TYPE_LIT_LE16   0x001 // literal little-endian 16bit
@@ -90,7 +90,7 @@ struct MiO_Symbol
 	uint16_t flags; /// the symbol flags
 
 	uint8_t name[256]; /// the symbol name
-};
+} __attribute__((packed));
 
 #define MIO_SYMBOL_FLAG_VIRTUAL      0x0001
 #define MIO_SYMBOL_FLAG_READABLE     0x0002
@@ -112,7 +112,7 @@ struct MiO_Map
 
 	uint64_t amount; // amount of data to load from the file
 	uint64_t from;   // offset into the file from where to load the data from
-};
+} __attribute__((packed));
 
 #define MIO_MAP_FLAG_READABLE            0x01
 #define MIO_MAP_FLAG_WRITABLE            0x02
