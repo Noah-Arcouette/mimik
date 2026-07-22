@@ -77,4 +77,10 @@ extern void lex_free (void);
  */
 extern void prettyprint (const char *fmt, ...);
 
+/**
+ * Recover to a new line
+ * @file lex/recover.c
+ */
+extern void recover (void);
+
 #endif
