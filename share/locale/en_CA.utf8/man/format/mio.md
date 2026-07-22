@@ -290,6 +290,53 @@ The first four bits (most significant) shall be used as follows:
 
 This allows for simple error checking of symbol permissions.
 
+### Memory Paging Data
+
+The section `mio.maps` shall be a list memory regions. Upon load time this list
+shall be parsed to aid in gaps filling and loading of the binary or library into
+memory. Each memory page shall be the following structure:
+
++----------+--------+------+-----------------------------------------------+
+|   Name   | Offset | Size |                    Meaning                    |
++----------+--------+------+-----------------------------------------------+
+| Flags    | +0B    | 1B   | The given flags for the structure             |
+| Virtual  | +1B    | 8B   | The virtual address or alignment              |
+| Physical | +9B    | 8B   | The physical address or alignment             |
+| Size     | +17B   | 8B   | The size of the memory region                 |
+| Amount   | +25B   | 8B   | Amount of data to load                        |
+| From     | +33B   | 8B   | Offset into the file from where to load from  |
++----------+--------+------+-----------------------------------------------+
+
+Flags shall be the following values:
+
++--------------+---------------------------------------+
+| Offset (LSB) |                Meaning                |
++--------------+---------------------------------------+
+| +0b 0x01     | Region is readable                    |
+| +1b 0x02     | Region is writable                    |
+| +2b 0x04     | Region is executable                  |
+| +3b 0x08     | Region is thread specific             |
+| +4b 0x10     | Virtual is an address not alignment   |
+| +5b 0x20     | Physical is an address not alignment  |
+| +6...7b 0xc0 | Reserved for future use               |
++--------------+---------------------------------------+
+
+If Readable is set in flags then the loaded memory region shall be readable by
+the process, Writable and Executable follows as such aswell. If Thread Specific
+is set then upon a thead split the memory region shall be duplicated -- to the
+same virtual address.
+
+The memory region shall be loaded as such:
+ - Virtual shall be a specific logical execution address if Virtual Is Address
+ is set, else it shall be treated as an alignment for a chosen virtual address
+ - Physical shall be a specific memory address if Physical Is Address is set,
+ else it shall be treated as an alignment for a chosen physical address
+ - The memory region shall be contiguous over Size amount of bytes and shall be
+ initialized to zero where not loaded from the file
+ - The given Amount of bytes shall be loaded from the file at the given Offset,
+ if Amount is zero then no bytes shall be loaded -- the entire region zeroed --
+ and the Offset value shall be ignored.
+
 
 # Rationale
 
@@ -306,7 +353,6 @@ Possible new special sections:
  - *mio.info*    : User informative information
  - *mio.sigs*    : Section data signatures
  - *mio.chks*    : Section data checksums
- - *mio.maps*    : Load time paging information
  - *mio.segs*    : Load time segmentation information
  - *mio.libs*    : Dynamic libraries and library paths
  - *mimik.rest*  : Mimik execution restrictions

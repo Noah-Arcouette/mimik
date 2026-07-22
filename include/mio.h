@@ -101,5 +101,25 @@ struct MiO_Symbol
 #define MIO_SYMBOL_FLAG_THREAD_LOCAL 0x0040
 
 #define MIO_SPECIAL_MIO_MAPS (uint8_t *)"mio.maps"
+/// The memory mapping structures
+struct MiO_Map
+{
+	uint8_t flags;
+
+	uint64_t virtual;  // virtual address or alignment
+	uint64_t physical; // physical address or alignment
+	uint64_t size;     // size of memory region
+
+	uint64_t amount; // amount of data to load from the file
+	uint64_t from;   // offset into the file from where to load the data from
+};
+
+#define MIO_MAP_FLAG_READABLE            0x01
+#define MIO_MAP_FLAG_WRITABLE            0x02
+#define MIO_MAP_FLAG_EXECUTABLE          0x04
+#define MIO_MAP_FLAG_THREAD_LOCAL        0x08
+#define MIO_MAP_FLAG_VIRTUAL_IS_ADDRESS  0x10
+#define MIO_MAP_FLAG_PHYSICAL_IS_ADDRESS 0x20
+#define MIO_MAP_FLAG_RESERVED            0xc0
 
 #endif
