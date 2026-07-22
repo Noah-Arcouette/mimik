@@ -44,6 +44,9 @@ parse_section (void)
 				case 'w':
 					symbolFlags |= MIO_SYMBOL_FLAG_WRITABLE;
 					break;
+				case 't':
+					symbolFlags |= MIO_SYMBOL_FLAG_THREAD_LOCAL;
+					break;
 				case 'v':
 					section->flags |= MIO_FLAG_VIRTUAL;
 					symbolFlags    |= MIO_SYMBOL_FLAG_VIRTUAL;

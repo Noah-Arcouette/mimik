@@ -64,6 +64,7 @@ The acceptable directives for standard assembler file are:
 		**w** -- Allow all defined symbols in this section to be writeable
 		**x** -- Allow all defined symbols in this section to be executable
 		**v** -- Define a virtual section, without true data
+		**t** -- Thread local data
 		**-** -- Do nothing, may be used for padding
 
 `.global SYMBOLS...`

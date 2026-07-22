@@ -193,17 +193,18 @@ segments designed for use mainly in gaps. Each symbols shall be as follows:
 
 The flags word shall be defined as follows
 
-+--------------+-------------+
-| Offset (LSB) |   Meaning   |
-+--------------+-------------+
-| +0b     0001 | Virtual     |
-| +1b     0002 | Readable    |
-| +2b     0004 | Writable    |
-| +3b     0008 | Executable  |
-| +4b     0010 | Global      |
-| +5b     0020 | Literal     |
-| +6b...       | Reserved    |
-+--------------+-------------+
++--------------+---------------+
+| Offset (LSB) |    Meaning    |
++--------------+---------------+
+| +0b     0001 | Virtual       |
+| +1b     0002 | Readable      |
+| +2b     0004 | Writable      |
+| +3b     0008 | Executable    |
+| +4b     0010 | Global        |
+| +5b     0020 | Literal       |
+| +6b     0040 | Thread Local  |
+| +7b...       | Reserved      |
++--------------+---------------+
 
 `Virtual` shall change the offset value from meaning the offset from the start
 of the file, to meaning the offset from the start of the virtual data region.
@@ -220,6 +221,9 @@ to a unique non-colliding name.
 
 `Literal` this symbol's offset shall be treated as a literal values and not be
 mapped and translated into a virtual memory address.
+
+`Thread Local` refers to the symbols mapping requirements, it must be loaded and
+linked in such a way that it is in a thread specific memory region.
 
 **NOTE** : The offsets start from the most right bit; `+0b` being the value `1`,
 	`+1b` being `2` and so forth.
