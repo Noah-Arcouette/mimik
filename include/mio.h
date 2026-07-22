@@ -122,4 +122,11 @@ struct MiO_Map
 #define MIO_MAP_FLAG_PHYSICAL_IS_ADDRESS 0x20
 #define MIO_MAP_FLAG_RESERVED            0xc0
 
+#define MIO_SPECIAL_MIO_ENTRY (uint8_t *)"mio.entry"
+/// The entry symbol
+struct MiO_Entry
+{
+	uint8_t entry[256];
+} __attribute__((packed));
+
 #endif

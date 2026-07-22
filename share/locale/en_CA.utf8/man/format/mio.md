@@ -337,6 +337,17 @@ The memory region shall be loaded as such:
  if Amount is zero then no bytes shall be loaded -- the entire region zeroed --
  and the Offset value shall be ignored.
 
+### Entry Data
+
+The section `mio.entry` shall state the symbol of which execution shall start,
+it shall be as follows:
+
++--------+--------+------+-----------------------+
+|  Name  | Offset | Size |        Meaning        |
++--------+--------+------+-----------------------+
+| Entry  | +0B    | 256B | The entry symbol name |
++--------+--------+------+-----------------------+
+
 
 # Rationale
 
