@@ -37,6 +37,8 @@ main (int argc, char *argv[])
 	// raw input data isn't needed anymore
 	closeInputFiles();
 
+	// run link time optimization (mainly like symbol merging)
+
 	// emit architecture section
 	// emit gaps section
 	// emit symbols section
