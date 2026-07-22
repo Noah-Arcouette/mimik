@@ -4,13 +4,13 @@
 #include "main.h"
 
 int argFlags = 0;
-const char *entry      = "_start";
 const char *outputFile = "a.out";
 const char *scriptFile = "/usr/libexec/linker.ld";
 
 void
 args (int argc, char *argv[])
 {
+	setEntry("_start");
 	int c;
 	do
 	{
@@ -22,7 +22,7 @@ args (int argc, char *argv[])
 			argFlags |= ARG_FLAGS_DONT_MAP;
 			break;
 		case 'e':
-			entry = optarg;
+			setEntry(optarg);
 			break;
 		case 'o':
 			outputFile = optarg;

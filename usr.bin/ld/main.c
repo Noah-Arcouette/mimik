@@ -39,6 +39,7 @@ main (int argc, char *argv[])
 
 	// run link time optimization (mainly like symbol merging)
 
+	// emit entry section
 	// emit architecture section
 	// emit gaps section
 	// emit symbols section

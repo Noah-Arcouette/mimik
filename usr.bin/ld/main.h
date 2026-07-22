@@ -28,7 +28,6 @@ extern void args (int argc, char *argv[]);
  */
 #define ARG_FLAGS_DONT_MAP 1 // Don't create a map (-r)
 extern int argFlags; // The argument flags
-extern const char *entry; // The entry symbol
 extern const char *outputFile; // the output file
 extern const char *scriptFile; // the script file
 
@@ -86,5 +85,12 @@ extern void resolveConflictSymbols (void);
  * @file linker.c
  */
 extern void linker (void);
+
+/**
+ * Set the entry point name
+ * @param name The name to set it to
+ * @file entry.c
+ */
+extern void setEntry (const char *name);
 
 #endif
