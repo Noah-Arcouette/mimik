@@ -1,3 +1,4 @@
+#include "parse.h"
 #include "main.h"
 #include "lex.h"
 #include <libintl.h>
@@ -23,6 +24,8 @@ linker (void)
 	while (ltoken.type != LTYPE_EOF)
 	{
 		// ENTRY(symbol)
+		if (parse_entry()) continue;
+
 		// ARCH(arch)
 		// UARCH(uarch)
 		// ARCHFLAGS(archflag...)

@@ -2,6 +2,7 @@ include_rules
 
 # toolchain build
 ifeq (@(BUILD_TOOL_LD),y)
+: foreach parse/*.c |> !hostcc |> $(OBJ)/tool/ld.d/parse/%B.o {tool-obj}
 : foreach lex/*.c |> !hostcc |> $(OBJ)/tool/ld.d/lex/%B.o {tool-obj}
 : foreach *.c |> !hostcc |> $(OBJ)/tool/ld.d/%B.o {tool-obj}
 : {tool-obj} |> !hostccld |> $(OBJ)/tool/ld | $(OBJ)/tool/<ld>
@@ -9,6 +10,7 @@ endif
 
 
 ifeq (@(USR_BIN_LD),y)
+: foreach parse/*.c |> !cc |> $(OBJ)/usr.bin/ld/parse/%B.o {obj}
 : foreach lex/*.c |> !cc |> $(OBJ)/usr.bin/ld/lex/%B.o {obj}
 : foreach *.c |> !cc |> $(OBJ)/usr.bin/ld/%B.o {obj}
 : {obj} |> !ccld |> $(DIST)/usr/bin/ld
