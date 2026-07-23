@@ -120,7 +120,8 @@ struct MiO_Map
 #define MIO_MAP_FLAG_THREAD_LOCAL        0x08
 #define MIO_MAP_FLAG_VIRTUAL_IS_ADDRESS  0x10
 #define MIO_MAP_FLAG_PHYSICAL_IS_ADDRESS 0x20
-#define MIO_MAP_FLAG_RESERVED            0xc0
+#define MIO_MAP_FLAG_VIRTUAL             0x40
+#define MIO_MAP_FLAG_RESERVED            0x80
 
 #define MIO_SPECIAL_MIO_ENTRY (uint8_t *)"mio.entry"
 /// The entry symbol

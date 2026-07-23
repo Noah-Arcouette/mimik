@@ -318,7 +318,8 @@ Flags shall be the following values:
 | +3b 0x08     | Region is thread specific             |
 | +4b 0x10     | Virtual is an address not alignment   |
 | +5b 0x20     | Physical is an address not alignment  |
-| +6...7b 0xc0 | Reserved for future use               |
+| +6b 0x40     | Virtual loading                       |
+| +7b 0x80     | Reserved for future use               |
 +--------------+---------------------------------------+
 
 If Readable is set in flags then the loaded memory region shall be readable by
@@ -333,9 +334,10 @@ The memory region shall be loaded as such:
  else it shall be treated as an alignment for a chosen physical address
  - The memory region shall be contiguous over Size amount of bytes and shall be
  initialized to zero where not loaded from the file
- - The given Amount of bytes shall be loaded from the file at the given Offset,
- if Amount is zero then no bytes shall be loaded -- the entire region zeroed --
- and the Offset value shall be ignored.
+ - If Virtual is not set, then Amount of bytes shall be loaded from the file
+ at Offset, into the start of the memory region. If Virtual is set, then Amount
+ and Offset shall refer to a virtual data region for use in symbol address
+ resolution and not data loading
 
 ### Entry Data
 

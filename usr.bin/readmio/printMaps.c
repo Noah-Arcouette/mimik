@@ -53,6 +53,14 @@ a multiple of the map data size\n"));
 		{
 			printf(gettext(" Thread-Local"));
 		}
+		if (map.flags & MIO_MAP_FLAG_VIRTUAL)
+		{
+			printf(gettext(" Virtual"));
+		}
+		else
+		{
+			printf(gettext(" Virtual-Alignment"));
+		}
 		if (map.flags & MIO_MAP_FLAG_VIRTUAL_IS_ADDRESS)
 		{
 			printf(gettext(" Virtual-Address"));
