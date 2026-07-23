@@ -1,6 +1,7 @@
 #include "../main.h"
 #include "../emit.h"
 #include <libintl.h>
+#include <endian.h>
 #include <string.h>
 
 long currentSection = -1;
@@ -25,7 +26,7 @@ emitSection (const char *name)
 
 	// create empty section
 	memset(&newSection, 0, sizeof(newSection));
-	memcpy(newSection.magic, MIO_MAGIC, sizeof(newSection.magic));
+	newSection.magic = htole32(MIO_MAGIC);
 
 	// add the name
 	strncpy((void *)newSection.name, name, sizeof(newSection.name));

@@ -6,8 +6,8 @@
 /// @brief A mio section header
 struct MiO
 {
-	#define MIO_MAGIC ((uint8_t *)"MiO\xe1")
-	uint8_t magic[4]; // always MIO_MAGIC
+	#define MIO_MAGIC 0xe14f694d
+	uint32_t magic; // always MIO_MAGIC
 
 	#define MIO_FLAG_VIRTUAL 0b00000001
 	uint8_t flags;

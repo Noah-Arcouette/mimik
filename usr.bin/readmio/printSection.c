@@ -34,17 +34,8 @@ printSection (FILE *fp, const char *path)
 	printf(gettext("\tSize:  %llu\n"), size);
 
 	// magic
-	int magicGood = (
-		section.magic[0] == MIO_MAGIC[0] &&
-		section.magic[1] == MIO_MAGIC[1] &&
-		section.magic[2] == MIO_MAGIC[2] &&
-		section.magic[3] == MIO_MAGIC[3]
-	);
-	printf(gettext("\tMagic: %02x%02x%02x%02x ("),
-		section.magic[0],
-		section.magic[1],
-		section.magic[2],
-		section.magic[3]);
+	int magicGood = (le32toh(section.magic) == MIO_MAGIC);
+	printf(gettext("\tMagic: %08x ("), le32toh(section.magic));
 	if (magicGood)
 	{
 		printf(gettext("Good)\n"));
