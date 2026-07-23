@@ -8,4 +8,11 @@
  */
 extern int parse_entry (void);
 
+/**
+ * The arch set macro
+ * @returns True if consumed
+ * @file parse/arch.c
+ */
+extern int parse_arch (void);
+
 #endif

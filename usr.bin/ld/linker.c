@@ -27,6 +27,8 @@ linker (void)
 		if (parse_entry()) continue;
 
 		// ARCH(arch)
+		if (parse_arch()) continue;
+
 		// UARCH(uarch)
 		// ARCHFLAGS(archflag...)
 		// SYS(sys)
@@ -44,7 +46,7 @@ linker (void)
 		// }
 
 		// error
-		prettyprint("Uncaught token\n");
+		prettyprint(gettext("Uncaught token\n"));
 		errors++;
 		lex();
 	}

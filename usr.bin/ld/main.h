@@ -74,6 +74,12 @@ extern void closeInputFiles (void);
 extern void mergeArchitecture (const char *path, const struct MiO_Arch *arch);
 
 /**
+ * The architecture section of the output file
+ * @file mergeArchitecture.c
+ */
+extern struct MiO_Arch outputArch;
+
+/**
  * Find conflicting symbols, if they're static then rename them,
  * if they're global then crash
  * @file resolveConflictSymbols.c
