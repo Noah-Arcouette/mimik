@@ -114,4 +114,10 @@ extern void emit (void *buf, long amt);
 extern void *outputBuf;
 extern long  outputsz;
 
+/**
+ * Emit the entry section into the output buffer
+ * @file entry.c
+ */
+extern void emitEntrySection (void);
+
 #endif
