@@ -100,7 +100,6 @@ xargs
 [SD]:
 	make
 	nm
-	strip
 [CD]:
 	c17
 	ctags
