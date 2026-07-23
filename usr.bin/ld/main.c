@@ -34,9 +34,6 @@ main (int argc, char *argv[])
 	// global symbol double definition checking
 	checkGlobalSymbols();
 
-	// LTO: merge like symbols
-	// LTO: remove non-referenced static symbols
-
 	// run the linker script
 	linker();
 
@@ -83,6 +80,11 @@ main (int argc, char *argv[])
 
 	// free the output stuff
 	free(outputBuf);
+
+	// run strip / LTO
+#ifdef STRIP
+
+#endif
 
 	if (errors) return 1;
 	return 0;

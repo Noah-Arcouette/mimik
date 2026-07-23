@@ -31,6 +31,9 @@ loadable and executable binary.
 **-T script**
 	Change the default linker script file. Default: `/usr/libexec/linker.ld`.
 
+**-O level|optimization**
+	Execute `utility/strip` with the given **-O** values.
+
 
 # Operands
 
