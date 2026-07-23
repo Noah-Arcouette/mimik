@@ -29,4 +29,25 @@ extern int parse_uarch (void);
  */
 extern int parse_archflag (void);
 
+/**
+ * The sys set macro
+ * @returns True if consumed
+ * @file parse/sys.c
+ */
+extern int parse_sys (void);
+
+/**
+ * The usys set macro
+ * @returns True if consumed
+ * @file parse/usys.c
+ */
+extern int parse_usys (void);
+
+/**
+ * The sysflag set macro
+ * @returns True if consumed
+ * @file parse/sysflag.c
+ */
+extern int parse_sysflag (void);
+
 #endif

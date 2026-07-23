@@ -36,8 +36,13 @@ linker (void)
 		if (parse_archflag()) continue;
 
 		// SYS(sys)
+		if (parse_sys()) continue;
+
 		// USYS(usys)
+		if (parse_usys()) continue;
+
 		// SYSFLAG(sysflag)
+		if (parse_sysflag()) continue;
 
 		// SECTIONS {
 		//   symbol = expr;
