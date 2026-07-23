@@ -30,6 +30,38 @@ sections, and expressions.
 
 **section** - A defined section within the object file or output file.
 
+## Supports Architecture and System Values
+
+For **architecture**, **micro-architecture**, and **architecture flag**:
+
++-----------+-------+-------------------------------------------+
+|   Major   | Minor |                  Meaning                  |
++-----------+-------+-------------------------------------------+
+| undefined | ----- | No architecture                           |
+| x86_16    | i8086 | The i8086 (this is the default x86 16bit) |
++-----------+-------+-------------------------------------------+
+
++-----------+--------+------+-------------------+
+|   Major   | Minors | Flag |      Meaning      |
++-----------+--------+------+-------------------+
+| undefined | ------ | ---- | None are defined  |
+| x86_16    | all    | ---- | None are defined  |
++-----------+--------+------+-------------------+
+
+For **system**, **micro-system**, and **system flag**:
+
++-----------+-------+-----------+
+|   Major   | Minor |  Meaning  |
++-----------+-------+-----------+
+| undefined | ----- | No System |
++-----------+-------+-----------+
+
++-----------+--------+------+-------------------+
+|   Major   | Minors | Flag |      Meaning      |
++-----------+--------+------+-------------------+
+| undefined | ------ | ---- | None are defined  |
++-----------+--------+------+-------------------+
+
 ## Plain Macros
 
 A plain macro shall not be placed within any of the sections defined in this
