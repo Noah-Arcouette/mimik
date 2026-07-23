@@ -195,14 +195,18 @@ openInputFile (const char *path)
 				mergeArchitecture(path, arch);
 			}
 		}
-		// error on maps section
+		// error on maps section and entry section
 		else if (!strncmp(
 			(void *)header.name,
 			(void *)MIO_SPECIAL_MIO_MAPS,
+			sizeof(header.name)) ||
+		!strncmp(
+			(void *)header.name,
+			(void *)MIO_SPECIAL_MIO_ENTRY,
 			sizeof(header.name)))
 		{
 			fprintf(stderr,
-				gettext("%s: Refusing to linked loadable object, `%s'"),
+				gettext("%s: Refusing to link loadable object, `%s'"),
 				self, path);
 			errors++;
 		}
