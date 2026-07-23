@@ -57,6 +57,10 @@ menu "Build"
 		config BUILD_TOOL_LD
 			bool "Linker"
 
+		config BUILD_TOOL_STRIP
+			bool "Strip -- Enables LTO"
+			default BUILD_TOOL_LD
+
 		config BUILD_TOOL_READMIO
 			bool "Read MIO"
 

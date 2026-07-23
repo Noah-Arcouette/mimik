@@ -1,0 +1,13 @@
+include_rules
+
+# Toolchain build
+ifeq (@(BUILD_TOOL_STRIP),y)
+: foreach *.c |> !hostcc   |> $(OBJ)/tool/strip.d/%B.o {tool-obj}
+: {tool-obj}  |> !hostccld |> $(OBJ)/tool/strip | $(OBJ)/tool/<strip>
+endif
+
+# normal build
+ifeq (@(USR_BIN_STRIP),y)
+: foreach *.c |> !cc   |> $(OBJ)/usr.bin/strip/%B.o {obj}
+: {obj}       |> !ccld |> $(DIST)/usr/bin/strip
+endif

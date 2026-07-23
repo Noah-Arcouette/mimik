@@ -1,2 +1,4 @@
 config USR_BIN_LD
 	bool "ld"
+	help
+		Enable `usr.bin/strip` for LTO

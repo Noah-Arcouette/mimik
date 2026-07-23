@@ -40,9 +40,10 @@ ifeq (@(BUILD_TOOL_AS),y)
 endif
 
 ifeq (@(BUILD_TOOL_LD),y)
-!ld = | $(OBJ)/tool/<ld> |> ^ LD       %b^ $(EXEC) $(OBJ)/tool/ld -o %o %f |>
-!ldscript = | $(OBJ)/tool/<ld> |> ^ LD       %b^ \
-	$(EXEC) $(OBJ)/tool/ld -T$(SCRIPT) -o %o %f |>
+!ld = | $(OBJ)/tool/<ld> $(OBJ)/tool/<strip> |> ^ LD       %b^ \
+	STRIP=$(OBJ)/tool/strip $(EXEC) $(OBJ)/tool/ld -o %o %f |>
+!ldscript = | $(OBJ)/tool/<ld> $(OBJ)/tool/<strip> |> ^ LD       %b^ \
+	STRIP=$(OBJ)/tool/strip $(EXEC) $(OBJ)/tool/ld -T$(SCRIPT) -o %o %f |>
 endif
 
 ifeq (@(BUILD_TOOL_READMIO),y)

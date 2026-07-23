@@ -46,6 +46,9 @@ loadable and executable binary.
 *LANG*, *LC_ALL*, *LC_MESSAGES*, *NLSPATH*
 	Control the locale message output.
 
+*STRIP*
+	The strip command to run on the final binary, default `strip`.
+
 
 # Standard Input
 

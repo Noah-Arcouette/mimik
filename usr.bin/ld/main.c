@@ -83,7 +83,25 @@ main (int argc, char *argv[])
 
 	// run strip / LTO
 #ifdef STRIP
+	int stripret = system(stripcmd);
+	free(stripcmd);
 
+	if (stripret == -1)
+	{
+		fprintf(stderr, gettext("%s: Failed to invoke system shell, %s\n"),
+			self, strerror(errno));
+		errors++;
+	}
+	else if (stripret == 127)
+	{
+		fprintf(stderr, gettext("%s: Failed to invoke strip\n"), self);
+		errors++;
+	}
+	else if (stripret > 0)
+	{
+		fprintf(stderr, gettext("%s: Strip failed to execute\n"), self);
+		errors++;
+	}
 #endif
 
 	if (errors) return 1;

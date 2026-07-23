@@ -5,13 +5,13 @@ ifeq (@(BUILD_TOOL_LD),y)
 
 FLAGS=
 ifeq (@(BUILD_TOOL_STRIP),y)
-FLAGS+=-DSTRIP=$(OBJ)/tool/strip
+FLAGS=-DSTRIP
 endif
 
-: foreach parse/*.c |> !hostcc @(FLAGS) |> $(OBJ)/tool/ld.d/parse/%B.o \
+: foreach parse/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/ld.d/parse/%B.o \
 	{tool-obj}
-: foreach lex/*.c |> !hostcc @(FLAGS) |> $(OBJ)/tool/ld.d/lex/%B.o {tool-obj}
-: foreach *.c |> !hostcc @(FLAGS) |> $(OBJ)/tool/ld.d/%B.o {tool-obj}
+: foreach lex/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/ld.d/lex/%B.o {tool-obj}
+: foreach *.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/ld.d/%B.o {tool-obj}
 : {tool-obj} |> !hostccld |> $(OBJ)/tool/ld | $(OBJ)/tool/<ld>
 endif
 
@@ -20,7 +20,7 @@ ifeq (@(USR_BIN_LD),y)
 
 FLAGS=
 ifeq (@(USR_BIN_STRIP),y)
-FLAGS+=-DSTRIP=strip
+FLAGS+=-DSTRIP
 endif
 
 : foreach parse/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/ld/parse/%B.o {obj}

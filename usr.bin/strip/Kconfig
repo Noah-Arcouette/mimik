@@ -1,0 +1,4 @@
+config USR_BIN_STRIP
+	bool "strip"
+	help
+		Object file optimization, enables LTO in linker

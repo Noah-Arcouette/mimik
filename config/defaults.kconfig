@@ -28,11 +28,11 @@ menu "Default Builds"
 		imply BIN_CHOWN
 		imply BIN_CHGRP
 		default y
-
-	config DEFAULT_BUILD_TOOLS
-		bool "Build tools"
+	config DEFAULT_POSIX_SD
+		bool "POSIX Standard Development option group"
 		imply USR_BIN_AS
 		imply USR_BIN_LD
 		imply USR_BIN_READMIO
+		imply USR_BIN_STRIP
 		default y
 endmenu

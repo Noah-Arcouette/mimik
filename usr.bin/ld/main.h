@@ -31,6 +31,10 @@ extern int argFlags; // The argument flags
 extern const char *outputFile; // the output file
 extern const char *scriptFile; // the script file
 
+#ifdef STRIP
+extern char *stripcmd; // the strip command, must be freed
+#endif
+
 /**
  * Open an input file and load it into the input list
  * @param path The file path
