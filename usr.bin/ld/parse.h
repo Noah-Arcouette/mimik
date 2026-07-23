@@ -15,4 +15,11 @@ extern int parse_entry (void);
  */
 extern int parse_arch (void);
 
+/**
+ * The uarch set macro
+ * @returns True if consumed
+ * @file parse/uarch.c
+ */
+extern int parse_uarch (void);
+
 #endif

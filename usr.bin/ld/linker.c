@@ -30,6 +30,8 @@ linker (void)
 		if (parse_arch()) continue;
 
 		// UARCH(uarch)
+		if (parse_uarch()) continue;
+
 		// ARCHFLAGS(archflag...)
 		// SYS(sys)
 		// USYS(usys)
