@@ -17,6 +17,7 @@ parse_arch (void)
 		prettyprint(gettext("Expected an opening bracket\n"));
 		recover();
 		errors++;
+
 		return 1;
 	}
 	lex();
@@ -39,6 +40,7 @@ parse_arch (void)
 			outputArch.arch      = htole16(MIO_ARCH_ARCH_UNDEFINED);
 			outputArch.uarch     = 0;
 			outputArch.archflags = 0;
+			break;
 		}
 		goto _unknown;
 	case 'x':
@@ -48,6 +50,7 @@ parse_arch (void)
 			outputArch.arch      = htole16(MIO_ARCH_ARCH_X86_16);
 			outputArch.uarch     = htole16(MIO_ARCH_ARCH_X86_UARCH_I8086);
 			outputArch.archflags = 0;
+			break;
 		}
 		goto _unknown;
 	default:
