@@ -120,4 +120,10 @@ extern long  outputsz;
  */
 extern void emitEntrySection (void);
 
+/**
+ * Emit the architecture section into the output buffer
+ * @file emitArchSection.c
+ */
+extern void emitArchSection (void);
+
 #endif

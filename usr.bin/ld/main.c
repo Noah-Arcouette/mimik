@@ -45,6 +45,8 @@ main (int argc, char *argv[])
 	emitEntrySection();
 
 	// emit architecture section
+	emitArchSection();
+
 	// emit gaps section
 	// emit symbols section
 	// emit maps section
