@@ -2,8 +2,10 @@
 #include <libintl.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 #include <locale.h>
 #include <stdio.h>
+#include <errno.h>
 #include <time.h>
 
 long errors = 0;
@@ -44,7 +46,35 @@ main (int argc, char *argv[])
 	// emit gaps section
 	// emit symbols section
 	// emit maps section
+
 	// emit the output
+	if (!errors)
+	{
+		FILE *fp = fopen(outputFile, "w");
+		if (!fp)
+		{
+			fprintf(stderr,
+				gettext("%s: Failed to open file for writing `%s', %s\n"),
+				self, outputFile, strerror(errno));
+			errors++;
+		}
+		else
+		{
+			// write the data
+			if (fwrite(outputBuf, 1, outputsz, fp) != (size_t)outputsz)
+			{
+				fprintf(stderr,
+					gettext("%s: Failed to write to output file, %s\n"),
+					self, strerror(errno));
+				errors++;
+			}
+
+			fclose(fp);
+		}
+	}
+
+	// free the output stuff
+	free(outputBuf);
 
 	if (errors) return 1;
 	return 0;

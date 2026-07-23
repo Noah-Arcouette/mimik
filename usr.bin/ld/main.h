@@ -99,4 +99,19 @@ extern void linker (void);
  */
 extern void setEntry (const char *name);
 
+/**
+ * Emit data to the output file
+ * @param buf The data to emit
+ * @param amt The amount of data emit
+ * @file emit.c
+ */
+extern void emit (void *buf, long amt);
+
+/**
+ * The main output file data buffer
+ * @file emit.c
+ */
+extern void *outputBuf;
+extern long  outputsz;
+
 #endif
