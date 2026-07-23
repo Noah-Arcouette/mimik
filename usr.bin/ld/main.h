@@ -80,13 +80,6 @@ extern void mergeArchitecture (const char *path, const struct MiO_Arch *arch);
 extern struct MiO_Arch outputArch;
 
 /**
- * Find conflicting symbols, if they're static then rename them,
- * if they're global then crash
- * @file resolveConflictSymbols.c
- */
-extern void resolveConflictSymbols (void);
-
-/**
  * The linker script parser
  * @file linker.c
  */
@@ -125,5 +118,24 @@ extern void emitEntrySection (void);
  * @file emitArchSection.c
  */
 extern void emitArchSection (void);
+
+/**
+ * Rename static symbols
+ * @file renameStaticSymbols.c
+ */
+extern void renameStaticSymbols (void);
+
+/**
+ * Check for double definitions of global symbols
+ * @file checkGlobalSymbols.c
+ */
+extern void checkGlobalSymbols (void);
+
+/**
+ * Find an input symbol
+ * @param name The symbol to find
+ * @returns NULL or a pointer to the symbol
+ */
+extern struct MiO_Symbol *findSymbol (const char *name);
 
 #endif

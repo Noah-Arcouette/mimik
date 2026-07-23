@@ -28,8 +28,14 @@ main (int argc, char *argv[])
 	{
 		openInputFile(argv[i]);
 	}
-	// resolve conflicting symbols (rename static, crash on global)
-	resolveConflictSymbols();
+	// static symbol renaming
+	renameStaticSymbols();
+
+	// global symbol double definition checking
+	checkGlobalSymbols();
+
+	// LTO: merge like symbols
+	// LTO: remove non-referenced static symbols
 
 	// run the linker script
 	linker();
@@ -38,8 +44,6 @@ main (int argc, char *argv[])
 
 	// raw input data isn't needed anymore
 	closeInputFiles();
-
-	// run link time optimization (mainly like symbol merging)
 
 	// emit entry section
 	emitEntrySection();
