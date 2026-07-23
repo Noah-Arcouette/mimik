@@ -73,12 +73,12 @@ ENTRY(**symbol**) - Define the entry point of execution in the file.
 
 ARCH(**architecture**)
 UARCH(**micro-architecture**)
-ARCHFLAGS(**architecture flag**...) - Define the executable architecture of this
+ARCHFLAG(**architecture flag**) - Define the executable architecture of this
 	file.
 
 SYS(**system**)
 USYS(**micro-system**)
-SYSFLAGS(**system flag**...) - Define the executable system of this	file.
+SYSFLAG(**system flag**) - Define the executable system of this	file.
 
 ## Sections Section
 

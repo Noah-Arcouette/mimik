@@ -127,9 +127,9 @@ _lex:
 				{
 					ltoken.type = LTYPE_ARCH;
 				}
-				else if (!strcmp(ltoken.buf+1, "RCHFLAGS"))
+				else if (!strcmp(ltoken.buf+1, "RCHFLAG"))
 				{
-					ltoken.type = LTYPE_ARCHFLAGS;
+					ltoken.type = LTYPE_ARCHFLAG;
 				}
 				break;
 			case 'U':
@@ -147,9 +147,9 @@ _lex:
 				{
 					ltoken.type = LTYPE_SYS;
 				}
-				else if (!strcmp(ltoken.buf+1, "YSFLAGS"))
+				else if (!strcmp(ltoken.buf+1, "YSFLAG"))
 				{
-					ltoken.type = LTYPE_SYSFLAGS;
+					ltoken.type = LTYPE_SYSFLAG;
 				}
 				else if (!strcmp(ltoken.buf+1, "ECTIONS"))
 				{

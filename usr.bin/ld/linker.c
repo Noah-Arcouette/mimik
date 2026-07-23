@@ -32,10 +32,10 @@ linker (void)
 		// UARCH(uarch)
 		if (parse_uarch()) continue;
 
-		// ARCHFLAGS(archflag...)
+		// ARCHFLAG(archflag)
 		// SYS(sys)
 		// USYS(usys)
-		// SYSFLAGS(sysflag...)
+		// SYSFLAG(sysflag)
 
 		// SECTIONS {
 		//   symbol = expr;
