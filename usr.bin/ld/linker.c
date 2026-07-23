@@ -33,6 +33,8 @@ linker (void)
 		if (parse_uarch()) continue;
 
 		// ARCHFLAG(archflag)
+		if (parse_archflag()) continue;
+
 		// SYS(sys)
 		// USYS(usys)
 		// SYSFLAG(sysflag)

@@ -22,4 +22,11 @@ extern int parse_arch (void);
  */
 extern int parse_uarch (void);
 
+/**
+ * The archflag set macro
+ * @returns True if consumed
+ * @file parse/archflag.c
+ */
+extern int parse_archflag (void);
+
 #endif
