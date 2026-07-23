@@ -29,6 +29,6 @@ emit (void *buf, long amt)
 		outputBuf = newbuf;
 	}
 
-	memcpy(&outputBuf[outputsz], buf, amt);
+	memcpy(&outputBuf[oldSize], buf, amt);
 	return ;
 }
