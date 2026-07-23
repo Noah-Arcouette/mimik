@@ -115,6 +115,36 @@ printSection (FILE *fp, const char *path)
 			printGaps(fp, size);
 		}
 	}
+	else if (!strncmp( // mio.maps
+		(char *)section.name,
+		(char *)MIO_SPECIAL_MIO_MAPS,
+		sizeof(section.name)))
+	{
+		if (section.flags & MIO_FLAG_VIRTUAL)
+		{
+			printf(gettext("\n\tError, refusing to read from virtual data\n"));
+			errors++;
+		}
+		else
+		{
+			printMaps(fp, size);
+		}
+	}
+	else if (!strncmp( // mio.entry
+		(char *)section.name,
+		(char *)MIO_SPECIAL_MIO_ENTRY,
+		sizeof(section.name)))
+	{
+		if (section.flags & MIO_FLAG_VIRTUAL)
+		{
+			printf(gettext("\n\tError, refusing to read from virtual data\n"));
+			errors++;
+		}
+		else
+		{
+			printEntry(fp, size);
+		}
+	}
 	else // just skip the data
 	{
 		fseek(fp, size, SEEK_CUR);

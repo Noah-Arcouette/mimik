@@ -55,4 +55,20 @@ extern void printSymbols (FILE *fp, unsigned long long size);
  */
 extern void printGaps (FILE *fp, unsigned long long size);
 
+/**
+ * Print out maps data section, seeking to the next section
+ * @param fp The file pointer
+ * @param size The size of this section
+ * @file printMaps.c
+ */
+extern void printMaps (FILE *fp, unsigned long long size);
+
+/**
+ * Print out entry data section, seeking to the next section
+ * @param fp The file pointer
+ * @param size The size of this section
+ * @file printEntry.c
+ */
+extern void printEntry (FILE *fp, unsigned long long size);
+
 #endif

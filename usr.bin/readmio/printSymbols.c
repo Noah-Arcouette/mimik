@@ -70,6 +70,10 @@ a multiple of the symbol data size\n"));
 		{
 			printf(gettext(" Literal"));
 		}
+		if (flags & MIO_SYMBOL_FLAG_THREAD_LOCAL)
+		{
+			printf(gettext(" Thread-Local"));
+		}
 
 		printf(gettext(" )\n\tName   : %.*s\n"),
 			(int)sizeof(sym.name), (char *)sym.name);
