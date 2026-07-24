@@ -1,0 +1,6 @@
+config SHARE_LOCALE_EN_CA_UTF8_MAGIC
+	bool "magic -- Magic file"
+	depends on BIN_FILE
+	default y
+	help
+		This is a set of files designed to detect underlying file formats

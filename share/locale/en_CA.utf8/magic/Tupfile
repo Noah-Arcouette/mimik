@@ -1,0 +1,5 @@
+include_rules
+
+ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAGIC),y)
+: *.mgc |> !comp |> $(DIST)/usr/share/locale/en_CA.utf8/magic$(COMP_EXT)
+endif
