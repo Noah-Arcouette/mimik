@@ -1,8 +1,12 @@
 0	regex	^\\.arch\\s+x86_16 	x86-16bit Assembler source file
 !:ext s/asm
+!:man format/s.x86_16
 0	regex	^\\.section\\s+[a-zA-Z0-9_.]*	Assembler source file
 !:ext s/asm
+!:man format/s
 0	regex	^\\.global\\s+[a-zA-Z0-9_.]*	Assembler source file
 !:ext s/asm
+!:man format/s
 0	regex	^\\.globl\\s+[a-zA-Z0-9_.]*	Assembler source file
 !:ext s/asm
+!:man format/s

@@ -113,6 +113,8 @@ Shall be one of the following:
  the returned possible extensions -- delimited by a `/` -- for the file.
  - `!:mime *mime*` -- If the above command succeeds, *mime* shall be the
  returned possible mime type for the file.
+ - `!:man *man*` -- If the above command succeeds, *man* shall be the returned
+ possible manual page for the file.
 
 
 # Rationale
