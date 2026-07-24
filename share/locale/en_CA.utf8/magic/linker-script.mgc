@@ -1,0 +1,2 @@
+0	regex	^SECTIONS\n?\\{	Linker script
+!:ext ld
