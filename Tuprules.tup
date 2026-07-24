@@ -31,7 +31,7 @@ EXEC=@(BUILD_EXEC)
 !ar = !hostar
 !ldso = !hostldso
 
-!cp   = |> ^ CP       %b^ cp %f %o |>
+!cp   = |> ^ CP       %b^ cat %f >%o |>
 !comp = !cp
 COMP_EXT=
 
