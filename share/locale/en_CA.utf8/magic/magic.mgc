@@ -1,0 +1,47 @@
+0	regex	^\\d+\\s+u?(le|be)?byte\\s+\\d+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^\\d+\\s+u?(le|be)?short\\s+\\d+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^\\d+\\s+u?(le|be)?long\\s+\\d+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^\\d+\\s+u?(le|be)?quad\\s+\\d+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^\\d+\\s+(le|be)?float\\s+\\d+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^\\d+\\s+(le|be)?double\\s+\\d+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^\\d+\\s+string\\s+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^\\d+\\s+regex\\s+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^!:ext\s+\w+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^!:man\s+\w+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^!:man\s+[\w/]+	A magic file
+!:ext mgc
+!:man format/mgc
+
+0	regex	^!:mime\s+\w+	A magic file
+!:ext mgc
+!:man format/mgc
