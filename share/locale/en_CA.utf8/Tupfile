@@ -1,0 +1,7 @@
+include_rules
+
+ifeq (@(SHARE_LOCALE_EN_CA_UTF8),y)
+LINK=en_CA.utf8
+: |> !ln |> $(DIST)/usr/share/locale/en_CA
+: |> !ln |> $(DIST)/usr/share/locale/en
+endif

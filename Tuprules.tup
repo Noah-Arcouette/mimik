@@ -21,6 +21,8 @@ HOSTLDFLAGS=-L$(OBJ)/usr.lib/
 !hostar   = |> ^ HOSTAR   %b^ @(BUILD_AR) rcs                 %o %f |>
 !hostldso = |> ^ HOSTLDSO %b^ @(BUILD_LDSO) $(HOSTLDFLAGS) -o %o %f |>
 
+!ln = |> ^ LN       %o^ ln -s $(LINK) %o |>
+
 EXEC=@(BUILD_EXEC)
 
 # Built Toolchain
