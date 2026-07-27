@@ -48,7 +48,8 @@ present)
 	 - long -- A four byte integer
 	 - quad -- An eight byte integer
 
-	The following types may be preceded by `le` or `be` to signify little endian and big endian respectively. And may be suffixed with `&` then a positive
+	The following types may be preceded by `le` or `be` to signify little endian
+	and big endian respectively. And may be suffixed with `&` then a positive
 	integer to signify a bit mask:
 	 - float -- A four byte floating point
 	 - double -- An eight byte floating point
@@ -77,8 +78,8 @@ present)
 	 - >*number* -- The test succeeds if the value is greater than *number*
 	 - &*number* -- The test succeeds if all of the set bits in *number* are set
 	 in value
-	 - ^*number* -- The test succeeds if at least one of the set bits in *number*
-	 are not set in value
+	 - ^*number* -- The test succeeds if at least one of the set bits in
+	 *number* are not set in value
 	 - x -- The test shall succeed if the file is large enough to contain the
 	 *type* specified as the given *offset*
 
