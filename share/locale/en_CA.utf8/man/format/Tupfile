@@ -2,18 +2,27 @@ include_rules
 
 ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_FORMAT),y)
 FILES=
+OBJECTS=
 
 # usr.bin
 ifeq (@(USR_BIN_AS),y)
 FILES+=s.md
-
-FILES+=mio.md
-FILES+=o.md
-FILES+=so.md
+OBJECTS=y
 endif
 
 ifeq (@(USR_BIN_AS_X86_16),y)
 FILES+=s.x86_16.md
+endif
+
+ifeq (@(USR_BIN_LD),y)
+FILES+=ld.md
+OBJECTS=y
+endif
+
+ifeq ($(OBJECTS),y)
+FILES+=mio.md
+FILES+=o.md
+FILES+=so.md
 endif
 
 : foreach $(FILES) |> !comp \
