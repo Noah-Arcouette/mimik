@@ -184,8 +184,9 @@ segments designed for use mainly in gaps. Each symbols shall be as follows:
 +--------+--------+------+-----------------------------------------------+
 |  Name  | Offset | Size |                    Meaning                    |
 +--------+--------+------+-----------------------------------------------+
-| Offset | +0B    | 8B   | Offset into the file for data symbols or the  |
-|        |        |      | virtual data section                          |
+| Value  | +0B    | 8B   | Offset into the file for data symbols or the  |
+|        |        |      | virtual data section, or the literal value of |
+|        |        |      | the symbol (if Literal flag is set)           |
 | Size   | +8B    | 8B   | The amount of bytes taken up by the symbol    |
 | Flags  | +16B   | 2B   | The specific flags for this symbol            |
 | Name   | +18B   | 256B | The name of the symbol                        |
@@ -219,7 +220,7 @@ the name of this symbol must only be consistent to originating object file and
 its gap; therefore during linking this name and the relating gaps should change
 to a unique non-colliding name.
 
-`Literal` this symbol's offset shall be treated as a literal values and not be
+`Literal` this symbol's value shall be treated as a literal values and not be
 mapped and translated into a virtual memory address.
 
 `Thread Local` refers to the symbols mapping requirements, it must be loaded and

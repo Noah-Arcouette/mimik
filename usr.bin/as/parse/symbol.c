@@ -54,11 +54,11 @@ emitSymbol (const char *name)
 	s->flags = htole16(symbolFlags);
 	if (symbolFlags & MIO_SYMBOL_FLAG_VIRTUAL)
 	{
-		s->offset = htole64(virtualOffset);
+		s->value = htole64(virtualOffset);
 	}
 	else
 	{
-		s->offset = htole64(emitsz);
+		s->value = htole64(emitsz);
 	}
 }
 

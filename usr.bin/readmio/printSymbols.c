@@ -42,7 +42,7 @@ a multiple of the symbol data size\n"));
 			"\n\tSize   : %llu"
 			"\n\tFlags  : %04x ("
 		),
-			(unsigned long long)le64toh(sym.offset),
+			(unsigned long long)le64toh(sym.value),
 			(unsigned long long)le64toh(sym.size),
 			flags);
 

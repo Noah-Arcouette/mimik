@@ -84,9 +84,10 @@ struct MiO_Symbol
 	/// A positive offset in bytes from the start of the file into a data
 	/// section defining where the symbol starts, or an offset into the virtual
 	/// data region
-	uint64_t offset;
+	/// if the symbol is literal, then this is the value of the symbol
+	uint64_t value;
 
-	uint64_t size; /// the size of the symbol
+	uint64_t size; /// the size of the symbol, in bytes
 	uint16_t flags; /// the symbol flags
 
 	uint8_t name[256]; /// the symbol name
