@@ -44,15 +44,8 @@ linker (void)
 		// SYSFLAG(sysflag)
 		if (parse_sysflag()) continue;
 
-		// SECTIONS {
-		//   symbol = expr;
-		//   section [expr] [(noload)] : [expr]
-		//   {
-		//      file(section...) // glob matching
-		//      ...
-		//   }
-		//   ...
-		// }
+		// SECTIONS { ... }
+		if (parse_sections()) continue;
 
 		// error
 		prettyprint(gettext("Uncaught token\n"));

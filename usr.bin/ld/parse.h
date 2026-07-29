@@ -50,4 +50,11 @@ extern int parse_usys (void);
  */
 extern int parse_sysflag (void);
 
+/**
+ * The sections portion
+ * @returns True if consumed
+ * @file parse/sections.c
+ */
+extern int parse_sections (void);
+
 #endif
