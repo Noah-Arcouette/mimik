@@ -97,6 +97,89 @@ who
 write
 xargs
 
+strip:
+	gc-static-symbols
+	gc-empty-symbols
+	gc-empty-sections
+	gc-empty-maps
+	gc-literal-symbols
+	gc-global-symbols
+	merge-literals
+	merge-symbols
+	merge-maps
+	reduce-symbols
+	reduce-gaps
+	reduce-entry
+	resolve-literals
+	resolve-displacements
+	remove-entry
+	remove-arch
+	split-zero-sections
+	compress-file
+
+cc:
+	lexer
+	linter
+	preprocessor
+	parser
+	AST rundown
+	- some kind of optimization
+	lowering:
+		calling conventions
+		x86-16
+		x86-32
+		x86-64
+		x86 extensions
+		+RISC-V
+		+SPARC
+		+POWER ISA, POWER, PowerPC, Cell
+		+Itanium
+		+ARM
+		+M68k
+		+MIPS
+		+z/Arch
+		+WebAssembly
+		+NVidia-, AMD-, Intel- GPU
+		+DEC Alpha
+	assembling
+	linking
+as:
+	x86 16bit
+	x86 32bit
+	x86 64bit
+	x86 extensions
+	+RISC-V
+	+SPARC
+	+POWER ISA, POWER, PowerPC, Cell
+	+Itanium
+	+ARM
+	+M68k
+	+MIPS
+	+z/Arch
+	+WebAssembly
+	+NVidia-, AMD-, Intel- GPU
+	+DEC Alpha
+ld:
+	+archive inputs
+	+compressed inputs
+	+ir inputs
+	script:
+		define symbols
+		merge sections
+		merge symbols
+		merge gaps
+		build maps
+	check for unused symbols and sections
+	output:
+		gaps
+		symbols
+		maps
+		+libraries
+		+informative data
+		+restrictive data
+		+checksum data
+		+signature data
+
 [SD]:
 	make
 	nm
@@ -157,7 +240,7 @@ manuals:
 	include/mio.h
 disassembler
 mio2bin, mio2pe32+
-fuzzy testing, valgrind
+fuzzy testing, valgrind, unit-tests, dbg, profiling
 tup, kconfig, git
 
 
