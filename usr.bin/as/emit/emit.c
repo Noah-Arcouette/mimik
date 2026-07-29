@@ -16,7 +16,7 @@ emitRaw (const void *buf, long sz)
 {
 	if (symbolFlags & MIO_SYMBOL_FLAG_VIRTUAL)
 	{
-		prettyprint("Cannot emit data into virtual section\n");
+		prettyprint(gettext("Cannot emit data into virtual section\n"));
 		errors++;
 		return -1;
 	}

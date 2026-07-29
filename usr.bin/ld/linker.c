@@ -13,8 +13,8 @@ linker (void)
 	lfp = fopen(scriptFile, "r");
 	if (!lfp)
 	{
-		fprintf(stderr, gettext("%s: Failed to open script file, %s\n"),
-			self, strerror(errno));
+		fprintf(stderr, gettext("%s: Failed to open script file `%s', %s\n"),
+			self, scriptFile, strerror(errno));
 		errors++;
 		return;
 	}

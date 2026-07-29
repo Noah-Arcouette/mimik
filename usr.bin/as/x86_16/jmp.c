@@ -1,6 +1,7 @@
 #include "../main.h"
 #include "../emit.h"
 #include "x86_16.h"
+#include <libintl.h>
 #include <string.h>
 
 int
@@ -17,7 +18,7 @@ parse_x86_16_jmp (void)
 		// symbol
 		if (ltok.type != TOK_SYMBOL)
 		{
-			prettyprint("Expected a symbol\n");
+			prettyprint(gettext("Expected a symbol\n"));
 			errors++;
 			recover();
 			return 1;
@@ -42,7 +43,7 @@ parse_x86_16_jmp (void)
 		// symbol
 		if (ltok.type != TOK_SYMBOL)
 		{
-			prettyprint("Expected a symbol\n");
+			prettyprint(gettext("Expected a symbol\n"));
 			errors++;
 			recover();
 			return 1;
@@ -67,7 +68,7 @@ parse_x86_16_jmp (void)
 		// symbol
 		if (ltok.type != TOK_SYMBOL)
 		{
-			prettyprint("Expected a symbol\n");
+			prettyprint(gettext("Expected a symbol\n"));
 			errors++;
 			recover();
 			return 1;

@@ -28,7 +28,7 @@ emitGap (const char *symbol, int type)
 	// make sure we're in a section
 	if (currentSection < 0)
 	{
-		prettyprint("Must be in a section to emit a gap\n");
+		prettyprint(gettext("Must be in a section to emit a gap\n"));
 		errors++;
 		return;
 	}
@@ -37,7 +37,7 @@ emitGap (const char *symbol, int type)
 	// make sure we're not in a data section
 	if (csect->flags & MIO_FLAG_VIRTUAL)
 	{
-		prettyprint("Gaps may not be in virtual sections\n");
+		prettyprint(gettext("Gaps may not be in virtual sections\n"));
 		errors++;
 		return;
 	}
@@ -45,7 +45,7 @@ emitGap (const char *symbol, int type)
 	// make sure the symbol fits
 	if (strlen(symbol) > 256)
 	{
-		prettyprint("Symbol name too long\n");
+		prettyprint(gettext("Symbol name too long\n"));
 		errors++;
 		return;
 	}

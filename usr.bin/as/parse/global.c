@@ -1,6 +1,7 @@
 #include "../parse.h"
 #include "../main.h"
 #include "../emit.h"
+#include <libintl.h>
 #include <string.h>
 #include <endian.h>
 
@@ -30,7 +31,7 @@ parse_global (void)
 
 		if (!found)
 		{
-			prettyprint("Failed to find symbol to mark global\n");
+			prettyprint(gettext("Failed to find symbol to mark global\n"));
 			errors++;
 		}
 
