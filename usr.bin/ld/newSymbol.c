@@ -1,3 +1,4 @@
+#include "parse.h"
 #include "main.h"
 #include <libintl.h>
 #include <stdlib.h>
@@ -14,6 +15,13 @@ size_t             outputSymbolcp = 0;
 void
 newSymbol (int64_t val, long size, int type, const char *name)
 {
+	// period
+	if (!strcmp(name, "."))
+	{
+		period = val;
+		return;
+	}
+
 	outputSymbolsz++;
 	if (outputSymbolsz > outputSymbolcp)
 	{

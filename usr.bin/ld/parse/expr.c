@@ -5,6 +5,8 @@
 #include <string.h>
 #include <endian.h>
 
+int64_t period = -1;
+
 static int
 _val (int64_t *val)
 {
@@ -102,15 +104,44 @@ _val (int64_t *val)
 
 	if (ltoken.type == LTYPE_SYMBOL)
 	{
-		lex();
-		prettyprint(gettext("Symbol getting not implemented\n"));
-		errors++;
-		if (val) *val = 0;
-		return 1;
+		// period
+		if (!strcmp(ltoken.buf, "."))
+		{
+			lex();
+			if (period >= 0)
+			{
+				if (val) *val = period;
+				return 1;
+			}
+			prettyprint(gettext(
+				"Period is not an absolute value at the moment\n"));
+			errors++;
+			return 1;
+		}
 
 		// find the symbol
+		struct MiO_Symbol *sym = findSymbol(ltoken.buf);
+		if (!sym)
+		{
+			prettyprint(gettext("Symbol `%s' does not exist\n"), ltoken.buf);
+			errors++;
+			if (val) *val = 0;
+			lex();
+			return 1;
+		}
+
 		// make sure its a literal
-		// return its value
+		if (le16toh(sym->flags) & MIO_SYMBOL_FLAG_LITERAL)
+		{
+			if (val) *val = le64toh(sym->value);
+			lex();
+			return 1;
+		}
+		prettyprint(gettext("Symbol `%s' is not a literal\n"), ltoken.buf);
+		errors++;
+		if (val) *val = 0;
+		lex();
+		return 1;
 	}
 
 	return 0;

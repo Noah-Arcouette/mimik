@@ -75,7 +75,7 @@ parse_sections (void)
 			continue;
 		}
 
-		// [expr] [(noload)] : [expr] { file(section...)... }
+		// [expr|ALIGN(expr)] [(noload)] : [expr|ALIGN(expr)] { file(section...)... }
 		// create new section
 
 		prettyprint(gettext(

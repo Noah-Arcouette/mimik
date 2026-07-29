@@ -66,4 +66,11 @@ extern int parse_sections (void);
  */
 extern int parse_expr (int64_t *val);
 
+/**
+ * The current virtual address point
+ * @file parse/expr.c
+ * @note the definition will probably be moved
+ */
+extern int64_t period;
+
 #endif
