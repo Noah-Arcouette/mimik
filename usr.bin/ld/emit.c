@@ -1,4 +1,6 @@
+#include "parse.h"
 #include "main.h"
+#include "lex.h"
 #include <libintl.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,6 +29,21 @@ emit (void *buf, long amt)
 			return;
 		}
 		outputBuf = newbuf;
+	}
+
+	if (currentSection >= 0 &&
+		((long)(currentSection+sizeof(struct MiO)) <= outputsz))
+	{
+		struct MiO *s = &outputBuf[currentSection];
+		uint64_t size = le64toh(s->size);
+		size += amt;
+		s->size = htole64(size);
+
+		if (s->flags & MIO_FLAG_VIRTUAL)
+		{
+			prettyprint(gettext("Attempted to emit data in virtual section\n"));
+			errors++;
+		}
 	}
 
 	memcpy(&outputBuf[oldSize], buf, amt);

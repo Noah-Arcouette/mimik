@@ -81,4 +81,10 @@ extern int64_t period;
  */
 extern int parse_sectionCopy (const char *sym);
 
+/**
+ * The current section we're emitting in, or -1
+ * @file parse/sectionCopy.c
+ */
+extern long currentSection;
+
 #endif
