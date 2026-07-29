@@ -13,7 +13,7 @@ findSymbol (const char *name)
 	{
 		struct MiO_Symbol *sym = &outputSymbol[i];
 		// symbol found
-		if (strncmp((char *)sym->name, name, sizeof(sym->name)))
+		if (!strncmp((char *)sym->name, name, sizeof(sym->name)))
 		{
 			return sym;
 		}
