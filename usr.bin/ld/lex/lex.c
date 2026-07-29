@@ -131,6 +131,10 @@ _lex:
 				{
 					ltoken.type = LTYPE_ARCHFLAG;
 				}
+				else if (!strcmp(ltoken.buf+1, "LIGN"))
+				{
+					ltoken.type = LTYPE_ALIGN;
+				}
 				break;
 			case 'U':
 				if (!strcmp(ltoken.buf+1, "ARCH"))
