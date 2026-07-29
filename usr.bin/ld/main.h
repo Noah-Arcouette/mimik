@@ -1,5 +1,6 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
+#include <stddef.h>
 #include <mio.h>
 
 /**
@@ -141,5 +142,35 @@ extern void checkGlobalSymbols (void);
  * @returns NULL or a pointer to the symbol
  */
 extern struct MiO_Symbol *findSymbol (const char *name);
+
+/**
+ * The output symbols
+ * @file newSymbol.c
+ */
+extern struct MiO_Symbol *outputSymbol;
+extern size_t             outputSymbolsz;
+extern size_t             outputSymbolcp;
+
+/**
+ * Create a new output symbol
+ * @param val the symbols value
+ * @param size The symbols size
+ * @param type The symbols type and flags
+ * @param name The name of the symbol
+ * @file newSymbol.c
+ */
+extern void newSymbol (int64_t val, long size, int type, const char *name);
+
+/**
+ * Free the symbols buffer
+ * @file freeSymbols.c
+ */
+extern void freeSymbols (void);
+
+/**
+ * Emit symbols to the output buffer
+ * @file emitSymbols.c
+ */
+extern void emitSymbols (void);
 
 #endif

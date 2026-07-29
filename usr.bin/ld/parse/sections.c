@@ -60,7 +60,7 @@ parse_sections (void)
 				free(sym);
 				continue;
 			}
-			// newSymbol(val, 0, MIO_SYMBOL_FLAG_LITERAL, sym);
+			newSymbol(val, 0, MIO_SYMBOL_FLAG_LITERAL, sym);
 			free(sym);
 
 			// ;

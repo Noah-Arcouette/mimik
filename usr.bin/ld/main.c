@@ -49,7 +49,11 @@ main (int argc, char *argv[])
 	emitArchSection();
 
 	// emit gaps section
+
 	// emit symbols section
+	emitSymbols();
+	freeSymbols();
+
 	// emit maps section
 
 	// emit the output

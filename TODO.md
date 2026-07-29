@@ -164,7 +164,6 @@ ld:
 	+compressed inputs
 	+ir inputs
 	script:
-		define symbols
 		merge sections
 		merge symbols
 		merge gaps
