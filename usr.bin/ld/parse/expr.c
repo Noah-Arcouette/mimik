@@ -10,6 +10,29 @@ int64_t period = -1;
 static int
 _val (int64_t *val)
 {
+	// (
+	if (ltoken.type == LTYPE_OPEN_PAREN)
+	{
+		lex();
+		// expr
+		if (!parse_expr(val))
+		{
+			prettyprint("Expected an expression after `(`\n");
+			errors++;
+			return 1;
+		}
+
+		// )
+		if (ltoken.type != LTYPE_CLOSE_PAREN)
+		{
+			prettyprint("Expected a `)` after the expression\n");
+			errors++;
+			return 1;
+		}
+		lex();
+		return 1;
+	}
+
 	if (ltoken.type == LTYPE_INTEGER)
 	{
 		int64_t a = 0;
