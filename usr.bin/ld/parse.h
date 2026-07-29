@@ -1,5 +1,6 @@
 #ifndef __PARSE_H__
 #define __PARSE_H__
+#include <stdint.h>
 
 /**
  * The entry set macro
@@ -56,5 +57,13 @@ extern int parse_sysflag (void);
  * @file parse/sections.c
  */
 extern int parse_sections (void);
+
+/**
+ * Get an expression
+ * @returns True if consumed
+ * @param val The value of the expression (may be null)
+ * @file parse/expr.c
+ */
+extern int parse_expr (int64_t *val);
 
 #endif
