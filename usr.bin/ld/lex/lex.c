@@ -116,6 +116,18 @@ _lex:
 			// check for special symbols
 			switch (ltoken.buf[0])
 			{
+			case 'Q':
+				if (!strcmp(ltoken.buf+1, "UAD"))
+				{
+					ltoken.type = LTYPE_QUAD;
+				}
+				break;
+			case 'L':
+				if (!strcmp(ltoken.buf+1, "ONG"))
+				{
+					ltoken.type = LTYPE_LONG;
+				}
+				break;
 			case 'E':
 				if (!strcmp(ltoken.buf+1, "NTRY"))
 				{
@@ -158,6 +170,16 @@ _lex:
 				else if (!strcmp(ltoken.buf+1, "ECTIONS"))
 				{
 					ltoken.type = LTYPE_SECTIONS;
+				}
+				else if (!strcmp(ltoken.buf+1, "HORT"))
+				{
+					ltoken.type = LTYPE_SHORT;
+				}
+				break;
+			case 'B':
+				if (!strcmp(ltoken.buf+1, "YTE"))
+				{
+					ltoken.type = LTYPE_BYTE;
 				}
 				break;
 			}

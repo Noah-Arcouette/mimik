@@ -12,16 +12,21 @@ parse_sectionCopy (const char *sym)
 {
 	// ALIGN(expr)
 	// expr
+	// <nothing>
 
 	// (NOLOAD)
+	// <nothing>
 
 	// :
 
 	// ALIGN(expr)
 	// expr
+	// <nothing>
 
 	// {
+
 	// file(section...)
+	// BYTE(expr) SHORT(expr) LONG(expr) QUAD(expr)
 	// }
 
 	// update period

@@ -103,24 +103,30 @@ Or
 {
 	*file*(*section*...)
 	...
+	BYTE(*expr*) SHORT(*expr*) LONG(*expr*) QUAD(*expr*)
 }
 
-The first *expr* shall be, if provided, the physical address of loading. If not
+The first *expr* shall be, if provided, the virtual address of loading. If not
 given then the section defined shall be placed after the last defined address
-mark.
+mark. *expr* may also be wrapped in `ALIGN()`, of which will cause the section
+to be aligned to the value instead of exactly at the value.
 
 If *(NOLOAD)* is provided, then the defined section shall be that of a virtual
 section, and be filled with zeros upon loading.
 
-The second *expr*, if provided, shall be the logical address of loading. If not
+The second *expr*, if provided, shall be the physical address of loading. If not
 given then the section defined shall be placed after the last defined address
-mark.
+mark. *expr* may also be wrapped in `ALIGN()`, of which will cause the section
+to be aligned to the value instead of exactly at the value.
 
 *file* shall be a glob-matched input file, and may be a file from inside an
 archive.
 
 *section* shall be a glob-match **section** from the stated input file, multiple
 may be present if separated by a space.
+
+`BYTE` shall emit a single 8bit value, `SHORT` a 16bit, `LONG` a 32bit, and
+`QUAD` a 64bit.
 
 *expr*, in all contexts, shall be as follows:
  - An integer supported by `strtol`
@@ -131,14 +137,14 @@ may be present if separated by a space.
  - **symbol** -- Of which the logical address or literal value shall be used.
  - ( *expr* ) -- Enforced differing order of operations, else standard rules
  	apply
- - . -- The logical address of current address mark, which is given explicitly
-	or by the definition of a new section.
+ - . -- The logical address of current address mark, which must be defined
+ explicitly via the first *expr* as stated above or under a `. = *expr*` line.
 
 
 # Rationale
 
 This document is inline with other common linkers, though currently missing
-portion not yet needed, and including features specific for Mimik.
+portions not yet needed, and including features specific for Mimik.
 
 
 # Future Directions
