@@ -6,6 +6,8 @@
 void
 emitSymbols (void)
 {
+	if (!outputSymbolsz) return;
+
 	struct MiO s;
 	s.magic = htole32(MIO_MAGIC);
 	s.flags = 0;
