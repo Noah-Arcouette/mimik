@@ -4,7 +4,7 @@ SECTIONS
 {
 	. = 0x500;
 	BSS_START = .;
-	.bss (NOLOAD) :
+	.bss NOLOAD :
 	{
 		*(*.bss)
 	}
@@ -27,5 +27,12 @@ SECTIONS
 	.data :
 	{
 		*(*.text)
+	}
+
+	. = 0x7e00-2;
+	.mbr :
+	{
+		BYTE(0x55)
+		BYTE(0xaa)
 	}
 }

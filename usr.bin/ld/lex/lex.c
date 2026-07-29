@@ -182,6 +182,12 @@ _lex:
 					ltoken.type = LTYPE_BYTE;
 				}
 				break;
+			case 'N':
+				if (!strcmp(ltoken.buf+1, "OLOAD"))
+				{
+					ltoken.type = LTYPE_NOLOAD;
+				}
+				break;
 			}
 
 			break;

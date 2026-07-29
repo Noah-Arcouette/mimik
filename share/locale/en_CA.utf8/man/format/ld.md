@@ -99,7 +99,7 @@ symbol defined shall be set to the *expr* given.
 
 Or
 
-**section** *[expr]* *[(NOLOAD)]* : *[expr]*
+**section** *[expr]* *[NOLOAD]* : *[expr]*
 {
 	*file*(*section*...)
 	...
@@ -111,7 +111,7 @@ given then the section defined shall be placed after the last defined address
 mark. *expr* may also be wrapped in `ALIGN()`, of which will cause the section
 to be aligned to the value instead of exactly at the value.
 
-If *(NOLOAD)* is provided, then the defined section shall be that of a virtual
+If *NOLOAD* is provided, then the defined section shall be that of a virtual
 section, and be filled with zeros upon loading.
 
 The second *expr*, if provided, shall be the physical address of loading. If not
