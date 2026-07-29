@@ -75,11 +75,14 @@ parse_sections (void)
 			continue;
 		}
 
-		// [expr|ALIGN(expr)] [(noload)] : [expr|ALIGN(expr)] { file(section...)... }
 		// create new section
+		if (parse_sectionCopy(sym))
+		{
+			free(sym);
+			continue;
+		}
 
-		prettyprint(gettext(
-			"Expected an assignment, expression, (NOLOAD), or a colon\n"));
+		prettyprint(gettext("Expected an assignment or a section copy\n"));
 		errors++;
 		recover();
 		free(sym);

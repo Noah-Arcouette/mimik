@@ -73,4 +73,12 @@ extern int parse_expr (int64_t *val);
  */
 extern int64_t period;
 
+/**
+ * The section copy portion
+ * @param sym The symbol name (not freed)
+ * @returns True if consumed
+ * @file parse/sectionCopy.c
+ */
+extern int parse_sectionCopy (const char *sym);
+
 #endif
