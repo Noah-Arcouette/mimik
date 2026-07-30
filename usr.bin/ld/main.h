@@ -173,4 +173,30 @@ extern void freeSymbols (void);
  */
 extern void emitSymbols (void);
 
+/**
+ * The maps section data
+ * @file newMap.c
+ */
+extern struct MiO_Map *outputMap;
+extern long            outputMaps;
+
+/**
+ * Add a new map to the output
+ * @param map The map to add
+ * @file newMap.c
+ */
+extern void newMap (const struct MiO_Map *map);
+
+/**
+ * Write maps to the output buffer
+ * @file emitMaps.c
+ */
+extern void emitMaps (void);
+
+/**
+ * Free the maps data
+ * @file freeMaps.c
+ */
+extern void freeMaps (void);
+
 #endif
