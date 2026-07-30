@@ -163,7 +163,6 @@ ld:
 	+archive inputs
 	+compressed inputs
 	+ir inputs
-	check for unused symbols and sections
 	output:
 		+libraries
 		+informative data

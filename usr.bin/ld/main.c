@@ -37,7 +37,8 @@ main (int argc, char *argv[])
 	// run the linker script
 	linker();
 
-	// check for unused symbols and section
+	// check for unused symbols, sections, and gaps
+	checkUnused();
 
 	// raw input data isn't needed anymore
 	closeInputFiles();

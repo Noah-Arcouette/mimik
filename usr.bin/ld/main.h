@@ -251,4 +251,10 @@ extern void freeGaps (void);
  */
 extern void emitGaps (void);
 
+/**
+ * Check for unused sections, symbols, and gaps within input files
+ * @file checkUnused.c
+ */
+extern void checkUnused (void);
+
 #endif
