@@ -222,4 +222,33 @@ extern void reserve (long amt);
  */
 extern long virtualsz;
 
+/**
+ * The output gaps
+ * @file newGaps.c
+ */
+extern struct MiO_Gap *outputGap;
+extern size_t          outputGapsz;
+extern size_t          outputGapcp;
+
+/**
+ * Create a new output gap
+ * @param offset the gaps offset
+ * @param type The gaps type and flags
+ * @param name The name of the gap's symbol
+ * @file newGap.c
+ */
+extern void newGap (uint64_t offset, int type, const char *name);
+
+/**
+ * Free the gaps buffer
+ * @file freeGaps.c
+ */
+extern void freeGaps (void);
+
+/**
+ * Emit gaps to the output buffer
+ * @file emitGaps.c
+ */
+extern void emitGaps (void);
+
 #endif
