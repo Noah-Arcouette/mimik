@@ -81,17 +81,15 @@ a multiple of the map data size\n"));
 		printf(gettext(" )\n\tVirtual  : "));
 		if (map.flags & MIO_MAP_FLAG_VIRTUAL_IS_ADDRESS)
 		{
-			printf(gettext("Address %016llx\n"),
-				(unsigned long long)le64toh(map.virtual));
+			printf(gettext("Address"));
 		}
 		else
 		{
-			printf(gettext("Align to %016llx\n"),
-				(unsigned long long)le64toh(map.virtual));
+			printf(gettext("Align to"));
 		}
 		printf(gettext(" %016llx\n\tPhysical : "),
 			(unsigned long long)le64toh(map.virtual));
-		if (map.flags & MIO_MAP_FLAG_VIRTUAL_IS_ADDRESS)
+		if (map.flags & MIO_MAP_FLAG_PHYSICAL_IS_ADDRESS)
 		{
 			printf(gettext("Address"));
 		}
