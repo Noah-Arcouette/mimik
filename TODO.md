@@ -172,7 +172,6 @@ ld:
 	output:
 		gaps
 		symbols
-		maps
 		+libraries
 		+informative data
 		+restrictive data

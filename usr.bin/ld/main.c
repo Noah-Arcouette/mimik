@@ -55,6 +55,8 @@ main (int argc, char *argv[])
 	freeSymbols();
 
 	// emit maps section
+	emitMaps();
+	freeMaps();
 
 	// emit the output
 	if (!errors)
