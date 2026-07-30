@@ -285,7 +285,7 @@ drivers:
 
 # Userland
 
-sched
+shred
 useradd, usermod, passwd, groupadd, groupmod, etc
 su, sudo, whoami
 top, htop
