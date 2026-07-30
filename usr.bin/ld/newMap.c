@@ -12,6 +12,8 @@ long            outputMaps = 0;
 void
 newMap (const struct MiO_Map *map)
 {
+	if (map->size == 0) return; // don't create empty maps
+
 	outputMaps++;
 	void *buf = realloc(outputMap, sizeof(struct MiO_Map)*outputMaps);
 	if (!buf)
