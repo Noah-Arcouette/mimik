@@ -163,15 +163,8 @@ ld:
 	+archive inputs
 	+compressed inputs
 	+ir inputs
-	script:
-		merge sections
-		merge symbols
-		merge gaps
-		build maps
 	check for unused symbols and sections
 	output:
-		gaps
-		symbols
 		+libraries
 		+informative data
 		+restrictive data
