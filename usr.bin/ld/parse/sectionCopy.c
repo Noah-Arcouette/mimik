@@ -272,7 +272,7 @@ parse_sectionCopy (const char *sym)
 					continue;
 				}
 				// sections
-				dumpSection(sectionFile, ltoken.buf);
+				dumpSection(sectionFile, ltoken.buf, &map);
 
 				lex();
 			}

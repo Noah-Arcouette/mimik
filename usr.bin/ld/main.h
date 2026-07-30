@@ -204,8 +204,11 @@ extern void freeMaps (void);
  * @file dumpSection.c
  * @param file The file name
  * @param section The section name
+ * @param map The current map for the section
  */
-extern void dumpSection (const char *file, const char *section);
+extern void dumpSection (const char *file, const char *section,
+	struct MiO_Map *map);
+
 /**
  * Add data to the data reserve
  * @file reserve.c
