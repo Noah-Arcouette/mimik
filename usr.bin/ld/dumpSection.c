@@ -70,7 +70,7 @@ did you forget `NOLOAD'?\n"),
 		if (symStart < sectionStart || symStart > sectionEnd) continue;
 
 		// relocate the symbol
-		long symReloc = sectionStart-symStart+newSectionStart;
+		long symReloc = symStart-sectionStart+newSectionStart;
 
 		// move the symbol over
 		newSymbol(symReloc, le64toh(inpsym->size), symFlags,
@@ -124,6 +124,26 @@ did you forget `NOLOAD'?\n"),
 	}
 
 	// copy gaps (mark them)
+	if (inpvirtual) return;
+	// else
+	for (long i = 0; i<inpfile->gaps; i++)
+	{
+		struct MiO_Gap *inpgap = &inpfile->gap[i];
+
+		long gapOffset = le64toh(inpgap->offset);
+
+		// gap is not in the section
+		if (gapOffset < sectionStart || gapOffset > sectionEnd) continue;
+
+		// relocate the gap
+		long gapReloc = gapOffset-sectionStart+newSectionStart;
+
+		// move the gap over
+		newGap(gapReloc, le16toh(inpgap->type), (char *)inpgap->symbol);
+
+		// mark the gap
+		inpgap->symbol[0] = '\0';
+	}
 }
 
 void
