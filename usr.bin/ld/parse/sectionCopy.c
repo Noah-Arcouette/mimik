@@ -190,7 +190,7 @@ parse_sectionCopy (const char *sym)
 			// (
 			if (ltoken.type != LTYPE_OPEN_PAREN)
 			{
-				prettyprint("Expected a `(`\n");
+				prettyprint(gettext("Expected a `(`\n"));
 				errors++;
 				recover();
 				continue;
@@ -201,7 +201,7 @@ parse_sectionCopy (const char *sym)
 			int64_t x;
 			if (!parse_expr(&x))
 			{
-				prettyprint("Expected an expression\n");
+				prettyprint(gettext("Expected an expression\n"));
 				errors++;
 				recover();
 				continue;
@@ -232,7 +232,7 @@ parse_sectionCopy (const char *sym)
 			// )
 			if (ltoken.type != LTYPE_CLOSE_PAREN)
 			{
-				prettyprint("Expected a `)`\n");
+				prettyprint(gettext("Expected a `)`\n"));
 				errors++;
 				recover();
 			}
@@ -248,7 +248,7 @@ parse_sectionCopy (const char *sym)
 			lex();
 			if (ltoken.type != LTYPE_OPEN_PAREN)
 			{
-				prettyprint("Expected `(` after file name\n");
+				prettyprint(gettext("Expected `(` after file name\n"));
 				recover();
 				errors++;
 				continue;
@@ -260,7 +260,7 @@ parse_sectionCopy (const char *sym)
 			{
 				if (ltoken.type != LTYPE_SYMBOL)
 				{
-					prettyprint("Expected a symbol\n");
+					prettyprint(gettext("Expected a symbol\n"));
 					errors++;
 					lex();
 					continue;
@@ -281,7 +281,7 @@ parse_sectionCopy (const char *sym)
 		}
 
 		// else, error
-		prettyprint("Expected a section copy or literal data\n");
+		prettyprint(gettext("Expected a section copy or literal data\n"));
 		errors++;
 		recover();
 	}

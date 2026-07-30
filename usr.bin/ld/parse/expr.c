@@ -17,7 +17,7 @@ _val (int64_t *val)
 		// expr
 		if (!parse_expr(val))
 		{
-			prettyprint("Expected an expression after `(`\n");
+			prettyprint(gettext("Expected an expression after `(`\n"));
 			errors++;
 			return 1;
 		}
@@ -25,7 +25,7 @@ _val (int64_t *val)
 		// )
 		if (ltoken.type != LTYPE_CLOSE_PAREN)
 		{
-			prettyprint("Expected a `)` after the expression\n");
+			prettyprint(gettext("Expected a `)` after the expression\n"));
 			errors++;
 			return 1;
 		}
