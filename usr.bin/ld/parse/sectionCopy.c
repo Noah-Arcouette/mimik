@@ -8,6 +8,7 @@
 #include <errno.h>
 
 long currentSection = -1;
+long virtualsz      = 0;
 
 int
 parse_sectionCopy (const char *sym)
@@ -82,6 +83,7 @@ parse_sectionCopy (const char *sym)
 	if (ltoken.type == LTYPE_NOLOAD)
 	{
 		// set it
+		map.from   = htole64(virtualsz);
 		map.flags |= MIO_MAP_FLAG_VIRTUAL;
 		lex();
 	}
@@ -192,6 +194,7 @@ parse_sectionCopy (const char *sym)
 	currentSection = -1;
 
 	// save the map
+	newMap(&map);
 
 	return 1;
 }
