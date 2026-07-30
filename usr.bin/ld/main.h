@@ -199,4 +199,12 @@ extern void emitMaps (void);
  */
 extern void freeMaps (void);
 
+/**
+ * Find and emit/reserve the given section(s) from the given file(s)
+ * @file dumpSection.c
+ * @param file The file name
+ * @param section The section name
+ */
+extern void dumpSection (const char *file, const char *section);
+
 #endif

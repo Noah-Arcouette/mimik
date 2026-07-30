@@ -243,7 +243,12 @@ parse_sectionCopy (const char *sym)
 		// file(section...)
 		if (ltoken.type == LTYPE_SYMBOL)
 		{
-			printf("\nFILE: %s\n", ltoken.buf);
+			char *sectionFile = strdup(ltoken.buf);
+			if (!sectionFile)
+			{
+				fprintf(stderr, gettext("%s: %s\n"), self, strerror(errno));
+				errors++;
+			}
 
 			lex();
 			if (ltoken.type != LTYPE_OPEN_PAREN)
@@ -251,6 +256,7 @@ parse_sectionCopy (const char *sym)
 				prettyprint(gettext("Expected `(` after file name\n"));
 				recover();
 				errors++;
+				free(sectionFile);
 				continue;
 			}
 			lex();
@@ -263,19 +269,15 @@ parse_sectionCopy (const char *sym)
 					prettyprint(gettext("Expected a symbol\n"));
 					errors++;
 					lex();
+					free(sectionFile);
 					continue;
 				}
 				// sections
-				printf("SECTION: %s\n", ltoken.buf);
-
-				// find matching files
-				// find matching sections
-				// emit or reserve the given data
-				// move symbols
-				// move gaps
+				dumpSection(sectionFile, ltoken.buf);
 
 				lex();
 			}
+			free(sectionFile);
 			lex(); // )
 			continue;
 		}
