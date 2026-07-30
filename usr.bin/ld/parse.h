@@ -87,4 +87,10 @@ extern int parse_sectionCopy (const char *sym);
  */
 extern long currentSection;
 
+/**
+ * The virtual data section size
+ * @file parse/sectionCopy.c
+ */
+extern long virtualsz;
+
 #endif
