@@ -285,6 +285,11 @@ drivers:
 
 # Userland
 
+sched
+useradd, usermod, passwd, groupadd, groupmod, etc
+su, sudo, whoami
+top, htop
+ping, host, ssh, ftp, wget, curl
 libc, libm...
 fsck, sys-admin...
 protect -- error correction encoding
