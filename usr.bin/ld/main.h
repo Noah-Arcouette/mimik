@@ -206,5 +206,17 @@ extern void freeMaps (void);
  * @param section The section name
  */
 extern void dumpSection (const char *file, const char *section);
+/**
+ * Add data to the data reserve
+ * @file reserve.c
+ * @param amt The amount to reserve
+ */
+extern void reserve (long amt);
+
+/**
+ * The virtual data section size
+ * @file reserve.c
+ */
+extern long virtualsz;
 
 #endif

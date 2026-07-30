@@ -47,5 +47,4 @@ emit (void *buf, long amt)
 	}
 
 	memcpy(&outputBuf[oldSize], buf, amt);
-	return ;
 }

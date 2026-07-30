@@ -8,7 +8,6 @@
 #include <errno.h>
 
 long currentSection = -1;
-long virtualsz      = 0;
 
 int
 parse_sectionCopy (const char *sym)
