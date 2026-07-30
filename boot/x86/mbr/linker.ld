@@ -22,11 +22,11 @@ SECTIONS
 	}
 	.rodata :
 	{
-		*(*.text)
+		*(*.rodata)
 	}
 	.data :
 	{
-		*(*.text)
+		*(*.data)
 	}
 
 	. = 0x7e00-2;
