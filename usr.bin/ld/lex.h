@@ -89,4 +89,10 @@ extern void prettyprint (const char *fmt, ...);
  */
 extern void recover (void);
 
+/**
+ * Whether or not `*` counts as a symbol letter
+ * @file lex/lex.c
+ */
+extern int lex_symbolCanGlob;
+
 #endif

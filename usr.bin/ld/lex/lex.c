@@ -18,6 +18,8 @@ struct ltoken ltoken = {
 FILE       *lfp       = NULL;
 const char *lfilename = NULL;
 
+int lex_symbolCanGlob = 0;
+
 static int
 _getc (void)
 {
@@ -97,16 +99,25 @@ _lex:
 	case '+':
 	case '-':
 	case '/':
-	case '*':
 		ltoken.type = c;
 		break;
 	case EOF:
 		ltoken.type = LTYPE_EOF;
 		break;
 	default:
-		if (isalpha(c) || c == '_' || c == '.')
+		// non-glob
+		if (c == '*' && !lex_symbolCanGlob)
 		{
-			while (isalnum(c) || c == '_' || c == '.')
+			ltoken.type = c;
+			break;
+		}
+
+		if (isalpha(c) || c == '_' || c == '.' || c == '*')
+		{
+			while (isalnum(c) || c == '_' || c == '.' || (
+				c == '*' &&
+				lex_symbolCanGlob
+			))
 			{
 				c = _getc();
 			}
