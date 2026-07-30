@@ -178,6 +178,67 @@ parse_sectionCopy (const char *sym)
 		   ltoken.type != LTYPE_EOF)
 	{
 		// BYTE(expr) SHORT(expr) LONG(expr) QUAD(expr)
+		int size = 0;
+		if (ltoken.type == LTYPE_BYTE)       size = 1;
+		else if (ltoken.type == LTYPE_SHORT) size = 2;
+		else if (ltoken.type == LTYPE_LONG)  size = 4;
+		else if (ltoken.type == LTYPE_QUAD)  size = 8;
+		if (size)
+		{
+			lex(); // BYTE, SHORT, LONG, QUAD
+
+			// (
+			if (ltoken.type != LTYPE_OPEN_PAREN)
+			{
+				prettyprint("Expected a `(`\n");
+				errors++;
+				recover();
+				continue;
+			}
+			lex();
+
+			// expr
+			int64_t x;
+			if (!parse_expr(&x))
+			{
+				prettyprint("Expected an expression\n");
+				errors++;
+				recover();
+				continue;
+			}
+			// write
+			int8_t  u8;
+			int16_t u16;
+			int32_t u32;
+			switch (size)
+			{
+			case 1:
+				u8 = x;
+				emit(&u8, 1);
+				break;
+			case 2:
+				u16 = x;
+				emit(&u16, 2);
+				break;
+			case 4:
+				u32 = x;
+				emit(&u32, 4);
+				break;
+			case 8:
+				emit(&x, 8);
+				break;
+			}
+
+			// )
+			if (ltoken.type != LTYPE_CLOSE_PAREN)
+			{
+				prettyprint("Expected a `)`\n");
+				errors++;
+				recover();
+			}
+			lex();
+			continue;
+		}
 
 		// file(section...)
 		if (ltoken.type == LTYPE_SYMBOL)
