@@ -155,6 +155,8 @@ parse_sectionCopy (const char *sym)
 		errors++;
 		return 1;
 	}
+
+	lex_symbolCanGlob = 1; // add * to symbol characters
 	lex();
 
 	// create section
@@ -176,9 +178,54 @@ parse_sectionCopy (const char *sym)
 		   ltoken.type != LTYPE_EOF)
 	{
 		// BYTE(expr) SHORT(expr) LONG(expr) QUAD(expr)
+
 		// file(section...)
-		lex();
+		if (ltoken.type == LTYPE_SYMBOL)
+		{
+			printf("\nFILE: %s\n", ltoken.buf);
+
+			lex();
+			if (ltoken.type != LTYPE_OPEN_PAREN)
+			{
+				prettyprint("Expected `(` after file name\n");
+				recover();
+				errors++;
+				continue;
+			}
+			lex();
+
+			while (ltoken.type != LTYPE_EOF &&
+				   ltoken.type != LTYPE_CLOSE_PAREN)
+			{
+				if (ltoken.type != LTYPE_SYMBOL)
+				{
+					prettyprint("Expected a symbol\n");
+					errors++;
+					lex();
+					continue;
+				}
+				// sections
+				printf("SECTION: %s\n", ltoken.buf);
+
+				// find matching files
+				// find matching sections
+				// emit or reserve the given data
+				// move symbols
+				// move gaps
+
+				lex();
+			}
+			lex(); // )
+			continue;
+		}
+
+		// else, error
+		prettyprint("Expected a section copy or literal data\n");
+		errors++;
+		recover();
 	}
+	lex_symbolCanGlob = 0;
+	lex(); // closing bracket
 
 	// update period
 	if ((long)(currentSection+sizeof(struct MiO)) <= outputsz)
