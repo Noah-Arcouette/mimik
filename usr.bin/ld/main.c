@@ -43,9 +43,6 @@ main (int argc, char *argv[])
 	// raw input data isn't needed anymore
 	closeInputFiles();
 
-	// emit entry section
-	emitEntrySection();
-
 	// emit architecture section
 	emitArchSection();
 
@@ -57,8 +54,15 @@ main (int argc, char *argv[])
 	emitSymbols();
 	freeSymbols();
 
-	// emit maps section
-	emitMaps();
+	// Don't map if -r is set
+	if (!(argFlags & ARG_FLAGS_DONT_MAP))
+	{
+		// emit entry section
+		emitEntrySection();
+
+		// emit maps section
+		emitMaps();
+	}
 	freeMaps();
 
 	// emit the output
