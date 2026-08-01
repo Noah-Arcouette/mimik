@@ -52,3 +52,8 @@ ifeq (@(BUILD_TOOL_READMIO),y)
 !readmio = | $(OBJ)/tool/<readmio> |> ^ READMIO  %b^ \
 	$(EXEC) $(OBJ)/tool/readmio %f |>
 endif
+
+ifeq (@(BUILD_TOOL_MIO2BIN),y)
+!mio2bin = | $(OBJ)/tool/<mio2bin> |> ^ MIO2BIN  %b^ \
+	$(EXEC) $(OBJ)/tool/mio2bin -o %o %f |>
+endif

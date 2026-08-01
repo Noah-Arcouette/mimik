@@ -1,0 +1,4 @@
+config USR_BIN_MIO2BIN
+	bool "mio2bin"
+	help
+		Link an executable as a flat binary

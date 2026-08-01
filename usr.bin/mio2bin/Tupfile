@@ -1,0 +1,13 @@
+include_rules
+
+# toolchain build
+ifeq (@(BUILD_TOOL_MIO2BIN),y)
+: foreach *.c |> !hostcc |> $(OBJ)/tool/mio2bin.d/%B.o {tool-obj}
+: {tool-obj} |> !hostccld |> $(OBJ)/tool/mio2bin | $(OBJ)/tool/<mio2bin>
+endif
+
+
+ifeq (@(USR_BIN_MIO2BIN),y)
+: foreach *.c |> !cc |> $(OBJ)/usr.bin/mio2bin/%B.o {obj}
+: {obj} |> !ccld |> $(DIST)/usr/bin/mio2bin
+endif
