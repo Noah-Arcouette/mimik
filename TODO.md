@@ -229,7 +229,7 @@ ld:
 manuals:
 	include/mio.h
 disassembler
-mio2bin, mio2pe32+
+mio2pe32+
 fuzzy testing, valgrind, unit-tests, dbg, profiling
 tup, kconfig, git
 
