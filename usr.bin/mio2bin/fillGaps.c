@@ -59,8 +59,8 @@ fillGaps (void)
 			}
 
 			// check if the gap can be filled
-			int offset = le64toh(g->offset);
-			int size   = 0;
+			long offset = le64toh(g->offset);
+			int size    = 0;
 			switch (type & MIO_GAP_TYPE_MASK)
 			{
 			case MIO_GAP_TYPE_LIT_BYTE:
@@ -108,22 +108,24 @@ fillGaps (void)
 				continue;
 			}
 
+			long relocOff = relocate(offset, 0);
+
 			// fill the gap
 			switch (type & MIO_GAP_TYPE_MASK)
 			{
 			case MIO_GAP_TYPE_DISP_BYTE:
-				symbolValue = offset - symbolValue;
+				symbolValue = symbolValue - relocOff - 1;
 			case MIO_GAP_TYPE_LIT_BYTE:
 				buf[offset] = symbolValue&0xff;
 				break;
 			case MIO_GAP_TYPE_DISP_LE16:
-				symbolValue = offset - symbolValue;
+				symbolValue = symbolValue - relocOff - 2;
 			case MIO_GAP_TYPE_LIT_LE16:
 				buf[offset  ] = symbolValue&0xff;
 				buf[offset+1] = (symbolValue>>8)&0xff;
 				break;
 			case MIO_GAP_TYPE_DISP_LE32:
-				symbolValue = offset - symbolValue;
+				symbolValue = symbolValue - relocOff - 4;
 			case MIO_GAP_TYPE_LIT_LE32:
 				buf[offset  ] = symbolValue&0xff;
 				buf[offset+1] = (symbolValue>>8 )&0xff;
@@ -131,7 +133,7 @@ fillGaps (void)
 				buf[offset+3] = (symbolValue>>24)&0xff;
 				break;
 			case MIO_GAP_TYPE_DISP_LE64:
-				symbolValue = offset - symbolValue;
+				symbolValue = symbolValue - relocOff - 8;
 			case MIO_GAP_TYPE_LIT_LE64:
 				buf[offset  ] = symbolValue&0xff;
 				buf[offset+1] = (symbolValue>>8 )&0xff;
@@ -143,7 +145,7 @@ fillGaps (void)
 				buf[offset+7] = (symbolValue>>56)&0xff;
 				break;
 			case MIO_GAP_TYPE_DISP_LE128:
-				symbolValue = offset - symbolValue;
+				symbolValue = symbolValue - relocOff - 16;
 			case MIO_GAP_TYPE_LIT_LE128:
 				buf[offset   ] = symbolValue&0xff;
 				buf[offset+ 1] = (symbolValue>>8  )&0xff;
@@ -163,13 +165,13 @@ fillGaps (void)
 				buf[offset+15] = 0;
 				break;
 			case MIO_GAP_TYPE_DISP_BE16:
-				symbolValue = offset - symbolValue;
+				symbolValue = symbolValue - relocOff - 2;
 			case MIO_GAP_TYPE_LIT_BE16:
 				buf[offset  ] = (symbolValue>>8)&0xff;
 				buf[offset+1] = symbolValue&0xff;
 				break;
 			case MIO_GAP_TYPE_DISP_BE32:
-				symbolValue = offset - symbolValue;
+				symbolValue = symbolValue - relocOff - 4;
 			case MIO_GAP_TYPE_LIT_BE32:
 				buf[offset  ] = (symbolValue>>24)&0xff;
 				buf[offset+1] = (symbolValue>>16)&0xff;
@@ -177,7 +179,7 @@ fillGaps (void)
 				buf[offset+3] = symbolValue&0xff;
 				break;
 			case MIO_GAP_TYPE_DISP_BE64:
-				symbolValue = offset - symbolValue;
+				symbolValue = symbolValue - relocOff - 8;
 			case MIO_GAP_TYPE_LIT_BE64:
 				buf[offset  ] = (symbolValue>>56)&0xff;
 				buf[offset+1] = (symbolValue>>48)&0xff;
@@ -189,7 +191,7 @@ fillGaps (void)
 				buf[offset+7] = symbolValue&0xff;
 				break;
 			case MIO_GAP_TYPE_DISP_BE128:
-				symbolValue = offset - symbolValue;
+				symbolValue = symbolValue - relocOff - 16;
 			case MIO_GAP_TYPE_LIT_BE128:
 				buf[offset   ] = 0;
 				buf[offset+ 1] = 0;
