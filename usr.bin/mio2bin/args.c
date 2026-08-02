@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-const char *outputfile = NULL;
+char *outputfile = NULL;
 
 short argFlags = 0;
 

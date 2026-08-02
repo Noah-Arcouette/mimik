@@ -41,7 +41,7 @@ main (int argc, char *argv[])
 	executeMaps();
 	free(buf);
 
-	// if (!errors) writeFile();
+	if (!errors) writeFile(argv[optind]);
 	free(outbuf);
 
 	if (errors) return 1;

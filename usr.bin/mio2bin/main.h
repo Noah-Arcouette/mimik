@@ -41,7 +41,7 @@ extern short argFlags;
  * The output file, or NULL if unset
  * @file args.c
  */
-extern const char *outputfile;
+extern char *outputfile;
 
 /**
  * Read the given file into the given buffer
@@ -109,5 +109,12 @@ extern void executeMaps (void);
  */
 extern long  outbufsz;
 extern char *outbuf;
+
+/**
+ * Write *outbuf* to the output file
+ * @param inpname the input file name
+ * @file writeFile.c
+ */
+extern void writeFile (const char *inpname);
 
 #endif
