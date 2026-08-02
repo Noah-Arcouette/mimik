@@ -91,4 +91,10 @@ extern void fixMaps (void);
  */
 extern void relocateSymbols (void);
 
+/**
+ * Fill the defined gaps
+ * @file fillGaps.c
+ */
+extern void fillGaps (void);
+
 #endif

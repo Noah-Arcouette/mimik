@@ -1,6 +1,8 @@
 #include "main.h"
+#include <libintl.h>
 #include <endian.h>
 #include <limits.h>
+#include <stdio.h>
 
 void
 fixMaps (void)
@@ -30,6 +32,13 @@ fixMaps (void)
 	for (long i = 0; i<maps; i++)
 	{
 		struct MiO_Map *m = &map[i];
+
+		if (m->flags & MIO_MAP_FLAG_THREAD_LOCAL)
+		{
+			fprintf(stderr, gettext("%s: TLS maps are not flat loadable\n"),
+				self);
+			errors++;
+		}
 
 		if (!(m->flags & MIO_MAP_FLAG_VIRTUAL_IS_ADDRESS))
 		{
