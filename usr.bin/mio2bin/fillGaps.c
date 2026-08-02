@@ -155,14 +155,14 @@ fillGaps (void)
 				buf[offset+ 5] = (symbolValue>>40 )&0xff;
 				buf[offset+ 6] = (symbolValue>>48 )&0xff;
 				buf[offset+ 7] = (symbolValue>>56 )&0xff;
-				buf[offset+ 8] = 0;
-				buf[offset+ 9] = 0;
-				buf[offset+10] = 0;
-				buf[offset+11] = 0;
-				buf[offset+12] = 0;
-				buf[offset+13] = 0;
-				buf[offset+14] = 0;
-				buf[offset+15] = 0;
+				buf[offset+ 8] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+ 9] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+10] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+11] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+12] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+13] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+14] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+15] = (symbolValue < 0) ? 0xff : 0;
 				break;
 			case MIO_GAP_TYPE_DISP_BE16:
 				symbolValue = symbolValue - relocOff - 2;
@@ -193,14 +193,14 @@ fillGaps (void)
 			case MIO_GAP_TYPE_DISP_BE128:
 				symbolValue = symbolValue - relocOff - 16;
 			case MIO_GAP_TYPE_LIT_BE128:
-				buf[offset   ] = 0;
-				buf[offset+ 1] = 0;
-				buf[offset+ 2] = 0;
-				buf[offset+ 3] = 0;
-				buf[offset+ 4] = 0;
-				buf[offset+ 5] = 0;
-				buf[offset+ 6] = 0;
-				buf[offset+ 7] = 0;
+				buf[offset   ] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+ 1] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+ 2] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+ 3] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+ 4] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+ 5] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+ 6] = (symbolValue < 0) ? 0xff : 0;
+				buf[offset+ 7] = (symbolValue < 0) ? 0xff : 0;
 				buf[offset+ 8] = (symbolValue>>56 )&0xff;
 				buf[offset+ 9] = (symbolValue>>48 )&0xff;
 				buf[offset+10] = (symbolValue>>40 )&0xff;
