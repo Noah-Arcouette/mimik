@@ -6,7 +6,7 @@ mio2bin -- Load a MiO executable into a flat binary
 # Synopsys
 
 ```sh
-$ mio2bin [-o outfile] file
+$ mio2bin [-v] [-o outfile] file
 ```
 
 
@@ -19,12 +19,18 @@ ROM chips.
 If **-o outfile** is provided it shall be the output file, else `*file*.bin`
 shall be the output file.
 
+If **-v** is set then virtual maps shall be loaded into the file and filled with
+zeros.
+
 
 # Options
 
 **-o outfile**
 	The given output file, defaults to *file* suffixed with `.bin`. If `-` is
 	given then standard output shall be written to.
+
+**-v**
+	Load virtual maps.
 
 
 # Operands
