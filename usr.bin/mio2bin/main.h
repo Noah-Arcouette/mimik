@@ -117,4 +117,13 @@ extern char *outbuf;
  */
 extern void writeFile (const char *inpname);
 
+/**
+ * Relocate a given offset
+ * @param off The file offset
+ * @param virtual if the offset is virtual
+ * @returns -1 or the relocated virtual address
+ * @file relocate.c
+ */
+extern long relocate (long off, short virtual);
+
 #endif
