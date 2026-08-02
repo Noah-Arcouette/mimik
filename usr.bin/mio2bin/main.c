@@ -35,7 +35,7 @@ main (int argc, char *argv[])
 	readIn(argv[optind]);
 	getSections();
 	fixMaps();
-	// relocateSymbols();
+	relocateSymbols();
 	// fillGaps();
 	// executeMaps();
 	// if (!errors) writeFile();

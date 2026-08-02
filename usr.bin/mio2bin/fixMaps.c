@@ -2,8 +2,6 @@
 #include <endian.h>
 #include <limits.h>
 
-#include <stdio.h>
-
 void
 fixMaps (void)
 {
@@ -49,9 +47,5 @@ fixMaps (void)
 		{
 			m->physical = htole64(le64toh(m->virtual)-firstVirtual);
 		}
-
-		// print it out
-		printf("\nVirtual: %lx\nPhysical: %lx\n",
-			le64toh(m->virtual), le64toh(m->physical));
 	}
 }

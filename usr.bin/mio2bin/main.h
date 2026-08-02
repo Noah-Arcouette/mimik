@@ -85,4 +85,10 @@ extern long            maps;
  */
 extern void fixMaps (void);
 
+/**
+ * Relocate symbols
+ * @file relocateSymbols.c
+ */
+extern void relocateSymbols (void);
+
 #endif
