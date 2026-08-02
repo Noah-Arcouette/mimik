@@ -97,4 +97,17 @@ extern void relocateSymbols (void);
  */
 extern void fillGaps (void);
 
+/**
+ * Execute maps and allocate an output buffer
+ * @file executeMaps.c
+ */
+extern void executeMaps (void);
+
+/**
+ * The output data of the loaded binary
+ * @file executeMaps.c
+ */
+extern long  outbufsz;
+extern char *outbuf;
+
 #endif

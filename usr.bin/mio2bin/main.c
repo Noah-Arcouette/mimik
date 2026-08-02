@@ -37,10 +37,13 @@ main (int argc, char *argv[])
 	fixMaps();
 	relocateSymbols();
 	fillGaps();
-	// executeMaps();
-	// if (!errors) writeFile();
 
+	executeMaps();
 	free(buf);
+
+	// if (!errors) writeFile();
+	free(outbuf);
+
 	if (errors) return 1;
 	return 0;
 }
