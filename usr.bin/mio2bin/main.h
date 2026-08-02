@@ -1,5 +1,6 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
+#include <mio.h>
 
 /**
  * The current program name
@@ -56,5 +57,32 @@ extern void readIn (const char *path);
  * @file getSections.c
  */
 extern void getSections (void);
+
+/**
+ * The input file's symbols
+ * @file getSections.c
+ */
+extern struct MiO_Symbol *symbol;
+extern long               symbols;
+
+/**
+ * The input file's gaps
+ * @file getSections.c
+ */
+extern struct MiO_Gap *gap;
+extern long            gaps;
+
+/**
+ * The input file's maps
+ * @file getSections.c
+ */
+extern struct MiO_Map *map;
+extern long            maps;
+
+/**
+ * Create the virtual and physical address of maps
+ * @file fixMaps.c
+ */
+extern void fixMaps (void);
 
 #endif
