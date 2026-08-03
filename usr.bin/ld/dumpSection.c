@@ -155,7 +155,7 @@ dumpSection (const char *file, const char *section, struct MiO_Map *map)
 		if (!fnmatch(file, inpfile->path, 0))
 		{
 			long offset = 0;
-			while (offset < inpfile->size)
+			while ((long)(offset+sizeof(struct MiO)) <= inpfile->size)
 			{
 				struct MiO *inpsection = inpfile->data+offset;
 

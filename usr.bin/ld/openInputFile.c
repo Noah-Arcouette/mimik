@@ -221,11 +221,11 @@ openInputFile (const char *path)
 	}
 
 	// add the offsets
-	if (symbolsOffset > 0)
+	if (symbolsOffset >= 0)
 	{
 		inp->symbol = &inp->data[symbolsOffset];
 	}
-	if (gapsOffset > 0)
+	if (gapsOffset >= 0)
 	{
 		inp->gap = &inp->data[gapsOffset];
 	}

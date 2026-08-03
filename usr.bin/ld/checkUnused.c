@@ -36,7 +36,7 @@ checkUnused (void)
 
 		// check for unused sections
 		long offset = 0;
-		while (offset < input[i].size)
+		while ((long)(offset+sizeof(struct MiO)) <= input[i].size)
 		{
 			struct MiO *section = input[i].data+offset;
 
