@@ -69,4 +69,19 @@ extern void free_x86_16_mem16 (struct mem16 *mem16);
  * @file x86_16/emit_mem16.c
  */
 extern void emit_x86_16_mem16 (const struct mem16 *mem16);
+
+/**
+ * A standard arithmetic instruction: add, xor, sub, etc
+ * @param mnemonic the instruction mnemonic
+ * @param opcode reg|mem, reg|mem
+ * @param immOpcode reg|mem, imm
+ * @param immCommand reg|mem, imm
+ * @param accOpcode acc, imm
+ * @param _signed Is the instruction signed
+ * @returns true if the instruction was consumed
+ * @file x86_16/arithmetic.c
+ */
+extern int parse_x86_16_arithmetic (const char *mnemonic, int opcode,
+	int immOpcode, int immCommand, int accOpcode, int _signed);
+
 #endif

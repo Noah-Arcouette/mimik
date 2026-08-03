@@ -41,14 +41,14 @@ This document only applies in the context of `.arch x86_16`.
  - `%di` -- Destination Index
 
 *mem* -- A memory address or register:
- - `[%bx+%si]` with optional `+*literal*`
- - `[%bx+%di]` with optional `+*literal*`
- - `[%bp*%si]` with optional `+*literal*`
- - `[%bp+%di]` with optional `+*literal*`
- - `[%si]` with optional `+*literal*`
- - `[%di]` with optional `+*literal*`
- - `[%bp]` with optional `+*literal*`
- - `[%bx]` with optional `+*literal*`
+ - `[%bx+%si]` with optional `+*literal*` or `-*literal*`
+ - `[%bx+%di]` with optional `+*literal*` or `-*literal*`
+ - `[%bp+%si]` with optional `+*literal*` or `-*literal*`
+ - `[%bp+%di]` with optional `+*literal*` or `-*literal*`
+ - `[%si]` with optional `+*literal*` or `-*literal*`
+ - `[%di]` with optional `+*literal*` or `-*literal*`
+ - `[%bp]` with optional `+*literal*` or `-*literal*`
+ - `[%bx]` with optional `+*literal*` or `-*literal*`
  - `[*literal*]`
 
 *algr* -- A standard algorithm operand, left side is always destination:
@@ -58,10 +58,12 @@ This document only applies in the context of `.arch x86_16`.
  - *reg16* *reg16*
  - *reg16* *mem*
  - *reg16* *literal*
- - .byte *mem* *reg8*
+ - *mem* *reg8*
  - .byte *mem* *literal*
- - .word *mem* *reg16*
+ - *mem* *reg16*
  - .word *mem* *literal*
+
+`xor *algr*` -- Exclusive or on the given values
 
 `sjmp *literal*` -- Short (8bit displacement) jump
 

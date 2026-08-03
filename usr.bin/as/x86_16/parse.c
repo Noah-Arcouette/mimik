@@ -6,6 +6,12 @@ parse_x86_16 (void)
 {
 	if (parse_x86_16_jmp()) return 1;
 
+	if (parse_x86_16_arithmetic(
+		"xor",
+		0b00110000,
+		0b10000000, 0b110,
+		0b00110100, 0)) return 1;
+
 	if (parse_x86_16_singlet("cli", 0b11111010)) return 1;
 	if (parse_x86_16_singlet("hlt", 0b11110100)) return 1;
 	if (parse_x86_16_singlet("nop", 0b10010000)) return 1;
