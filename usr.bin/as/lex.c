@@ -54,12 +54,13 @@ _try_again:
 		ltok.type = TOK_NEWLINE;
 		break;
 	case ':':
-		_pushc(c);
-		ltok.type = TOK_COLON;
-		break;
 	case ';':
+	case '[':
+	case ']':
+	case '+':
+	case '-':
 		_pushc(c);
-		ltok.type = TOK_SEMICOLON;
+		ltok.type = c;
 		break;
 	case EOF:
 		ltok.type = TOK_EOF;
@@ -74,6 +75,18 @@ _try_again:
 		ltok.type = TOK_REGISTER;
 		break;
 	default:
+		if (isdigit(c))
+		{
+			while (isalnum(c))
+			{
+				_pushc(c);
+				c = fgetc(lfp);
+			}
+			ungetc(c, lfp); // unget the non-matching character
+			ltok.type = TOK_NUMBER;
+			break;
+		}
+
 		if (isalpha(c) || c == '.' || c == '_')
 		{
 			while (isalnum(c) || c == '.' || c == '_')

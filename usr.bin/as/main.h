@@ -31,11 +31,16 @@ extern void args (int argc, char *argv[]);
 /// @brief A lexer token type
 enum tokenType
 {
-	TOK_EOF,
-	TOK_UNKNOWN,
+	TOK_EOF = 0,
+	TOK_COLON = ':',
+	TOK_SEMICOLON = ';',
+	TOK_OPEN_SQUARE = '[',
+	TOK_CLOSE_SQUARE = ']',
+	TOK_PLUS = '+',
+	TOK_MINUS = '-',
+	TOK_UNKNOWN = 0xff,
 	TOK_NEWLINE,
-	TOK_COLON,
-	TOK_SEMICOLON,
+	TOK_NUMBER,
 	// directives
 	TOK_ARCH,
 	TOK_UARCH,
