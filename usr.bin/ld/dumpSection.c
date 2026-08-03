@@ -55,6 +55,7 @@ did you forget `NOLOAD'?\n"),
 	for (long i = 0; i<inpfile->symbols; i++)
 	{
 		struct MiO_Symbol *inpsym = &inpfile->symbol[i];
+		if (!inpsym->name[0]) continue; // already copied symbol
 
 		int symFlags = le16toh(inpsym->flags);
 
@@ -129,6 +130,7 @@ did you forget `NOLOAD'?\n"),
 	for (long i = 0; i<inpfile->gaps; i++)
 	{
 		struct MiO_Gap *inpgap = &inpfile->gap[i];
+		if (!inpgap->symbol[0]) continue; // already copied gap
 
 		long gapOffset = le64toh(inpgap->offset);
 
