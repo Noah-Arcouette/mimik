@@ -42,7 +42,7 @@ fillGaps (void)
 				if (!(flags & MIO_SYMBOL_FLAG_READABLE))
 				{
 					fprintf(stderr, gettext(
-"%s: Refusing to fill executing gap with non-readable symbol `%.*s'\n"),
+"%s: Refusing to fill reading gap with non-readable symbol `%.*s'\n"),
 						self, 256, s->name);
 					errors++;
 				}
@@ -52,7 +52,7 @@ fillGaps (void)
 				if (!(flags & MIO_SYMBOL_FLAG_WRITABLE))
 				{
 					fprintf(stderr, gettext(
-"%s: Refusing to fill executing gap with non-writable symbol `%.*s'\n"),
+"%s: Refusing to fill writing gap with non-writable symbol `%.*s'\n"),
 						self, 256, s->name);
 					errors++;
 				}
