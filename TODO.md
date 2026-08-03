@@ -159,16 +159,11 @@ as:
 		sahf
 		pushf
 		popf
-		add
-		adc
 		inc
 		aaa
 		baa
-		sub
-		ssb
 		dec
 		neg
-		cmp
 		aas
 		das
 		mul
@@ -187,9 +182,7 @@ as:
 		ror
 		rcl
 		rcr
-		and
 		test
-		or
 		rep
 		movs
 		cmps
