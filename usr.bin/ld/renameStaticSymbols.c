@@ -19,7 +19,7 @@ renameStaticSymbols (void)
 		// for each symbol
 		for (long j = 0; j<file->symbols; j++)
 		{
-			struct MiO_Symbol *symbol = &input->symbol[j];
+			struct MiO_Symbol *symbol = &file->symbol[j];
 
 			// only statics
 			if (le16toh(symbol->flags) & MIO_SYMBOL_FLAG_GLOBAL) continue;
