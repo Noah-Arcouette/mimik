@@ -29,6 +29,14 @@ extern int parse_label (void);
  */
 extern int parse_global (void);
 
+/**
+ * Attempt to consume a number
+ * @param val The value of the number, or NULL
+ * @returns True if a number
+ * @file parse/number.c
+ */
+extern int parse_number (long *val);
+
 #ifdef X86_16
 /**
  * Consume and emit an x86-16 instructions
