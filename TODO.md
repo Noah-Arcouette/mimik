@@ -214,16 +214,7 @@ as:
 		int
 		into
 		iret
-		clc
-		cmc
-		stc
-		cld
-		std
-		sti
-		wait
 		esc
-		lock
-		es, cs, ss, ds
 	x86 32bit
 	x86 64bit
 	x86 extensions
