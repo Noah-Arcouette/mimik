@@ -92,14 +92,49 @@ This document only applies in the context of `.arch x86_16`.
 `or *algr*`  -- Or on the given values
 `xor *algr*` -- Exclusive or on the given values
 
-`sjmp *literal*` -- Short (8bit displacement) jump
+`sjmp *symbol*` -- Short (8bit displacement) jump
 
 `jmp *reg16*`
 `jmp *mem*`
-`jmp *literal*` -- Near (16bit displacement) jump
+`jmp *symbol*` -- Near (16bit displacement) jump
 
 `ljmp *mem*`
 `ljmp *literal* *literal*` -- Long jump into offset (first) and segment (second)
+
+`je *symbol*` -- Jump if equal
+`jz *symbol*` -- Jump if zero
+`jl *symbol*` -- Jump if lesser than
+`jnge *symbol*` -- Jump if not greater than or equal
+`jle *symbol*` -- Jump if lesser than or equal
+`jng *symbol*` -- Jump if not greater than
+`jb *symbol*` -- Jump if below
+`jnae *symbol*` -- Jump if not above or equal
+`jbe *symbol*` -- Jump if below or equal
+`jna *symbol*` -- Jump if not above
+`jp *symbol*` -- Jump if parity
+`jpe *symbol*` -- Jump if parity even
+`jo *symbol*` -- Jump if overflow
+`js *symbol*` -- Jump if signed
+`jne *symbol*` -- Jump if not equal
+`jnz *symbol*` -- Jump if not zero
+`jnl *symbol*` -- Jump if not lesser than
+`jge *symbol*` -- Jump if greater than or equal
+`jnle *symbol*` -- Jump if not lesser than or equal
+`jg *symbol*` -- Jump if greater
+`jnb *symbol*` -- Jump if not below
+`jae *symbol*` -- Jump if above or equal
+`jnbe *symbol*` -- Jump if not below or equal
+`ja *symbol*` -- Jump if above
+`jnp *symbol*` -- Jump if not parity
+`jpo *symbol*` -- Jump if parity odd
+`jno *symbol*` -- Jump if not overflow
+`jns *symbol*` -- Jump if not signed
+`loop *symbol*` -- Loop if `%cx` (and decrement `%cx`)
+`loopz *symbol*` -- Loop if `%cx` and zero (and decrement `%cx`)
+`loope *symbol*` -- Loop if `%cx` and equal (and decrement `%cx`)
+`loopnz *symbol*` -- Loop if `%cx` and not zero (and decrement `%cx`)
+`loopne *symbol*` -- Loop if `%cx` and not equal (and decrement `%cx`)
+`jcxz *symbol*` -- Jump if `%cx`
 
 `int *number*` -- Trigger an interrupt of the given vector
 

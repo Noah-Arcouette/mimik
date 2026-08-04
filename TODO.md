@@ -183,25 +183,6 @@ as:
 		rcr
 		test
 		call
-		je/jz
-		jl
-		jle
-		jb
-		jbe
-		jp
-		jo
-		js
-		jne/jnz
-		jg
-		jae
-		ja
-		jpo
-		jno
-		jns
-		loop
-		loopz/loope
-		loopnz/loopne
-		jcxz
 		into
 		iret
 		esc
