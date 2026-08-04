@@ -101,6 +101,8 @@ This document only applies in the context of `.arch x86_16`.
 `ljmp *mem*`
 `ljmp *literal* *literal*` -- Long jump into offset (first) and segment (second)
 
+`int *number*` -- Trigger an interrupt of the given vector
+
 `movs .byte`
 `movs .word` -- Move `%cx` amount of bytes from `%ds:%si` to `%es:%di`
 

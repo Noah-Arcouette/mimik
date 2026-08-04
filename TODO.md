@@ -203,7 +203,6 @@ as:
 		loopz/loope
 		loopnz/loopne
 		jcxz
-		int
 		into
 		iret
 		esc

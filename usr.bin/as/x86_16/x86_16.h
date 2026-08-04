@@ -39,6 +39,13 @@ extern int parse_x86_16_string (void);
 extern int parse_x86_16_reserve (void);
 
 /**
+ * Consume an interrupt
+ * @file x86_16/interrupt.c
+ * @returns True if consumed
+ */
+extern int parse_x86_16_interrupt (void);
+
+/**
  * Consume an 8bit register
  * @file x86_16/reg8.c
  * @param reg The register value
