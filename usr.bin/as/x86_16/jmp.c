@@ -75,7 +75,7 @@ parse_x86_16_jmp (void)
 			free_x86_16_mem16(&addr);
 			return 1;
 		}
-		prettyprint("Expected a symbol, address, or 16bit register\n");
+		prettyprint(gettext("Expected a symbol, address, or 16bit register\n"));
 		recover();
 		return 1;
 	}
@@ -122,7 +122,7 @@ parse_x86_16_jmp (void)
 		}
 		else
 		{
-			prettyprint("Expected a symbol, address, or number\n");
+			prettyprint(gettext("Expected a symbol, address, or number\n"));
 			recover();
 			return 1;
 		}
@@ -146,7 +146,7 @@ parse_x86_16_jmp (void)
 			emit(buf, 2);
 			return 1;
 		}
-		prettyprint("Expected a symbol or number\n");
+		prettyprint(gettext("Expected a symbol or number\n"));
 		recover();
 		return 1;
 	}
