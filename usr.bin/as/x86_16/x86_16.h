@@ -24,13 +24,19 @@ extern int parse_x86_16_jmp (void);
  */
 extern int parse_x86_16_singlet (const char *instruction, int opcode);
 
-
 /**
  * Consume a string type instruction (movs, cmps, scas, etc)
  * @file x86_16/string.c
  * @returns True if an instruction was consumed
  */
 extern int parse_x86_16_string (void);
+
+/**
+ * Consume a reservation
+ * @file x86_16/reserve.c
+ * @returns True if consumed
+ */
+extern int parse_x86_16_reserve (void);
 
 /**
  * Consume an 8bit register

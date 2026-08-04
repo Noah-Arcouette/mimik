@@ -7,6 +7,9 @@ parse_x86_16 (void)
 	if (parse_x86_16_mov()) return 1;
 	if (parse_x86_16_jmp()) return 1;
 
+	// reserves
+	if (parse_x86_16_reserve()) return 1;
+
 	// string type
 	if (parse_x86_16_string()) return 1;
 
