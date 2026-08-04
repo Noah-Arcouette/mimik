@@ -44,6 +44,13 @@ extern int parse_number (long *val);
  */
 extern int parse_reserve (void);
 
+/**
+ * Attempt to consume a data directive
+ * @returns True if consumed
+ * @file parse/data.c
+ */
+extern int parse_data (void);
+
 #ifdef X86_16
 /**
  * Consume and emit an x86-16 instructions

@@ -24,7 +24,7 @@ parse (void)
 		if (parse_architecture()) continue;
 
 		// emit data
-		// reserve data
+		if (parse_data()) continue;
 
 		// global
 		if (parse_global()) continue;

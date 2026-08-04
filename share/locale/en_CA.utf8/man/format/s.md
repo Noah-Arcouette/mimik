@@ -78,6 +78,10 @@ The acceptable directives for standard assembler file are:
 	Reserve *amount* of words in a virtual section (depends on architecture for
 	size of a word).
 
+`.byte VALUES...`
+	Emit the raw values as bytes. A string may also be given and will be emitted
+	without a null terminator. A symbol may also be given to emit a gap.
+
 ## Labels
 
 A label shall be defined as such:
