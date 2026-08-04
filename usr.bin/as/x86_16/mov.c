@@ -249,8 +249,78 @@ or segment register\n"));
 		return 1;
 	}
 
-	/// @todo .byte mem imm8
-	/// @todo .word mem imm16
+	// .byte mem imm8
+	if (ltok.type == TOK_BYTE)
+	{
+		lex();
+
+		if (!parse_x86_16_mem16(&addr, MIO_GAP_TYPE_WRITING))
+		{
+			prettyprint(gettext("Expected a memory address\n"));
+			errors++;
+			recover();
+			return 1;
+		}
+
+		char buf[1] = { 0b11000110 };
+		emit(buf, 1);
+		emit_x86_16_mem16(&addr);
+		free_x86_16_mem16(&addr);
+
+		if (parse_number(&val))
+		{
+			char buf2[1] = { val&0xff };
+			emit(buf2, 1);
+		}
+		else if (ltok.type == TOK_SYMBOL)
+		{
+			emitGap(ltok.buf, MIO_GAP_TYPE_LIT_BYTE);
+			lex();
+		}
+		else
+		{
+			prettyprint(gettext("Expected a number or symbol\n"));
+			errors++;
+			recover();
+		}
+		return 1;
+	}
+	// .word mem imm16
+	if (ltok.type == TOK_WORD)
+	{
+		lex();
+
+		if (!parse_x86_16_mem16(&addr, MIO_GAP_TYPE_WRITING))
+		{
+			prettyprint(gettext("Expected a memory address\n"));
+			errors++;
+			recover();
+			return 1;
+		}
+
+		char buf[1] = { 0b11000111 };
+		emit(buf, 1);
+		emit_x86_16_mem16(&addr);
+		free_x86_16_mem16(&addr);
+
+		if (parse_number(&val))
+		{
+			char buf2[2] = { val&0xff, (val>>8)&0xff };
+			emit(buf2, 2);
+		}
+		else if (ltok.type == TOK_SYMBOL)
+		{
+			emitGap(ltok.buf, MIO_GAP_TYPE_LIT_LE16);
+			lex();
+		}
+		else
+		{
+			prettyprint(gettext("Expected a number or symbol\n"));
+			errors++;
+			recover();
+		}
+		return 1;
+	}
 
 	prettyprint(gettext("Expected a register or a memory address\n"));
 	recover();
