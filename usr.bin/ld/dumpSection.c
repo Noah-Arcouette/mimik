@@ -9,9 +9,9 @@
 
 static void
 _dumpSectionCopy (struct inputFile *inpfile, struct MiO *inpsection,
-	long offset, struct MiO_Map *map)
+	long offset, long virtoffset, struct MiO_Map *map)
 {
-	int inpvirtual = inpsection->flags & MIO_FLAG_VIRTUAL;
+	int inpvirtual = !!(inpsection->flags & MIO_FLAG_VIRTUAL);
 	// run the check
 	if (inpvirtual && !(map->flags & MIO_MAP_FLAG_VIRTUAL))
 	{
@@ -48,8 +48,16 @@ did you forget `NOLOAD'?\n"),
 		emit(dat, sectionSize);
 	}
 
-	long sectionStart = offset+sizeof(struct MiO);
-	long sectionEnd   = sectionStart+sectionSize;
+	long sectionStart;
+	if (inpvirtual)
+	{
+		sectionStart = virtoffset;
+	}
+	else
+	{
+		sectionStart = offset+sizeof(struct MiO);
+	}
+	long sectionEnd = sectionStart+sectionSize;
 
 	// copy symbols (mark them)
 	for (long i = 0; i<inpfile->symbols; i++)
@@ -63,7 +71,9 @@ did you forget `NOLOAD'?\n"),
 		if (symFlags & MIO_SYMBOL_FLAG_LITERAL) continue;
 
 		// can't mix data and virtual
-		if ((symFlags & MIO_SYMBOL_FLAG_VIRTUAL) != inpvirtual) continue;
+		int symvirtual = 0;
+		if (symFlags & MIO_SYMBOL_FLAG_VIRTUAL) symvirtual = 1;
+		if (symvirtual != inpvirtual) continue;
 
 		long symStart = le64toh(inpsym->value);
 
@@ -156,7 +166,8 @@ dumpSection (const char *file, const char *section, struct MiO_Map *map)
 		struct inputFile *inpfile = &input[i];
 		if (!fnmatch(file, inpfile->path, 0))
 		{
-			long offset = 0;
+			long virtoffset = 0;
+			long offset     = 0;
 			while ((long)(offset+sizeof(struct MiO)) <= inpfile->size)
 			{
 				struct MiO *inpsection = inpfile->data+offset;
@@ -171,13 +182,15 @@ dumpSection (const char *file, const char *section, struct MiO_Map *map)
 					name[0] && // don't copy empty sections
 					!fnmatch(section, name, 0))
 				{
-					_dumpSectionCopy(inpfile, inpsection, offset, map);
+					_dumpSectionCopy(inpfile, inpsection, offset, virtoffset,
+						map);
 				}
 
 				// goto next section
 				if (inpsection->flags & MIO_FLAG_VIRTUAL)
 				{
-					offset += sizeof(struct MiO);
+					offset     += sizeof(struct MiO);
+					virtoffset += le64toh(inpsection->size);
 				}
 				else
 				{
