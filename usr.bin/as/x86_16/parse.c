@@ -23,7 +23,7 @@ parse_x86_16 (void)
 		0b10000000, 0b101,
 		0b00101100, 1)) return 1;
 	if (parse_x86_16_arithmetic(
-		"sub",
+		"ssb",
 		0b00011000,
 		0b10000000, 0b011,
 		0b00001110, 1)) return 1;

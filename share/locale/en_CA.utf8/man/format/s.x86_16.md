@@ -63,6 +63,13 @@ This document only applies in the context of `.arch x86_16`.
  - *mem* *reg16*
  - .word *mem* *literal*
 
+`add *algr*` -- Add on the given values
+`adc *algr*` -- Add with carry on the given values
+`sub *algr*` -- Subtract on the given values
+`ssb *algr*` -- Subtract with borrow on the given values
+`cmp *algr*` -- Compare on the given values
+`and *algr*` -- And on the given values
+`or *algr*`  -- Or on the given values
 `xor *algr*` -- Exclusive or on the given values
 
 `sjmp *literal*` -- Short (8bit displacement) jump
@@ -74,11 +81,26 @@ This document only applies in the context of `.arch x86_16`.
 `ljmp *mem*`
 `ljmp *literal* *literal*` -- Long jump into offset (first) and segment (second)
 
-`hlt` -- Halt until an interrupt
+`clc` -- Clear carry flag
+`cmc` -- Compliment carry flag
+`stc` -- Set carry flag
 
-`cli` -- Clear interrupt allow flag
+`cld` -- Clear direction flag
+`std` -- Set direction flag
+
+`cli` -- Clear interrupt flag
+`sti` -- Set interrupt flag
+`hlt` -- Halt until an interrupt
+`wait` -- Wait for co-processor
 
 `nop` -- Do nothing
+
+`es` -- Access data within the extra segment (for next instruction)
+`cs` -- Access data within the code segment (for next instruction)
+`ss` -- Access data within the stack segment (for next instruction)
+`ds` -- Access data within the data segment (for next instruction)
+
+`lock` -- Lock the system bus (for next instruction)
 
 
 # Rationale
