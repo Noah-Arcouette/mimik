@@ -10,6 +10,10 @@ _init:
 	mov %sp BSS_END
 	mov %bp %sp
 
+	; save the BH and DL registers
+	mov [diskNumber] %dl
+	mov [pageNumber] %bh
+
 	mov %si 0x7c00
 	mov %di 0x600
 	mov %cx 0x100
@@ -17,10 +21,15 @@ _init:
 
 	; addresses are good now
 	ljmp _start 0
-_start:
-	; find bootable partition
-	; load the partition and jump to it
-
-	jmp halt
 
 .global _init
+
+.section .bss vrw
+
+diskNumber:
+	.res.byte 1
+pageNumber:
+	.res.byte 1
+
+.global diskNumber
+.global pageNumber

@@ -71,6 +71,13 @@ The acceptable directives for standard assembler file are:
 	Set the global flag on the given symbol(s). Note, the symbols must be
 	defined prior to the global directive line.
 
+`.res.byte AMOUNT`
+	Reserve *amount* of bytes in a virtual section.
+
+`.res.word AMOUNT`
+	Reserve *amount* of words in a virtual section (depends on architecture for
+	size of a word).
+
 ## Labels
 
 A label shall be defined as such:
