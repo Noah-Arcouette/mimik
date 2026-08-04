@@ -8,9 +8,9 @@ SECTIONS
 	{
 		*(*.bss)
 	}
-	BSS_END = .;
+	BSS_END = 0x600;
 
-	. = 0x7c00;
+	. = 0x600;
 	.init :
 	{
 		*(*.init)
@@ -29,7 +29,7 @@ SECTIONS
 		*(*.data)
 	}
 
-	. = 0x7e00-2;
+	. = 0x800-2;
 	.mbr :
 	{
 		BYTE(0x55)
