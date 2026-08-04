@@ -33,7 +33,7 @@ parse (void)
 	#ifdef X86_16
 		if (le16toh(currentArchitecture.arch) == MIO_ARCH_ARCH_X86_16)
 		{
-			parse_x86_16();
+			if (parse_x86_16()) continue;
 		}
 	#endif
 
