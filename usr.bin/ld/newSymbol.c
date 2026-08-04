@@ -1,5 +1,6 @@
 #include "parse.h"
 #include "main.h"
+#include "lex.h"
 #include <libintl.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,6 +19,11 @@ newSymbol (int64_t val, long size, int type, const char *name)
 	// period
 	if (!strcmp(name, "."))
 	{
+		if (period >= 0 && val < period)
+		{
+			prettyprint(gettext("Refusing to set period backwards\n"));
+			errors++;
+		}
 		period = val;
 		return;
 	}
