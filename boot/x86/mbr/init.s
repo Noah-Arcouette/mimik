@@ -13,7 +13,7 @@ _init:
 	mov %si 0x7c00
 	mov %di 0x600
 	mov %cx 0x100
-	; repz movs .word
+	repz movs .word
 
 	; addresses are good now
 	ljmp _start 0

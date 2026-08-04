@@ -101,6 +101,21 @@ This document only applies in the context of `.arch x86_16`.
 `ljmp *mem*`
 `ljmp *literal* *literal*` -- Long jump into offset (first) and segment (second)
 
+`movs .byte`
+`movs .word` -- Move `%cx` amount of bytes from `%ds:%si` to `%es:%di`
+
+`cmps .byte`
+`cmps .word` -- Compare `%cx` amount of bytes from `%ds:%si` to `%es:%di`
+
+`scas .byte`
+`scas .word` -- Scan `%cx` amount of bytes from `%ds:%si` to `%es:%di`
+
+`lods .byte`
+`lods .word` -- Load `%cx` amount of bytes from `%ds:%si` to `%es:%di`
+
+`stos .byte`
+`stos .word` -- Store `%cx` amount of bytes from `%ds:%si` to `%es:%di`
+
 `clc` -- Clear carry flag
 `cmc` -- Compliment carry flag
 `stc` -- Set carry flag
@@ -121,6 +136,9 @@ This document only applies in the context of `.arch x86_16`.
 `ds` -- Access data within the data segment (for next instruction)
 
 `lock` -- Lock the system bus (for next instruction)
+
+`repz` -- Repeat until zero
+`repnz` -- Repeat until non-zero
 
 
 # Rationale

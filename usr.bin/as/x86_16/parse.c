@@ -7,6 +7,9 @@ parse_x86_16 (void)
 	if (parse_x86_16_mov()) return 1;
 	if (parse_x86_16_jmp()) return 1;
 
+	// string type
+	if (parse_x86_16_string()) return 1;
+
 	// arithmetics
 	if (parse_x86_16_arithmetic(
 		"add",
@@ -62,11 +65,13 @@ parse_x86_16 (void)
 	if (parse_x86_16_singlet("nop",  0b10010000)) return 1;
 
 	// prefixes
-	if (parse_x86_16_singlet("es",   0b00100110)) return 1;
-	if (parse_x86_16_singlet("cs",   0b00101110)) return 1;
-	if (parse_x86_16_singlet("ss",   0b00110110)) return 1;
-	if (parse_x86_16_singlet("ds",   0b00111110)) return 1;
-	if (parse_x86_16_singlet("lock", 0b11110000)) return 1;
+	if (parse_x86_16_singlet("repnz", 0b11110010)) return 1;
+	if (parse_x86_16_singlet("repz",  0b11110011)) return 1;
+	if (parse_x86_16_singlet("es",    0b00100110)) return 1;
+	if (parse_x86_16_singlet("cs",    0b00101110)) return 1;
+	if (parse_x86_16_singlet("ss",    0b00110110)) return 1;
+	if (parse_x86_16_singlet("ds",    0b00111110)) return 1;
+	if (parse_x86_16_singlet("lock",  0b11110000)) return 1;
 
 	return 0;
 }

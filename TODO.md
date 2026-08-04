@@ -182,12 +182,6 @@ as:
 		rcl
 		rcr
 		test
-		rep
-		movs
-		cmps
-		scas
-		lods
-		stos
 		call
 		ret
 		je/jz
