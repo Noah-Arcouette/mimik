@@ -30,8 +30,8 @@ _fill (long pos)
 			return;
 		}
 		outbuf = newbuf;
-		memset(outbuf+oldsz, 0, pos-oldsz);
 	}
+	memset(outbuf+oldsz, 0, pos-oldsz);
 }
 
 void
