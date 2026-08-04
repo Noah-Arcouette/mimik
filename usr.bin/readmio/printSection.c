@@ -49,6 +49,7 @@ printSection (FILE *fp, const char *path)
 	printf(gettext("\tFlags: %02x ("), section.flags);
 	if (section.flags & MIO_FLAG_VIRTUAL)
 	{
+		size = 0; // no data in virtuals
 		printf(gettext(" Virtual"));
 	}
 	printf(gettext(" )\n"));
