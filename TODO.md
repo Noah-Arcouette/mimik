@@ -190,7 +190,6 @@ as:
 		lods
 		stos
 		call
-		jmp
 		ret
 		je/jz
 		jl

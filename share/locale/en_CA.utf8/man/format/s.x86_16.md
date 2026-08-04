@@ -67,7 +67,12 @@ This document only applies in the context of `.arch x86_16`.
 
 `sjmp *literal*` -- Short (8bit displacement) jump
 
+`jmp *reg16*`
+`jmp *mem*`
 `jmp *literal*` -- Near (16bit displacement) jump
+
+`ljmp *mem*`
+`ljmp *literal* *literal*` -- Long jump into offset (first) and segment (second)
 
 `hlt` -- Halt until an interrupt
 

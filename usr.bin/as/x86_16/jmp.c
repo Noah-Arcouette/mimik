@@ -1,3 +1,4 @@
+#include "../parse.h"
 #include "../main.h"
 #include "../emit.h"
 #include "x86_16.h"
@@ -40,22 +41,113 @@ parse_x86_16_jmp (void)
 	{
 		lex();
 
+		int reg;
+		struct mem16 addr;
+
 		// symbol
-		if (ltok.type != TOK_SYMBOL)
+		if (ltok.type == TOK_SYMBOL)
 		{
-			prettyprint(gettext("Expected a symbol\n"));
-			errors++;
+			// emit the data
+			char buf = 0b11101001;
+			emit(&buf, 1);
+
+			emitGap(ltok.buf, MIO_GAP_TYPE_DISP_LE16|MIO_GAP_TYPE_EXECUTING);
+
+			lex();
+			return 1;
+		}
+		// register
+		else if (parse_x86_16_reg16(&reg))
+		{
+			// indirect jump
+			char buf[2] = { 0xff, 0b11100000|reg };
+			emit(buf, 2);
+			return 1;
+		}
+		// address
+		else if (parse_x86_16_mem16(&addr, MIO_GAP_TYPE_EXECUTING))
+		{
+			// indirect jump
+			char buf[1] = { 0xff };
+			emit(buf, 1);
+			addr.modrm |= 0b100000;
+			emit_x86_16_mem16(&addr);
+			free_x86_16_mem16(&addr);
+			return 1;
+		}
+		prettyprint("Expected a symbol, address, or 16bit register\n");
+		recover();
+		return 1;
+	}
+	// else
+
+	// ljmp
+	if (!strcmp(ltok.buf, "ljmp"))
+	{
+		lex();
+
+		long val;
+		struct mem16 addr;
+
+		// symbol
+		if (ltok.type == TOK_SYMBOL) // fall through on success
+		{
+			// emit the data
+			char buf = 0b11101010;
+			emit(&buf, 1);
+
+			emitGap(ltok.buf, MIO_GAP_TYPE_LIT_LE16|MIO_GAP_TYPE_EXECUTING);
+
+			lex();
+			// fall through
+		}
+		// number
+		else if (parse_number(&val)) // fall through on success
+		{
+			// emit the data
+			char buf[3] = { 0b11101010, val&0xff, (val>>8)&0xff };
+			emit(buf, 3);
+			// fall through
+		}
+		// address
+		else if (parse_x86_16_mem16(&addr, MIO_GAP_TYPE_READING))
+		{
+			// indirect jump
+			char buf[1] = { 0xff };
+			emit(buf, 1);
+			addr.modrm |= 0b101000;
+			emit_x86_16_mem16(&addr);
+			free_x86_16_mem16(&addr);
+			return 1;
+		}
+		else
+		{
+			prettyprint("Expected a symbol, address, or number\n");
 			recover();
 			return 1;
 		}
 
-		// emit the data
-		char buf = 0b11101001;
-		emit(&buf, 1);
+		// number or symbol
+		// now again, number or symbol
 
-		emitGap(ltok.buf, MIO_GAP_TYPE_DISP_LE16|MIO_GAP_TYPE_EXECUTING);
+		// symbol
+		if (ltok.type == TOK_SYMBOL) // fall through on success
+		{
+			emitGap(ltok.buf, MIO_GAP_TYPE_LIT_LE16|MIO_GAP_TYPE_EXECUTING);
 
-		lex();
+			lex();
+			return 1;
+		}
+		// number
+		if (parse_number(&val)) // fall through on success
+		{
+			// emit the data
+			char buf[2] = { val&0xff, (val>>8)&0xff };
+			emit(buf, 2);
+			return 1;
+		}
+		prettyprint("Expected a symbol or number\n");
+		recover();
 		return 1;
 	}
 	// else
