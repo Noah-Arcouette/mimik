@@ -128,10 +128,11 @@ extern void emit_x86_16_mem16 (const struct mem16 *mem16);
  * @param immCommand reg|mem, imm
  * @param accOpcode acc, imm
  * @param _signed Is the instruction signed
+ * @param direction Is the instruction reversible
  * @returns true if the instruction was consumed
  * @file x86_16/arithmetic.c
  */
 extern int parse_x86_16_arithmetic (const char *mnemonic, int opcode,
-	int immOpcode, int immCommand, int accOpcode, int _signed);
+	int immOpcode, int immCommand, int accOpcode, int _signed, int direction);
 
 #endif

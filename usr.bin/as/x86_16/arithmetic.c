@@ -7,7 +7,7 @@
 
 int
 parse_x86_16_arithmetic (const char *mnemonic, int opcode, int immOpcode,
-	int immCommand, int accOpcode, int _signed)
+	int immCommand, int accOpcode, int _signed, int direction)
 {
 	// op
 	if (ltok.type != TOK_SYMBOL || strcmp(ltok.buf, mnemonic)) return 0;
@@ -133,7 +133,10 @@ parse_x86_16_arithmetic (const char *mnemonic, int opcode, int immOpcode,
 		// mem
 		else if (parse_x86_16_mem16(&mem, MIO_GAP_TYPE_READING))
 		{
-			char inst[1] = { opcode|3 };
+			char inst[1];
+			if (direction) inst[1] = opcode|3;
+			else           inst[1] = opcode|1;
+
 			emit(inst, 1);
 			mem.modrm |= reg<<3;
 			emit_x86_16_mem16(&mem);
