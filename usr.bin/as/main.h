@@ -50,6 +50,8 @@ enum tokenType
 	TOK_SYSFLAG,
 	TOK_SECTION,
 	TOK_GLOBAL,
+	TOK_BYTE,
+	TOK_WORD,
 	// values
 	TOK_SYMBOL,
 	TOK_REGISTER

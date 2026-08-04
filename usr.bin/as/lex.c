@@ -136,6 +136,16 @@ _try_again:
 				ltok.type = TOK_GLOBAL;
 				break;
 			}
+			if (!strcmp(ltok.buf, ".byte"))
+			{
+				ltok.type = TOK_BYTE;
+				break;
+			}
+			if (!strcmp(ltok.buf, ".word"))
+			{
+				ltok.type = TOK_WORD;
+				break;
+			}
 
 			ltok.type = TOK_SYMBOL;
 			break;
