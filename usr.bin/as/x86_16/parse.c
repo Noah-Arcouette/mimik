@@ -57,6 +57,7 @@ parse_x86_16 (void)
 		0b00110100, 0)) return 1;
 
 	// singlets
+	if (parse_x86_16_singlet("ret",  0b11000011)) return 1;
 	if (parse_x86_16_singlet("clc",  0b11111000)) return 1;
 	if (parse_x86_16_singlet("cmc",  0b11110101)) return 1;
 	if (parse_x86_16_singlet("stc",  0b11111001)) return 1;

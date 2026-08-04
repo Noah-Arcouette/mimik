@@ -183,7 +183,6 @@ as:
 		rcr
 		test
 		call
-		ret
 		je/jz
 		jl
 		jle
@@ -289,6 +288,7 @@ ld:
 
 manuals:
 	include/mio.h
+	abi/bios
 disassembler
 mio2pe32+
 fuzzy testing, valgrind, unit-tests, dbg, profiling

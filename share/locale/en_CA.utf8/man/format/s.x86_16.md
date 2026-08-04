@@ -118,6 +118,8 @@ This document only applies in the context of `.arch x86_16`.
 `stos .byte`
 `stos .word` -- Store `%cx` amount of bytes from `%ds:%si` to `%es:%di`
 
+`ret` -- Return from `call`
+
 `clc` -- Clear carry flag
 `cmc` -- Compliment carry flag
 `stc` -- Set carry flag
