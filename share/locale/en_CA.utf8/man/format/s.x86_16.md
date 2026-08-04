@@ -69,6 +69,20 @@ This document only applies in the context of `.arch x86_16`.
  - *mem* *reg16*
  - .word *mem* *literal*
 
+`mov *reg16* *reg16*`
+`mov *reg16* *literal*`
+`mov *reg16* *mem*`
+`mov *reg16* *sreg*`
+`mov *reg8* *reg8*`
+`mov *reg8* *literal*`
+`mov *reg8* *mem*`
+`mov *mem* *reg16*`
+`mov *mem* *reg8*`
+`mov *mem* *sreg*`
+`mov .byte *mem* *literal*`
+`mov .word *mem* *literal*` -- Move data around, first operand is always
+	destination
+
 `add *algr*` -- Add on the given values
 `adc *algr*` -- Add with carry on the given values
 `sub *algr*` -- Subtract on the given values

@@ -145,7 +145,6 @@ cc:
 	linking
 as:
 	x86 16bit:
-		mov
 		push
 		pop
 		xchg

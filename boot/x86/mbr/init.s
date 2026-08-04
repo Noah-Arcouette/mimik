@@ -4,11 +4,11 @@
 _init:
 	; setup segments
 	xor %ax %ax
-	; mov %es %ax
-	; mov %ds %ax
-	; mov %ss %ax
-	; mov %sp BSS_END
-	; mov %bp %sp
+	mov %es %ax
+	mov %ds %ax
+	mov %ss %ax
+	mov %sp BSS_END
+	mov %bp %sp
 	ljmp _init.next 0
 _init.next:
 	; move the boot code
@@ -18,3 +18,7 @@ _init.next:
 	jmp halt
 
 .global _init
+
+.section .data rw
+_data:
+	jmp _init
