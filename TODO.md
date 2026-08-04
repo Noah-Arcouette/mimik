@@ -277,7 +277,6 @@ tup, kconfig, git
 # Boot Image
 
 mbr.bin:
-	initiate state and relocate
 	find active partition
 	load partition and hand-off
 	MBR partitioning support
