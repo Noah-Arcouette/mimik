@@ -8,6 +8,7 @@ parse_x86_16 (void)
 	if (parse_x86_16_jmp()) return 1;
 	if (parse_x86_16_interrupt()) return 1;
 	if (parse_x86_16_jcc()) return 1;
+	if (parse_x86_16_inc_dec()) return 1;
 
 	// reserves
 	if (parse_x86_16_reserve()) return 1;

@@ -158,10 +158,8 @@ as:
 		sahf
 		pushf
 		popf
-		inc
 		aaa
 		baa
-		dec
 		neg
 		aas
 		das

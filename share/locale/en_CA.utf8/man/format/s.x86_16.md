@@ -136,6 +136,16 @@ This document only applies in the context of `.arch x86_16`.
 `loopne *symbol*` -- Loop if `%cx` and not equal (and decrement `%cx`)
 `jcxz *symbol*` -- Jump if `%cx`
 
+`inc *reg8*`
+`inc *reg16*`
+`inc .byte *mem*`
+`inc .word *mem*` -- Increment the given value
+
+`dec *reg8*`
+`dec *reg16*`
+`dec .byte *mem*`
+`dec .word *mem*` -- Decrement the given value
+
 `int *number*` -- Trigger an interrupt of the given vector
 
 `movs .byte`
