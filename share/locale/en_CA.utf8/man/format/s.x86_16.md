@@ -40,6 +40,12 @@ This document only applies in the context of `.arch x86_16`.
  - `%si` -- Source Index
  - `%di` -- Destination Index
 
+*sreg* -- A segmentation register
+ - `%es` -- Extra segment
+ - `%cs` -- Code segment
+ - `%ds` -- Data segment
+ - `%ss` -- Stack segment
+
 *mem* -- A memory address or register:
  - `[%bx+%si]` with optional `+*literal*` or `-*literal*`
  - `[%bx+%di]` with optional `+*literal*` or `-*literal*`

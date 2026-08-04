@@ -33,6 +33,14 @@ extern int parse_x86_16_reg8 (int *reg);
  */
 extern int parse_x86_16_reg16 (int *reg);
 
+/**
+ * Consume a segment register
+ * @file x86_16/sreg.c
+ * @param reg The register value
+ * @returns True if it was consumed
+ */
+extern int parse_x86_16_sreg (int *reg);
+
 struct mem16
 {
 	char modrm;
