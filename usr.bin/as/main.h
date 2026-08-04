@@ -52,6 +52,8 @@ enum tokenType
 	TOK_GLOBAL,
 	TOK_BYTE,
 	TOK_WORD,
+	TOK_RES_BYTE,
+	TOK_RES_WORD,
 	// values
 	TOK_SYMBOL,
 	TOK_REGISTER
