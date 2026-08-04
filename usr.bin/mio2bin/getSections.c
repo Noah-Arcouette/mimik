@@ -28,12 +28,14 @@ getSections (void)
 		if (!strncmp((char *)section->name, (char *)MIO_SPECIAL_MIO_ARCH, 256))
 		{
 			// ignore it
+			mustBeThere = 1;
 		}
 		// mio.entry
 		else if (!strncmp((char *)section->name, (char *)MIO_SPECIAL_MIO_ENTRY,
 			256))
 		{
 			// ignore it
+			mustBeThere = 1;
 		}
 		// mio.symbols
 		else if (!strncmp((char *)section->name,
@@ -41,6 +43,7 @@ getSections (void)
 		{
 			symbol = (void *)&buf[offset+sizeof(struct MiO)];
 			symbols = le64toh(section->size)/sizeof(struct MiO_Symbol);
+			mustBeThere = 1;
 		}
 		// mio.gaps
 		else if (!strncmp((char *)section->name, (char *)MIO_SPECIAL_MIO_GAPS,
@@ -48,6 +51,7 @@ getSections (void)
 		{
 			gap = (void *)&buf[offset+sizeof(struct MiO)];
 			gaps = le64toh(section->size)/sizeof(struct MiO_Gap);
+			mustBeThere = 1;
 		}
 		// mio.maps
 		else if (!strncmp((char *)section->name, (char *)MIO_SPECIAL_MIO_MAPS,
@@ -55,6 +59,7 @@ getSections (void)
 		{
 			map = (void *)&buf[offset+sizeof(struct MiO)];
 			maps = le64toh(section->size)/sizeof(struct MiO_Map);
+			mustBeThere = 1;
 		}
 		// other specials
 		else if (section->name[0] != '.')

@@ -52,7 +52,7 @@ readIn (const char *path)
 		}
 
 		// copy the data
-		memcpy(buf, inbuf, amt);
+		memcpy(&buf[bufsz-amt], inbuf, amt);
 
 		if (amt != BUFSIZ)
 		{
