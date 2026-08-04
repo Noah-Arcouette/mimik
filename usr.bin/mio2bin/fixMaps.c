@@ -14,6 +14,12 @@ fixMaps (void)
 	{
 		struct MiO_Map *m = &map[i];
 
+		// skip virtuals unless we're told not to
+		if (m->flags & MIO_MAP_FLAG_VIRTUAL && !(argFlags & LOAD_VIRTUAL))
+		{
+			continue;
+		}
+
 		if (m->flags & MIO_MAP_FLAG_VIRTUAL_IS_ADDRESS)
 		{
 			long v = le64toh(m->virtual);
