@@ -148,7 +148,7 @@ parse_x86_16_arithmetic (const char *mnemonic, int opcode, int immOpcode,
 		}
 	}
 	// mem
-	if (parse_x86_16_mem16(&mem, MIO_GAP_TYPE_WRITING))
+	else if (parse_x86_16_mem16(&mem, MIO_GAP_TYPE_WRITING))
 	{
 		// reg16
 		if (parse_x86_16_reg16(&reg))
@@ -184,8 +184,87 @@ parse_x86_16_arithmetic (const char *mnemonic, int opcode, int immOpcode,
 			recover();
 		}
 	}
-	/// @todo .byte mem imm8
-	/// @todo .word mem imm16
+	// .byte mem imm8
+	else if (ltok.type == TOK_BYTE)
+	{
+		lex();
+		long val;
 
-	return 0;
+		if (!parse_x86_16_mem16(&mem, MIO_GAP_TYPE_WRITING))
+		{
+			prettyprint(gettext("Expected a memory address\n"));
+			errors++;
+			recover();
+			return 1;
+		}
+
+		char buf[1] = { immOpcode };
+		emit(buf, 1);
+		mem.modrm |= immCommand<<3;
+		emit_x86_16_mem16(&mem);
+		free_x86_16_mem16(&mem);
+
+		if (parse_number(&val))
+		{
+			char dat[1] = { val&0xff };
+			emit(dat, 1);
+		}
+		else if (ltok.type == TOK_SYMBOL)
+		{
+			emitGap(ltok.buf, MIO_GAP_TYPE_LIT_BYTE);
+			lex();
+		}
+		else
+		{
+			prettyprint(gettext("Expected a number or symbol\n"));
+			errors++;
+			recover();
+		}
+	}
+	// .word mem imm16
+	else if (ltok.type == TOK_WORD)
+	{
+		lex();
+		long val;
+
+		if (!parse_x86_16_mem16(&mem, MIO_GAP_TYPE_WRITING))
+		{
+			prettyprint(gettext("Expected a memory address\n"));
+			errors++;
+			recover();
+			return 1;
+		}
+
+		char buf[1] = { immOpcode|1 };
+		emit(buf, 1);
+		mem.modrm |= immCommand<<3;
+		emit_x86_16_mem16(&mem);
+		free_x86_16_mem16(&mem);
+
+		if (parse_number(&val))
+		{
+			char dat[2] = { val&0xff, (val>>8)&0xff };
+			emit(dat, 2);
+		}
+		else if (ltok.type == TOK_SYMBOL)
+		{
+			emitGap(ltok.buf, MIO_GAP_TYPE_LIT_LE16);
+			lex();
+		}
+		else
+		{
+			prettyprint(gettext("Expected a number or symbol\n"));
+			errors++;
+			recover();
+		}
+	}
+	else
+	{
+		prettyprint(gettext(
+			"Expected .byte, .word, a memory address, or a register\n"));
+		errors++;
+		recover();
+	}
+
+	return 1;
 }
