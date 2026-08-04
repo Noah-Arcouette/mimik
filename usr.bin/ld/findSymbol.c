@@ -30,7 +30,7 @@ findSymbol (const char *name)
 		// for each symbol
 		for (long j = 0; j<file->symbols; j++)
 		{
-			struct MiO_Symbol *symbol = &input->symbol[j];
+			struct MiO_Symbol *symbol = &file->symbol[j];
 
 			if (!strncmp((char *)symbol->name, name, sizeof(symbol->name)))
 			{
