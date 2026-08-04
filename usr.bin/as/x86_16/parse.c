@@ -57,6 +57,11 @@ parse_x86_16 (void)
 		0b00110000,
 		0b10000000, 0b110,
 		0b00110100, 0, 1)) return 1;
+	if (parse_x86_16_arithmetic(
+		"test",
+		0b10000100,
+		0b11110110, 0b000,
+		0b10101000, 0, 0)) return 1;
 
 	// singlets
 	if (parse_x86_16_singlet("ret",  0b11000011)) return 1;

@@ -179,7 +179,6 @@ as:
 		ror
 		rcl
 		rcr
-		test
 		call
 		into
 		iret

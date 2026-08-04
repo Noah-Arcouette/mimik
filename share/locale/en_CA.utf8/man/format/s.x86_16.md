@@ -91,6 +91,7 @@ This document only applies in the context of `.arch x86_16`.
 `and *algr*` -- And on the given values
 `or *algr*`  -- Or on the given values
 `xor *algr*` -- Exclusive or on the given values
+`test *algr*` -- Test on the given values
 
 `sjmp *symbol*` -- Short (8bit displacement) jump
 
