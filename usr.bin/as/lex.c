@@ -40,6 +40,7 @@ _try_again:
 	ltok.offset += ltok.size;
 	ltok.size    = 0;
 
+	int d;
 	int c = fgetc(lfp);
 
 	switch (c)
@@ -73,6 +74,18 @@ _try_again:
 		}
 		ungetc(c, lfp); // unget the non-matching character
 		ltok.type = TOK_REGISTER;
+		break;
+	case '"':
+		d = '\\';
+		while (c != '"' || d == '\\')
+		{
+			d = c;
+			_pushc(c);
+			c = fgetc(lfp);
+		}
+		_pushc(c);
+		c = fgetc(lfp);
+		ltok.type = TOK_STRING;
 		break;
 	default:
 		if (isdigit(c))

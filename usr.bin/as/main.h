@@ -41,6 +41,7 @@ enum tokenType
 	TOK_UNKNOWN = 0xff,
 	TOK_NEWLINE,
 	TOK_NUMBER,
+	TOK_STRING,
 	// directives
 	TOK_ARCH,
 	TOK_UARCH,
