@@ -31,7 +31,9 @@ prettyprint (const char *fmt, ...)
 	// try to seek into the file
 
 	// save the current offset
-	long off = ftell(lfp);
+	long off = -1;
+	if (lfp) off = ftell(lfp);
+
 	if (off == -1) goto _fallback;
 
 	// seek to the start

@@ -48,6 +48,7 @@ main (int argc, char *argv[])
 
 		// free the file
 		fclose(lfp);
+		lfp = NULL;
 
 		resetToken();
 	}
