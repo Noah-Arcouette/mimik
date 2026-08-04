@@ -32,10 +32,17 @@ extern int parse_global (void);
 /**
  * Attempt to consume a number
  * @param val The value of the number, or NULL
- * @returns True if a number
+ * @returns True if consumed
  * @file parse/number.c
  */
 extern int parse_number (long *val);
+
+/**
+ * Attempt to consume a reservation directive
+ * @returns True if consumed
+ * @file parse/reserve.c
+ */
+extern int parse_reserve (void);
 
 #ifdef X86_16
 /**

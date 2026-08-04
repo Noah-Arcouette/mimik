@@ -37,6 +37,9 @@ parse (void)
 		}
 	#endif
 
+		// reservations
+		if (parse_reserve()) continue;
+
 		// label
 		if (parse_label()) continue;
 
