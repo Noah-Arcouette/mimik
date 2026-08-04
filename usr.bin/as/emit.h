@@ -56,6 +56,13 @@ extern size_t             symbols;
 extern long virtualOffset;
 
 /**
+ * Reserve data in current section
+ * @param amt The amount of bytes to reserve
+ * @file emit/reserve.c
+ */
+extern void reserve (long amt);
+
+/**
  * The raw buffer of the output file
  * @file emit.c
  */
