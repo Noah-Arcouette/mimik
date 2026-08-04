@@ -13,6 +13,7 @@ emitSection (const char *name)
 
 	currentSection = -1; // clear current section
 	currentSymbol  = -1;
+	symbolFlags    = 0;
 
 	// check if the name can fix
 	if (strlen(name) > sizeof(newSection.name))
