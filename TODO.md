@@ -276,14 +276,15 @@ tup, kconfig, git
 # Boot Image
 
 mbr.bin:
-	find active partition
 	load partition and hand-off
-	MBR partitioning support
-	EBR partitioning support
-	GPT partitioning support
+	+EBR partitioning support
+	+GPT partitioning support
 vbr.bin
 mkfs
-fdisk
+fdisk:
+	MBR partitioning support
+	+EBR partitioning support
+	+GPT partitioning support
 boot.efi
 
 

@@ -1,0 +1,27 @@
+include_rules
+
+# toolchain
+ifeq (@(BUILD_TOOL_FDISK),y)
+FLAGS=
+
+ifeq (@(BUILD_TOOL_FDISK_MBR),y)
+FLAGS+=-DMBR
+# : foreach mbr/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/fdisk.d/mbr/%B.o {tool-obj}
+endif
+
+: foreach *.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/fdisk.d/%B.o {tool-obj}
+: {tool-obj}  |> !hostccld |> $(OBJ)/tool/fdisk | $(OBJ)/tool/<fdisk>
+endif
+
+# system
+ifeq (@(USR_SBIN_FDISK),y)
+FLAGS=
+
+ifeq (@(USR_SBIN_FDISK_MBR),y)
+FLAGS+=-DMBR
+# : foreach mbr/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.sbin/fdisk/mbr/%B.o {obj}
+endif
+
+: foreach *.c |> !cc $(FLAGS) |> $(OBJ)/usr.sbin/fdisk/%B.o {obj}
+: {obj}       |> !ccld |> $(DIST)/usr/sbin/fdisk | $(ROOT)/<dist>
+endif

@@ -57,3 +57,8 @@ ifeq (@(BUILD_TOOL_MIO2BIN),y)
 !mio2bin = | $(OBJ)/tool/<mio2bin> |> ^ MIO2BIN  %b^ \
 	$(EXEC) $(OBJ)/tool/mio2bin -o %o %f |>
 endif
+
+ifeq (@(BUILD_TOOL_FDISK),y)
+!fdisk = | $(OBJ)/tool/<fdisk> |> ^ FDISK    %o^ \
+	$(EXEC) $(OBJ)/tool/fdisk |>
+endif

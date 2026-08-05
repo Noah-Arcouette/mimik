@@ -82,6 +82,12 @@ ifeq (@(USR_BIN_MIO2BIN),y)
 FILES+=mio2bin.md
 endif
 
+
+# usr.sbin
+ifeq (@(USR_SBIN_FDISK),y)
+FILES+=fdisk.md
+endif
+
 : foreach $(FILES) |> !comp \
 	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b$(COMP_EXT) | \
 	$(ROOT)/<dist>

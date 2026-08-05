@@ -1,0 +1,9 @@
+menuconfig USR_SBIN_FDISK
+	bool "fdisk"
+	help
+		Partition disks
+if USR_SBIN_FDISK
+	config USR_SBIN_FDISK_MBR
+		bool "MBR support"
+		default BUILD_TARGET_X86_64
+endif
