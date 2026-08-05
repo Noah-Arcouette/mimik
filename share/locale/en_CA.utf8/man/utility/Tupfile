@@ -83,6 +83,7 @@ FILES+=mio2bin.md
 endif
 
 : foreach $(FILES) |> !comp \
-	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b$(COMP_EXT)
+	|> $(DIST)/usr/share/locale/en_CA.utf8/man/utility/%b$(COMP_EXT) | \
+	$(ROOT)/<dist>
 
 endif

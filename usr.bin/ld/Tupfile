@@ -26,5 +26,5 @@ endif
 : foreach parse/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/ld/parse/%B.o {obj}
 : foreach lex/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/ld/lex/%B.o {obj}
 : foreach *.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/ld/%B.o {obj}
-: {obj} |> !ccld |> $(DIST)/usr/bin/ld
+: {obj} |> !ccld |> $(DIST)/usr/bin/ld | $(ROOT)/<dist>
 endif

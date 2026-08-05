@@ -25,7 +25,8 @@ FILES+=o.md
 FILES+=so.md
 endif
 
-: foreach $(FILES) |> !comp \
-	|> $(DIST)/usr/share/locale/en_CA.utf8/man/format/%b$(COMP_EXT)
+: foreach $(FILES) |> !comp |> \
+	$(DIST)/usr/share/locale/en_CA.utf8/man/format/%b$(COMP_EXT) | \
+	$(ROOT)/<dist>
 
 endif

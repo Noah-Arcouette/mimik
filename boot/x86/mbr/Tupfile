@@ -5,6 +5,6 @@ include_rules
 
 SCRIPT=linker.ld
 : {obj} |> !ldscript |> $(OBJ)/boot/x86/mbr/mbr {bin}
-: {bin} |> !mio2bin  |> $(DIST)/boot/mbr.bin
+: {bin} |> !mio2bin  |> $(DIST)/boot/mbr.bin | $(ROOT)/<dist>
 
 endif

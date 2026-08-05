@@ -9,5 +9,5 @@ endif
 # normal build
 ifeq (@(USR_BIN_STRIP),y)
 : foreach *.c |> !cc   |> $(OBJ)/usr.bin/strip/%B.o {obj}
-: {obj}       |> !ccld |> $(DIST)/usr/bin/strip
+: {obj}       |> !ccld |> $(DIST)/usr/bin/strip | $(ROOT)/<dist>
 endif

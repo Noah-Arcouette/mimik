@@ -31,5 +31,5 @@ endif
 : foreach parse/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/as/parse/%B.o {obj}
 : foreach emit/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/as/emit/%B.o {obj}
 : foreach *.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/as/%B.o {obj}
-: {obj} |> !ccld |> $(DIST)/usr/bin/as
+: {obj} |> !ccld |> $(DIST)/usr/bin/as | $(ROOT)/<dist>
 endif

@@ -58,4 +58,4 @@ FILES+=chgrp.c
 endif
 
 
-: foreach $(FILES) |> !ccld |> $(DIST)/bin/%B
+: foreach $(FILES) |> !ccld |> $(DIST)/bin/%B | $(ROOT)/<dist>

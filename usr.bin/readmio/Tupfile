@@ -9,5 +9,5 @@ endif
 
 ifeq (@(USR_BIN_READMIO),y)
 : foreach *.c |> !cc |> $(OBJ)/usr.bin/readmio/%B.o {obj}
-: {obj} |> !ccld |> $(DIST)/usr/bin/readmio
+: {obj} |> !ccld |> $(DIST)/usr/bin/readmio | $(ROOT)/<dist>
 endif

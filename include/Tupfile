@@ -6,4 +6,4 @@ ifeq (@(INCLUDE_MIO_H),y)
 FILES+=mio.h
 endif
 
-: foreach $(FILES) |> !cp |> $(DIST)/usr/include/%b
+: foreach $(FILES) |> !cp |> $(DIST)/usr/include/%b | $(ROOT)/<dist>
