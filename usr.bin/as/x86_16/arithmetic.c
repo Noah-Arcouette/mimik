@@ -134,8 +134,8 @@ parse_x86_16_arithmetic (const char *mnemonic, int opcode, int immOpcode,
 		else if (parse_x86_16_mem16(&mem, MIO_GAP_TYPE_READING))
 		{
 			char inst[1];
-			if (direction) inst[1] = opcode|3;
-			else           inst[1] = opcode|1;
+			if (direction) inst[0] = opcode|3;
+			else           inst[0] = opcode|1;
 
 			emit(inst, 1);
 			mem.modrm |= reg<<3;
