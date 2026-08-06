@@ -121,7 +121,7 @@ main (int argc, char *argv[])
 	{
 		fprintf(stderr, gettext("%s: Disk may have been corrupted\n"), self);
 	}
-	else
+	else if (errors)
 	{
 		fprintf(stderr, gettext("%s: Disk has not been written to\n"), self);
 	}
