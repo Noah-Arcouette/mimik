@@ -8,7 +8,7 @@ _start:
 	je _start.no_partition
 
 	; load the partition and jump to it
-	jmp halt
+	jmp load_partition
 _start.no_partition:
 	mov %si _start.no_partition.msg
 	call puts
@@ -18,4 +18,4 @@ _start.no_partition:
 
 .section .rodata r
 _start.no_partition.msg:
-	.byte "Cannot find bootable partition\n\r\0"
+	.byte "No bootable partition\n\r\0"
