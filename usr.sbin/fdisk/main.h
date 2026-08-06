@@ -78,6 +78,13 @@ extern void setBootCode (const char *path);
  */
 extern void updateCHS (void);
 
+/**
+ * Print a size
+ * @file printSize.c
+ * @param val The sized value to print
+ */
+extern void printSize (unsigned long val);
+
 /// @defgroup MBR support
 /**
  * Enter the MBR
