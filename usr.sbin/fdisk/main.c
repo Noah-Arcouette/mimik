@@ -34,9 +34,10 @@ main (int argc, char *argv[])
 	// -l
 
 	// -i
-
 	// -m
 	// -M
+
+	// (mbr)
 	// -u
 
 	fclose(disk);

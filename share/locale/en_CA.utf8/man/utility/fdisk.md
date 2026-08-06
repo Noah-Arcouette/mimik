@@ -39,7 +39,7 @@ format:
 
 The **-A** and **-Z** options shall support the above format excluding step 1.
 
-
+(basic partitioning)
 **-p index**
 	Select the partition with the given *index* for modification. If the
 	partition selected was empty, create it containing the rest of the disk with
@@ -51,9 +51,6 @@ The **-A** and **-Z** options shall support the above format excluding step 1.
 **-s start**
 	Change the start position of the partition -- will not move internal data.
 
-**-o offset**
-	Move the selected partition to the given offset, along with its data.
-
 **-t type**
 	Set the type to the given value. Or set the type using one of the following
 	aliases:
@@ -61,12 +58,27 @@ The **-A** and **-Z** options shall support the above format excluding step 1.
 	 - `root` -- The operating system root partition
 	 - `fs`   -- Generic file system
 
+**-a flag**
+	Set or clear a flag on the current partition.
+
+**-d**
+	Dry run, do not commit any changes after this flag. Note: the file will
+	still be opened for writing.
+
+**-l**
+	List disk information, printing out any modifications made at this point.
+
+(partition data)
 **-f file**
 	Shall load the given file into the selected partition, if the file does not
 	fit in the current partition the partition may be grown so long as the
 	selected partition is the last non-empty partition in the current
 	partitioning mode.
 
+**-o offset**
+	Move the selected partition to the given offset, along with its data.
+
+(disk geometry)
 **-A alignment**
 	Set partition alignment, defaults to `1MiB`.
 
@@ -82,23 +94,21 @@ The **-A** and **-Z** options shall support the above format excluding step 1.
 **-H value**
 	Set the amount of heads on disk.
 
-**-d**
-	Dry run, do not commit any changes after this flag.
-
+(partition map)
 **-i id**
 	Set the disk identifier, format depends on the partitioning mode.
 
-**-l**
-	List disk information, printing out any modifications made at this point.
+**-m mode**
+	Enter partitioning mode, reading current map.
 
-**-a flag**
-	Set or clear a flag on the current partition.
+**-M mode**
+	Create a new map, and enter it.
 
 (MBR mode)
-**-m**
+**-m mbr**
 	Enter MBR partitioning mode.
 
-**-M**
+**-M mbr**
 	Create a new empty MBR, and enter it.
 
 **-u code**
