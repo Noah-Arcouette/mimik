@@ -12,7 +12,7 @@ enterTable (const char *table, int load)
 	{
 	#ifdef MBR
 		partMode = MODE_MBR;
-		mbr_enterTable(load);
+		mbr_enterTable(load, 0);
 	#else
 		partMode = MODE_NONE;
 		fprintf(stderr, gettext("%s: MBR partitioning not installed\n"), self);

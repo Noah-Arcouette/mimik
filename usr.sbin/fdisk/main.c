@@ -24,6 +24,10 @@ main (int argc, char *argv[])
 	if (openDisk(argc, argv)) return 1;
 	self = argv[1];
 
+#ifdef MBR
+	mbr_enterTable(1, 1);
+#endif
+
 	int c;
 	argv++;
 	argc--;

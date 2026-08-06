@@ -10,12 +10,14 @@ struct mbr mbr;
 int writeMBR = 0;
 
 void
-mbr_enterTable (int load)
+mbr_enterTable (int load, int try)
 {
 	if (load)
 	{
 		if (fseek(disk, 0, SEEK_SET) < 0)
 		{
+			if (try) return;
+
 			fprintf(stderr, gettext("%s: Failed to seek, %s\n"), self,
 				strerror(errno));
 			errors++;
@@ -24,6 +26,8 @@ mbr_enterTable (int load)
 
 		if (fread(&mbr, sizeof(mbr), 1, disk) != 1)
 		{
+			if (try) return;
+
 			if (feof(disk))
 			{
 				fprintf(stderr,
@@ -38,6 +42,9 @@ mbr_enterTable (int load)
 			errors++;
 			return;
 		}
+
+		// check if the signature is there, only load if its not corrupt
+		if (try && mbr.magic != htole16(MBR_MAGIC)) return;
 	}
 	else
 	{

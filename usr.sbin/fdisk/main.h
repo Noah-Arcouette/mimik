@@ -95,9 +95,10 @@ extern void printSize (unsigned long val);
 /**
  * Enter the MBR
  * @param load Load it or not
+ * @param try Only try to enter the table
  * @file mbr/enterTable.c
  */
-extern void mbr_enterTable (int load);
+extern void mbr_enterTable (int load, int try);
 
 /**
  * The mbr partition table
