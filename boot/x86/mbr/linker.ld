@@ -29,11 +29,5 @@ SECTIONS
 		*(*.data)
 	}
 
-	. = 0x800-2;
 	MBR_PART1 = 0x1be+0x600;
-	.mbr :
-	{
-		BYTE(0x55)
-		BYTE(0xaa)
-	}
 }
