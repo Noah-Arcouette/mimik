@@ -62,8 +62,9 @@ main (int argc, char *argv[])
 			break;
 
 		// -d
-		// -l
-
+		case 'l':
+			listParts();
+			break;
 		// -i
 		case 'm':
 			enterTable(optarg, 1);

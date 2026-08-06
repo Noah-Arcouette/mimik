@@ -79,6 +79,12 @@ extern void setBootCode (const char *path);
 extern void updateCHS (void);
 
 /**
+ * List the partition information
+ * @file listParts.c
+ */
+extern void listParts (void);
+
+/**
  * Print a size
  * @file printSize.c
  * @param val The sized value to print
@@ -124,5 +130,11 @@ extern void mbr_commit (void);
  * @file mbr/updateCHS.c
  */
 extern void mbr_updateCHS (void);
+
+/**
+ * List the partition information
+ * @file mbr/listParts.c
+ */
+extern void mbr_listParts (void);
 
 #endif
