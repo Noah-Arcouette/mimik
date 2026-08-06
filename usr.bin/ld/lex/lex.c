@@ -98,7 +98,6 @@ _lex:
 	case ')':
 	case '+':
 	case '-':
-	case '/':
 		ltoken.type = c;
 		break;
 	case EOF:
@@ -106,16 +105,16 @@ _lex:
 		break;
 	default:
 		// non-glob
-		if (c == '*' && !lex_symbolCanGlob)
+		if ((c == '/' || c == '*') && !lex_symbolCanGlob)
 		{
 			ltoken.type = c;
 			break;
 		}
 
-		if (isalpha(c) || c == '_' || c == '.' || c == '*')
+		if (isalpha(c) || c == '_' || c == '.' || c == '*' || c == '/')
 		{
 			while (isalnum(c) || c == '_' || c == '.' || (
-				c == '*' &&
+				(c == '*' || c == '/') &&
 				lex_symbolCanGlob
 			))
 			{
