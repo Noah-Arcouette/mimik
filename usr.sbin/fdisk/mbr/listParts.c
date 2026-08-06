@@ -11,7 +11,7 @@ mbr_listParts (void)
 		fprintf(stderr, gettext("%s: No MBR\n"), self);
 		return;
 	}
-	fprintf(stderr, gettext("%s:\tMBR\tID %04x\n"), self, le16toh(mbr.id));
+	fprintf(stderr, gettext("%s:\tMBR\tID %08x\n"), self, le32toh(mbr.id));
 	// else
 
 	for (int i = 0; i<4; i++)
