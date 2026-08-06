@@ -266,6 +266,8 @@ ld:
 
 manuals:
 	include/mio.h
+	include/mbr.h
+	format/mbr
 	abi/bios
 disassembler
 mio2pe32+

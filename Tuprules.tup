@@ -60,5 +60,5 @@ endif
 
 ifeq (@(BUILD_TOOL_FDISK),y)
 !fdisk = | $(OBJ)/tool/<fdisk> |> ^ FDISK    %o^ \
-	$(EXEC) $(OBJ)/tool/fdisk |>
+	$(EXEC) $(OBJ)/tool/fdisk %o |>
 endif

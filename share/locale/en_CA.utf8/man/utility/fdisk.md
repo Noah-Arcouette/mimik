@@ -6,7 +6,7 @@ fdisk -- Format, partition, a disk
 # Synopsys
 
 ```sh
-$ fdisk [*options*] disk
+$ fdisk disk [*options*]
 ```
 
 
@@ -14,6 +14,9 @@ $ fdisk [*options*] disk
 
 *fdisk* shall read the information from the given *disk* before executing the
 operations described by the given options.
+
+*disk* shall always be ahead of the given options and shall always be read as a
+path.
 
 
 # Options
@@ -34,7 +37,7 @@ format:
  4. They may also be followed by `b` (case insensitive) which shall have no
  effect
 
-The **-A** option shall support the above format excluding step 1.
+The **-A** and **-Z** options shall support the above format excluding step 1.
 
 
 **-p index**
@@ -65,6 +68,9 @@ The **-A** option shall support the above format excluding step 1.
 **-A alignment**
 	Set partition alignment, defaults to `1MiB`.
 
+**-Z size**
+	Set the size of the disk.
+
 **-S value**
 	Set the amount of bytes per sector, defaults to `512`.
 
@@ -75,13 +81,13 @@ The **-A** option shall support the above format excluding step 1.
 	Set the amount of heads on disk.
 
 **-d**
-	Dry run, do not commit any changes.
+	Dry run, do not commit any changes after this flag.
 
 **-i id**
 	Set the disk identifier, format depends on the partitioning mode.
 
 **-l**
-	List disk information, printing out any modifications made.
+	List disk information, printing out any modifications made at this point.
 
 (MBR mode)
 **-m**
@@ -188,6 +194,8 @@ None.
 
 
 # See Also
+
+`format/mbr` -- The MBR format
 
 [FreeBSD](https://man.freebsd.org/cgi/man.cgi?query=fdisk) -- The FreeBSD manual
 
