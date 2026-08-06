@@ -130,6 +130,8 @@ This document only applies in the context of `.arch x86_16`.
 `jpo *symbol*` -- Jump if parity odd
 `jno *symbol*` -- Jump if not overflow
 `jns *symbol*` -- Jump if not signed
+`jc *symbol*` -- Jump if carry
+`jnc *symbol*` -- Jump if not carry
 `loop *symbol*` -- Loop if `%cx` (and decrement `%cx`)
 `loopz *symbol*` -- Loop if `%cx` and zero (and decrement `%cx`)
 `loope *symbol*` -- Loop if `%cx` and equal (and decrement `%cx`)

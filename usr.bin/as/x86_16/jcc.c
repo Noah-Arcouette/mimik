@@ -41,6 +41,10 @@ parse_x86_16_jcc (void)
 		{
 			opcode = 0b01110010;
 		}
+		else if (!strcmp(ltok.buf, "jc"))
+		{
+			opcode = 0b01110010;
+		}
 		else if (!strcmp(ltok.buf, "jnae"))
 		{
 			opcode = 0b01110010;
@@ -94,6 +98,10 @@ parse_x86_16_jcc (void)
 			opcode = 0b01111111;
 		}
 		else if (!strcmp(ltok.buf, "jnb"))
+		{
+			opcode = 0b01110011;
+		}
+		else if (!strcmp(ltok.buf, "jnc"))
 		{
 			opcode = 0b01110011;
 		}
