@@ -26,6 +26,7 @@ main (int argc, char *argv[])
 
 	int c;
 	argv++;
+	argc--;
 	do
 	{
 		c = getopt(argc, argv, "+p:z:s:t:a:o:f:A:Z:C:B:H:S:dli:m:M:u:");
