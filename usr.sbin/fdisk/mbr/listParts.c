@@ -56,7 +56,7 @@ mbr_listParts (void)
 			fprintf(stderr, gettext("Unknown"));
 			break;
 		}
-		fprintf(stderr, gettext(")\tFlags %02x ( "), p->flags);
+		fprintf(stderr, gettext(")\tFlags %02x ("), p->flags);
 		if (p->flags & MBR_PART_FLAG_BOOTABLE)
 		{
 			fprintf(stderr, " Bootable");
