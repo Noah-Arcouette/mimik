@@ -11,6 +11,7 @@ extern int bytesPerSector;
 extern int sectorsPerCylinder;
 extern int cylindersPerHead;
 extern int heads;
+extern int alignment;
 
 /**
  * The program name
@@ -85,6 +86,19 @@ extern void setBootCode (const char *path);
 extern void updateCHS (void);
 
 /**
+ * Select a partition to modify
+ * @param i The partition index
+ * @file selectPartition.c
+ */
+extern void selectPartition (int i);
+
+/**
+ * The partition index
+ * @file selectPartition.c
+ */
+extern int partitionIndex;
+
+/**
  * List the partition information
  * @file listParts.c
  */
@@ -143,5 +157,12 @@ extern void mbr_updateCHS (void);
  * @file mbr/listParts.c
  */
 extern void mbr_listParts (void);
+
+/**
+ * Select a partition to modify
+ * @param i The partition index
+ * @file mbr/selectPartition.c
+ */
+extern void mbr_selectPartition (int i);
 
 #endif

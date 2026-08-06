@@ -8,6 +8,8 @@ enum partMode partMode = MODE_NONE;
 void
 enterTable (const char *table, int load)
 {
+	partitionIndex = -1;
+
 	if (!strcasecmp(table, "mbr"))
 	{
 	#ifdef MBR
