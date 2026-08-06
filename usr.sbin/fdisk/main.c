@@ -77,10 +77,12 @@ main (int argc, char *argv[])
 	} while (c != -1);
 
 	// commit changes
-	// if (!errors)
-	// {
-	// 	mbr_commit();
-	// }
+	if (!errors)
+	{
+	#ifdef MBR
+		mbr_commit();
+	#endif
+	}
 
 	fclose(disk);
 

@@ -92,4 +92,10 @@ extern int writeMBR;
  */
 extern void mbr_setBootCode (const char *path, size_t size);
 
+/**
+ * Write the MBR partition info to disk
+ * @file mbr/commit.c
+ */
+extern void mbr_commit (void);
+
 #endif
