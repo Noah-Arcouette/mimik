@@ -284,7 +284,16 @@ mbr.bin:
 vbr.bin
 mkfs
 fdisk:
-	MBR partitioning support
+	option -p
+	option -z
+	option -s
+	option -t
+	option -a
+	option -o
+	option -f
+	option -A
+	option -Z
+	option -i
 	+EBR partitioning support
 	+GPT partitioning support
 boot.efi
