@@ -12,6 +12,8 @@ int writeMBR = 0;
 void
 mbr_enterTable (int load, int try)
 {
+	if (writeMBR) return;
+
 	if (load)
 	{
 		if (fseek(disk, 0, SEEK_SET) < 0)
