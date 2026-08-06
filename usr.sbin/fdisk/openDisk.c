@@ -21,7 +21,7 @@ openDisk (int argc, char *argv[])
 	// get the name
 	const char *path = argv[1];
 	// open it
-	int fd = open(path, O_CREAT|O_RDWR);
+	int fd = open(path, O_CREAT|O_RDWR, 0644);
 	if (fd < 0) goto _open_error;
 
 	disk = fdopen(fd, "w+");
