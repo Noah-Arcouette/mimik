@@ -123,7 +123,8 @@ cc:
 	preprocessor
 	parser
 	AST rundown
-	- some kind of optimization
+	convert to IR
+	IR rundown
 	lowering:
 		calling conventions
 		x86-16
@@ -268,7 +269,7 @@ manuals:
 	include/mio.h
 	include/mbr.h
 	format/mbr
-	abi/bios
+	abi/{bios,x86-16}
 	guide/booting/x86-bios
 disassembler
 mio2pe32+
