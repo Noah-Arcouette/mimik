@@ -17,15 +17,15 @@ SECTIONS
 	}
 	.stage1.text :
 	{
-		stage1/*(*.text)
+		*stage1/*(*.text)
 	}
 	.stage1.rodata :
 	{
-		stage1/*(*.rodata)
+		*stage1/*(*.rodata)
 	}
 	.stage1.data :
 	{
-		stage1/*(*.data)
+		*stage1/*(*.data)
 	}
 
 	. = 0x7e00;
