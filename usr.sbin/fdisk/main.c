@@ -54,7 +54,9 @@ main (int argc, char *argv[])
 			break;
 
 		// -o
-		// -f
+		case 'f':
+			loadFile(optarg);
+			break;
 
 		// -A
 		// -Z

@@ -7,7 +7,7 @@ ifeq (@(BUILD_TARGET_X86_64),y)
 FLAGS =-M mbr
 FLAGS+=-H2 -C80 -S18 -B512
 FLAGS+=-u $(DIST)/boot/mbr.bin
-FLAGS+=-p0 -tvbr -aboot
+FLAGS+=-p0 -tvbr -aboot -f$(DIST)/boot/vbr.bin
 FLAGS+=-l
 : $(ROOT)/<dist> |> !fdisk $(FLAGS) |> @(BUILD_IMAGE_FILE)
 endif

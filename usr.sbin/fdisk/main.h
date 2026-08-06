@@ -80,6 +80,13 @@ extern enum partMode partMode;
 extern void setBootCode (const char *path);
 
 /**
+ * Load a file into the partition
+ * @file loadFile.c
+ * @param path The path to the file
+ */
+extern void loadFile (const char *path);
+
+/**
  * Update CHS values
  * @file updateCHS.c
  */
@@ -198,5 +205,13 @@ extern void mbr_changeType (const char *type);
  * @file mbr/complimentFlag.c
  */
 extern void mbr_complimentFlag (const char *flag);
+
+/**
+ * Load a file into the partition
+ * @file mbr/loadFile.c
+ * @param path The path to the file
+ * @param size The size of the file
+ */
+extern void mbr_loadFile (const char *path, long size);
 
 #endif
