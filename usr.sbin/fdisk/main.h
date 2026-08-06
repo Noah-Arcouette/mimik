@@ -4,6 +4,15 @@
 #include <mbr.h>
 
 /**
+ * The disk geometry
+ * @file main.c
+ */
+extern int bytesPerSector;
+extern int sectorsPerCylinder;
+extern int cylindersPerHead;
+extern int heads;
+
+/**
  * The program name
  * @file main.c
  */
@@ -63,6 +72,11 @@ extern enum partMode partMode;
  */
 extern void setBootCode (const char *path);
 
+/**
+ * Update CHS values
+ * @file updateCHS.c
+ */
+extern void updateCHS (void);
 
 /// @defgroup MBR support
 /**
@@ -97,5 +111,11 @@ extern void mbr_setBootCode (const char *path, size_t size);
  * @file mbr/commit.c
  */
 extern void mbr_commit (void);
+
+/**
+ * Update CHS values
+ * @file mbr/updateCHS.c
+ */
+extern void mbr_updateCHS (void);
 
 #endif

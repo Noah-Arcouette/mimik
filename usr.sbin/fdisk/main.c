@@ -2,10 +2,16 @@
 #include <libintl.h>
 #include <unistd.h>
 #include <locale.h>
+#include <stdlib.h>
 
 const char *self;
 
 long errors = 0;
+
+int bytesPerSector     = 512;
+int sectorsPerCylinder = 18;
+int cylindersPerHead   = 80;
+int heads              = 2;
 
 int
 main (int argc, char *argv[])
@@ -16,12 +22,13 @@ main (int argc, char *argv[])
 
 	// disk file
 	if (openDisk(argc, argv)) return 1;
+	self = argv[1];
 
 	int c;
 	argv++;
 	do
 	{
-		c = getopt(argc, argv, "+p:z:s:t:a:o:f:A:Z:C:H:S:dli:m:M:u:");
+		c = getopt(argc, argv, "+p:z:s:t:a:o:f:A:Z:C:B:H:S:dli:m:M:u:");
 
 		switch (c)
 		{
@@ -36,9 +43,22 @@ main (int argc, char *argv[])
 
 		// -A
 		// -Z
-		// -C
-		// -H
-		// -S
+		case 'C':
+			cylindersPerHead = strtol(optarg, NULL, 10);
+			updateCHS();
+			break;
+		case 'H':
+			heads = strtol(optarg, NULL, 10);
+			updateCHS();
+			break;
+		case 'S':
+			sectorsPerCylinder = strtol(optarg, NULL, 10);
+			updateCHS();
+			break;
+		case 'B':
+			bytesPerSector = strtol(optarg, NULL, 10);
+			updateCHS();
+			break;
 
 		// -d
 		// -l

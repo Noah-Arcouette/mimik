@@ -7,6 +7,7 @@
 void
 mbr_commit (void)
 {
+	mbr_updateCHS();
 	if (!writeMBR || errors) return;
 
 	if (fseek(disk, 0, SEEK_SET) < 0)
