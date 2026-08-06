@@ -24,8 +24,17 @@ mbr_enterTable (int load)
 
 		if (fread(&mbr, sizeof(mbr), 1, disk) != 1)
 		{
-			fprintf(stderr, gettext("%s: Failed to read, %s\n"), self,
-				strerror(errno));
+			if (feof(disk))
+			{
+				fprintf(stderr,
+					gettext("%s: Failed to read, premature end of file\n"),
+					self);
+			}
+			else
+			{
+				fprintf(stderr, gettext("%s: Failed to read, %s\n"), self,
+					strerror(errno));
+			}
 			errors++;
 			return;
 		}
