@@ -5,6 +5,8 @@
 
 const char *self;
 
+long errors = 0;
+
 int
 main (int argc, char *argv[])
 {
@@ -15,32 +17,63 @@ main (int argc, char *argv[])
 	// disk file
 	if (openDisk(argc, argv)) return 1;
 
-	// -p
-	// -z
-	// -s
-	// -t
-	// -a
+	int c;
+	argv++;
+	do
+	{
+		c = getopt(argc, argv, "+p:z:s:t:a:o:f:A:Z:C:H:S:dli:m:M:u:");
 
-	// -o
-	// -f
+		switch (c)
+		{
+			// -p
+			// -z
+			// -s
+			// -t
+			// -a
 
-	// -A
-	// -Z
-	// -C
-	// -H
-	// -S
+			// -o
+			// -f
 
-	// -d
-	// -l
+			// -A
+			// -Z
+			// -C
+			// -H
+			// -S
 
-	// -i
-	// -m
-	// -M
+			// -d
+			// -l
 
-	// (mbr)
-	// -u
+			// -i
+			// -m
+			// -M
+
+			// (mbr)
+			// -u
+		case ':':
+		case '?':
+			errors++;
+			break;
+		case -1:
+			break;
+		default:
+			fprintf(stderr, gettext("%s: Unhandled option -- %c\n"), self, c);
+			errors++;
+			break;
+		}
+
+		// error?
+		if (errors)
+		{
+			fprintf(stderr, gettext(
+"%s: Aborting.\n"
+"%s: Last argv index, %d\n"
+				), self, self, optind);
+			break;
+		}
+	} while (c != -1);
 
 	fclose(disk);
 
+	if (errors) return 1;
 	return 0;
 }

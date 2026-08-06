@@ -29,4 +29,10 @@ extern FILE *disk;
  */
 extern size_t diskSize;
 
+/**
+ * If an error occurred
+ * @file main.c
+ */
+extern long errors;
+
 #endif

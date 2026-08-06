@@ -3,7 +3,7 @@ include_rules
 ifeq (@(BUILD_IMAGE),y)
 
 ifeq (@(BUILD_TARGET_X86_64),y)
-FLAGS+=-M
+FLAGS =-M mbr
 FLAGS+=-u $(DIST)/boot/mbr.bin
 FLAGS+=-l
 : $(ROOT)/<dist> |> !fdisk $(FLAGS) |> @(BUILD_IMAGE_FILE)
