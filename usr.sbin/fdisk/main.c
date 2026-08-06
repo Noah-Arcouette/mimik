@@ -49,7 +49,9 @@ main (int argc, char *argv[])
 		case 't':
 			changeType(optarg);
 			break;
-		// -a
+		case 'a':
+			complimentFlag(optarg);
+			break;
 
 		// -o
 		// -f

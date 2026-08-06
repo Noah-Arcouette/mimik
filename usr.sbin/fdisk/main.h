@@ -119,6 +119,13 @@ extern void listParts (void);
 extern void printSize (unsigned long val);
 
 /**
+ * Compliment a partitions flag
+ * @param flag The flag to toggle
+ * @file complimentFlag.c
+ */
+extern void complimentFlag (const char *flag);
+
+/**
  * If the disk has been written to, an error may result in corruption
  * @file main.c
  */
@@ -184,5 +191,12 @@ extern void mbr_selectPartition (int i);
  * @file mbr/changeType.c
  */
 extern void mbr_changeType (const char *type);
+
+/**
+ * Compliment a partitions flag
+ * @param flag The flag to toggle
+ * @file mbr/complimentFlag.c
+ */
+extern void mbr_complimentFlag (const char *flag);
 
 #endif

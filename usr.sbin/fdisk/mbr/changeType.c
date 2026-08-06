@@ -11,7 +11,7 @@ mbr_changeType (const char *type)
 	if (partitionIndex > 3)
 	{
 		fprintf(stderr,
-			gettext("%s: Refusing to set type of partition's higher than 3\n"),
+			gettext("%s: Refusing to set type of partition higher than 3\n"),
 			self);
 		errors++;
 		return;
