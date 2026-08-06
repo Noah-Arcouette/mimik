@@ -50,8 +50,9 @@ main (int argc, char *argv[])
 		case 'M':
 			enterTable(optarg, 0);
 			break;
-		// (mbr)
-		// -u
+		case 'u':
+			setBootCode(optarg);
+			break;
 		case ':':
 		case '?':
 			errors++;

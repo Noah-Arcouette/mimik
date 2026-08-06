@@ -56,6 +56,13 @@ enum partMode
  */
 extern enum partMode partMode;
 
+/**
+ * Set boot code of the partition map
+ * @file setBootCode.c
+ * @param path The path to the boot code
+ */
+extern void setBootCode (const char *path);
+
 
 /// @defgroup MBR support
 /**
@@ -76,5 +83,13 @@ extern struct mbr mbr;
  * @file mbr/enterTable.c
  */
 extern int writeMBR;
+
+/**
+ * Set boot code of the MBR
+ * @file mbr/setBootCode.c
+ * @param path The path to the boot code
+ * @param size The bootcode size
+ */
+extern void mbr_setBootCode (const char *path, size_t size);
 
 #endif
