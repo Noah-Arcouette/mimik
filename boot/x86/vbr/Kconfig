@@ -1,0 +1,9 @@
+config BOOT_X86_VBR_BIN
+	bool "vbr.bin"
+	select BUILD_TOOL_AS
+	select BUILD_TOOL_AS_X86_16
+	select BUILD_TOOL_LD
+	select BUILD_TOOL_MIO2BIN
+	help
+		The volume boot record loader
+		Responsible for loading the core file system, kernel, and init process

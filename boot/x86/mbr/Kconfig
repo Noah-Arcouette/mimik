@@ -4,3 +4,6 @@ config BOOT_X86_MBR_BIN
 	select BUILD_TOOL_AS_X86_16
 	select BUILD_TOOL_LD
 	select BUILD_TOOL_MIO2BIN
+	help
+		The master boot record loader
+		Responsible for loading the VBR

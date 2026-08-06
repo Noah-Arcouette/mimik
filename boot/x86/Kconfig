@@ -1,1 +1,2 @@
 source "boot/x86/mbr/Kconfig"
+source "boot/x86/vbr/Kconfig"

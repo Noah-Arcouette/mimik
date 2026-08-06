@@ -1,0 +1,10 @@
+ifeq (@(BOOT_X86_VBR_BIN),y)
+include_rules
+
+: foreach ./stage1/*.s |> !as |> $(OBJ)/boot/x86/vbr/stage1/%B.o {obj}
+
+SCRIPT=linker.ld
+: {obj} |> !ldscript |> $(OBJ)/boot/x86/vbr/vbr {bin}
+: {bin} |> !mio2bin  |> $(DIST)/boot/vbr.bin | $(ROOT)/<dist>
+
+endif
