@@ -3,7 +3,9 @@ include_rules
 ifeq (@(BUILD_IMAGE),y)
 
 ifeq (@(BUILD_TARGET_X86_64),y)
+# pretend to be a 1.44MB 3.5inch floppy
 FLAGS =-M mbr
+FLAGS+=-H2 -C80 -S18 -B512
 FLAGS+=-u $(DIST)/boot/mbr.bin
 FLAGS+=-l
 : $(ROOT)/<dist> |> !fdisk $(FLAGS) |> @(BUILD_IMAGE_FILE)
