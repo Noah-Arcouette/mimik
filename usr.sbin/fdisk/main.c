@@ -14,7 +14,8 @@ int cylindersPerHead   = 80;
 int heads              = 2;
 int alignment          = 1024*1024;
 
-int dryRun = 0;
+int dryRun       = 0;
+int mayBeCorrupt = 0;
 
 int
 main (int argc, char *argv[])
@@ -100,10 +101,8 @@ main (int argc, char *argv[])
 		// error?
 		if (errors)
 		{
-			fprintf(stderr, gettext(
-"%s: Aborting.\n"
-"%s: Last argv index, %d\n"
-				), self, self, optind);
+			fprintf(stderr, gettext("%s: Aborting on argv index, %d\n"), self,
+				optind);
 			break;
 		}
 	} while (c != -1);
@@ -117,6 +116,15 @@ main (int argc, char *argv[])
 	}
 
 	fclose(disk);
+
+	if (mayBeCorrupt && errors)
+	{
+		fprintf(stderr, gettext("%s: Disk may have been corrupted\n"), self);
+	}
+	else
+	{
+		fprintf(stderr, gettext("%s: Disk has not been written to\n"), self);
+	}
 
 	if (errors) return 1;
 	return 0;

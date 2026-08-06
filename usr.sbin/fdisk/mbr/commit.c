@@ -20,6 +20,7 @@ mbr_commit (void)
 		return;
 	}
 
+	mayBeCorrupt = 1;
 	if (fwrite(&mbr, sizeof(mbr), 1, disk) != 1)
 	{
 		fprintf(stderr, gettext("%s: Failed to write to disk, %s\n"),

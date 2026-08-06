@@ -111,6 +111,12 @@ extern void listParts (void);
  */
 extern void printSize (unsigned long val);
 
+/**
+ * If the disk has been written to, an error may result in corruption
+ * @file main.c
+ */
+extern int mayBeCorrupt;
+
 /// @defgroup MBR support
 /**
  * Enter the MBR
