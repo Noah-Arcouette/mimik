@@ -46,7 +46,9 @@ main (int argc, char *argv[])
 			break;
 		// -z
 		// -s
-		// -t
+		case 't':
+			changeType(optarg);
+			break;
 		// -a
 
 		// -o

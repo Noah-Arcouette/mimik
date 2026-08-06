@@ -93,6 +93,13 @@ extern void updateCHS (void);
 extern void selectPartition (int i);
 
 /**
+ * Change partition type
+ * @param type The type to change to
+ * @file changeType.c
+ */
+extern void changeType (const char *type);
+
+/**
  * The partition index
  * @file selectPartition.c
  */
@@ -170,5 +177,12 @@ extern void mbr_listParts (void);
  * @file mbr/selectPartition.c
  */
 extern void mbr_selectPartition (int i);
+
+/**
+ * Change partition type
+ * @param type The type to change to
+ * @file mbr/changeType.c
+ */
+extern void mbr_changeType (const char *type);
 
 #endif

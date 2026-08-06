@@ -54,6 +54,7 @@ The **-A** and **-Z** options shall support the above format excluding step 1.
 **-t type**
 	Set the type to the given value. Or set the type using one of the following
 	aliases:
+	 - `none` -- An empty partition; deletes the partition
 	 - `vbr`  -- A volume boot record
 	 - `root` -- The operating system root partition
 	 - `fs`   -- Generic file system
@@ -111,6 +112,9 @@ The **-A** and **-Z** options shall support the above format excluding step 1.
 
 **-M mbr**
 	Create a new empty MBR, and enter it.
+
+**-t type**
+	Where type is an alias or a two digit hex number.
 
 **-u code**
 	Fill out the boot code of an MBR partition.
