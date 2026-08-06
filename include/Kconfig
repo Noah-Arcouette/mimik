@@ -5,4 +5,9 @@ if INCLUDE
 		bool "mio.h"
 		help
 			The Mimik Object format
+
+	config INCLUDE_MBR_H
+		bool "mbr.h"
+		help
+			The Master Boot Record partitioning format
 endif
