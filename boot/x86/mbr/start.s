@@ -8,7 +8,7 @@ _start:
 	je _start.no_partition
 
 	; load the partition and jump to it
-	jmp load_partition
+	jmp halt
 _start.no_partition:
 	mov %si _start.no_partition.msg
 	call puts
