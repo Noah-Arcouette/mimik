@@ -269,6 +269,7 @@ manuals:
 	include/mbr.h
 	format/mbr
 	abi/bios
+	guide/booting/x86-bios
 disassembler
 mio2pe32+
 fuzzy testing, valgrind, unit-tests, dbg, profiling
@@ -281,14 +282,21 @@ mbr.bin:
 	load partition and hand-off
 	+EBR partitioning support
 	+GPT partitioning support
-vbr.bin
+vbr.bin:
+	setup (16bit C code?)
+	load memory map
+	find root partition:
+		MBR
+		+EBR
+		+GPT
+	load standing
+	load kernel
+	load init
+	start kernel
 mkfs
 fdisk:
-	option -p
 	option -z
 	option -s
-	option -t
-	option -a
 	option -o
 	option -f
 	option -A
