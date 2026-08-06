@@ -85,14 +85,17 @@ The **-A** and **-Z** options shall support the above format excluding step 1.
 **-Z size**
 	Set the size of the disk.
 
-**-S value**
+**-B value**
 	Set the amount of bytes per sector, defaults to `512`.
 
+**-S value**
+	Set the amount of sector per cylinder, defaults to `18`.
+
 **-C value**
-	Set the amount of cylinders per head.
+	Set the amount of cylinders per head, defaults to `80`.
 
 **-H value**
-	Set the amount of heads on disk.
+	Set the amount of heads on the disk, defaults to `2`.
 
 (partition map)
 **-i id**
