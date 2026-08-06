@@ -19,6 +19,7 @@ main (int argc, char *argv[])
 	// -z
 	// -s
 	// -t
+	// -a
 
 	// -o
 	// -f

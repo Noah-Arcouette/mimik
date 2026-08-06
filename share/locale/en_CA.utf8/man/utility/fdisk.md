@@ -41,7 +41,9 @@ The **-A** and **-Z** options shall support the above format excluding step 1.
 
 
 **-p index**
-	Select the partition with the given *index* for modification.
+	Select the partition with the given *index* for modification. If the
+	partition selected was empty, create it containing the rest of the disk with
+	type `fs`.
 
 **-z size**
 	Set the size of the selected partition.
@@ -89,6 +91,9 @@ The **-A** and **-Z** options shall support the above format excluding step 1.
 **-l**
 	List disk information, printing out any modifications made at this point.
 
+**-a flag**
+	Set or clear a flag on the current partition.
+
 (MBR mode)
 **-m**
 	Enter MBR partitioning mode.
@@ -98,6 +103,9 @@ The **-A** and **-Z** options shall support the above format excluding step 1.
 
 **-u code**
 	Fill out the boot code of an MBR partition.
+
+**-a boot**
+	Make the partition bootable.
 
 
 # Operands
