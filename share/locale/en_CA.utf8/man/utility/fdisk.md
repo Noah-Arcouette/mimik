@@ -70,10 +70,8 @@ The **-A** and **-Z** options shall support the above format excluding step 1.
 
 (partition data)
 **-f file**
-	Shall load the given file into the selected partition, if the file does not
-	fit in the current partition the partition may be grown so long as the
-	selected partition is the last non-empty partition in the current
-	partitioning mode.
+	Shall load the given file into the selected partition, truncating its size
+	to that of the file.
 
 **-o offset**
 	Move the selected partition to the given offset, along with its data.
