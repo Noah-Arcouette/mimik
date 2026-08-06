@@ -1,5 +1,44 @@
+#include "main.h"
+#include <libintl.h>
+#include <unistd.h>
+#include <locale.h>
+
+const char *self;
+
 int
-main (void)
+main (int argc, char *argv[])
 {
-	return 1;
+	self = argv[0];
+	setlocale(LC_ALL, "");
+	textdomain("fdisk");
+
+	// disk file
+	if (openDisk(argc, argv)) return 1;
+
+	// -p
+	// -z
+	// -s
+	// -t
+
+	// -o
+	// -f
+
+	// -A
+	// -Z
+	// -C
+	// -H
+	// -S
+
+	// -d
+	// -l
+
+	// -i
+
+	// -m
+	// -M
+	// -u
+
+	fclose(disk);
+
+	return 0;
 }
