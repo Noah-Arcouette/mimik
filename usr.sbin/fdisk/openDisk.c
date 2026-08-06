@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <errno.h>
+#include <fcntl.h>
 
 FILE *disk      = NULL;
 size_t diskSize = 0;
@@ -20,9 +21,13 @@ openDisk (int argc, char *argv[])
 	// get the name
 	const char *path = argv[1];
 	// open it
-	disk = fopen(path, "w+");
+	int fd = open(path, O_CREAT|O_RDWR);
+	if (fd < 0) goto _open_error;
+
+	disk = fdopen(fd, "w+");
 	if (!disk)
 	{
+	_open_error:
 		fprintf(stderr,
 			gettext("%s: Failed to open disk for writing and reading, %s\n"),
 			self, strerror(errno));
