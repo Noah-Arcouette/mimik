@@ -22,19 +22,28 @@ mbr_selectPartition (int i)
 	// else, create it
 
 	// find the last address
-	int last = 1; // LBA 1 (end of MBR)
-	for (int i = 0; i<4; i++)
+	long last = 1; // LBA 1 (end of MBR)
+	for (int j = 0; j<4; j++)
 	{
-		if (p->type == MBR_PART_TYPE_FREE) continue;
+		const struct mbr_part *q = &mbr.part[j];
+		if (q->type == MBR_PART_TYPE_FREE) continue;
 
-		int end = le32toh(p->firstLBA)+le32toh(p->sectors);
-		if (end > last) end = last;
+		int end = le32toh(q->firstLBA)+le32toh(q->sectors);
+		if (end > last) last = end;
 	}
 	last *= bytesPerSector;
 	// align
 	if (alignment) last += alignment-(last%alignment); // no div by zero
-	int size = diskSize-last;
+	long size = diskSize-last;
 	if (size < 0) size = 0; // no negatives
+	if (last > (long)diskSize)
+	{
+		fprintf(stderr, gettext("%s: No room left on disk for MBR #%d\n"),
+			self, i);
+		errors++;
+		partitionIndex = -1;
+		return;
+	}
 
 	p->type  = MBR_PART_TYPE_FS;
 	p->flags = 0;
