@@ -298,7 +298,6 @@ fdisk:
 	option -z
 	option -s
 	option -o
-	option -f
 	option -A
 	option -Z
 	option -i
