@@ -40,6 +40,12 @@ extern FILE *disk;
 extern size_t diskSize;
 
 /**
+ * If we're running in dry run mode
+ * @file main.c
+ */
+extern int dryRun;
+
+/**
  * If an error occurred
  * @file main.c
  */

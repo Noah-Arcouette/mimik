@@ -7,6 +7,8 @@
 void
 mbr_commit (void)
 {
+	if (dryRun) return;
+
 	mbr_updateCHS();
 	if (!writeMBR || errors) return;
 

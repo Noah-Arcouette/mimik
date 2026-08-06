@@ -13,6 +13,8 @@ int sectorsPerCylinder = 18;
 int cylindersPerHead   = 80;
 int heads              = 2;
 
+int dryRun = 0;
+
 int
 main (int argc, char *argv[])
 {
@@ -64,8 +66,9 @@ main (int argc, char *argv[])
 			bytesPerSector = strtol(optarg, NULL, 10);
 			updateCHS();
 			break;
-
-		// -d
+		case 'd':
+			dryRun = 1;
+			break;
 		case 'l':
 			listParts();
 			break;
