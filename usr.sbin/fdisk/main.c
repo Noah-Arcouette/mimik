@@ -25,30 +25,33 @@ main (int argc, char *argv[])
 
 		switch (c)
 		{
-			// -p
-			// -z
-			// -s
-			// -t
-			// -a
+		// -p
+		// -z
+		// -s
+		// -t
+		// -a
 
-			// -o
-			// -f
+		// -o
+		// -f
 
-			// -A
-			// -Z
-			// -C
-			// -H
-			// -S
+		// -A
+		// -Z
+		// -C
+		// -H
+		// -S
 
-			// -d
-			// -l
+		// -d
+		// -l
 
-			// -i
-			// -m
-			// -M
-
-			// (mbr)
-			// -u
+		// -i
+		case 'm':
+			enterTable(optarg, 1);
+			break;
+		case 'M':
+			enterTable(optarg, 0);
+			break;
+		// (mbr)
+		// -u
 		case ':':
 		case '?':
 			errors++;
@@ -71,6 +74,12 @@ main (int argc, char *argv[])
 			break;
 		}
 	} while (c != -1);
+
+	// commit changes
+	// if (!errors)
+	// {
+	// 	mbr_commit();
+	// }
 
 	fclose(disk);
 

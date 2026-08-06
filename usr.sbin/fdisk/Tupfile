@@ -6,7 +6,7 @@ FLAGS=
 
 ifeq (@(BUILD_TOOL_FDISK_MBR),y)
 FLAGS+=-DMBR
-# : foreach mbr/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/fdisk.d/mbr/%B.o {tool-obj}
+: foreach mbr/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/fdisk.d/mbr/%B.o {tool-obj}
 endif
 
 : foreach *.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/fdisk.d/%B.o {tool-obj}
@@ -19,7 +19,7 @@ FLAGS=
 
 ifeq (@(USR_SBIN_FDISK_MBR),y)
 FLAGS+=-DMBR
-# : foreach mbr/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.sbin/fdisk/mbr/%B.o {obj}
+: foreach mbr/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.sbin/fdisk/mbr/%B.o {obj}
 endif
 
 : foreach *.c |> !cc $(FLAGS) |> $(OBJ)/usr.sbin/fdisk/%B.o {obj}
