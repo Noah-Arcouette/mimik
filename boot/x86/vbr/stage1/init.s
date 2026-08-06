@@ -13,6 +13,7 @@ _init:
 	; save the BH and DL registers
 	mov [diskNumber] %dl
 	mov [pageNumber] %bh
+	mov [partition]  %si ; assumes %es of zero
 
 	ljmp _start 0
 
@@ -24,6 +25,9 @@ diskNumber:
 	.res.byte 1
 pageNumber:
 	.res.byte 1
+partition:
+	.res.byte 2
 
 .global diskNumber
 .global pageNumber
+.global partition

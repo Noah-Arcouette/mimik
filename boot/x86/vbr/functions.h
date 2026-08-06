@@ -8,6 +8,9 @@ extern void _Noreturn halt (void);
 
 /**
  * Initialize registers
+ * @note dl Disk number
+ * @note bh Page number
+ * @note si Partition pointer
  * @file stage1/init.s
  **/
 extern void _Noreturn _init (void);
