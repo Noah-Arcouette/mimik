@@ -35,7 +35,9 @@ ifeq (@(BUILD_TOOL_AS),y)
 endif
 
 ifeq (@(BUILD_TOOL_CC),y)
-!cc = | $(OBJ)/tool/<cc> |> ^ CC       %b^ $(EXEC) $(OBJ)/tool/cc -o %o %f |>
+CFLAGS=-Inodefault -I$(ROOT)/include/
+!cc = | $(OBJ)/tool/<cc> |> ^ CC       %b^ $(EXEC) $(OBJ)/tool/cc $(CFLAGS) -o \
+	%o %f |>
 endif
 
 ifeq (@(BUILD_TOOL_LD),y)

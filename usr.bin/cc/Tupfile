@@ -1,17 +1,32 @@
 include_rules
 
+COMMON_FLAGS=
+ifeq (@(BUILD_TARGET_X86_64),y)
+COMMON_FLAGS+=-DARGS_MACHINE_DEFAULT=ARGS_MACHINE_X86_64_GENERIC
+endif
+
 # toolchain build
 ifeq (@(BUILD_TOOL_CC),y)
-FLAGS=
+FLAGS=$(COMMON_FLAGS)
 
+ifeq (@(BUILD_TOOL_CC_X86_16),y)
+FLAGS+=-DSUPPORT_X86_16
+endif
+
+: foreach args/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/cc.d/args/%B.o {tool-obj}
 : foreach *.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/cc.d/%B.o {tool-obj}
 : {tool-obj} |> !hostccld |> $(OBJ)/tool/cc | $(OBJ)/tool/<cc>
 endif
 
 # normal build
 ifeq (@(USR_BIN_CC),y)
-FLAGS=
+FLAGS=$(COMMON_FLAGS)
 
+ifeq (@(USR_BIN_CC_X86_16),y)
+FLAGS+=-DSUPPORT_X86_16
+endif
+
+: foreach args/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/args/%B.o {obj}
 : foreach *.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/%B.o {obj}
 : {obj} |> !ccld |> $(DIST)/usr/bin/cc | $(ROOT)/<dist>
 
