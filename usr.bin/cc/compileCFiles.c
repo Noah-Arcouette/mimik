@@ -1,6 +1,8 @@
 #include "main.h"
 #include "args.h"
 #include "ast.h"
+#include "lex.h"
+#include <stdio.h>
 
 void
 compileCFiles (void)
@@ -20,4 +22,5 @@ compileCFiles (void)
 		// ast_generateIR(file, ast);
 		// ast_free(ast);
 	}
+	lex_free();
 }
