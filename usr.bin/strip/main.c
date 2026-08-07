@@ -12,6 +12,8 @@ main (void)
 	// ...
 	// no LTOs modified anything, break
 
+	// merge-symbols (includes symbol threading (substring merging))
+
 	// store file
 
 	// do nothing
