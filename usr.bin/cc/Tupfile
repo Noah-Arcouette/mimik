@@ -13,6 +13,7 @@ ifeq (@(BUILD_TOOL_CC_X86_16),y)
 FLAGS+=-DSUPPORT_X86_16
 endif
 
+: foreach lex/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/cc.d/lex/%B.o {tool-obj}
 : foreach ast/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/cc.d/ast/%B.o {tool-obj}
 : foreach args/*.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/cc.d/args/%B.o {tool-obj}
 : foreach *.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/cc.d/%B.o {tool-obj}
@@ -27,6 +28,7 @@ ifeq (@(USR_BIN_CC_X86_16),y)
 FLAGS+=-DSUPPORT_X86_16
 endif
 
+: foreach lex/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/lex/%B.o {obj}
 : foreach ast/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/ast/%B.o {obj}
 : foreach args/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/args/%B.o {obj}
 : foreach *.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/%B.o {obj}
