@@ -1,0 +1,14 @@
+include_rules
+
+ifeq (@(SHARE_LOCALE_EN_CA_UTF8_MAN_ABI),y)
+FILES=
+
+ifeq (@(BUILD_TARGET_X86_64),y)
+FILES+=x86-16.md bios.md
+endif
+
+: foreach $(FILES) |> !comp |> \
+	$(DIST)/usr/share/locale/en_CA.utf8/man/abi/%b$(COMP_EXT) | \
+	$(ROOT)/<dist>
+
+endif

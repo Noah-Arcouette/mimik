@@ -269,7 +269,6 @@ manuals:
 	include/mio.h
 	include/mbr.h
 	format/mbr
-	abi/{bios,x86-16}
 	guide/booting/x86-bios
 disassembler
 mio2pe32+
