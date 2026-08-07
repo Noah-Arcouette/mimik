@@ -57,6 +57,12 @@ menu "Build"
 			bool "x86 16bit assembly"
 			depends on BUILD_TOOL_AS
 
+		config BUILD_TOOL_CC
+			bool "C Compiler"
+		config BUILD_TOOL_CC_X86_16
+			bool "x86 16bit C type"
+			depends on BUILD_TOOL_CC
+
 		config BUILD_TOOL_LD
 			bool "Linker"
 

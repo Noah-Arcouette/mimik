@@ -26,19 +26,16 @@ HOSTLDFLAGS=-L$(OBJ)/usr.lib/
 EXEC=@(BUILD_EXEC)
 
 # Built Toolchain
-# not implemented so just use this for testing
-# don't forget to use unity builds too
-!ccld = !hostccld
-!cc = !hostcc
-!ar = !hostar
-!ldso = !hostldso
-
 !cp   = |> ^ CP       %b^ cat %f >%o |>
 !comp = !cp
 COMP_EXT=
 
 ifeq (@(BUILD_TOOL_AS),y)
 !as = | $(OBJ)/tool/<as> |> ^ AS       %b^ $(EXEC) $(OBJ)/tool/as -o %o %f |>
+endif
+
+ifeq (@(BUILD_TOOL_CC),y)
+!cc = | $(OBJ)/tool/<cc> |> ^ CC       %b^ $(EXEC) $(OBJ)/tool/cc -o %o %f |>
 endif
 
 ifeq (@(BUILD_TOOL_LD),y)

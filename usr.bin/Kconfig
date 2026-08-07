@@ -4,4 +4,5 @@ menu "usr.bin/ - non-essential user binaries"
 	source "usr.bin/readmio/Kconfig"
 	source "usr.bin/strip/Kconfig"
 	source "usr.bin/mio2bin/Kconfig"
+	source "usr.bin/cc/Kconfig"
 endmenu

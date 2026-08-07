@@ -1,0 +1,20 @@
+include_rules
+
+# toolchain build
+ifeq (@(BUILD_TOOL_CC),y)
+FLAGS=
+
+: foreach *.c |> !hostcc $(FLAGS) |> $(OBJ)/tool/cc.d/%B.o {tool-obj}
+: {tool-obj} |> !hostccld |> $(OBJ)/tool/cc | $(OBJ)/tool/<cc>
+endif
+
+# normal build
+ifeq (@(USR_BIN_CC),y)
+FLAGS=
+
+: foreach *.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/%B.o {obj}
+: {obj} |> !ccld |> $(DIST)/usr/bin/cc | $(ROOT)/<dist>
+
+LINK=cc
+: |> !ln |> $(DIST)/usr/bin/c17 | $(ROOT)/<dist>
+endif
