@@ -45,7 +45,8 @@ The given optimizations are:
 **-O level|optimization**
 	Set the optimization level; enable, or disable a specific optimization.
 	*level* may be between 0 (no optimization) and 3 (possibly breaking
-	optimization) the default is 1
+	optimization) the default is 1. `s` shall be equivalent to `2`, and `z` to
+	`3`.
 
 
 # Operands
