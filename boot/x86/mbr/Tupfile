@@ -1,7 +1,8 @@
 ifeq (@(BOOT_X86_MBR_BIN),y)
 include_rules
 
-: foreach *.s |> !as |> $(OBJ)/boot/x86/mbr/%B.o {obj}
+: foreach *.s |> !as          |> $(OBJ)/boot/x86/mbr/%B.o {obj}
+: foreach *.c |> !cc -mx86_16 |> $(OBJ)/boot/x86/mbr/%B.o {obj}
 
 SCRIPT=linker.ld
 : {obj} |> !ldscript |> $(OBJ)/boot/x86/mbr/mbr {bin}

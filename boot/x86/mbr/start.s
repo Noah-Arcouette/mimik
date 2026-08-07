@@ -8,9 +8,9 @@ _start:
 	je _start.no_partition
 
 	; load the partition and jump to it
-	jmp halt
+	jmp load_partition
 _start.no_partition:
-	mov %si _start.no_partition.msg
+	mov %ax _start.no_partition.msg
 	call puts
 	jmp halt
 

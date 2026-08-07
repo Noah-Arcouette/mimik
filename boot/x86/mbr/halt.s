@@ -2,7 +2,7 @@
 .section .text x
 
 halt:
-	mov %si halt.msg
+	mov %ax halt.msg
 	call puts
 halt.loop:
 	cli

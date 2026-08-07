@@ -1,11 +1,5 @@
-#error "this is only for documentational purposes"
-
-/*
-ABI note:
- - functions do not preserve any registers
- - %ax is the return value if any
-
-*/
+#ifndef __FUNCTIONS_H__
+#define __FUNCTIONS_H__
 
 /**
  * Display a message and halt forever
@@ -46,7 +40,9 @@ extern int find_mbr_partition (void);
 
 /**
  * Print a string
- * @param si The string
+ * @param ax The string
  * @file puts.s
  */
-extern void puts (const char *si);
+extern void puts (const char *ax);
+
+#endif

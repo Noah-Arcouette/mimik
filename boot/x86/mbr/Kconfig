@@ -1,5 +1,7 @@
 config BOOT_X86_MBR_BIN
 	bool "mbr.bin"
+	select BUILD_TOOL_CC
+	select BUILD_TOOL_CC_X86_16
 	select BUILD_TOOL_AS
 	select BUILD_TOOL_AS_X86_16
 	select BUILD_TOOL_LD

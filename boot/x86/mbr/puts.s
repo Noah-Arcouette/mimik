@@ -2,6 +2,7 @@
 .section .text x
 
 puts:
+	mov %si %ax
 	mov %bh [pageNumber]
 	mov %ah 0x0e
 puts.loop:
