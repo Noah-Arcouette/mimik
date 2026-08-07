@@ -1,5 +1,6 @@
 #ifndef __ARGS_H__
 #define __ARGS_H__
+#include <stdio.h>
 
 /**
  * Parse the arguments
@@ -44,8 +45,9 @@ enum args_file_type
 
 struct args_file
 {
-	const char *path; // path to the file
+	char *path;
 	enum args_file_type type;
+	FILE *fp;
 };
 
 /**

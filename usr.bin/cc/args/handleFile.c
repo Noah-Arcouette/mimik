@@ -54,8 +54,9 @@ args_handleFile (const char *name)
 		sizeof(struct args_file)*args_files);
 	if (!buf)
 	{
-		args_files--;
 		fprintf(stderr, gettext("%s: %s\n"), self, strerror(errno));
+	_fail:
+		args_files--;
 		errors++;
 		return;
 	}
@@ -63,6 +64,22 @@ args_handleFile (const char *name)
 
 	// add it to the input list
 	struct args_file *f = &args_file[args_files-1];
-	f->path = name;
+	f->path = strdup(name);
+	if (!f->path)
+	{
+		fprintf(stderr, gettext("%s: %s\n"), self, strerror(errno));
+		goto _fail;
+	}
+
+	f->fp = fopen(name, "r");
+	if (!f->fp)
+	{
+		free(f->path);
+		fprintf(stderr,
+			gettext("%s: Failed to open file `%s' for reading, %s\n"),
+			self, name, strerror(errno));
+		goto _fail;
+	}
+
 	f->type = type;
 }
