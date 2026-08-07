@@ -11,7 +11,7 @@ ast_generate (const char *path, FILE *fp)
 
 	do
 	{
-		// lex();
+		lex();
 
 		switch (lex_token.type)
 		{
@@ -104,9 +104,6 @@ ast_generate (const char *path, FILE *fp)
 			break;
 		case LEX_TOKEN_TYPE_ROLL_RIGHT:
 			printf(">>>");
-			break;
-		case LEX_TOKEN_TYPE_ASSIGN_BITWISE_NOT:
-			printf("~=");
 			break;
 		case LEX_TOKEN_TYPE_NOT_EQUATE:
 			printf("!=");

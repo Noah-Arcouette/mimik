@@ -34,7 +34,6 @@ enum lex_token_type
 	LEX_TOKEN_TYPE_ROLL_LEFT,
 	LEX_TOKEN_TYPE_SHIFT_RIGHT,
 	LEX_TOKEN_TYPE_ROLL_RIGHT,
-	LEX_TOKEN_TYPE_ASSIGN_BITWISE_NOT,
 	LEX_TOKEN_TYPE_NOT_EQUATE,
 	LEX_TOKEN_TYPE_ASSIGN_MODULO,
 	LEX_TOKEN_TYPE_ASSIGN_BITWISE_XOR,
@@ -182,5 +181,11 @@ extern void lex_enter (const char *path, FILE *fp);
  * @file lex/free.c
  */
 extern void lex_free (void);
+
+/**
+ * Get the next token from the file
+ * @file lex/lex.c
+ */
+extern void lex (void);
 
 #endif
