@@ -13,4 +13,10 @@ extern const char *self;
  */
 extern long errors;
 
+/**
+ * Compile C files to IR
+ * @file compileCFiles.c
+ */
+extern void compileCFiles (void);
+
 #endif

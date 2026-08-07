@@ -14,12 +14,11 @@ main (int argc, char *argv[])
 	setlocale(LC_ALL, "");
 
 	args(argc, argv);
-	// compile C files
+	if (!errors) compileCFiles();
 	args_freeInclude();
-	// optimize IR
-	// compile IR
-	// assemble
-	// link
+	// if (!errors) compileIRFiles();
+	// if (!errors) assemble();
+	// if (!errors) linkfiles();
 	args_freeFile();
 
 	if (errors) return 1;
