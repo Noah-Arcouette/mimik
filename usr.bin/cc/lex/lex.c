@@ -66,6 +66,7 @@ lex (void)
 
 	// get first letter
 	int c = _getc();
+	int d;
 
 	// what is it
 	switch (c)
@@ -73,19 +74,74 @@ lex (void)
 	case EOF:
 		lex_token.type = LEX_TOKEN_TYPE_EOF;
 		break;
+	case '/':
+		lex_token.type = c;
+
+		c = _getc();
+		if (c == '/') // line comment
+		{
+			while (c != '\n' && c != EOF)
+			{
+				c = _getc();
+			}
+			_ungetc(c);
+			lex_token.type = LEX_TOKEN_TYPE_COMMENT;
+		}
+		else if (c == '*') // block comment
+		{
+			d = c;/**/
+			c = _getc();
+			while (c != EOF && !(c == '/' && d == '*'))
+			{
+				// newline management
+				if (c == '\n')
+				{
+					lex_context.size   = 0;
+					lex_context.offset = 0;
+					lex_context.lineno++;
+				}
+
+				d = c;
+				c = _getc();
+			}
+			lex_token.type = LEX_TOKEN_TYPE_COMMENT;
+		}
+		else _ungetc(c);
+		break;
+	case '\'':
+		d = '\\';
+		while (c != EOF && c != '\n' && (c != '\'' || d == '\\'))
+		{
+			d = c;
+			c = _getc();
+		}
+		lex_token.type = LEX_TOKEN_TYPE_LITERAL_CHARACTER;
+		break;
+	case '"':
+		d = '\\';
+		while (c != EOF && c != '\n' && (c != '"' || d == '\\'))
+		{
+			d = c;
+			c = _getc();
+		}
+		lex_token.type = LEX_TOKEN_TYPE_LITERAL_STRING;
+		break;
 	case '%':
+		lex_token.type = c;
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_MODULO;
 		else _ungetc(c);
 		break;
 	case '^':
+		lex_token.type = c;
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_BITWISE_XOR;
 		else _ungetc(c);
 		break;
 	case '&':
+		lex_token.type = c;
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_BITWISE_AND;
@@ -93,12 +149,14 @@ lex (void)
 		else _ungetc(c);
 		break;
 	case '*':
+		lex_token.type = c;
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_MULTIPLY;
 		else _ungetc(c);
 		break;
 	case '-':
+		lex_token.type = c;
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_SUBTRACT;
@@ -107,6 +165,7 @@ lex (void)
 		else _ungetc(c);
 		break;
 	case '+':
+		lex_token.type = c;
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_ADD;
@@ -114,6 +173,7 @@ lex (void)
 		else _ungetc(c);
 		break;
 	case '|':
+		lex_token.type = c;
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_BITWISE_OR;
@@ -121,21 +181,138 @@ lex (void)
 		else _ungetc(c);
 		break;
 	case '!':
+		lex_token.type = c;
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_NOT_EQUATE;
 		else _ungetc(c);
 		break;
 	case '=':
+		lex_token.type = c;
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_EQUATE;
 		else _ungetc(c);
 		break;
 	case '.':
+		lex_token.type = c;
 		c = _getc();
 		if (isdigit(c)) goto _number;
 		else _ungetc(c);
+		break;
+	case '#':
+		c = _getc();
+		// eat any whitespace after it
+		while (isspace(c) && c != '\n')
+		{
+			c = _getc();
+		}
+		long offset = lex_token.bufsz-1;
+		// eat the first word
+		while (isalpha(c))
+		{
+			c = _getc();
+		}
+		_ungetc(c);
+
+		lex_token.type = LEX_TOKEN_TYPE_HASH;
+		// find the word
+		switch (lex_token.buf[offset])
+		{
+		case 'i':
+			if (!strcmp(lex_token.buf+offset+1, "f"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_IF;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "fdef"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_IFDEF;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "fndef"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_IFNDEF;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "nclude"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_INCLUDE;
+			}
+			break;
+		case 'u':
+			if (!strcmp(lex_token.buf+offset+1, "ndef"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_UNDEF;
+			}
+			break;
+		case 'd':
+			if (!strcmp(lex_token.buf+offset+1, "efine"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_DEFINE;
+			}
+			break;
+		case 'l':
+			if (!strcmp(lex_token.buf+offset+1, "ine"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_LINE;
+			}
+			break;
+		case 'w':
+			if (!strcmp(lex_token.buf+offset+1, "arning"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_WARNING;
+			}
+			break;
+		case 'p':
+			if (!strcmp(lex_token.buf+offset+1, "ragma"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_PRAGMA;
+			}
+			break;
+		case '_':
+			if (!strcmp(lex_token.buf+offset+1, "_has_include"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_HAS_INCLUDE;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "_has_embed"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_HAS_EMBED;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "_has_c_attribute"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_HAS_C_ATTRIBUTE;
+			}
+			break;
+		case 'e':
+			if (!strcmp(lex_token.buf+offset+1, "lif"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_ELIF;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "lse"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_ELSE;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "ndif"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_ENDIF;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "lifdef"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_ELIFDEF;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "lifndef"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_ELIFNDEF;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "mbed"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_EMBED;
+			}
+			else if (!strcmp(lex_token.buf+offset+1, "rror"))
+			{
+				lex_token.type = LEX_TOKEN_TYPE_HASH_ERROR;
+			}
+			break;
+		}
+
 		break;
 	case '~':
 	case '?':
@@ -148,7 +325,6 @@ lex (void)
 	case ']':
 	case '{':
 	case '}':
-	case '#':
 		lex_token.type = c;
 		break;
 	case '<':

@@ -30,6 +30,9 @@ ast_generate (const char *path, FILE *fp)
 		case LEX_TOKEN_TYPE_BITWISE_AND:
 			printf("&");
 			break;
+		case LEX_TOKEN_TYPE_DIVIDE:
+			printf("/");
+			break;
 		case LEX_TOKEN_TYPE_MULTIPLY:
 			printf("*");
 			break;
@@ -88,7 +91,7 @@ ast_generate (const char *path, FILE *fp)
 			printf("}");
 			break;
 		case LEX_TOKEN_TYPE_HASH:
-			printf("#");
+			printf("hsh<%s>", lex_token.buf);
 			break;
 		case LEX_TOKEN_TYPE_UNKNOWN:
 			printf("ukn<%s>", lex_token.buf);
@@ -116,6 +119,9 @@ ast_generate (const char *path, FILE *fp)
 			break;
 		case LEX_TOKEN_TYPE_ASSIGN_BITWISE_AND:
 			printf("&=");
+			break;
+		case LEX_TOKEN_TYPE_ASSIGN_DIVIDE:
+			printf("/=");
 			break;
 		case LEX_TOKEN_TYPE_ASSIGN_MULTIPLY:
 			printf("*=");
