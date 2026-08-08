@@ -44,6 +44,27 @@ _getc (void)
 	// add the character to the buffer
 	lex_token.buf[lex_token.bufsz-1] = c;
 	lex_token.buf[lex_token.bufsz  ] = '\0';
+
+	// specials
+	if (c == '\n')
+	{
+		lex_context.size   = 0;
+		lex_context.offset = 0;
+		lex_context.lineno++;
+	}
+	else if (c == '\\')
+	{
+		int c = fgetc(lex_context.fp);
+		if (c == '\n')
+		{
+			lex_token.bufsz--;
+			lex_context.size--;
+			lex_token.buf[lex_token.bufsz] = '\0';
+			return _getc(); // ignore the newline
+		}
+		ungetc(c, lex_context.fp);
+		c = '\\';
+	}
 	return c;
 }
 
@@ -52,6 +73,7 @@ _ungetc (int c)
 {
 	if (c != EOF) ungetc(c, lex_context.fp);
 
+	lex_context.size--;
 	lex_token.bufsz--;
 	lex_token.buf[lex_token.bufsz] = '\0';
 }
@@ -93,14 +115,6 @@ lex (void)
 			c = _getc();
 			while (c != EOF && !(c == '/' && d == '*'))
 			{
-				// newline management
-				if (c == '\n')
-				{
-					lex_context.size   = 0;
-					lex_context.offset = 0;
-					lex_context.lineno++;
-				}
-
 				d = c;
 				c = _getc();
 			}
@@ -408,13 +422,6 @@ lex (void)
 		{
 			while (isspace(c))
 			{
-				if (c == '\n')
-				{
-					lex_context.size   = 0;
-					lex_context.offset = 0;
-					lex_context.lineno++;
-				}
-
 				c = _getc();
 			}
 			_ungetc(c);
