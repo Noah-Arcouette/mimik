@@ -118,8 +118,7 @@ strip:
 	compress-file
 
 cc:
-	lexer
-	linter
+	+linter
 	preprocessor
 	parser
 	AST rundown

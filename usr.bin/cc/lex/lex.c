@@ -159,7 +159,7 @@ lex (void)
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_BITWISE_AND;
-		if (c == '&') lex_token.type = LEX_TOKEN_TYPE_LOGICAL_AND;
+		else if (c == '&') lex_token.type = LEX_TOKEN_TYPE_LOGICAL_AND;
 		else _ungetc(c);
 		break;
 	case '*':
@@ -174,8 +174,8 @@ lex (void)
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_SUBTRACT;
-		if (c == '-') lex_token.type = LEX_TOKEN_TYPE_DECREMENT;
-		if (c == '>') lex_token.type = LEX_TOKEN_TYPE_MEMBER;
+		else if (c == '-') lex_token.type = LEX_TOKEN_TYPE_DECREMENT;
+		else if (c == '>') lex_token.type = LEX_TOKEN_TYPE_MEMBER;
 		else _ungetc(c);
 		break;
 	case '+':
@@ -183,7 +183,7 @@ lex (void)
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_ADD;
-		if (c == '+') lex_token.type = LEX_TOKEN_TYPE_INCREMENT;
+		else if (c == '+') lex_token.type = LEX_TOKEN_TYPE_INCREMENT;
 		else _ungetc(c);
 		break;
 	case '|':
@@ -191,7 +191,7 @@ lex (void)
 		c = _getc();
 
 		if (c == '=') lex_token.type = LEX_TOKEN_TYPE_ASSIGN_BITWISE_OR;
-		if (c == '|') lex_token.type = LEX_TOKEN_TYPE_LOGICAL_OR;
+		else if (c == '|') lex_token.type = LEX_TOKEN_TYPE_LOGICAL_OR;
 		else _ungetc(c);
 		break;
 	case '!':
