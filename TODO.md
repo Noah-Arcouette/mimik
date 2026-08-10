@@ -118,18 +118,110 @@ strip:
 	compress-file
 
 cc:
-	lexer
-	linter
-	preprocessor
-	parser
-	AST rundown
-	convert to IR
-	IR rundown
-	lowering:
-		calling conventions
-		x86-16
-		x86-32
-		x86-64
+	cpp:
+		Object-like macro expansion
+		Function-like macro expansion
+		#define MACRO
+		#define FUNC(x...) ... // don't forget __VA_ARGS__
+		#undef MACRO
+		#if expr, #elif expr
+			defined, __has_include, __has_cpp_attribute, __has_embed
+		#ifdef, #ifndef, #elifdef, #elifndef
+		#else, #endif
+		#include
+		#embed
+			limit, if_empty, prefix, suffix
+		#line
+		#error, #warning
+		#pragma
+		comments
+		stringification
+		concatenation
+		__FILE__, __LINE__, __DATE__, __TIME__
+	ccomp:
+		functions:
+			return
+			arguments
+			while loops
+			do - while loops
+			for loops
+			if statements
+			switch statements
+			break, continue, goto, labels
+		globals
+		types:
+			primitives
+			pointers
+			functions
+			arrays
+			structs
+			unions
+			enums
+			alignment
+			constant
+			external
+			static
+			inline
+			register
+			restrict
+			thread_local
+			volatile
+			complex
+			imaginary
+			bit fields
+			attributes:
+				noreturn, _Noreturn
+				nodiscard
+				deprecated
+				fallthrough
+				maybe_unused
+				unsequenced
+				reproducible
+				ownership
+		expr:
+			binary operation
+			unary operation
+			assignment
+			definition
+			symbol
+			float
+			number
+			string
+			character
+			function call
+			sizeof(...)
+			typeof(...)
+			typeof_unqual(...)
+			_Countof(...)
+			__func__
+			{ ... }
+			{ .member=... }
+			index
+			member
+			static_assert
+			_Generic
+			pragma
+	opt:
+		lots of stuff...
+	trans:
+		Debug-Line: filename lineno string
+		Debug-Highlight: offset size
+		Debug-Symbol: type name symbol
+		Debug-Assign: type name register
+		Debug-Type: type machine-definition
+
+		Init: code
+		Function: return-type, arguments, symbol, code, qualifiers
+		Assign: register, value
+		Return: value
+		Select-Target: target{i8086, libc}
+
+		value: register|type literal
+		type: uN, iN, fN (ptr is reduce to u64/32/16/etc)
+
+		x86_16
+		x86_32
+		x86_65
 		x86 extensions
 		+RISC-V
 		+SPARC
@@ -142,8 +234,8 @@ cc:
 		+WebAssembly
 		+NVidia-, AMD-, Intel- GPU
 		+DEC Alpha
-	assembling
-	linking
+	as
+	ld
 as:
 	x86 16bit:
 		push
@@ -213,7 +305,6 @@ ld:
 	make
 	nm
 [CD]:
-	c17
 	ctags
 	lex
 	yacc
