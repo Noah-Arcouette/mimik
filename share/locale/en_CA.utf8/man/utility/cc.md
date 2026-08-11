@@ -253,7 +253,8 @@ All optimizations under `utility/strip`; `-Os` shall be passed as `-O2`, and
 
 # Consequences of Error
 
-No output file shall be created upon error.
+Output files may be partially created, and may be unusable -- they should be
+consider unusable.
 
 
 # Application Usage

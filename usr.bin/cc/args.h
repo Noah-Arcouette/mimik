@@ -43,6 +43,17 @@ struct args_file
 extern struct args_file *args_file;
 extern int               args_files;
 
+struct args_flags
+{
+	unsigned int preprocess_only : 1;
+};
+
+/**
+ * The argument flags
+ * @file args/args.c
+ */
+extern struct args_flags args_flags;
+
 /**
  * Free the input file list
  * @file args/freeFiles.c

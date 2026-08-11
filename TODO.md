@@ -122,7 +122,6 @@ cc:
 	-c
 	-S
 	-G
-	-E
 	-g
 	-s
 	-i (IR output)

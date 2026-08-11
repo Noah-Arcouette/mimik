@@ -13,4 +13,10 @@ extern const char *self;
  */
 extern int errors;
 
+/**
+ * Emit the files after preprocessing
+ * @file preprocessOnly.c
+ */
+extern void preprocessOnly (void);
+
 #endif

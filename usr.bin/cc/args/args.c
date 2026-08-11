@@ -4,15 +4,22 @@
 #include <string.h>
 #include <stdio.h>
 
+struct args_flags args_flags = {
+	.preprocess_only = 0
+};
+
 void
 args (int argc, char *argv[])
 {
 	while (1)
 	{
-		int c = getopt(argc, argv, "+");
+		int c = getopt(argc, argv, "+E");
 
 		switch (c)
 		{
+		case 'E':
+			args_flags.preprocess_only = 1;
+			break;
 		case '?':
 		case ':':
 			errors++;

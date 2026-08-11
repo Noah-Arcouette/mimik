@@ -17,6 +17,16 @@ main (int argc, char *argv[])
 	// parse the command line arguments
 	args(argc, argv);
 
+	// pre-process only
+	if (args_flags.preprocess_only)
+	{
+		preprocessOnly();
+		args_freeFiles();
+		if (errors) return 1;
+		return 0;
+	}
+	// else
+
 	// .c, .i => .ir
 	// .ir => .s
 	// .s => .o

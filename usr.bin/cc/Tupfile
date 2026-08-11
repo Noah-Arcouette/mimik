@@ -12,7 +12,7 @@ endif
 : {obj} |> !ccld $(FLAGS) |> $(DIST)/usr/bin/cc | $(ROOT)/<dist>
 
 !realcc = | $(DIST)/usr/bin/cc \
-	|> ^ CCLD     %b^ $(EXEC) $(DIST)/usr/bin/cc %f |>
+	|> ^ CCLD     %b^ $(EXEC) $(DIST)/usr/bin/cc -E %f |>
 
 : foreach ./tests/*.c |> !realcc |>
 endif
