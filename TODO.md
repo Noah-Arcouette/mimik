@@ -118,7 +118,22 @@ strip:
 	compress-file
 
 cc:
+	-Bdynamic, -Bstatic, -Bonly-static
+	-c
+	-S
+	-G
+	-E
+	-g
+	-s
+	-i (IR output)
+	-ffreestanding
+	-Dname=value, -Uname, -Ipath
+	-Lpath, -llibrary, -Rpath
+	-Oopt
+	-ooutfile
 	cpp:
+		-Dname=value
+		-Uname
 		Object-like macro expansion
 		Function-like macro expansion
 		#define MACRO
@@ -134,7 +149,6 @@ cc:
 		#line
 		#error, #warning
 		#pragma
-		comments
 		stringification
 		concatenation
 		__FILE__, __LINE__, __DATE__, __TIME__
