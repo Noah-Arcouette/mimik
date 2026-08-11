@@ -1,0 +1,7 @@
+config USR_BIN_CC
+	bool "cc"
+	help
+		The mimik C compiler
+config USR_BIN_CC_X86_16
+	bool "x86 16bit support"
+	depends on USR_BIN_CC

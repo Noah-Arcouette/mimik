@@ -35,4 +35,8 @@ menu "Default Builds"
 		imply USR_BIN_READMIO
 		imply USR_BIN_STRIP
 		default y
+	config DEFAULT_POSIX_CD
+		bool "POSIX C Development option group"
+		imply USR_BIN_CC
+		default y
 endmenu

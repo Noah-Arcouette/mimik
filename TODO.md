@@ -131,9 +131,8 @@ cc:
 	-Lpath, -llibrary, -Rpath
 	-Oopt
 	-ooutfile
+	-mi8086
 	cpp:
-		-Dname=value
-		-Uname
 		Object-like macro expansion
 		Function-like macro expansion
 		#define MACRO
