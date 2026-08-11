@@ -129,7 +129,6 @@ cc:
 	-Dname=value, -Uname, -Ipath
 	-Lpath, -llibrary, -Rpath
 	-Oopt
-	-ooutfile
 	-mi8086
 	cpp:
 		Object-like macro expansion

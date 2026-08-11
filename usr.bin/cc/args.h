@@ -46,6 +46,8 @@ extern int               args_files;
 struct args_flags
 {
 	unsigned int preprocess_only : 1;
+
+	const char *outfile;
 };
 
 /**
