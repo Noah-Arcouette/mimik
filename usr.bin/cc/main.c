@@ -1,3 +1,5 @@
+#include "main.h"
+#include "args.h"
 #include <libintl.h>
 #include <locale.h>
 
@@ -13,13 +15,15 @@ main (int argc, char *argv[])
 	textdomain("cc");
 
 	// parse the command line arguments
-	// args(argc, argv);
+	args(argc, argv);
 
-	// Compile C files
-	// Optimize IR
-	// Translate IR
-	// Assemble
-	// Link
+	// .c, .i => .ir
+	// .ir => .s
+	// .s => .o
+	// .o, .a, .so => .so, exec
 
+	args_freeFiles();
+
+	if (errors) return 1;
 	return 0;
 }

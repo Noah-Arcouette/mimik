@@ -153,7 +153,7 @@ Shall be one of the following:
 	the inclusion of a shared object file may cause the output to not load.
 
 *file*.a
-	A static library to load, may contain any of the above files.
+	A static library to link.
 
 
 # Standard Output
