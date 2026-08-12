@@ -10,5 +10,18 @@ struct lex_token lex_token = {
 void
 lex (void)
 {
-	lex_pop();
+	// reset the lexer context
+	lex_newToken();
+
+	// what is the character
+	int c = lex_getc();
+	switch (c)
+	{
+	case EOF:
+		lex_token.type = LEX_TOKEN_TYPE_EOF;
+		break;
+	default:
+		lex_token.type = LEX_TOKEN_TYPE_UNKNOWN;
+		break;
+	}
 }

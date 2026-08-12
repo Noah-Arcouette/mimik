@@ -18,6 +18,7 @@ lex_push (const struct lex_context *lc)
 	{
 		fprintf(stderr, gettext("%s: %s\n"), self, strerror(errno));
 		lex_contexts--;
+		errors++;
 		return;
 	}
 	lex_context = buf;

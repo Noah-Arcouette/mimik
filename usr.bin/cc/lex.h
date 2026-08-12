@@ -187,4 +187,23 @@ extern void lex (void);
  */
 extern void lex_pop (void);
 
+/**
+ * Enter a new token, setting up the context (prettyprint info) for it
+ * @file lex/newToken.c
+ */
+extern void lex_newToken (void);
+
+/**
+ * Free all lexer data
+ * @file lex/free.c
+ */
+extern void lex_free (void);
+
+/**
+ * Get a character from the lexer context
+ * @file lex/getc.c
+ * @returns The character
+ */
+extern int lex_getc (void);
+
 #endif

@@ -66,5 +66,6 @@ preprocessOnly (void)
 		}
 	}
 
+	lex_free();
 	fclose(outfile);
 }
