@@ -206,4 +206,11 @@ extern void lex_free (void);
  */
 extern int lex_getc (void);
 
+/**
+ * Unget a character onto the lexer context
+ * @file lex/ungetc.c
+ * @param c The character to unget
+ */
+extern void lex_ungetc (char c);
+
 #endif
