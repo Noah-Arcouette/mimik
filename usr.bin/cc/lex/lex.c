@@ -1,4 +1,6 @@
+#include "../main.h"
 #include "../lex.h"
+#include <libintl.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -95,11 +97,32 @@ lex (void)
 					{
 						lex_token.type = LEX_TOKEN_TYPE_ATOMIC;
 					}
+					else if (!strcmp(lex_token.buf+2, "lignas"))
+					{
+						lex_prettyprint(gettext(
+							"`_Alignas' is deprecated, use `alignas'\n"));
+						errors++;
+						lex_token.type = LEX_TOKEN_TYPE_ALIGNAS;
+					}
+					else if (!strcmp(lex_token.buf+2, "lignof"))
+					{
+						lex_prettyprint(gettext(
+							"`_Alignof' is deprecated, use `alignof'\n"));
+						errors++;
+						lex_token.type = LEX_TOKEN_TYPE_ALIGNOF;
+					}
 					break;
 				case 'B':
 					if (!strcmp(lex_token.buf+2, "itInt"))
 					{
 						lex_token.type = LEX_TOKEN_TYPE_BITINT;
+					}
+					else if (!strcmp(lex_token.buf+2, "ool"))
+					{
+						lex_prettyprint(
+							gettext("`_Bool' is deprecated, use `bool'\n"));
+						errors++;
+						lex_token.type = LEX_TOKEN_TYPE_BOOL;
 					}
 					break;
 				case 'C':
@@ -132,16 +155,50 @@ lex (void)
 						lex_token.type = LEX_TOKEN_TYPE_GENERIC;
 					}
 					break;
+				case 'N':
+					if (!strcmp(lex_token.buf+2, "oreturn"))
+					{
+						lex_prettyprint(gettext(
+					"`_Noreturn' is deprecated, use `[[noreturn]]'\n"));
+						errors++;
+						lex_token.type = LEX_TOKEN_TYPE_NORETURN;
+					}
+					break;
 				case 'P':
 					if (!strcmp(lex_token.buf+2, "ragma"))
 					{
 						lex_token.type = LEX_TOKEN_TYPE_PRAGMA;
 					}
 					break;
+				case 'S':
+					if (!strcmp(lex_token.buf+2, "tatic_assert"))
+					{
+						lex_prettyprint(gettext(
+					"`_Static_assert' is deprecated, use `static_assert'\n"));
+						errors++;
+						lex_token.type = LEX_TOKEN_TYPE_STATIC_ASSERT;
+					}
+					break;
+				case 'T':
+					if (!strcmp(lex_token.buf+2, "hread_local"))
+					{
+						lex_prettyprint(gettext(
+					"`_Thread_local' is deprecated, use `thread_local'\n"));
+						errors++;
+						lex_token.type = LEX_TOKEN_TYPE_THREAD_LOCAL;
+					}
+					break;
 				case '_':
 					if (!strcmp(lex_token.buf+2, "asm__"))
 					{
 						lex_token.type = LEX_TOKEN_TYPE_ASM;
+					}
+					else if (!strcmp(lex_token.buf+2, "attribute__"))
+					{
+						lex_prettyprint(gettext(
+					"`__attribute__' is deprecated, use `[[...]]'\n"));
+						errors++;
+						lex_token.type = LEX_TOKEN_TYPE_ATTRIBUTE;
 					}
 					break;
 				}
