@@ -27,6 +27,190 @@ lex (void)
 	case EOF:
 		lex_token.type = LEX_TOKEN_TYPE_EOF;
 		break;
+	case '!':
+		lex_token.type = LEX_TOKEN_TYPE_LOGICAL_NOT;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_NOT_EQUALS;
+		}
+		else lex_ungetc(c);
+		break;
+	case '%':
+		lex_token.type = LEX_TOKEN_TYPE_MODULO;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_ASSIGN_MODULO;
+		}
+		else lex_ungetc(c);
+		break;
+	case '^':
+		lex_token.type = LEX_TOKEN_TYPE_XOR;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_ASSIGN_XOR;
+		}
+		else lex_ungetc(c);
+		break;
+	case '&':
+		lex_token.type = LEX_TOKEN_TYPE_BITWISE_AND;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_ASSIGN_AND;
+		}
+		else if (c == '&')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_LOGICAL_AND;
+		}
+		else lex_ungetc(c);
+		break;
+	case '*':
+		lex_token.type = LEX_TOKEN_TYPE_MULTIPLY;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_ASSIGN_MULTIPLY;
+		}
+		else lex_ungetc(c);
+		break;
+	case '-':
+		lex_token.type = LEX_TOKEN_TYPE_MINUS;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_ASSIGN_MINUS;
+		}
+		else if (c == '-')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_DECREMENT;
+		}
+		else if (c == '>')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_MEMBER;
+		}
+		else lex_ungetc(c);
+		break;
+	case '=':
+		lex_token.type = LEX_TOKEN_TYPE_ASSIGN;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_EQUALS;
+		}
+		else lex_ungetc(c);
+		break;
+	case '+':
+		lex_token.type = LEX_TOKEN_TYPE_PLUS;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_ASSIGN_PLUS;
+		}
+		else if (c == '+')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_INCREMENT;
+		}
+		else lex_ungetc(c);
+		break;
+	case '|':
+		lex_token.type = LEX_TOKEN_TYPE_BITWISE_OR;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_ASSIGN_OR;
+		}
+		else if (c == '|')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_LOGICAL_OR;
+		}
+		else lex_ungetc(c);
+		break;
+	case '/':
+		lex_token.type = LEX_TOKEN_TYPE_DIVIDE;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_ASSIGN_DIVIDE;
+		}
+		else lex_ungetc(c);
+		break;
+	case '>':
+		lex_token.type = LEX_TOKEN_TYPE_GREATER;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_GREATER_OR_EQUAL;
+		}
+		else if (c == '>')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_SHIFT_RIGHT;
+
+			c = lex_getc();
+			if (c == '=')
+			{
+				lex_token.type = LEX_TOKEN_TYPE_ASSIGN_SHIFT_RIGHT;
+			}
+			else if (c == '>')
+			{
+				lex_token.type = LEX_TOKEN_TYPE_ROLL_RIGHT;
+
+				c = lex_getc();
+				if (c == '=')
+				{
+					lex_token.type = LEX_TOKEN_TYPE_ASSIGN_ROLL_RIGHT;
+				}
+				else lex_ungetc(c);
+			}
+			else lex_ungetc(c);
+		}
+		else lex_ungetc(c);
+		break;
+	case '<':
+		lex_token.type = LEX_TOKEN_TYPE_LESSER;
+
+		c = lex_getc();
+		if (c == '=')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_LESSER_OR_EQUAL;
+		}
+		else if (c == '<')
+		{
+			lex_token.type = LEX_TOKEN_TYPE_SHIFT_LEFT;
+
+			c = lex_getc();
+			if (c == '=')
+			{
+				lex_token.type = LEX_TOKEN_TYPE_ASSIGN_SHIFT_LEFT;
+			}
+			else if (c == '<')
+			{
+				lex_token.type = LEX_TOKEN_TYPE_ROLL_LEFT;
+
+				c = lex_getc();
+				if (c == '=')
+				{
+					lex_token.type = LEX_TOKEN_TYPE_ASSIGN_ROLL_LEFT;
+				}
+				else lex_ungetc(c);
+			}
+			else lex_ungetc(c);
+		}
+		else lex_ungetc(c);
+		break;
 	case '~':
 		lex_token.type = LEX_TOKEN_TYPE_BITWISE_NOT;
 		break;
