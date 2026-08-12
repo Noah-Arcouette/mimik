@@ -43,6 +43,23 @@ lex_getc (void)
 		return lex_getc(); // try again
 	}
 	// else
+	if (c == '\\')
+	{
+		c = getc(lc->fp);
+		if (c == '\n')
+		{
+			// update line information
+			lc->lineno++;
+			lc->offset = 0;
+			lc->size   = 0;
+			return lex_getc(); // ignore line splices
+		}
+		// else
+		ungetc(c, lc->fp);
+		c = '\\';
+	}
+	// else
+
 	if (c == '\n')
 	{
 		// update line information

@@ -149,7 +149,6 @@ cc:
 		# line "file"
 		stringification
 		concatenation
-		line splicing
 		comments
 		__FILE__, __LINE__, __DATE__, __TIME__
 		__mimik__, __x86_16__, __i8086__
