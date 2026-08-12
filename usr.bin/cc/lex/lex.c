@@ -24,6 +24,42 @@ lex (void)
 	case EOF:
 		lex_token.type = LEX_TOKEN_TYPE_EOF;
 		break;
+	case '~':
+		lex_token.type = LEX_TOKEN_TYPE_BITWISE_NOT;
+		break;
+	case '#':
+		lex_token.type = LEX_TOKEN_TYPE_HASH;
+		break;
+	case '(':
+		lex_token.type = LEX_TOKEN_TYPE_OPEN_PAREN;
+		break;
+	case ')':
+		lex_token.type = LEX_TOKEN_TYPE_CLOSE_PAREN;
+		break;
+	case '[':
+		lex_token.type = LEX_TOKEN_TYPE_OPEN_SQUARE;
+		break;
+	case ']':
+		lex_token.type = LEX_TOKEN_TYPE_CLOSE_SQUARE;
+		break;
+	case '{':
+		lex_token.type = LEX_TOKEN_TYPE_OPEN_CURLY;
+		break;
+	case '}':
+		lex_token.type = LEX_TOKEN_TYPE_CLOSE_CURLY;
+		break;
+	case ';':
+		lex_token.type = LEX_TOKEN_TYPE_SEMICOLON;
+		break;
+	case ':':
+		lex_token.type = LEX_TOKEN_TYPE_COLON;
+		break;
+	case ',':
+		lex_token.type = LEX_TOKEN_TYPE_COMMA;
+		break;
+	case '?':
+		lex_token.type = LEX_TOKEN_TYPE_TERTIARY;
+		break;
 	default:
 		if (isspace(c))
 		{
