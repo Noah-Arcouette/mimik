@@ -1,6 +1,7 @@
 #include "main.h"
 #include "args.h"
 #include "lex.h"
+#include "pre.h"
 #include <libintl.h>
 #include <string.h>
 #include <stdio.h>
@@ -60,7 +61,7 @@ preprocessOnly (void)
 		// print out each token
 		while (1)
 		{
-			lex();
+			preproc();
 
 			if (lex_token.type == LEX_TOKEN_TYPE_EOF) break;
 
