@@ -49,23 +49,21 @@ preprocessOnly (void)
 
 		// push it to the lexer context
 		lc.fp = file->fp;
+		file->fp = NULL; // lc now has ownership
+
 		lc.name = file->path;
 		lex_push(&lc);
 
 		// print out each token
 		fprintf(outfile, "# 1 \"%s\"\n", file->path);
-		// while (1)
-		// {
-		// 	lex();
+		while (1)
+		{
+			lex();
 
-		// 	if (lex_token.type == LEX_TOKEN_TYPE_EOF) break;
+			if (lex_token.type == LEX_TOKEN_TYPE_EOF) break;
 
-		// 	fprintf(outfile, "%s", lex_token.buf);
-		// }
-
-		// clean up a little space
-		fclose(file->fp);
-		file->fp = NULL;
+			fprintf(outfile, "%s", lex_token.buf);
+		}
 	}
 
 	fclose(outfile);

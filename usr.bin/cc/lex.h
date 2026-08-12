@@ -13,6 +13,8 @@ struct lex_context
 	enum lex_contextType type; // context type
 
 	const char *name; // the reference name
+
+	// shall be closed when popped from the context stack
 	FILE *fp; // the open file pointer
 
 	// line and token identification (for prettyprint)
@@ -22,8 +24,16 @@ struct lex_context
 };
 
 /**
+ * The lexer context stack
+ * @file lex/push.c
+ */
+extern struct lex_context *lex_context;
+extern int lex_contexts;
+
+/**
  * Push a new lexer context
  * @param lc The lexer context to push
+ * @file lex/push.c
  */
 extern void lex_push (const struct lex_context *lc);
 
@@ -154,9 +164,27 @@ struct lex_token
 {
 	enum lex_tokenType type;
 
-	void *buf;
+	char *buf;
 	int   bufsz;
 	int   bufcp;
 };
+
+/**
+ * The current lexer token
+ * @file lex/lex.c
+ */
+extern struct lex_token lex_token;
+
+/**
+ * Get the next lexer token
+ * @file lex/lex.c
+ */
+extern void lex (void);
+
+/**
+ * Pop the lexer context
+ * @file lex/pop.c
+ */
+extern void lex_pop (void);
 
 #endif
