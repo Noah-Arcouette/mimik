@@ -233,6 +233,10 @@ All optimizations under `utility/strip`; `-Os` shall be passed as `-O2`, and
 **__STDC_HOSTED__**
 	Shall expand to `1`, if **-ffreestanding** is not given.
 
+**__COUNTER__**
+	Shall expand to `0`, and any successive expansions shall be the next integer
+	value in sequence.
+
 **__mimik__**
 	Shall expand to `1`.
 
