@@ -220,4 +220,10 @@ extern void lex_ungetc (char c);
  */
 extern void lex_prettyprint (const char *fmt, ...);
 
+/**
+ * Print line markers to the file
+ * @file lex/push.c
+ */
+extern FILE *lex_lineMarkers;
+
 #endif

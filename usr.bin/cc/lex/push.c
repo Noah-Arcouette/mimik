@@ -9,6 +9,8 @@
 struct lex_context *lex_context = NULL;
 int lex_contexts = 0;
 
+FILE *lex_lineMarkers = NULL;
+
 void
 lex_push (const struct lex_context *lc)
 {
@@ -24,4 +26,18 @@ lex_push (const struct lex_context *lc)
 	lex_context = buf;
 
 	memcpy(&lex_context[lex_contexts-1], lc, sizeof(struct lex_context));
+
+	if (lex_lineMarkers)
+	{
+		if (lex_contexts == 1)
+		{
+			fprintf(lex_lineMarkers, "# 0 \"%s\"\n", lc->name);
+		}
+		else if (lex_contexts > 1)
+		{
+			// last context
+			lc = &lex_context[lex_contexts-2];
+			fprintf(lex_lineMarkers, "# %d \"%s\"\n", lc->lineno, lc->name);
+		}
+	}
 }

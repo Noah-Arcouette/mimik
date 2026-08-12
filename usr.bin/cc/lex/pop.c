@@ -23,4 +23,14 @@ lex_pop (void)
 	// 	lex_context =
 	// 		realloc(lex_context, sizeof(struct lex_context)*lex_contexts);
 	// }
+
+	if (lex_lineMarkers)
+	{
+		if (lex_contexts > 0)
+		{
+			// last context
+			lc = &lex_context[lex_contexts-1];
+			fprintf(lex_lineMarkers, "# %d \"%s\"\n", lc->lineno, lc->name);
+		}
+	}
 }
