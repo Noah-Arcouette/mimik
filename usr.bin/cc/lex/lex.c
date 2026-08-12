@@ -19,6 +19,8 @@ lex (void)
 
 	// what is the character
 	int c = lex_getc();
+	int d;
+
 	switch (c)
 	{
 	case '\n':
@@ -145,6 +147,25 @@ lex (void)
 		{
 			lex_token.type = LEX_TOKEN_TYPE_ASSIGN_DIVIDE;
 		}
+		else if (c == '/') // single line comment
+		{
+			while (c != '\n' && c != EOF)
+			{
+				c = lex_getc();
+			}
+			lex_ungetc('\n');
+			lex_token.type = LEX_TOKEN_TYPE_COMMENT;
+		}
+		else if (c == '*') // multi-line comment
+		{
+			d = '\0';
+			while (!(c == '/' && d == '*') && c != EOF)
+			{
+				d = c;
+				c = lex_getc();
+			}
+			lex_token.type = LEX_TOKEN_TYPE_COMMENT;
+		}
 		else lex_ungetc(c);
 		break;
 	case '>':
@@ -208,6 +229,25 @@ lex (void)
 				else lex_ungetc(c);
 			}
 			else lex_ungetc(c);
+		}
+		else lex_ungetc(c);
+		break;
+	case '.':
+		lex_token.type = LEX_TOKEN_TYPE_PERIOD;
+
+		c = lex_getc();
+		if (c == '.')
+		{
+			c = lex_getc();
+			if (c == '.')
+			{
+				lex_token.type = LEX_TOKEN_TYPE_ELLIPSES;
+			}
+			else
+			{
+				lex_ungetc(c);
+				lex_ungetc('.');
+			}
 		}
 		else lex_ungetc(c);
 		break;
