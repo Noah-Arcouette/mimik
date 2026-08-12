@@ -10,11 +10,11 @@ lex_ungetc (char c)
 	ungetc(c, lc->fp);
 
 	if (c == '\n') lc->lineno--;
-	else
+
+	if (lc->size) lc->size--;
+	if (lex_token.bufsz)
 	{
 		lex_token.bufsz--;
 		lex_token.buf[lex_token.bufsz] = '\0';
-
-		if (lc->size) lc->size--;
 	}
 }
