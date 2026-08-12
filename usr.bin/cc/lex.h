@@ -213,4 +213,11 @@ extern int lex_getc (void);
  */
 extern void lex_ungetc (char c);
 
+/**
+ * pretty print an error message
+ * @param fmt The printf format string
+ * @file lex/prettyprint.c
+ */
+extern void lex_prettyprint (const char *fmt, ...);
+
 #endif

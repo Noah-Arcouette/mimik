@@ -50,6 +50,7 @@ lex_getc (void)
 		lc->offset = 0;
 		lc->size   = 0;
 	}
+	else lc->size++;
 	// else
 	// push it onto the lexer buffer
 
