@@ -249,7 +249,30 @@ lex (void)
 				lex_ungetc('.');
 			}
 		}
+		else if (isdigit(c))
+		{
+			c = '.'; // shhhhhh, we'll just lie to it don't worry
+			goto _number;
+		}
 		else lex_ungetc(c);
+		break;
+	case '"':
+		lex_token.type = LEX_TOKEN_TYPE_STRING;
+		d = '\\'; // pretend we escaped the first one
+		while (c != EOF && (c != '"' || d == '\\'))
+		{
+			d = c;
+			c = lex_getc();
+		}
+		break;
+	case '\'':
+		lex_token.type = LEX_TOKEN_TYPE_CHARACTER;
+		d = '\\'; // pretend we escaped the first one
+		while (c != EOF && (c != '\'' || d == '\\'))
+		{
+			d = c;
+			c = lex_getc();
+		}
 		break;
 	case '~':
 		lex_token.type = LEX_TOKEN_TYPE_BITWISE_NOT;
@@ -640,6 +663,23 @@ lex (void)
 				}
 				break;
 			}
+			break;
+		}
+
+		// numbers and decimals
+		if (isdigit(c))
+		{
+		_number:
+			lex_token.type = LEX_TOKEN_TYPE_NUMBER;
+			while (isalnum(c) || c == '\'' || c == '.')
+			{
+				if (c == '.')
+				{
+					lex_token.type = LEX_TOKEN_TYPE_DECIMAL;
+				}
+				c = lex_getc();
+			}
+			lex_ungetc(c);
 			break;
 		}
 
