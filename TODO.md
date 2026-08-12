@@ -146,6 +146,7 @@ cc:
 		#line
 		#error, #warning
 		#pragma
+		# line "file"
 		stringification
 		concatenation
 		line splicing
