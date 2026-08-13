@@ -348,14 +348,12 @@ lex (void)
 					{
 						lex_prettyprint(gettext(
 							"`_Alignas' is deprecated, use `alignas'\n"));
-						errors++;
 						lex_token.type = LEX_TOKEN_TYPE_ALIGNAS;
 					}
 					else if (!strcmp(lex_token.buf+2, "lignof"))
 					{
 						lex_prettyprint(gettext(
 							"`_Alignof' is deprecated, use `alignof'\n"));
-						errors++;
 						lex_token.type = LEX_TOKEN_TYPE_ALIGNOF;
 					}
 					break;
@@ -368,7 +366,6 @@ lex (void)
 					{
 						lex_prettyprint(
 							gettext("`_Bool' is deprecated, use `bool'\n"));
-						errors++;
 						lex_token.type = LEX_TOKEN_TYPE_BOOL;
 					}
 					break;
@@ -407,7 +404,6 @@ lex (void)
 					{
 						lex_prettyprint(gettext(
 					"`_Noreturn' is deprecated, use `[[noreturn]]'\n"));
-						errors++;
 						lex_token.type = LEX_TOKEN_TYPE_NORETURN;
 					}
 					break;
@@ -422,7 +418,6 @@ lex (void)
 					{
 						lex_prettyprint(gettext(
 					"`_Static_assert' is deprecated, use `static_assert'\n"));
-						errors++;
 						lex_token.type = LEX_TOKEN_TYPE_STATIC_ASSERT;
 					}
 					break;
@@ -431,7 +426,6 @@ lex (void)
 					{
 						lex_prettyprint(gettext(
 					"`_Thread_local' is deprecated, use `thread_local'\n"));
-						errors++;
 						lex_token.type = LEX_TOKEN_TYPE_THREAD_LOCAL;
 					}
 					break;
@@ -444,7 +438,6 @@ lex (void)
 					{
 						lex_prettyprint(gettext(
 					"`__attribute__' is deprecated, use `[[...]]'\n"));
-						errors++;
 						lex_token.type = LEX_TOKEN_TYPE_ATTRIBUTE;
 					}
 					break;
