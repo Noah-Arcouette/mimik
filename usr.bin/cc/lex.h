@@ -226,4 +226,10 @@ extern void lex_prettyprint (const char *fmt, ...);
  */
 extern FILE *lex_lineMarkers;
 
+/**
+ * Get the next token ignoring whitespace (but not ignoring newlines)
+ * @file lex/nowhitespace.c
+ */
+extern void lex_nowhitespace (void);
+
 #endif
