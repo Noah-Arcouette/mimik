@@ -15,7 +15,7 @@ endif
 
 !realcc = | $(DIST)/usr/bin/cc \
 	|> ^ CCLD     %b^ $(EXEC) $(DIST)/usr/bin/cc -E %f -I$(ROOT)/include\
-		-ffreestanding |>
+		-ffreestanding -I$(ROOT)/include/mimik |>
 
 : foreach ./tests/*.c |> !realcc |>
 endif
