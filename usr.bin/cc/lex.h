@@ -232,4 +232,12 @@ extern FILE *lex_lineMarkers;
  */
 extern void lex_nowhitespace (void);
 
+/**
+ * Recover to a specific token
+ * @file lex/recover.c
+ * @param n The amount of allowed tokens to stop at
+ * @param ... The given token types to stop at
+ */
+extern void lex_recover (int n, ...);
+
 #endif
