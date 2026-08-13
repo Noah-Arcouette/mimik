@@ -58,8 +58,8 @@ lex_push (struct lex_context *lc)
 		else if (lex_contexts > 1)
 		{
 			// last context
-			lc = &lex_context[lex_contexts-2];
-			fprintf(lex_lineMarkers, "# %d \"%s\"\n", lc->lineno, lc->name);
+			lc = &lex_context[lex_contexts-1];
+			fprintf(lex_lineMarkers, "# %d \"%s\"\n", lc->lineno-1, lc->name);
 		}
 	}
 }
