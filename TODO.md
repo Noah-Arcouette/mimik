@@ -139,7 +139,6 @@ cc:
 			defined, __has_include, __has_cpp_attribute, __has_embed
 		#ifdef, #ifndef, #elifdef, #elifndef
 		#else, #endif
-		#include
 		#embed
 			limit, if_empty, prefix, suffix
 		#line

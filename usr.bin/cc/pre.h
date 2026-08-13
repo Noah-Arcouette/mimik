@@ -15,4 +15,19 @@ extern void preproc (void);
  */
 extern void pre_directive (void);
 
+/**
+ * Parse an include directive
+ * @file pre/include.c
+ */
+extern void pre_include (void);
+
+/**
+ * Attempt to find an included file
+ * @param path The include name
+ * @param searchLocal Search the current directory
+ * @file lex/findInclude.c
+ * @returns NULL or an allocated file path to the included file
+ */
+extern char *pre_findInclude (const char *path, int searchLocal);
+
 #endif
