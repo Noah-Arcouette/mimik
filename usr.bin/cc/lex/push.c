@@ -14,6 +14,14 @@ FILE *lex_lineMarkers = NULL;
 void
 lex_push (const struct lex_context *lc)
 {
+	if (lex_contexts > 64)
+	{
+		lex_prettyprint(
+			gettext("Lexer context stack limit of 64 was exceeded\n"));
+		errors++;
+		return;
+	}
+
 	lex_contexts++;
 	void *buf = realloc(lex_context, sizeof(struct lex_context)*lex_contexts);
 	if (!buf)
