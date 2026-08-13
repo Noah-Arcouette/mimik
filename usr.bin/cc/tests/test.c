@@ -1,4 +1,5 @@
 #include <mbr.h>
+#include "../lex.h"
 
 /**
  * Basic `true` utility

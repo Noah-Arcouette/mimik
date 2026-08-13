@@ -73,7 +73,7 @@ extern void args_addInclude (const char *path, int mayfail);
 
 struct args_include
 {
-	int fd;
+	const char *path;
 };
 
 /**

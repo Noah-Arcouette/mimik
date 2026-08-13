@@ -55,7 +55,7 @@ args (int argc, char *argv[])
 			break;
 		case -1:
 			// no more to parse
-			if (optind >= argc || !argv[optind]) return;
+			if (optind >= argc || !argv[optind]) goto _leave;
 
 			// check for --
 			if (!strcmp(argv[optind-1], "--"))
@@ -65,7 +65,7 @@ args (int argc, char *argv[])
 				{
 					args_addFile(argv[i]);
 				}
-				return;
+				goto _leave;
 			}
 
 			args_addFile(argv[optind]);
@@ -73,6 +73,7 @@ args (int argc, char *argv[])
 		}
 	}
 
+_leave:
 	if (!args_flags.freestanding)
 	{
 		args_addInclude("/usr/include/", 0);
