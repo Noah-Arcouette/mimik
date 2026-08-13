@@ -8,6 +8,7 @@
 
 struct args_flags args_flags = {
 	.preprocess_only = 0,
+	.freestanding = 0,
 	.outfile = NULL
 };
 
@@ -16,12 +17,24 @@ args (int argc, char *argv[])
 {
 	while (1)
 	{
-		int c = getopt(argc, argv, "+EI:o:");
+		int c = getopt(argc, argv, "+Ef:I:o:");
 
 		switch (c)
 		{
 		case 'E':
 			args_flags.preprocess_only = 1;
+			break;
+		case 'f':
+			if (!strcmp(optarg, "freestanding"))
+			{
+				args_flags.freestanding = 1;
+			}
+			else
+			{
+				fprintf(stderr, gettext("%s: Unknown flag `-f%s'\n"), self,
+					optarg);
+				errors++;
+			}
 			break;
 		case 'I':
 			args_addInclude(optarg, 0);
@@ -59,6 +72,10 @@ args (int argc, char *argv[])
 			optind++;
 		}
 	}
+
+	if (!args_flags.freestanding)
+	{
 		args_addInclude("/usr/include/", 0);
 		args_addInclude("/usr/local/include/", 1);
+	}
 }

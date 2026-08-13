@@ -27,8 +27,11 @@ main (int argc, char *argv[])
 		return 0;
 	}
 	// else
+	fprintf(stderr, gettext("%s: C compilation not implemented\n"), self);
+	errors++;
 
 	// .c, .i => .ir
+	args_freeIncludes();
 	// .ir => .s
 	// .s => .o
 	// .o, .a, .so => .so, exec
