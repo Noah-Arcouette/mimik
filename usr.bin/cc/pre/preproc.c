@@ -24,4 +24,16 @@ preproc (void)
 		}
 		preproc();
 	}
+
+	static int lineIsDirty = 0;
+
+	// directives
+	if (!lineIsDirty && lex_token.type == LEX_TOKEN_TYPE_HASH)
+	{
+		lex_nowhitespace();
+		pre_directive();
+	}
+
+	if (lex_token.type == LEX_TOKEN_TYPE_NEWLINE) lineIsDirty = 0;
+	else if (lex_token.type != LEX_TOKEN_TYPE_WHITESPACE) lineIsDirty = 1;
 }

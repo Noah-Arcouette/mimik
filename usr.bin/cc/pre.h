@@ -8,4 +8,11 @@
  */
 extern void preproc (void);
 
+/**
+ * Parse a directive
+ * @note this is called right after the hash is consumed
+ * @file pre/directive.c
+ */
+extern void pre_directive (void);
+
 #endif
