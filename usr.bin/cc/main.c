@@ -22,6 +22,7 @@ main (int argc, char *argv[])
 	{
 		preprocessOnly();
 		args_freeFiles();
+		args_freeIncludes();
 		if (errors) return 1;
 		return 0;
 	}

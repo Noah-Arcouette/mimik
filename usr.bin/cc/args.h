@@ -62,4 +62,30 @@ extern struct args_flags args_flags;
  */
 extern void args_freeFiles (void);
 
+/**
+ * Add a new user defined include path
+ * @param path The path
+ * @param mayfail May fail to open
+ * @file args/addInclude.c
+ */
+extern void args_addInclude (const char *path, int mayfail);
+
+struct args_include
+{
+	int fd;
+};
+
+/**
+ * The include files
+ * @file args/addInclude.c
+ */
+extern struct args_include *args_include;
+extern int                  args_includes;
+
+/**
+ * Free the include paths
+ * @file args/freeIncludes.c
+ */
+extern void args_freeIncludes (void);
+
 #endif

@@ -14,7 +14,7 @@ endif
 : {obj} |> !ccld $(FLAGS) |> $(DIST)/usr/bin/cc | $(ROOT)/<dist>
 
 !realcc = | $(DIST)/usr/bin/cc \
-	|> ^ CCLD     %b^ $(EXEC) $(DIST)/usr/bin/cc -E %f |>
+	|> ^ CCLD     %b^ $(EXEC) $(DIST)/usr/bin/cc -E %f -I$(ROOT)/include/ |>
 
 : foreach ./tests/*.c |> !realcc |>
 endif

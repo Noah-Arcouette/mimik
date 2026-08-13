@@ -126,7 +126,7 @@ cc:
 	-s
 	-i (IR output)
 	-ffreestanding
-	-Dname=value, -Uname, -Ipath
+	-Dname=value, -Uname
 	-Lpath, -llibrary, -Rpath
 	-Oopt
 	-mi8086

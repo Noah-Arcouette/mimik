@@ -16,12 +16,15 @@ args (int argc, char *argv[])
 {
 	while (1)
 	{
-		int c = getopt(argc, argv, "+Eo:");
+		int c = getopt(argc, argv, "+EI:o:");
 
 		switch (c)
 		{
 		case 'E':
 			args_flags.preprocess_only = 1;
+			break;
+		case 'I':
+			args_addInclude(optarg, 0);
 			break;
 		case 'o':
 			if (strcmp(optarg, "-") && access(optarg, W_OK) && errno != ENOENT)
@@ -56,4 +59,6 @@ args (int argc, char *argv[])
 			optind++;
 		}
 	}
+		args_addInclude("/usr/include/", 0);
+		args_addInclude("/usr/local/include/", 1);
 }
