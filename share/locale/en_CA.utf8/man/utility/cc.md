@@ -44,8 +44,7 @@ before any level of compilation on the given files takes place.
 **-ffreestanding**
 	Enable free standing mode, do not include or link anything unless specified.
 	No default include paths shall be present. No default libraries shall be
-	present, nor library search paths. And no C-library specific optimizations
-	shall take place.
+	present, nor library search paths.
 
 **-G**
 	Produce a shared library. If combined with **-c**, the **-c** option shall
