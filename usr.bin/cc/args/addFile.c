@@ -10,7 +10,7 @@ struct args_file *args_file  = NULL;
 int               args_files = 0;
 
 void
-args_addFile (const char *path)
+args_addFile (char *path)
 {
 	struct args_file file;
 	file.path = path;

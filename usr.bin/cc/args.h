@@ -15,7 +15,7 @@ extern void args (int argc, char *argv[]);
  * @file args/addFile.c
  * @param path The path to the file to add
  */
-extern void args_addFile (const char *path);
+extern void args_addFile (char *path);
 
 enum args_fileType
 {
@@ -32,7 +32,7 @@ enum args_fileType
 struct args_file
 {
 	enum args_fileType type;
-	const char *path; // do not free
+	char       *path; // do not free
 	FILE       *fp;
 };
 

@@ -12,14 +12,14 @@ int lex_contexts = 0;
 FILE *lex_lineMarkers = NULL;
 
 void
-lex_push (const struct lex_context *lc)
+lex_push (struct lex_context *lc)
 {
-	if (lex_contexts > 64)
+	if (lex_contexts > 16)
 	{
 		lex_prettyprint(
-			gettext("Lexer context stack limit of 64 was exceeded\n"));
+			gettext("Lexer context stack limit of 16 was exceeded\n"));
 		errors++;
-		return;
+		abort();
 	}
 
 	lex_contexts++;
@@ -29,6 +29,10 @@ lex_push (const struct lex_context *lc)
 		fprintf(stderr, gettext("%s: %s\n"), self, strerror(errno));
 		lex_contexts--;
 		errors++;
+
+		// free lc
+		fclose(lc->fp);
+		lc->fp = NULL;
 		return;
 	}
 	lex_context = buf;

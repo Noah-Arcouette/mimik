@@ -12,7 +12,7 @@ struct lex_context
 {
 	enum lex_contextType type; // context type
 
-	const char *name; // the reference name
+	char *name; // the reference name
 
 	// shall be closed when popped from the context stack
 	FILE *fp; // the open file pointer
@@ -32,10 +32,11 @@ extern int lex_contexts;
 
 /**
  * Push a new lexer context
+ * @note Will free lc's internal data if it fails
  * @param lc The lexer context to push
  * @file lex/push.c
  */
-extern void lex_push (const struct lex_context *lc);
+extern void lex_push (struct lex_context *lc);
 
 enum lex_tokenType
 {
