@@ -10,4 +10,9 @@ if INCLUDE
 		bool "mbr.h"
 		help
 			The Master Boot Record partitioning format
+
+	config INCLUDE_STDINT_H
+		bool "stdint.h"
+		help
+			Standard specific integer definitions
 endif

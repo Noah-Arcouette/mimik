@@ -10,5 +10,9 @@ ifeq (@(INCLUDE_MBR_H),y)
 FILES+=mbr.h
 endif
 
+ifeq (@(INCLUDE_STDINT_H),y)
+FILES+=./mimik/stdint.h
+endif
+
 
 : foreach $(FILES) |> !cp |> $(DIST)/usr/include/%b | $(ROOT)/<dist>
