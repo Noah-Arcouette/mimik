@@ -12,6 +12,7 @@ lex_free (void)
 		switch (lex_context[i].type)
 		{
 		case LEX_CONTEXT_TYPE_NORMAL_FILE:
+		case LEX_CONTEXT_TYPE_INCLUDED_FILE:
 			fprintf(stderr,
 				gettext("%s: File `%s' is still open\n"),
 				self, lex_context[i].name);

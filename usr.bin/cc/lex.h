@@ -4,7 +4,8 @@
 
 enum lex_contextType
 {
-	LEX_CONTEXT_TYPE_NORMAL_FILE
+	LEX_CONTEXT_TYPE_NORMAL_FILE,
+	LEX_CONTEXT_TYPE_INCLUDED_FILE
 };
 
 // a context stack element

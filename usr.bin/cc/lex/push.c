@@ -33,6 +33,16 @@ lex_push (struct lex_context *lc)
 		// free lc
 		fclose(lc->fp);
 		lc->fp = NULL;
+
+		switch (lc->type)
+		{
+		case LEX_CONTEXT_TYPE_NORMAL_FILE:
+			break;
+		case LEX_CONTEXT_TYPE_INCLUDED_FILE:
+			free(lc->name);
+			lc->name = NULL;
+			break;
+		}
 		return;
 	}
 	lex_context = buf;

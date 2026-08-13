@@ -30,6 +30,7 @@ lex_getc (void)
 			switch (lc->type)
 			{
 			case LEX_CONTEXT_TYPE_NORMAL_FILE:
+			case LEX_CONTEXT_TYPE_INCLUDED_FILE:
 				fprintf(stderr,
 					gettext("%s: Failed to read from file `%s', %s\n"),
 					self, lc->name, strerror(errno));

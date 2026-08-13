@@ -18,6 +18,10 @@ _printContext (long index)
 		fprintf(stderr, gettext("\nIn file `%s' line %d: "),
 			lc->name, lc->lineno);
 		break;
+	case LEX_CONTEXT_TYPE_INCLUDED_FILE:
+		fprintf(stderr, gettext("\nIn include `%s' line %d: "),
+			lc->name, lc->lineno);
+		break;
 	}
 }
 

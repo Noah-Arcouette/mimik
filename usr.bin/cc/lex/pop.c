@@ -10,6 +10,14 @@ lex_pop (void)
 	lex_contexts--;
 	struct lex_context *lc = &lex_context[lex_contexts];
 	fclose(lc->fp); // close the file
+	switch (lc->type)
+	{
+	case LEX_CONTEXT_TYPE_INCLUDED_FILE:
+		free(lc->name);
+		break;
+	case LEX_CONTEXT_TYPE_NORMAL_FILE:
+		break;
+	}
 
 	if (!lex_contexts)
 	{
