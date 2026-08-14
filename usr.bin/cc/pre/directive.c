@@ -14,10 +14,21 @@ pre_directive (void)
 		lex_nowhitespace();
 		pre_include();
 	}
-	if (!strcmp(lex_token.buf, "define"))
+	else if (!strcmp(lex_token.buf, "define"))
 	{
 		lex_nowhitespace();
 		pre_define();
+	}
+	else if (!strcmp(lex_token.buf, "warning"))
+	{
+		lex_prettyprint("");
+		lex_recover(1, LEX_TOKEN_TYPE_NEWLINE);
+	}
+	else if (!strcmp(lex_token.buf, "error"))
+	{
+		lex_prettyprint("");
+		lex_recover(1, LEX_TOKEN_TYPE_NEWLINE);
+		errors++;
 	}
 	else
 	{

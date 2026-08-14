@@ -139,7 +139,6 @@ cc:
 		#embed
 			limit, if_empty, prefix, suffix
 		#line
-		#error, #warning
 		#pragma
 		# line "file"
 		stringification
