@@ -1,5 +1,6 @@
 #include "main.h"
 #include "args.h"
+#include "pre.h"
 #include <libintl.h>
 #include <locale.h>
 
@@ -23,6 +24,7 @@ main (int argc, char *argv[])
 		preprocessOnly();
 		args_freeFiles();
 		args_freeIncludes();
+		pre_freeMacros();
 		if (errors) return 1;
 		return 0;
 	}
@@ -32,6 +34,7 @@ main (int argc, char *argv[])
 
 	// .c, .i => .ir
 	args_freeIncludes();
+	pre_freeMacros();
 	// .ir => .s
 	// .s => .o
 	// .o, .a, .so => .so, exec

@@ -132,8 +132,6 @@ cc:
 	cpp:
 		Object-like macro expansion
 		Function-like macro expansion
-		#define MACRO
-		#define FUNC(x...) ... // don't forget __VA_ARGS__
 		#undef MACRO
 		#if expr, #elif expr
 			defined, __has_include, __has_cpp_attribute, __has_embed
@@ -148,7 +146,7 @@ cc:
 		stringification
 		concatenation
 		__FILE__, __LINE__, __DATE__, __TIME__
-		__mimik__, __x86_16__, __i8086__
+		__x86_16__, __i8086__
 		__COUNTER__
 	ccomp:
 		functions:

@@ -1,5 +1,6 @@
 #include "../args.h"
 #include "../main.h"
+#include "../pre.h"
 #include <libintl.h>
 #include <unistd.h>
 #include <string.h>
@@ -74,6 +75,7 @@ args (int argc, char *argv[])
 	}
 
 _leave:
+	pre_addMacro("__mimik__", "1");
 	if (!args_flags.freestanding)
 	{
 		args_addInclude("/usr/include/", 0);

@@ -22,6 +22,12 @@ extern void pre_directive (void);
 extern void pre_include (void);
 
 /**
+ * Parse a define directive
+ * @file pre/define.c
+ */
+extern void pre_define (void);
+
+/**
  * Attempt to find an included file
  * @param path The include name
  * @param searchLocal Search the current directory
@@ -29,5 +35,44 @@ extern void pre_include (void);
  * @returns NULL or an allocated file path to the included file
  */
 extern char *pre_findInclude (const char *path, int searchLocal);
+
+/**
+ * The macros
+ * @param name The name of the macro
+ * @param value The value of the macro
+ * @file pre/addMacro.c
+ */
+extern void pre_addMacro (const char *name, const char *value);
+
+struct pre_macro
+{
+	/// @todo Turn this into a radix-tree, B-tree, or hashmap
+
+	char *name;
+	char *value;
+
+	int left;
+	int right;
+};
+
+/**
+ * The given macros
+ * @file pre/addMacro.c
+ */
+extern struct pre_macro *pre_macro;
+extern int               pre_macros;
+extern int               pre_macroRoot; // the root node
+
+/**
+ * Free any defined macros
+ * @file pre/freeMacros.c
+ */
+extern void pre_freeMacros (void);
+
+/**
+ * Print out all caught macros
+ * @file pre/printMacros.c
+ */
+extern void pre_printMacros (void);
 
 #endif

@@ -14,6 +14,11 @@ pre_directive (void)
 		lex_nowhitespace();
 		pre_include();
 	}
+	if (!strcmp(lex_token.buf, "define"))
+	{
+		lex_nowhitespace();
+		pre_define();
+	}
 	else
 	{
 		lex_prettyprint(gettext("Unknown directive\n"));
