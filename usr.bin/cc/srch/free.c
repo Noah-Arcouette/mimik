@@ -5,7 +5,7 @@
 void
 srch_free (struct srch *srch)
 {
-	srch_list(srch);
+	// srch_list(srch);
 
 	for (int i = 0; i<srch->sz; i++)
 	{

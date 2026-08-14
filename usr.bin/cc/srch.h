@@ -46,4 +46,13 @@ extern void srch_free (struct srch *srch);
  */
 extern void srch_list (struct srch *s);
 
+/**
+ * Attempt to find an element
+ * @param s The srch structure
+ * @param name The element name
+ * @file srch/find.c
+ * @returns NULL or the elements data
+ */
+extern void *srch_find (const struct srch *s, const char *name);
+
 #endif
