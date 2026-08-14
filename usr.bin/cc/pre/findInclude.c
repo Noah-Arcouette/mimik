@@ -31,12 +31,11 @@ pre_findInclude (const char *path, int searchLocal)
 			switch (lc->type)
 			{
 			case LEX_CONTEXT_TYPE_NORMAL_FILE:
-				i = 0;
-				_dirname = lc->name;
-				break;
 			case LEX_CONTEXT_TYPE_INCLUDED_FILE:
 				i = 0;
 				_dirname = lc->name;
+				break;
+			case LEX_CONTEXT_TYPE_MACRO_EXPAND: // not a path name
 				break;
 			}
 		}

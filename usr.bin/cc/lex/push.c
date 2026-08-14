@@ -38,6 +38,7 @@ lex_push (struct lex_context *lc)
 		{
 		case LEX_CONTEXT_TYPE_NORMAL_FILE:
 			break;
+		case LEX_CONTEXT_TYPE_MACRO_EXPAND:
 		case LEX_CONTEXT_TYPE_INCLUDED_FILE:
 			free(lc->name);
 			lc->name = NULL;
@@ -49,7 +50,7 @@ lex_push (struct lex_context *lc)
 
 	memcpy(&lex_context[lex_contexts-1], lc, sizeof(struct lex_context));
 
-	if (lex_lineMarkers)
+	if (lex_lineMarkers && lc->type != LEX_CONTEXT_TYPE_MACRO_EXPAND)
 	{
 		if (lex_contexts == 1)
 		{

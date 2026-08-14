@@ -11,11 +11,24 @@ lex_free (void)
 	{
 		switch (lex_context[i].type)
 		{
+		case LEX_CONTEXT_TYPE_MACRO_EXPAND:
+			fprintf(stderr,
+				gettext("%s: Macro `%s' is still open\n"),
+				self, lex_context[i].name);
+			free(lex_context[i].name);
+			errors++;
+			break;
 		case LEX_CONTEXT_TYPE_NORMAL_FILE:
-		case LEX_CONTEXT_TYPE_INCLUDED_FILE:
 			fprintf(stderr,
 				gettext("%s: File `%s' is still open\n"),
 				self, lex_context[i].name);
+			errors++;
+			break;
+		case LEX_CONTEXT_TYPE_INCLUDED_FILE:
+			fprintf(stderr,
+				gettext("%s: Include file `%s' is still open\n"),
+				self, lex_context[i].name);
+			free(lex_context[i].name);
 			errors++;
 			break;
 		}

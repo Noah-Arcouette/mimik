@@ -22,6 +22,10 @@ _printContext (long index)
 		fprintf(stderr, gettext("\nIn include `%s' line %d: "),
 			lc->name, lc->lineno);
 		break;
+	case LEX_CONTEXT_TYPE_MACRO_EXPAND:
+		fprintf(stderr, gettext("\nIn macro `%s' expansion line %d: "),
+			lc->name, lc->lineno);
+		break;
 	}
 }
 

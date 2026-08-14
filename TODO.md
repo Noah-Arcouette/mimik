@@ -130,8 +130,7 @@ cc:
 	-Oopt
 	-mi8086
 	cpp:
-		Object-like macro expansion
-		Function-like macro expansion
+		Function-like macros
 		#undef MACRO
 		#if expr, #elif expr
 			defined, __has_include, __has_cpp_attribute, __has_embed

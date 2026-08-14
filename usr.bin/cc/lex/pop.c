@@ -12,6 +12,11 @@ lex_pop (void)
 	fclose(lc->fp); // close the file
 	switch (lc->type)
 	{
+	case LEX_CONTEXT_TYPE_MACRO_EXPAND:
+		if (lex_lineMarkers)
+		{
+			fprintf(lex_lineMarkers, "\n");
+		}
 	case LEX_CONTEXT_TYPE_INCLUDED_FILE:
 		free(lc->name);
 		break;
@@ -38,7 +43,7 @@ lex_pop (void)
 		{
 			// last context
 			lc = &lex_context[lex_contexts-1];
-			fprintf(lex_lineMarkers, "# %d \"%s\"\n", lc->lineno, lc->name);
+			fprintf(lex_lineMarkers, "# %d \"%s\"\n", lc->lineno-1, lc->name);
 		}
 	}
 }
