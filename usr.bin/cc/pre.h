@@ -1,5 +1,6 @@
 #ifndef __PRE_H__
 #define __PRE_H__
+#include "srch.h"
 #include "lex.h"
 
 /**
@@ -44,35 +45,10 @@ extern char *pre_findInclude (const char *path, int searchLocal);
  */
 extern void pre_addMacro (const char *name, const char *value);
 
-struct pre_macro
-{
-	/// @todo Turn this into a radix-tree, B-tree, or hashmap
-
-	char *name;
-	char *value;
-
-	int left;
-	int right;
-};
-
 /**
  * The given macros
  * @file pre/addMacro.c
  */
-extern struct pre_macro *pre_macro;
-extern int               pre_macros;
-extern int               pre_macroRoot; // the root node
-
-/**
- * Free any defined macros
- * @file pre/freeMacros.c
- */
-extern void pre_freeMacros (void);
-
-/**
- * Print out all caught macros
- * @file pre/printMacros.c
- */
-extern void pre_printMacros (void);
+extern struct srch pre_macro;
 
 #endif

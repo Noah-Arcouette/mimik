@@ -24,7 +24,7 @@ main (int argc, char *argv[])
 		preprocessOnly();
 		args_freeFiles();
 		args_freeIncludes();
-		pre_freeMacros();
+		srch_free(&pre_macro);
 		if (errors) return 1;
 		return 0;
 	}
@@ -34,7 +34,7 @@ main (int argc, char *argv[])
 
 	// .c, .i => .ir
 	args_freeIncludes();
-	pre_freeMacros();
+	srch_free(&pre_macro);
 	// .ir => .s
 	// .s => .o
 	// .o, .a, .so => .so, exec
