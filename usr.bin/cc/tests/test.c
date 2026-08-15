@@ -1,11 +1,14 @@
-#include <mbr.h>
+#include "functions.h"
 
-/**
- * Basic `true` utility
- * @returns 0
- */
-int
-main (void)
+[[noreturn]] void
+_start (void)
 {
-	return 0;
+	struct mbr_part *mbr = find_mbr_partition();
+	if (!mbr)
+	{
+		puts("No bootable partition\n\r");
+		halt();
+	}
+
+	halt();
 }
