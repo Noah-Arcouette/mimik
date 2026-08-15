@@ -20,10 +20,13 @@ pre_directiveEndif (void)
 		return;
 	}
 
-	if (pre_if_depth >= pre_if_success)
+	pre_if_depth--;
+	if (pre_if_depth < pre_if_success)
 	{
-		pre_if_writing = 1;
 		pre_if_success--;
 	}
-	pre_if_depth--;
+	if (pre_if_depth == pre_if_success)
+	{
+		pre_if_writing = 1;
+	}
 }
