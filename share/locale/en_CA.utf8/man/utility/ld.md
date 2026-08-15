@@ -125,8 +125,7 @@ None.
 Addition of embedding informative data (**-I**), execution restrictive data
 (**-E**), section checksum data (**-C**), and section signature data (**-S**).
 
-Addition for archive input support, IR input support -- mainly for unity
-builds, and shared library support.
+Addition for archive input support, and shared library support.
 
 Addition of library search support: **-l library**, **-L link-search-path**,
 **-R load-search-path**, **-Bdynamic | -Bstatic**.

@@ -32,10 +32,9 @@ main (int argc, char *argv[])
 	fprintf(stderr, gettext("%s: C compilation not implemented\n"), self);
 	errors++;
 
-	// .c, .i => .ir
+	// .c, .i => .s
 	args_freeIncludes();
 	srch_free(&pre_macro);
-	// .ir => .s
 	// .s => .o
 	// .o, .a, .so => .so, exec
 

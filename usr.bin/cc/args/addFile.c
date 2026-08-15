@@ -35,10 +35,6 @@ args_addFile (char *path)
 	{
 		file.type = ARGS_FILE_TYPE_I;
 	}
-	else if (!strcmp(ext, "ir"))
-	{
-		file.type = ARGS_FILE_TYPE_IR;
-	}
 	else if (!strcmp(ext, "s"))
 	{
 		file.type = ARGS_FILE_TYPE_S;

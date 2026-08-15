@@ -124,7 +124,6 @@ cc:
 	-G
 	-g
 	-s
-	-i (IR output)
 	-Dname=value, -Uname
 	-Lpath, -llibrary, -Rpath
 	-Oopt
@@ -290,7 +289,6 @@ as:
 ld:
 	+archive inputs
 	+compressed inputs
-	+ir inputs
 	output:
 		+libraries
 		+informative data

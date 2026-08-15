@@ -59,9 +59,6 @@ before any level of compilation on the given files takes place.
 	default places. The paths shall be searched in the order given. The default
 	paths are: `/usr/include/` and `/usr/local/include/`.
 
-**-i**
-	Produce IR files in the form `*basename*.ir` where possible.
-
 **-L path**
 	Include the given path in the library search list, before the default
 	places. They shall be search in the order that they are given. The default
@@ -138,9 +135,6 @@ Shall be one of the following:
 *file*.i
 	A C-source file with pre-processor directives executed.
 
-*file*.ir
-	An Intermediate Representation file.
-
 *file*.s
 	An assembler source file, which does not include pre-processor directives.
 
@@ -166,9 +160,6 @@ Shall be one of the following:
 
 *file*.i
 	A C-source file with pre-processor directives executed.
-
-*file*.ir
-	An Intermediate Representation file.
 
 *file*.s
 	An assembler source file, which does not include pre-processor directives.
