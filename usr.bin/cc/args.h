@@ -89,4 +89,17 @@ extern int                  args_includes;
  */
 extern void args_freeIncludes (void);
 
+enum args_machine
+{
+	ARGS_MACHINE_NONE,
+	// x86-16
+	ARGS_MACHINE_I8086
+};
+
+extern enum args_machine args_machine;
+
+#ifndef ARGS_MACHINE_DEFAULT
+#	define ARGS_MACHINE_DEFAULT ARGS_MACHINE_NONE
+#endif
+
 #endif

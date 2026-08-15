@@ -3,6 +3,8 @@ include_rules
 ifeq (@(USR_BIN_CC),y)
 FLAGS=
 
+# -DARGS_MACHINE_DEFAULT=ARGS_MACHINE_X86_64
+
 ifeq (@(USR_BIN_CC_X86_16),y)
 FLAGS+=-DSUPPORT_X86_16
 endif
@@ -16,7 +18,7 @@ endif
 
 !realcc = | $(DIST)/usr/bin/cc \
 	|> ^ CCLD     %b^ $(EXEC) $(DIST)/usr/bin/cc -E %f -I$(ROOT)/include\
-		-ffreestanding -I$(ROOT)/include/mimik |>
+		-ffreestanding -I$(ROOT)/include/mimik -mi8086 |>
 
 : foreach ./tests/*.c |> !realcc |>
 endif

@@ -128,7 +128,6 @@ cc:
 	-Dname=value, -Uname
 	-Lpath, -llibrary, -Rpath
 	-Oopt
-	-mi8086
 	cpp:
 		Function-like macros
 		#undef MACRO
@@ -142,7 +141,6 @@ cc:
 		stringification
 		concatenation
 		__FILE__, __LINE__, __DATE__, __TIME__
-		__x86_16__, __i8086__
 		__COUNTER__
 	ccomp:
 		functions:
@@ -201,6 +199,8 @@ cc:
 			_Countof(...)
 			__func__
 			{ ... }
+			{ [expr]...=expr ... }
+			{ [expr...expr]...=expr ... }
 			{ .member=... }
 			index
 			member

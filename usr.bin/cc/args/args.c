@@ -13,12 +13,14 @@ struct args_flags args_flags = {
 	.outfile = NULL
 };
 
+enum args_machine args_machine = ARGS_MACHINE_DEFAULT;
+
 void
 args (int argc, char *argv[])
 {
 	while (1)
 	{
-		int c = getopt(argc, argv, "+Ef:I:o:");
+		int c = getopt(argc, argv, "+Ef:I:m:o:");
 
 		switch (c)
 		{
@@ -33,6 +35,21 @@ args (int argc, char *argv[])
 			else
 			{
 				fprintf(stderr, gettext("%s: Unknown flag `-f%s'\n"), self,
+					optarg);
+				errors++;
+			}
+			break;
+		case 'm':
+			#ifdef SUPPORT_X86_16
+			if (!strcmp(optarg, "i8086"))
+			{
+				args_machine = ARGS_MACHINE_I8086;
+			}
+			else
+			#endif
+			{
+				fprintf(stderr,
+					gettext("%s: Unsupported machine target `%s'\n"), self,
 					optarg);
 				errors++;
 			}
@@ -80,5 +97,18 @@ _leave:
 	{
 		args_addInclude("/usr/include/", 0);
 		args_addInclude("/usr/local/include/", 1);
+	}
+
+	// machine setting
+	switch (args_machine)
+	{
+	case ARGS_MACHINE_NONE:
+		fprintf(stderr, gettext("%s: No machine target was set\n"), self);
+		errors++;
+		break;
+	case ARGS_MACHINE_I8086:
+		pre_addMacro("__i8086__", "1");
+		pre_addMacro("__x86_16__", "1");
+		break;
 	}
 }
