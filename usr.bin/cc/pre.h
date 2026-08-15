@@ -51,4 +51,38 @@ extern void pre_addMacro (const char *name, const char *value);
  */
 extern struct srch pre_macro;
 
+/**
+ * The if internal logic
+ * @file pre/directiveIfdef.c
+ */
+extern int pre_if_writing;
+extern int pre_if_depth;
+extern int pre_if_success;
+
+/**
+ * elifdef directive
+ * @param negate act as a elifndef
+ * @file pre/directiveElifdef.c
+ */
+extern void pre_directiveElifdef (int negate);
+
+/**
+ * Ifdef directive
+ * @param negate act as a Ifndef
+ * @file pre/directiveIfdef.c
+ */
+extern void pre_directiveIfdef (int negate);
+
+/**
+ * else directive
+ * @file pre/directiveElse.c
+ */
+extern void pre_directiveElse (void);
+
+/**
+ * endif directive
+ * @file pre/directiveEndif.c
+ */
+extern void pre_directiveEndif (void);
+
 #endif

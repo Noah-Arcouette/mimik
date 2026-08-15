@@ -3,6 +3,35 @@
 #include <libintl.h>
 #include <string.h>
 
+/*
+The if logic:
+
+
+success = 0
+depth   = 0
+write   = 1
+
+if x:
+	if write && depth == success && x:
+		write = 1
+		success++
+	else:
+		write = 0
+	depth++
+elif x:
+	if (depth-1) == success && x:
+		write = 1
+		success++
+	else:
+		write = 0
+endif:
+	if depth == success:
+		write = 1
+		success--
+	depth--
+
+*/
+
 void
 pre_directive (void)
 {
@@ -11,24 +40,74 @@ pre_directive (void)
 
 	if (!strcmp(lex_token.buf, "include"))
 	{
+		if (pre_if_writing)
+		{
+			lex_nowhitespace();
+			pre_include();
+		}
+		else
+		{
+			lex_recover(1, LEX_TOKEN_TYPE_NEWLINE);
+		}
+	}
+	else if (!strcmp(lex_token.buf, "ifdef"))
+	{
 		lex_nowhitespace();
-		pre_include();
+		pre_directiveIfdef(0);
+	}
+	else if (!strcmp(lex_token.buf, "ifndef"))
+	{
+		lex_nowhitespace();
+		pre_directiveIfdef(1);
+	}
+	else if (!strcmp(lex_token.buf, "elifdef"))
+	{
+		lex_nowhitespace();
+		pre_directiveElifdef(0);
+	}
+	else if (!strcmp(lex_token.buf, "elifndef"))
+	{
+		lex_nowhitespace();
+		pre_directiveElifdef(1);
+	}
+	else if (!strcmp(lex_token.buf, "else"))
+	{
+		lex_nowhitespace();
+		pre_directiveElse();
+	}
+	else if (!strcmp(lex_token.buf, "endif"))
+	{
+		lex_nowhitespace();
+		pre_directiveEndif();
 	}
 	else if (!strcmp(lex_token.buf, "define"))
 	{
-		lex_nowhitespace();
-		pre_define();
+		if (pre_if_writing)
+		{
+			lex_nowhitespace();
+			pre_define();
+		}
+		else
+		{
+			lex_recover(1, LEX_TOKEN_TYPE_NEWLINE);
+		}
 	}
 	else if (!strcmp(lex_token.buf, "warning"))
 	{
-		lex_prettyprint("");
+		if (pre_if_writing)
+		{
+			lex_prettyprint("");
+		}
 		lex_recover(1, LEX_TOKEN_TYPE_NEWLINE);
 	}
 	else if (!strcmp(lex_token.buf, "error"))
 	{
-		lex_prettyprint("");
+		if (pre_if_writing)
+		{
+			lex_prettyprint("");
+			errors++;
+		}
 		lex_recover(1, LEX_TOKEN_TYPE_NEWLINE);
-		errors++;
 	}
 	else
 	{

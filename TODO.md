@@ -134,8 +134,6 @@ cc:
 		#undef MACRO
 		#if expr, #elif expr
 			defined, __has_include, __has_cpp_attribute, __has_embed
-		#ifdef, #ifndef, #elifdef, #elifndef
-		#else, #endif
 		#embed
 			limit, if_empty, prefix, suffix
 		#line

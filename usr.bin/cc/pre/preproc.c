@@ -79,5 +79,14 @@ preproc (void)
 	}
 
 	if (lex_token.type == LEX_TOKEN_TYPE_NEWLINE) lineIsDirty = 0;
-	else if (lex_token.type != LEX_TOKEN_TYPE_WHITESPACE) lineIsDirty = 1;
+	else if (lex_token.type != LEX_TOKEN_TYPE_WHITESPACE)
+	{
+		lineIsDirty = 1;
+
+		if (!pre_if_writing)
+		{
+			lex_recover(1, LEX_TOKEN_TYPE_NEWLINE);
+			lineIsDirty = 0;
+		}
+	}
 }
