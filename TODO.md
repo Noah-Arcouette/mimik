@@ -128,7 +128,7 @@ cc:
 	-Dname=value, -Uname
 	-Lpath, -llibrary, -Rpath
 	-Oopt
-	cpp:
+	Pre-Processor:
 		Function-like macros
 		#undef MACRO
 		#if expr, #elif expr
@@ -142,7 +142,7 @@ cc:
 		concatenation
 		__FILE__, __LINE__, __DATE__, __TIME__
 		__COUNTER__
-	ccomp:
+	AST:
 		functions:
 			return
 			arguments
@@ -208,23 +208,14 @@ cc:
 			_Generic
 			pragma
 	opt:
-		lots of stuff...
-	trans:
-		Debug-Line: filename lineno string
-		Debug-Highlight: offset size
-		Debug-Symbol: type name symbol
-		Debug-Assign: type name register
-		Debug-Type: type machine-definition
-
-		Init: code
-		Function: return-type, arguments, symbol, code, qualifiers
-		Assign: register, value
-		Return: value
-		Select-Target: target{i8086, libc}
-
-		value: register|type literal
-		type: uN, iN, fN (ptr is reduce to u64/32/16/etc)
-
+		constant folding
+		register qualification
+		structure unwrapping
+		common sub-expression substitution
+		operation lowering
+		dead expression elimination
+		range checking
+	lowering:
 		x86_16
 		x86_32
 		x86_65
