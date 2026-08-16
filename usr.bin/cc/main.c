@@ -29,10 +29,18 @@ main (int argc, char *argv[])
 		return 0;
 	}
 	// else
-	fprintf(stderr, gettext("%s: C compilation not implemented\n"), self);
-	errors++;
 
 	// .c, .i => .s
+	for (int i = 0; i<args_files; i++)
+	{
+		struct args_file *file = &args_file[i];
+
+		if (file->type != ARGS_FILE_TYPE_C &&
+			file->type != ARGS_FILE_TYPE_I) continue;
+
+		compileCFile(file);
+	}
+	lex_free();
 	args_freeIncludes();
 	srch_free(&pre_macro);
 	// .s => .o

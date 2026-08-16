@@ -9,6 +9,7 @@ ifeq (@(USR_BIN_CC_X86_16),y)
 FLAGS+=-DSUPPORT_X86_16
 endif
 
+: foreach parse/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/parse/%B.o {obj}
 : foreach srch/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/srch/%B.o {obj}
 : foreach pre/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/pre/%B.o {obj}
 : foreach lex/*.c |> !cc $(FLAGS) |> $(OBJ)/usr.bin/cc/lex/%B.o {obj}

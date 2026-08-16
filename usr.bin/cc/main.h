@@ -1,5 +1,6 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
+#include "args.h"
 
 /**
  * The invocation name
@@ -18,5 +19,12 @@ extern int errors;
  * @file preprocessOnly.c
  */
 extern void preprocessOnly (void);
+
+/**
+ * Compile a C file to assembler
+ * @file compileCFile.c
+ * @param file The file to compile
+ */
+extern void compileCFile (struct args_file *file);
 
 #endif
