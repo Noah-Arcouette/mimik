@@ -9,6 +9,15 @@ enum astType
 struct ast
 {
 	enum astType type;
+
+	union
+	{
+		struct
+		{
+			unsigned int amount; // amount of nodes
+			struct ast  *node; // the nodes
+		} root;
+	};
 };
 
 /**
