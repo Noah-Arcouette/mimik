@@ -21,7 +21,7 @@ main (int argc, char *argv[])
 	// pre-process only
 	if (args_flags.preprocess_only)
 	{
-		preprocessOnly();
+		if (!errors) preprocessOnly();
 		args_freeFiles();
 		args_freeIncludes();
 		srch_free(&pre_macro);

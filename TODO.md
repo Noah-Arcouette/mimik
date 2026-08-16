@@ -120,7 +120,6 @@ strip:
 cc:
 	-Bdynamic, -Bstatic, -Bonly-static
 	-c
-	-S
 	-G
 	-g
 	-s

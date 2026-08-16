@@ -9,6 +9,7 @@
 
 struct args_flags args_flags = {
 	.preprocess_only = 0,
+	.assembler_only = 0,
 	.freestanding = 0,
 	.outfile = NULL
 };
@@ -20,12 +21,15 @@ args (int argc, char *argv[])
 {
 	while (1)
 	{
-		int c = getopt(argc, argv, "+Ef:I:m:o:");
+		int c = getopt(argc, argv, "+Ef:I:m:o:S");
 
 		switch (c)
 		{
 		case 'E':
 			args_flags.preprocess_only = 1;
+			break;
+		case 'S':
+			args_flags.assembler_only = 1;
 			break;
 		case 'f':
 			if (!strcmp(optarg, "freestanding"))
