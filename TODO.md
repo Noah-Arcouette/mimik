@@ -117,33 +117,6 @@ strip:
 	split-zero-sections
 	compress-file
 
-cc:
-	lexer
-	linter
-	preprocessor
-	parser
-	AST rundown
-	convert to IR
-	IR rundown
-	lowering:
-		calling conventions
-		x86-16
-		x86-32
-		x86-64
-		x86 extensions
-		+RISC-V
-		+SPARC
-		+POWER ISA, POWER, PowerPC, Cell
-		+Itanium
-		+ARM
-		+M68k
-		+MIPS
-		+z/Arch
-		+WebAssembly
-		+NVidia-, AMD-, Intel- GPU
-		+DEC Alpha
-	assembling
-	linking
 as:
 	x86 16bit:
 		push
