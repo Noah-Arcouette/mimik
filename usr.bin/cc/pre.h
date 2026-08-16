@@ -91,4 +91,12 @@ extern void pre_directiveEndif (void);
  */
 extern void preproc_nowhitespace (void);
 
+/**
+ * Recover to a specific token
+ * @file pre/recover.c
+ * @param n The amount of allowed tokens to stop at
+ * @param ... The given token types to stop at
+ */
+extern void pre_recover (int n, ...);
+
 #endif
