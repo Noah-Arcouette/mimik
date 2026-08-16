@@ -190,6 +190,7 @@ cc:
 			Return
 			Break
 			Continue
+			__asm__
 	AST Optimization:
 		SSA Conversion
 		Range Checking
