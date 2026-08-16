@@ -85,4 +85,10 @@ extern void pre_directiveElse (void);
  */
 extern void pre_directiveEndif (void);
 
+/**
+ * Same as preproc, but without spaces or newlines
+ * @file pre/nowhitespace.c
+ */
+extern void preproc_nowhitespace (void);
+
 #endif
