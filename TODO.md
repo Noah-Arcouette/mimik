@@ -117,6 +117,131 @@ strip:
 	split-zero-sections
 	compress-file
 
+cc:
+	Arguments
+	Reporting
+	Lexer
+	Preprocessor:
+		#region, #endregion
+		#if, #elif
+			defined
+			__has_include
+			__has_c_attribute
+			__has_embed
+		#else, #endif
+		#ifdef, #ifndef #elifdef, #elifndef
+		#define
+		#undef
+		#include
+		#embed
+		#line
+		# line "file"
+		#error, #warning
+		#pragma
+		__COUNTER__
+		__FILE__, __LINE__, __TIME__, __DATE__
+		__mimik__
+		__i8080__, __x86_16__
+		line slices
+		comments
+	Parser (AST Generation):
+		Declarations:
+			Primitive Types
+			Function Pointers
+			Structures
+			Unions
+			Enum
+			Pointers
+			Arrays
+			Bit fields
+			Typedefs
+			Initialization
+			Alignment
+			Attributes
+			Function Definition
+			Static Data
+			Global Data
+			External Data
+		Expression:
+			Binary Operation
+			Unary Operation
+			Definition
+			Assignment
+			Indexing
+			Structure Member
+			Function Calling
+			Number
+			Float
+			Array
+			Structure
+			String
+			Character
+			__func__
+			Typeof
+			Sizeof
+			Countof
+		Statements:
+			Switch - Case - Default
+			If - Else
+			While
+			Do - While
+			For
+			Goto - Labels
+			Return
+			Break
+			Continue
+	AST Optimization:
+		SSA Conversion
+		Range Checking
+		Complex Operation Unrolling
+		Uninitialized Checking
+		Pointer Validity Checking
+		Compile Time Evaluation
+		Composite Data Unrolling
+		Operator Strength Reduction
+		Jump Threading
+		Loop Threading
+		Function-Procedure Splitting (Partial function execution)
+		Stack Reduction
+		Dead Code Elimination
+		Common Expression Substitution
+		Automatic Vectorization
+		Loop Invariant Movement
+		Loop Unrolling
+		Common Array Combining
+		Function Inlining
+		Qualifier and Attribute Modification:
+			Const
+			No Return
+			Unsequenced
+			Reproducible
+			Packed
+			Alignment
+			Constexpr
+			Static
+		C Lib:
+			Print Combining
+			Malloc Reduction
+			Format String Execution
+			String And Buffer Reduction
+	AST Checking
+	Assembler Generation
+		calling conventions
+		x86 16bit
+		x86 32bit
+		x86 64bit
+		x86 extensions
+		+RISC-V
+		+SPARC
+		+POWER ISA, POWER, PowerPC, Cell
+		+Itanium
+		+ARM
+		+M68k
+		+MIPS
+		+z/Arch
+		+WebAssembly
+		+NVidia-, AMD-, Intel- GPU
+		+DEC Alpha
 as:
 	x86 16bit:
 		push
