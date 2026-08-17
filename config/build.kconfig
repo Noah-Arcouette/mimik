@@ -20,12 +20,6 @@ menu "Build"
 			This is used to run built tools in for testing purposes
 
 	comment "Output control"
-	config BUILD_UNITY
-		bool "Compile the system with a unity build"
-		help
-			This compiles all program sources at once, which is much slower for
-			recompilation but allows for more optimization
-
 	config BUILD_COMPRESS
 		bool "Compile the system with compressed output objects"
 		select BUILD_TOOL_COMPRESS
