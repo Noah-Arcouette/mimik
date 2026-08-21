@@ -17,7 +17,8 @@ struct MiO
 	uint64_t size;
 } __attribute__((packed));
 
-#define MIO_SPECIAL_MIO_ARCH (uint8_t *)"mio.arch"
+#define MIO_SPECIAL_MIO_ARCH "mio.arch"
+#define MIO_SPECIAL_MIO_ARCH_W L"mio.arch"
 /// @brief The mio architecture data
 struct MiO_Arch
 {
@@ -38,7 +39,8 @@ struct MiO_Arch
 #define MIO_ARCH_ARCH_X86_16          0x0001 // x86 16bit major
 #define MIO_ARCH_ARCH_X86_UARCH_I8086 0x0000 // i8086 minor
 
-#define MIO_SPECIAL_MIO_GAPS (uint8_t *)"mio.gaps"
+#define MIO_SPECIAL_MIO_GAPS "mio.gaps"
+#define MIO_SPECIAL_MIO_GAPS_W L"mio.gaps"
 /// @brief A single MiO gap
 struct MiO_Gap
 {
@@ -77,7 +79,8 @@ struct MiO_Gap
 #define MIO_GAP_TYPE_WRITING   0x2000
 #define MIO_GAP_TYPE_EXECUTING 0x1000
 
-#define MIO_SPECIAL_MIO_SYMBOLS (uint8_t *)"mio.symbols"
+#define MIO_SPECIAL_MIO_SYMBOLS "mio.symbols"
+#define MIO_SPECIAL_MIO_SYMBOLS_W L"mio.symbols"
 /// @brief A single MiO symbol
 struct MiO_Symbol
 {
@@ -101,7 +104,8 @@ struct MiO_Symbol
 #define MIO_SYMBOL_FLAG_LITERAL      0x0020
 #define MIO_SYMBOL_FLAG_THREAD_LOCAL 0x0040
 
-#define MIO_SPECIAL_MIO_MAPS (uint8_t *)"mio.maps"
+#define MIO_SPECIAL_MIO_MAPS "mio.maps"
+#define MIO_SPECIAL_MIO_MAPS_W L"mio.maps"
 /// The memory mapping structures
 struct MiO_Map
 {
@@ -124,7 +128,8 @@ struct MiO_Map
 #define MIO_MAP_FLAG_VIRTUAL             0x40
 #define MIO_MAP_FLAG_RESERVED            0x80
 
-#define MIO_SPECIAL_MIO_ENTRY (uint8_t *)"mio.entry"
+#define MIO_SPECIAL_MIO_ENTRY "mio.entry"
+#define MIO_SPECIAL_MIO_ENTRY_W L"mio.entry"
 /// The entry symbol
 struct MiO_Entry
 {

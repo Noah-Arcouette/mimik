@@ -1,27 +1,27 @@
 #include "../emit.h"
 #include "../main.h"
 #include <libintl.h>
-#include <string.h>
 #include <endian.h>
+#include <wchar.h>
 #include <mio.h>
 
 void
-setArch (const char *arch)
+setArch (const wchar_t *arch)
 {
-	if (!strcmp(arch, "undefined"))
+	if (!wcscmp(arch, L"undefined"))
 	{
 		currentArchitecture.arch      = 0;
 		currentArchitecture.uarch     = 0;
 		currentArchitecture.archflags = 0;
 	}
-	else if (!strcmp(arch, "x86_16"))
+	else if (!wcscmp(arch, L"x86_16"))
 	{
 		currentArchitecture.arch      = htole16(MIO_ARCH_ARCH_X86_16);
 		currentArchitecture.uarch     = 0;
 		currentArchitecture.archflags = 0;
 
 	#ifndef X86_16
-		prettyprint(gettext("Architecture `%s' not supported in this build\n"),
+		prettyprint(gettext("Architecture `%S' not supported in this build\n"),
 			arch);
 		errors++;
 	#endif
@@ -29,7 +29,7 @@ setArch (const char *arch)
 	else
 	{
 		prettyprint(gettext(
-			"Unknown architecture `%s', \
+			"Unknown architecture `%S', \
 expected either: undefined, or x86_16\n"),
 			arch);
 		errors++;

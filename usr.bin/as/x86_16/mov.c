@@ -8,7 +8,7 @@
 int
 parse_x86_16_mov (void)
 {
-	if (ltok.type != TOK_SYMBOL || strcmp(ltok.buf, "mov")) return 0;
+	if (ltok.type != TOK_SYMBOL || wcscmp(ltok.buf, L"mov")) return 0;
 	lex();
 
 	int regA;

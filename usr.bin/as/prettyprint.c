@@ -1,6 +1,7 @@
 #include <libintl.h>
 #include <string.h>
 #include <stdarg.h>
+#include <stdlib.h>
 #include <errno.h>
 #include "main.h"
 
@@ -51,10 +52,10 @@ prettyprint (const char *fmt, ...)
 	long clineno = 1;
 	while (clineno < ltok.lineno)
 	{
-		int c = fgetc(lfp);
+		wint_t c = fgetwc(lfp);
 
-		if (c == '\n') clineno++;
-		if (c == EOF)
+		if (c == L'\n') clineno++;
+		if (c == WEOF)
 		{
 			int error = errno;
 			if (ferror(lfp))
@@ -76,9 +77,9 @@ prettyprint (const char *fmt, ...)
 	long coffset = 0;
 	while (1)
 	{
-		int c = fgetc(lfp);
+		wint_t c = fgetwc(lfp);
 
-		if (c == EOF)
+		if (c == WEOF)
 		{
 			int error = errno;
 			if (ferror(lfp))
@@ -96,7 +97,7 @@ prettyprint (const char *fmt, ...)
 
 		// don't print a newline because there may not be one,
 		// so we shouldn't assume
-		if (c == '\n') break;
+		if (c == L'\n') break;
 
 		// add underlining
 		if (coffset == ltok.offset)
@@ -109,7 +110,12 @@ prettyprint (const char *fmt, ...)
 		}
 		coffset++;
 
-		putc(c, stderr);
+		char sc[MB_CUR_MAX];
+		int amt = wctomb(sc, c);
+		for (int i = 0; i<amt; i++)
+		{
+			putc(sc[i], stderr);
+		}
 	}
 	// clear the underlining just in case
 	fprintf(stderr, gettext("\x1b[0m\n\t"));

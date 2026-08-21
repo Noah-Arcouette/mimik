@@ -23,7 +23,7 @@ parse_x86_16_mem16 (struct mem16 *mem16, int rwx)
 	if (ltok.type == TOK_REGISTER)
 	{
 		// %bx
-		if (!strcmp(ltok.buf, "%bx"))
+		if (!wcscmp(ltok.buf, L"%bx"))
 		{
 			lex();
 			addr.modrm = 0b111;
@@ -34,13 +34,13 @@ parse_x86_16_mem16 (struct mem16 *mem16, int rwx)
 				lex();
 
 				// %si
-				if (!strcmp(ltok.buf, "%si"))
+				if (!wcscmp(ltok.buf, L"%si"))
 				{
 					addr.modrm = 0b000;
 					lex();
 				}
 				// %di
-				else if (!strcmp(ltok.buf, "%di"))
+				else if (!wcscmp(ltok.buf, L"%di"))
 				{
 					addr.modrm = 0b001;
 					lex();
@@ -53,7 +53,7 @@ parse_x86_16_mem16 (struct mem16 *mem16, int rwx)
 			}
 		}
 		// %bp
-		if (!strcmp(ltok.buf, "%bp"))
+		if (!wcscmp(ltok.buf, L"%bp"))
 		{
 			lex();
 			addr.modrm = 0b110;
@@ -64,13 +64,13 @@ parse_x86_16_mem16 (struct mem16 *mem16, int rwx)
 				lex();
 
 				// %si
-				if (!strcmp(ltok.buf, "%si"))
+				if (!wcscmp(ltok.buf, L"%si"))
 				{
 					addr.modrm = 0b010;
 					lex();
 				}
 				// %di
-				else if (!strcmp(ltok.buf, "%di"))
+				else if (!wcscmp(ltok.buf, L"%di"))
 				{
 					addr.modrm = 0b011;
 					lex();
@@ -83,13 +83,13 @@ parse_x86_16_mem16 (struct mem16 *mem16, int rwx)
 			}
 		}
 		// %si
-		if (!strcmp(ltok.buf, "%si"))
+		if (!wcscmp(ltok.buf, L"%si"))
 		{
 			lex();
 			addr.modrm = 0b100;
 		}
 		// %di
-		if (!strcmp(ltok.buf, "%di"))
+		if (!wcscmp(ltok.buf, L"%di"))
 		{
 			lex();
 			addr.modrm = 0b101;
@@ -137,7 +137,7 @@ parse_x86_16_mem16 (struct mem16 *mem16, int rwx)
 				addr.modrm |= 0b10000000;
 				addr.displacement[0] = 0;
 				addr.displacement[1] = 0;
-				addr.symbol = strdup(ltok.buf);
+				addr.symbol = wcsdup(ltok.buf);
 				if (!addr.symbol)
 				{
 					prettyprint(gettext("%s\n"), strerror(errno));
@@ -197,7 +197,7 @@ parse_x86_16_mem16 (struct mem16 *mem16, int rwx)
 		addr.modrm = 0x06;
 		addr.displacement[0] = 0;
 		addr.displacement[1] = 0;
-		addr.symbol          = strdup(ltok.buf);
+		addr.symbol          = wcsdup(ltok.buf);
 		if (!addr.symbol)
 		{
 			prettyprint(gettext("%s\n"), strerror(errno));

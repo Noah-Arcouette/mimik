@@ -23,7 +23,7 @@ HOSTLDFLAGS=-L$(OBJ)/usr.lib/
 
 !ln = |> ^ LN       %o^ ln -s $(LINK) %o |>
 
-EXEC=@(BUILD_EXEC)
+EXEC=LC_ALL="en_CA.utf8" @(BUILD_EXEC)
 
 # Built Toolchain
 # not implemented so just use this for testing

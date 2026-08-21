@@ -1,12 +1,12 @@
 #include "../main.h"
 #include "../emit.h"
 #include "x86_16.h"
-#include <string.h>
+#include <wchar.h>
 
 int
-parse_x86_16_singlet (const char *instruction, int opcode)
+parse_x86_16_singlet (const wchar_t *instruction, int opcode)
 {
-	if (ltok.type != TOK_SYMBOL || strcmp(instruction, ltok.buf))
+	if (ltok.type != TOK_SYMBOL || wcscmp(instruction, ltok.buf))
 	{
 		return 0;
 	}

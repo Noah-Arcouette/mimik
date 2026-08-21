@@ -3,14 +3,14 @@
 #include "../emit.h"
 #include "x86_16.h"
 #include <libintl.h>
-#include <string.h>
+#include <wchar.h>
 
 int
-parse_x86_16_arithmetic (const char *mnemonic, int opcode, int immOpcode,
+parse_x86_16_arithmetic (const wchar_t *mnemonic, int opcode, int immOpcode,
 	int immCommand, int accOpcode, int _signed, int direction)
 {
 	// op
-	if (ltok.type != TOK_SYMBOL || strcmp(ltok.buf, mnemonic)) return 0;
+	if (ltok.type != TOK_SYMBOL || wcscmp(ltok.buf, mnemonic)) return 0;
 	lex();
 
 	int reg;

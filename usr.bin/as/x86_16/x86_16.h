@@ -1,5 +1,6 @@
 #ifndef __X86_16_H__
 #define __X86_16_H__
+#include <wchar.h>
 
 /**
  * mov family of instructions
@@ -36,7 +37,7 @@ extern int parse_x86_16_inc_dec (void);
  * @param opcode The opcode to emit
  * @returns True if an instruction was consumed
  */
-extern int parse_x86_16_singlet (const char *instruction, int opcode);
+extern int parse_x86_16_singlet (const wchar_t *instruction, int opcode);
 
 /**
  * Consume a string type instruction (movs, cmps, scas, etc)
@@ -87,7 +88,7 @@ struct mem16
 {
 	char modrm;
 	char displacement[2];
-	char *symbol;
+	wchar_t *symbol;
 	int   gapType;
 };
 
@@ -132,7 +133,7 @@ extern void emit_x86_16_mem16 (const struct mem16 *mem16);
  * @returns true if the instruction was consumed
  * @file x86_16/arithmetic.c
  */
-extern int parse_x86_16_arithmetic (const char *mnemonic, int opcode,
+extern int parse_x86_16_arithmetic (const wchar_t *mnemonic, int opcode,
 	int immOpcode, int immCommand, int accOpcode, int _signed, int direction);
 
 #endif

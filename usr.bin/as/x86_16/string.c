@@ -13,27 +13,27 @@ parse_x86_16_string (void)
 	int opcode;
 
 	// movs
-	if (!strcmp(ltok.buf, "movs"))
+	if (!wcscmp(ltok.buf, L"movs"))
 	{
 		opcode = 0b10100100;
 	}
 	// cmps
-	else if (!strcmp(ltok.buf, "cmps"))
+	else if (!wcscmp(ltok.buf, L"cmps"))
 	{
 		opcode = 0b10100110;
 	}
 	// scas
-	else if (!strcmp(ltok.buf, "scas"))
+	else if (!wcscmp(ltok.buf, L"scas"))
 	{
 		opcode = 0b10101110;
 	}
 	// lods
-	else if (!strcmp(ltok.buf, "lods"))
+	else if (!wcscmp(ltok.buf, L"lods"))
 	{
 		opcode = 0b10101100;
 	}
 	// stos
-	else if (!strcmp(ltok.buf, "stos"))
+	else if (!wcscmp(ltok.buf, L"stos"))
 	{
 		opcode = 0b10101010;
 	}

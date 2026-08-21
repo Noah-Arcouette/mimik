@@ -3,11 +3,12 @@
 #include <libintl.h>
 #include <endian.h>
 #include <string.h>
+#include <stdlib.h>
 
 long currentSection = -1;
 
 void
-emitSection (const char *name)
+emitSection (const wchar_t *name)
 {
 	struct MiO newSection;
 
@@ -16,10 +17,10 @@ emitSection (const char *name)
 	symbolFlags    = 0;
 
 	// check if the name can fix
-	if (strlen(name) > sizeof(newSection.name))
+	if ((wcstombs(NULL, name, 0)-1) > sizeof(newSection.name))
 	{
 		prettyprint(gettext(
-			"The section name `%s` does not fit into a MiO section name\n"),
+			"The section name `%S` does not fit into a MiO section name\n"),
 			name);
 		errors++;
 		return;
@@ -30,7 +31,7 @@ emitSection (const char *name)
 	newSection.magic = htole32(MIO_MAGIC);
 
 	// add the name
-	strncpy((void *)newSection.name, name, sizeof(newSection.name));
+	wcstombs((void *)newSection.name, name, sizeof(newSection.name));
 
 	// emit it
 	currentSection = emitRaw(&newSection, sizeof(newSection));

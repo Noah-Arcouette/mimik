@@ -3,12 +3,12 @@
 #include "../emit.h"
 #include "x86_16.h"
 #include <libintl.h>
-#include <string.h>
+#include <wchar.h>
 
 int
 parse_x86_16_interrupt (void)
 {
-	if (ltok.type != TOK_SYMBOL || strcmp("int", ltok.buf))
+	if (ltok.type != TOK_SYMBOL || wcscmp(L"int", ltok.buf))
 	{
 		return 0;
 	}

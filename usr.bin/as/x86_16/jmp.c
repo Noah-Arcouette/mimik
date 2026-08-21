@@ -12,7 +12,7 @@ parse_x86_16_jmp (void)
 	// symbol
 
 	// call
-	if (!strcmp(ltok.buf, "call"))
+	if (!wcscmp(ltok.buf, L"call"))
 	{
 		lex();
 
@@ -37,7 +37,7 @@ parse_x86_16_jmp (void)
 	// else
 
 	// jmp
-	if (!strcmp(ltok.buf, "jmp"))
+	if (!wcscmp(ltok.buf, L"jmp"))
 	{
 		lex();
 
@@ -82,7 +82,7 @@ parse_x86_16_jmp (void)
 	// else
 
 	// ljmp
-	if (!strcmp(ltok.buf, "ljmp"))
+	if (!wcscmp(ltok.buf, L"ljmp"))
 	{
 		lex();
 
@@ -153,7 +153,7 @@ parse_x86_16_jmp (void)
 	// else
 
 	// sjmp
-	if (!strcmp(ltok.buf, "sjmp"))
+	if (!wcscmp(ltok.buf, L"sjmp"))
 	{
 		lex();
 

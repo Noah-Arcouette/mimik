@@ -1,6 +1,6 @@
 #include "../main.h"
 #include "x86_16.h"
-#include <string.h>
+#include <wchar.h>
 
 int
 parse_x86_16_sreg (int *reg)
@@ -12,32 +12,32 @@ parse_x86_16_sreg (int *reg)
 
 	switch (ltok.buf[1])
 	{
-	case 'e':
-		if (!strcmp(ltok.buf+2, "s"))
+	case L'e':
+		if (!wcscmp(ltok.buf+2, L"s"))
 		{
 			lex();
 			if (reg) *reg = 0b000;
 			return 1;
 		}
 		return 0;
-	case 'c':
-		if (!strcmp(ltok.buf+2, "s"))
+	case L'c':
+		if (!wcscmp(ltok.buf+2, L"s"))
 		{
 			lex();
 			if (reg) *reg = 0b001;
 			return 1;
 		}
 		return 0;
-	case 'd':
-		if (!strcmp(ltok.buf+2, "s"))
+	case L'd':
+		if (!wcscmp(ltok.buf+2, L"s"))
 		{
 			lex();
 			if (reg) *reg = 0b011;
 			return 1;
 		}
 		return 0;
-	case 's':
-		if (!strcmp(ltok.buf+2, "s"))
+	case L's':
+		if (!wcscmp(ltok.buf+2, L"s"))
 		{
 			lex();
 			if (reg) *reg = 0b010;

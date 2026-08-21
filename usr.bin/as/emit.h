@@ -1,6 +1,7 @@
 #ifndef __EMIT_H__
 #define __EMIT_H__
 #include <stddef.h>
+#include <wchar.h>
 #include <mio.h>
 
 /**
@@ -15,14 +16,14 @@ extern long currentSection;
  * @file emit/section.c
  * @param name The name of the new section to create
  */
-extern void emitSection (const char *name);
+extern void emitSection (const wchar_t *name);
 
 /**
  * Enter a new symbol
  * @file emit/symbol.c
  * @param name The name of the new symbol to create
  */
-extern void emitSymbol (const char *name);
+extern void emitSymbol (const wchar_t *name);
 
 /**
  * Emit symbol data into the output stream
@@ -112,7 +113,7 @@ extern void emitArchitecture (void);
  * @param arch The architecture to set to
  * @file setArch.c
  */
-extern void setArch (const char *arch);
+extern void setArch (const wchar_t *arch);
 
 /**
  * Create a gap at the current offset
@@ -120,7 +121,7 @@ extern void setArch (const char *arch);
  * @param type The type of this gap
  * @file emit/gap.c
  */
-extern void emitGap (const char *symbol, int type);
+extern void emitGap (const wchar_t *symbol, int type);
 
 /**
  * Emit gap data into the output stream

@@ -14,7 +14,7 @@ struct MiO_Symbol *symbol  = NULL;
 size_t             symbols = 0;
 
 void
-emitSymbol (const char *name)
+emitSymbol (const wchar_t *name)
 {
 	if (currentSection < 0)
 	{
@@ -24,7 +24,7 @@ emitSymbol (const char *name)
 	}
 
 	// check name length
-	if (strlen(name) > 256)
+	if ((wcstombs(NULL, name, 0)-1) > 256)
 	{
 		prettyprint(gettext("Symbol name is too large\n"));
 		errors++;
@@ -49,7 +49,7 @@ emitSymbol (const char *name)
 	struct MiO_Symbol *s = &symbol[symbols-1];
 
 	memset(s, 0, sizeof(struct MiO_Symbol));
-	strncpy((void *)s->name, name, sizeof(s->name));
+	wcstombs((void *)s->name, name, 256);
 	s->size  = 0;
 	s->flags = htole16(symbolFlags);
 	if (symbolFlags & MIO_SYMBOL_FLAG_VIRTUAL)
@@ -65,7 +65,7 @@ emitSymbol (const char *name)
 void
 emitSymbolData (void)
 {
-	emitSection((char *)MIO_SPECIAL_MIO_SYMBOLS);
+	emitSection(MIO_SPECIAL_MIO_SYMBOLS_W);
 	emit(symbol, symbols*sizeof(struct MiO_Symbol));
 
 	free(symbol);

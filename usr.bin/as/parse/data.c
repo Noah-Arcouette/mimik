@@ -21,50 +21,50 @@ parse_data (void)
 			}
 			else if (ltok.type == TOK_STRING)
 			{
-				char *s = ltok.buf+1;
-				char d = '\\';
-				while (*s)
+				wchar_t *s = ltok.buf+1;
+				wchar_t d = L'\\';
+				while (*s != L'\0')
 				{
 					d = *s;
-					if (*s == '\\')
+					if (*s == L'\\')
 					{
-						d = '\\';
+						d = L'\\';
 						s++;
 						switch (*s)
 						{
-						case '0':
-							*s = '\0';
+						case L'0':
+							*s = L'\0';
 							break;
-						case 'a':
-							*s = '\a';
+						case L'a':
+							*s = L'\a';
 							break;
-						case 'b':
-							*s = '\b';
+						case L'b':
+							*s = L'\b';
 							break;
-						case 'e':
-							*s = '\e';
+						case L'e':
+							*s = L'\e';
 							break;
-						case 'f':
-							*s = '\f';
+						case L'f':
+							*s = L'\f';
 							break;
-						case 'n':
-							*s = '\n';
+						case L'n':
+							*s = L'\n';
 							break;
-						case 'r':
-							*s = '\r';
+						case L'r':
+							*s = L'\r';
 							break;
-						case 't':
-							*s = '\t';
+						case L't':
+							*s = L'\t';
 							break;
-						case 'v':
-							*s = '\v';
+						case L'v':
+							*s = L'\v';
 							break;
 						// case '\\': // just emit it
 						// case '"': // just emit it
 						}
 					}
 
-					if (*s != '"' || d == '\\') emit(s, 1);
+					if (*s != L'"' || d == L'\\') emit(s, 1);
 
 					s++;
 				}

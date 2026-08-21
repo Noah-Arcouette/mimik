@@ -13,6 +13,6 @@ struct MiO_Arch currentArchitecture = {
 void
 emitArchitecture (void)
 {
-	emitSection((const char *)MIO_SPECIAL_MIO_ARCH);
+	emitSection(MIO_SPECIAL_MIO_ARCH_W);
 	emit(&currentArchitecture, sizeof(currentArchitecture));
 }

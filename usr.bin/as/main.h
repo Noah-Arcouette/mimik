@@ -1,6 +1,7 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 #include <stdio.h>
+#include <wchar.h>
 
 /**
  * The name of the current program
@@ -32,12 +33,12 @@ extern void args (int argc, char *argv[]);
 enum tokenType
 {
 	TOK_EOF = 0,
-	TOK_COLON = ':',
-	TOK_SEMICOLON = ';',
-	TOK_OPEN_SQUARE = '[',
-	TOK_CLOSE_SQUARE = ']',
-	TOK_PLUS = '+',
-	TOK_MINUS = '-',
+	TOK_COLON = L':',
+	TOK_SEMICOLON = L';',
+	TOK_OPEN_SQUARE = L'[',
+	TOK_CLOSE_SQUARE = L']',
+	TOK_PLUS = L'+',
+	TOK_MINUS = L'-',
 	TOK_UNKNOWN = 0xff,
 	TOK_NEWLINE,
 	TOK_NUMBER,
@@ -69,8 +70,8 @@ struct token
 	long offset; // the current character offset
 	long size;   // the size of the current token buffer
 
-	long  bufcp; // the buffer capacity
-	char *buf;   // the token buffer
+	long     bufcp; // the buffer capacity
+	wchar_t *buf;   // the token buffer
 };
 
 /**

@@ -1,8 +1,8 @@
 #include <libintl.h>
 #include <string.h>
 #include <stdlib.h>
+#include <wctype.h>
 #include <stdio.h>
-#include <ctype.h>
 #include "main.h"
 
 FILE *lfp;
@@ -14,13 +14,13 @@ const char *lfilename;
  * @file lex.c
  */
 static void
-_pushc (char c)
+_pushc (wchar_t c)
 {
 	ltok.size++;
 	if ((ltok.size+1) > ltok.bufcp)
 	{
 		ltok.bufcp = (3*(ltok.size+1))/2;
-		void *buf = realloc(ltok.buf, ltok.bufcp);
+		void *buf = realloc(ltok.buf, sizeof(wchar_t)*ltok.bufcp);
 		if (!buf)
 		{
 			fprintf(stderr, gettext("%s: Failed to allocate memory\n"), self);
@@ -30,7 +30,7 @@ _pushc (char c)
 		ltok.buf = buf;
 	}
 	ltok.buf[ltok.size-1] = c;
-	ltok.buf[ltok.size  ] = '\0';
+	ltok.buf[ltok.size  ] = L'\0';
 }
 
 void
@@ -40,131 +40,131 @@ _try_again:
 	ltok.offset += ltok.size;
 	ltok.size    = 0;
 
-	int d;
-	int c = fgetc(lfp);
+	wint_t d;
+	wint_t c = fgetwc(lfp);
 
 	switch (c)
 	{
-	case ' ':
-	case '\t':
+	case L' ':
+	case L'\t':
 		ltok.size++;
 		goto _try_again;
-	case '\n':
+	case L'\n':
 		ltok.lineno++;
 		ltok.offset = 0;
 		ltok.type = TOK_NEWLINE;
 		break;
-	case ':':
-	case ';':
-	case '[':
-	case ']':
-	case '+':
-	case '-':
+	case L':':
+	case L';':
+	case L'[':
+	case L']':
+	case L'+':
+	case L'-':
 		_pushc(c);
 		ltok.type = c;
 		break;
-	case EOF:
+	case WEOF:
 		ltok.type = TOK_EOF;
 		break;
-	case '%':
-		while (isalnum(c) || c == '%')
+	case L'%':
+		while (iswalnum(c) || c == L'%')
 		{
 			_pushc(c);
-			c = fgetc(lfp);
+			c = fgetwc(lfp);
 		}
-		ungetc(c, lfp); // unget the non-matching character
+		ungetwc(c, lfp); // unget the non-matching character
 		ltok.type = TOK_REGISTER;
 		break;
-	case '"':
-		d = '\\';
-		while (c != '"' || d == '\\')
+	case L'"':
+		d = L'\\';
+		while (c != L'"' || d == L'\\')
 		{
 			d = c;
 			_pushc(c);
-			c = fgetc(lfp);
+			c = fgetwc(lfp);
 		}
 		_pushc(c);
-		c = fgetc(lfp);
+		c = fgetwc(lfp);
 		ltok.type = TOK_STRING;
 		break;
 	default:
-		if (isdigit(c))
+		if (iswdigit(c))
 		{
-			while (isalnum(c))
+			while (iswalnum(c))
 			{
 				_pushc(c);
-				c = fgetc(lfp);
+				c = fgetwc(lfp);
 			}
-			ungetc(c, lfp); // unget the non-matching character
+			ungetwc(c, lfp); // unget the non-matching character
 			ltok.type = TOK_NUMBER;
 			break;
 		}
 
-		if (isalpha(c) || c == '.' || c == '_')
+		if (iswalpha(c) || c == L'.' || c == L'_')
 		{
-			while (isalnum(c) || c == '.' || c == '_')
+			while (iswalnum(c) || c == L'.' || c == L'_')
 			{
 				_pushc(c);
-				c = fgetc(lfp);
+				c = fgetwc(lfp);
 			}
-			ungetc(c, lfp); // unget the non-matching character
+			ungetwc(c, lfp); // unget the non-matching character
 
-			if (!strcmp(ltok.buf, ".arch"))
+			if (!wcscmp(ltok.buf, L".arch"))
 			{
 				ltok.type = TOK_ARCH;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".uarch"))
+			if (!wcscmp(ltok.buf, L".uarch"))
 			{
 				ltok.type = TOK_UARCH;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".archflag"))
+			if (!wcscmp(ltok.buf, L".archflag"))
 			{
 				ltok.type = TOK_ARCHFLAG;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".sys"))
+			if (!wcscmp(ltok.buf, L".sys"))
 			{
 				ltok.type = TOK_SYS;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".usys"))
+			if (!wcscmp(ltok.buf, L".usys"))
 			{
 				ltok.type = TOK_USYS;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".sysflag"))
+			if (!wcscmp(ltok.buf, L".sysflag"))
 			{
 				ltok.type = TOK_SYSFLAG;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".section"))
+			if (!wcscmp(ltok.buf, L".section"))
 			{
 				ltok.type = TOK_SECTION;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".global"))
+			if (!wcscmp(ltok.buf, L".global"))
 			{
 				ltok.type = TOK_GLOBAL;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".byte"))
+			if (!wcscmp(ltok.buf, L".byte"))
 			{
 				ltok.type = TOK_BYTE;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".word"))
+			if (!wcscmp(ltok.buf, L".word"))
 			{
 				ltok.type = TOK_WORD;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".res.byte"))
+			if (!wcscmp(ltok.buf, L".res.byte"))
 			{
 				ltok.type = TOK_RES_BYTE;
 				break;
 			}
-			if (!strcmp(ltok.buf, ".res.word"))
+			if (!wcscmp(ltok.buf, L".res.word"))
 			{
 				ltok.type = TOK_RES_WORD;
 				break;

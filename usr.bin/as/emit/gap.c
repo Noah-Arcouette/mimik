@@ -14,7 +14,7 @@ static size_t          gaps = 0;
 void
 emitGapData (void)
 {
-	emitSection((char *)MIO_SPECIAL_MIO_GAPS);
+	emitSection(MIO_SPECIAL_MIO_GAPS_W);
 	emit(gap, gaps*sizeof(struct MiO_Gap));
 
 	free(gap);
@@ -23,7 +23,7 @@ emitGapData (void)
 }
 
 void
-emitGap (const char *symbol, int type)
+emitGap (const wchar_t *symbol, int type)
 {
 	// make sure we're in a section
 	if (currentSection < 0)
@@ -43,7 +43,7 @@ emitGap (const char *symbol, int type)
 	}
 
 	// make sure the symbol fits
-	if (strlen(symbol) > 256)
+	if (wcstombs(NULL, symbol, 0)-1 > 256)
 	{
 		prettyprint(gettext("Symbol name too long\n"));
 		errors++;
@@ -66,7 +66,12 @@ emitGap (const char *symbol, int type)
 
 	// fill in data
 	memset(g, 0, sizeof(*g));
-	strncpy((void *)g->symbol, symbol, sizeof(g->symbol));
+	if (wcstombs((void *)g->symbol, symbol, 256) < 0)
+	{
+		fprintf(stderr, gettext("%s: Failed to convert string, %s\n"), self,
+			strerror(errno));
+		errors++;
+	}
 	g->offset = htole64(emitsz);
 	g->type   = htole16(type);
 

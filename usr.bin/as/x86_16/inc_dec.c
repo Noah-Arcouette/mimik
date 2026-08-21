@@ -3,7 +3,7 @@
 #include "../emit.h"
 #include "x86_16.h"
 #include <libintl.h>
-#include <string.h>
+#include <wchar.h>
 
 int
 parse_x86_16_inc_dec (void)
@@ -12,12 +12,12 @@ parse_x86_16_inc_dec (void)
 
 	int command;
 	int opcode;
-	if (!strcmp(ltok.buf, "inc"))
+	if (!wcscmp(ltok.buf, L"inc"))
 	{
 		command = 0b000000;
 		opcode  = 0b01000000;
 	}
-	else if (!strcmp(ltok.buf, "dec"))
+	else if (!wcscmp(ltok.buf, L"dec"))
 	{
 		command = 0b001000;
 		opcode  = 0b01001000;

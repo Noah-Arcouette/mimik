@@ -30,29 +30,33 @@ parse_section (void)
 		{
 			struct MiO *section = (void *)&emitbuf[currentSection];
 
-			char *s = ltok.buf;
+			wchar_t *s = ltok.buf;
 			while (*s)
 			{
 				switch (*s)
 				{
-				case 'x':
+				case L'x':
 					symbolFlags |= MIO_SYMBOL_FLAG_EXECUTABLE;
 					break;
-				case 'r':
+				case L'r':
 					symbolFlags |= MIO_SYMBOL_FLAG_READABLE;
 					break;
-				case 'w':
+				case L'w':
 					symbolFlags |= MIO_SYMBOL_FLAG_WRITABLE;
 					break;
 				case 't':
 					symbolFlags |= MIO_SYMBOL_FLAG_THREAD_LOCAL;
 					break;
-				case 'v':
+				case L'v':
 					section->flags |= MIO_FLAG_VIRTUAL;
 					symbolFlags    |= MIO_SYMBOL_FLAG_VIRTUAL;
 					break;
-				case '-':
-				case '\0':
+				case L'-':
+				case L'\0':
+					break;
+				default:
+					prettyprint(gettext("Unknown section flag `%C'\n"), *s);
+					errors++;
 					break;
 				}
 				s++;

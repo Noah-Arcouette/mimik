@@ -11,153 +11,153 @@ parse_x86_16_jcc (void)
 
 	char opcode;
 	// check for the types
-	if (ltok.buf[0] == 'j')
+	if (ltok.buf[0] == L'j')
 	{
-		if (!strcmp(ltok.buf, "je"))
+		if (!wcscmp(ltok.buf, L"je"))
 		{
 			opcode = 0b01110100;
 		}
-		else if (!strcmp(ltok.buf, "jz"))
+		else if (!wcscmp(ltok.buf, L"jz"))
 		{
 			opcode = 0b01110100;
 		}
-		else if (!strcmp(ltok.buf, "jl"))
+		else if (!wcscmp(ltok.buf, L"jl"))
 		{
 			opcode = 0b01111100;
 		}
-		else if (!strcmp(ltok.buf, "jnge"))
+		else if (!wcscmp(ltok.buf, L"jnge"))
 		{
 			opcode = 0b01111100;
 		}
-		else if (!strcmp(ltok.buf, "jle"))
+		else if (!wcscmp(ltok.buf, L"jle"))
 		{
 			opcode = 0b01111110;
 		}
-		else if (!strcmp(ltok.buf, "jng"))
+		else if (!wcscmp(ltok.buf, L"jng"))
 		{
 			opcode = 0b01111110;
 		}
-		else if (!strcmp(ltok.buf, "jb"))
+		else if (!wcscmp(ltok.buf, L"jb"))
 		{
 			opcode = 0b01110010;
 		}
-		else if (!strcmp(ltok.buf, "jc"))
+		else if (!wcscmp(ltok.buf, L"jc"))
 		{
 			opcode = 0b01110010;
 		}
-		else if (!strcmp(ltok.buf, "jnae"))
+		else if (!wcscmp(ltok.buf, L"jnae"))
 		{
 			opcode = 0b01110010;
 		}
-		else if (!strcmp(ltok.buf, "jbe"))
+		else if (!wcscmp(ltok.buf, L"jbe"))
 		{
 			opcode = 0b01110110;
 		}
-		else if (!strcmp(ltok.buf, "jna"))
+		else if (!wcscmp(ltok.buf, L"jna"))
 		{
 			opcode = 0b01110110;
 		}
-		else if (!strcmp(ltok.buf, "jp"))
+		else if (!wcscmp(ltok.buf, L"jp"))
 		{
 			opcode = 0b01111010;
 		}
-		else if (!strcmp(ltok.buf, "jpe"))
+		else if (!wcscmp(ltok.buf, L"jpe"))
 		{
 			opcode = 0b01111010;
 		}
-		else if (!strcmp(ltok.buf, "jo"))
+		else if (!wcscmp(ltok.buf, L"jo"))
 		{
 			opcode = 0b01110000;
 		}
-		else if (!strcmp(ltok.buf, "js"))
+		else if (!wcscmp(ltok.buf, L"js"))
 		{
 			opcode = 0b01111000;
 		}
-		else if (!strcmp(ltok.buf, "jne"))
+		else if (!wcscmp(ltok.buf, L"jne"))
 		{
 			opcode = 0b01110101;
 		}
-		else if (!strcmp(ltok.buf, "jnz"))
+		else if (!wcscmp(ltok.buf, L"jnz"))
 		{
 			opcode = 0b01110101;
 		}
-		else if (!strcmp(ltok.buf, "jnl"))
+		else if (!wcscmp(ltok.buf, L"jnl"))
 		{
 			opcode = 0b01111101;
 		}
-		else if (!strcmp(ltok.buf, "jge"))
+		else if (!wcscmp(ltok.buf, L"jge"))
 		{
 			opcode = 0b01111101;
 		}
-		else if (!strcmp(ltok.buf, "jnle"))
+		else if (!wcscmp(ltok.buf, L"jnle"))
 		{
 			opcode = 0b01111111;
 		}
-		else if (!strcmp(ltok.buf, "jg"))
+		else if (!wcscmp(ltok.buf, L"jg"))
 		{
 			opcode = 0b01111111;
 		}
-		else if (!strcmp(ltok.buf, "jnb"))
+		else if (!wcscmp(ltok.buf, L"jnb"))
 		{
 			opcode = 0b01110011;
 		}
-		else if (!strcmp(ltok.buf, "jnc"))
+		else if (!wcscmp(ltok.buf, L"jnc"))
 		{
 			opcode = 0b01110011;
 		}
-		else if (!strcmp(ltok.buf, "jae"))
+		else if (!wcscmp(ltok.buf, L"jae"))
 		{
 			opcode = 0b01110011;
 		}
-		else if (!strcmp(ltok.buf, "jnbe"))
+		else if (!wcscmp(ltok.buf, L"jnbe"))
 		{
 			opcode = 0b01110111;
 		}
-		else if (!strcmp(ltok.buf, "ja"))
+		else if (!wcscmp(ltok.buf, L"ja"))
 		{
 			opcode = 0b01110111;
 		}
-		else if (!strcmp(ltok.buf, "jnp"))
+		else if (!wcscmp(ltok.buf, L"jnp"))
 		{
 			opcode = 0b01111011;
 		}
-		else if (!strcmp(ltok.buf, "jpo"))
+		else if (!wcscmp(ltok.buf, L"jpo"))
 		{
 			opcode = 0b01111011;
 		}
-		else if (!strcmp(ltok.buf, "jno"))
+		else if (!wcscmp(ltok.buf, L"jno"))
 		{
 			opcode = 0b01110001;
 		}
-		else if (!strcmp(ltok.buf, "jns"))
+		else if (!wcscmp(ltok.buf, L"jns"))
 		{
 			opcode = 0b01111001;
 		}
-		else if (!strcmp(ltok.buf, "jcxz"))
+		else if (!wcscmp(ltok.buf, L"jcxz"))
 		{
 			opcode = 0b01110011;
 		}
 		else return 0;
 	}
-	else if (ltok.buf[0] == 'l')
+	else if (ltok.buf[0] == L'l')
 	{
-		if (!strcmp(ltok.buf, "loop"))
+		if (!wcscmp(ltok.buf, L"loop"))
 		{
 			opcode = 0b11100010;
 		}
-		else if (!strcmp(ltok.buf, "loopz"))
+		else if (!wcscmp(ltok.buf, L"loopz"))
 		{
 			opcode = 0b11100001;
 		}
-		else if (!strcmp(ltok.buf, "loope"))
+		else if (!wcscmp(ltok.buf, L"loope"))
 		{
 			opcode = 0b11100001;
 		}
-		else if (!strcmp(ltok.buf, "loopnz"))
+		else if (!wcscmp(ltok.buf, L"loopnz"))
 		{
 			opcode = 0b11100000;
 		}
-		else if (!strcmp(ltok.buf, "loopne"))
+		else if (!wcscmp(ltok.buf, L"loopne"))
 		{
 			opcode = 0b11100000;
 		}
