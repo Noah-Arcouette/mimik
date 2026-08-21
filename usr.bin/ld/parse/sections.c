@@ -34,7 +34,7 @@ parse_sections (void)
 			recover();
 			continue;
 		}
-		char *sym = strdup(ltoken.buf);
+		wchar_t *sym = wcsdup(ltoken.buf);
 		if (!sym)
 		{
 			fprintf(stderr, gettext("%s: %s\n"), self, strerror(errno));

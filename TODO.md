@@ -144,6 +144,8 @@ cc:
 		__i8080__, __x86_16__
 		line slices
 		comments
+		object-like macros
+		function-like macros
 	Parser (AST Generation):
 		Declarations:
 			Primitive Types

@@ -2,22 +2,23 @@
 #include <libintl.h>
 #include <string.h>
 #include <endian.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <mio.h>
 
 static struct MiO_Entry entry;
 
 void
-setEntry (const char *name)
+setEntry (const wchar_t *name)
 {
-	if (strlen(name) > 256)
+	if ((wcstombs(NULL, name, 0)-1) > 256)
 	{
-		fprintf(stderr, gettext("%s: Entry name `%s' larger than allowed\n"),
+		fprintf(stderr, gettext("%s: Entry name `%S' larger than allowed\n"),
 			self, name);
 		errors++;
 		return;
 	}
-	strncpy((char *)entry.entry, name, 256);
+	wcstombs((char *)entry.entry, name, 256);
 }
 
 void

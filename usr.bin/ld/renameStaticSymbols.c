@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <errno.h>
 #include "main.h"
 
 void
@@ -75,7 +76,15 @@ renameStaticSymbols (void)
 			}
 
 			// try again
-			if (findSymbol(name)) j--;
+			wchar_t w_name[256];
+			name[255] = '\0';
+			if (mbstowcs(w_name, name, 256) < 0)
+			{
+				fprintf(stderr, gettext("%s: Failed to convert `%s', %s\n"),
+					self, name, strerror(errno));
+				errors++;
+			}
+			else if (findSymbol(w_name)) j--;
 
 			// rename symbol
 			strncpy((char *)symbol->name, name, oldnamesz);

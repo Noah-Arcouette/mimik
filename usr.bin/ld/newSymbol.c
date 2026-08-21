@@ -14,10 +14,10 @@ size_t             outputSymbolsz = 0;
 size_t             outputSymbolcp = 0;
 
 void
-newSymbol (int64_t val, long size, int type, const char *name)
+newSymbol (int64_t val, long size, int type, const wchar_t *name)
 {
 	// period
-	if (!strcmp(name, "."))
+	if (!wcscmp(name, L"."))
 	{
 		if (period >= 0 && val < period)
 		{
@@ -50,11 +50,11 @@ newSymbol (int64_t val, long size, int type, const char *name)
 	s->size  = htole64(size);
 	s->flags = htole16(type);
 	memset(s->name, 0, sizeof(s->name));
-	strncpy((char *)s->name, name, sizeof(s->name));
+	int len = wcstombs((char *)s->name, name, 256);
 
-	if (strlen(name) > sizeof(s->name))
+	if (len > (int)sizeof(s->name))
 	{
-		fprintf(stderr, gettext("%s: Symbol name `%s' greater than allowed\n"),
+		fprintf(stderr, gettext("%s: Symbol name `%S' greater than allowed\n"),
 			self, name);
 		errors++;
 	}

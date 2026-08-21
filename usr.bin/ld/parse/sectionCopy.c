@@ -10,7 +10,7 @@
 long currentSection = -1;
 
 int
-parse_sectionCopy (const char *sym)
+parse_sectionCopy (const wchar_t *sym)
 {
 	struct MiO_Map map;
 	map.flags    = 0;
@@ -167,7 +167,7 @@ parse_sectionCopy (const char *sym)
 	if (map.flags & MIO_MAP_FLAG_VIRTUAL) m.flags = MIO_FLAG_VIRTUAL;
 
 	memset(m.name, 0, sizeof(m.name));
-	strncpy((char *)m.name, sym, sizeof(m.name));
+	wcstombs((char *)m.name, sym, 256);
 
 	long _currentSection = outputsz;
 	emit(&m, sizeof(m));
@@ -242,7 +242,7 @@ parse_sectionCopy (const char *sym)
 		// file(section...)
 		if (ltoken.type == LTYPE_SYMBOL)
 		{
-			char *sectionFile = strdup(ltoken.buf);
+			wchar_t *sectionFile = wcsdup(ltoken.buf);
 			if (!sectionFile)
 			{
 				fprintf(stderr, gettext("%s: %s\n"), self, strerror(errno));

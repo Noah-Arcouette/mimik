@@ -3,8 +3,8 @@
 #include <libintl.h>
 #include <stdlib.h>
 #include <string.h>
+#include <wctype.h>
 #include <errno.h>
-#include <ctype.h>
 
 struct ltoken ltoken = {
 	.type   = LTYPE_EOF,
@@ -20,11 +20,11 @@ const char *lfilename = NULL;
 
 int lex_symbolCanGlob = 0;
 
-static int
+static wint_t
 _getc (void)
 {
-	int c = fgetc(lfp);
-	if (c == EOF)
+	wint_t c = fgetwc(lfp);
+	if (c == WEOF)
 	{
 		if (ferror(lfp))
 		{
@@ -41,7 +41,7 @@ _getc (void)
 	if ((ltoken.length+1) > ltoken.bufcp)
 	{
 		ltoken.bufcp = 3*(ltoken.length+1)/2;
-		void *buf = realloc(ltoken.buf, ltoken.bufcp);
+		void *buf = realloc(ltoken.buf, ltoken.bufcp*sizeof(wchar_t));
 		if (!buf)
 		{
 			fprintf(stderr, gettext("%s: %s\n"), self, strerror(errno));
@@ -52,12 +52,12 @@ _getc (void)
 	}
 	// add the character and null
 	ltoken.buf[ltoken.length-1] = c;
-	ltoken.buf[ltoken.length  ] = '\0';
+	ltoken.buf[ltoken.length  ] = L'\0';
 	return c;
 }
 
 static void
-_ungetc (int c)
+_ungetc (wint_t c)
 {
 	if (ltoken.length == 0)
 	{
@@ -65,8 +65,8 @@ _ungetc (int c)
 	}
 
 	ltoken.length--;
-	ltoken.buf[ltoken.length] = '\0';
-	ungetc(c, lfp);
+	ltoken.buf[ltoken.length] = L'\0';
+	ungetwc(c, lfp);
 }
 
 void
@@ -76,45 +76,45 @@ _lex:
 	ltoken.offset += ltoken.length;
 	ltoken.length = 0;
 
-	int c = _getc();
+	wint_t c = _getc();
 
 	switch (c)
 	{
 	// eat white space
-	case ' ':
-	case '\t':
+	case L' ':
+	case L'\t':
 		goto _lex;
-	case '\n': // manage new lines
+	case L'\n': // manage new lines
 		ltoken.lineno++;
 		ltoken.length = 0;
 		ltoken.offset = 0;
 		goto _lex;
-	case '{':
-	case '}':
-	case '=':
-	case ';':
-	case ':':
-	case '(':
-	case ')':
-	case '+':
-	case '-':
+	case L'{':
+	case L'}':
+	case L'=':
+	case L';':
+	case L':':
+	case L'(':
+	case L')':
+	case L'+':
+	case L'-':
 		ltoken.type = c;
 		break;
-	case EOF:
+	case WEOF:
 		ltoken.type = LTYPE_EOF;
 		break;
 	default:
 		// non-glob
-		if ((c == '/' || c == '*') && !lex_symbolCanGlob)
+		if ((c == L'/' || c == L'*') && !lex_symbolCanGlob)
 		{
 			ltoken.type = c;
 			break;
 		}
 
-		if (isalpha(c) || c == '_' || c == '.' || c == '*' || c == '/')
+		if (iswalpha(c) || c == L'_' || c == L'.' || c == L'*' || c == L'/')
 		{
-			while (isalnum(c) || c == '_' || c == '.' || (
-				(c == '*' || c == '/') &&
+			while (iswalnum(c) || c == L'_' || c == L'.' || (
+				(c == L'*' || c == L'/') &&
 				lex_symbolCanGlob
 			))
 			{
@@ -126,74 +126,74 @@ _lex:
 			// check for special symbols
 			switch (ltoken.buf[0])
 			{
-			case 'Q':
-				if (!strcmp(ltoken.buf+1, "UAD"))
+			case L'Q':
+				if (!wcscmp(ltoken.buf+1, L"UAD"))
 				{
 					ltoken.type = LTYPE_QUAD;
 				}
 				break;
-			case 'L':
-				if (!strcmp(ltoken.buf+1, "ONG"))
+			case L'L':
+				if (!wcscmp(ltoken.buf+1, L"ONG"))
 				{
 					ltoken.type = LTYPE_LONG;
 				}
 				break;
-			case 'E':
-				if (!strcmp(ltoken.buf+1, "NTRY"))
+			case L'E':
+				if (!wcscmp(ltoken.buf+1, L"NTRY"))
 				{
 					ltoken.type = LTYPE_ENTRY;
 				}
 				break;
-			case 'A':
-				if (!strcmp(ltoken.buf+1, "RCH"))
+			case L'A':
+				if (!wcscmp(ltoken.buf+1, L"RCH"))
 				{
 					ltoken.type = LTYPE_ARCH;
 				}
-				else if (!strcmp(ltoken.buf+1, "RCHFLAG"))
+				else if (!wcscmp(ltoken.buf+1, L"RCHFLAG"))
 				{
 					ltoken.type = LTYPE_ARCHFLAG;
 				}
-				else if (!strcmp(ltoken.buf+1, "LIGN"))
+				else if (!wcscmp(ltoken.buf+1, L"LIGN"))
 				{
 					ltoken.type = LTYPE_ALIGN;
 				}
 				break;
-			case 'U':
-				if (!strcmp(ltoken.buf+1, "ARCH"))
+			case L'U':
+				if (!wcscmp(ltoken.buf+1, L"ARCH"))
 				{
 					ltoken.type = LTYPE_UARCH;
 				}
-				else if (!strcmp(ltoken.buf+1, "SYS"))
+				else if (!wcscmp(ltoken.buf+1, L"SYS"))
 				{
 					ltoken.type = LTYPE_USYS;
 				}
 				break;
-			case 'S':
-				if (!strcmp(ltoken.buf+1, "YS"))
+			case L'S':
+				if (!wcscmp(ltoken.buf+1, L"YS"))
 				{
 					ltoken.type = LTYPE_SYS;
 				}
-				else if (!strcmp(ltoken.buf+1, "YSFLAG"))
+				else if (!wcscmp(ltoken.buf+1, L"YSFLAG"))
 				{
 					ltoken.type = LTYPE_SYSFLAG;
 				}
-				else if (!strcmp(ltoken.buf+1, "ECTIONS"))
+				else if (!wcscmp(ltoken.buf+1, L"ECTIONS"))
 				{
 					ltoken.type = LTYPE_SECTIONS;
 				}
-				else if (!strcmp(ltoken.buf+1, "HORT"))
+				else if (!wcscmp(ltoken.buf+1, L"HORT"))
 				{
 					ltoken.type = LTYPE_SHORT;
 				}
 				break;
-			case 'B':
-				if (!strcmp(ltoken.buf+1, "YTE"))
+			case L'B':
+				if (!wcscmp(ltoken.buf+1, L"YTE"))
 				{
 					ltoken.type = LTYPE_BYTE;
 				}
 				break;
-			case 'N':
-				if (!strcmp(ltoken.buf+1, "OLOAD"))
+			case L'N':
+				if (!wcscmp(ltoken.buf+1, L"OLOAD"))
 				{
 					ltoken.type = LTYPE_NOLOAD;
 				}
@@ -203,9 +203,9 @@ _lex:
 			break;
 		}
 
-		if (isdigit(c))
+		if (iswdigit(c))
 		{
-			while (isalnum(c))
+			while (iswalnum(c))
 			{
 				c = _getc();
 			}

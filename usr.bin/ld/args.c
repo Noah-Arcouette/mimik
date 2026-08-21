@@ -42,7 +42,7 @@ _push_strip (const char *str)
 void
 args (int argc, char *argv[])
 {
-	setEntry("_start");
+	setEntry(L"_start");
 
 #ifdef STRIP
 	const char *strip = getenv("STRIP");
@@ -56,6 +56,7 @@ args (int argc, char *argv[])
 	}
 #endif
 
+	wchar_t went[256];
 	int c;
 	do
 	{
@@ -67,7 +68,14 @@ args (int argc, char *argv[])
 			argFlags |= ARG_FLAGS_DONT_MAP;
 			break;
 		case 'e':
-			setEntry(optarg);
+			if (mbstowcs(went, optarg, 256) < 0)
+			{
+				fprintf(stderr,
+					gettext("%s: Failed to encode entry `%s', %s\n"),
+					self, optarg, strerror(errno));
+				break;
+			}
+			setEntry(went);
 			break;
 		case 'o':
 			outputFile = optarg;

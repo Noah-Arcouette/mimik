@@ -5,7 +5,9 @@
 #include <fnmatch.h>
 #include <endian.h>
 #include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include <errno.h>
 
 static void
 _dumpSectionCopy (struct inputFile *inpfile, struct MiO *inpsection,
@@ -84,8 +86,12 @@ did you forget `NOLOAD'?\n"),
 		long symReloc = symStart-sectionStart+newSectionStart;
 
 		// move the symbol over
+		wchar_t wname[256];
+		inpsym->name[255] = '\0'; // just in case
+		mbstowcs(wname, (char *)inpsym->name, 256);
+
 		newSymbol(symReloc, le64toh(inpsym->size), symFlags,
-			(char *)inpsym->name);
+			wname);
 
 		// mark the symbol
 		inpsym->name[0] = '\0';
@@ -159,8 +165,47 @@ did you forget `NOLOAD'?\n"),
 }
 
 void
-dumpSection (const char *file, const char *section, struct MiO_Map *map)
+dumpSection (const wchar_t *w_file, const wchar_t *w_section, struct MiO_Map *map)
 {
+	// file
+	int len = wcstombs(NULL, w_file, 0);
+	if (len < 0)
+	{
+		fprintf(stderr, gettext("%s: Error converting `%S', %s"),
+			self, w_file, strerror(errno));
+		errors++;
+		return;
+	}
+	char *file = malloc(len+1);
+	if (!file)
+	{
+		fprintf(stderr, gettext("%s: %s"),
+			self, strerror(errno));
+		errors++;
+		return;
+	}
+	wcstombs(file, w_file, len+1);
+
+	// section
+	len = wcstombs(NULL, w_section, 0);
+	if (len < 0)
+	{
+		fprintf(stderr, gettext("%s: Error converting `%S', %s"),
+			self, w_section, strerror(errno));
+		errors++;
+		return;
+	}
+	char *section = malloc(len+1);
+	if (!section)
+	{
+		fprintf(stderr, gettext("%s: %s"),
+			self, strerror(errno));
+		errors++;
+		free(file);
+		return;
+	}
+	wcstombs(section, w_section, len+1);
+
 	for (long i = 0; i<inputs; i++)
 	{
 		struct inputFile *inpfile = &input[i];
@@ -199,4 +244,7 @@ dumpSection (const char *file, const char *section, struct MiO_Map *map)
 			}
 		}
 	}
+
+	free(section);
+	free(file);
 }

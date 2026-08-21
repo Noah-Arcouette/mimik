@@ -37,7 +37,7 @@ parse_uarch (void)
 			"No architecture minors are available for an undefined major\n"));
 		break;
 	case MIO_ARCH_ARCH_X86_16:
-		if (!strcmp(ltoken.buf, "i8086"))
+		if (!wcscmp(ltoken.buf, L"i8086"))
 		{
 			outputArch.uarch = htole16(MIO_ARCH_ARCH_X86_UARCH_I8086);
 			break;

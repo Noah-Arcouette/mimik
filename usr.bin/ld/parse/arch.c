@@ -33,9 +33,9 @@ parse_arch (void)
 
 	switch (ltoken.buf[0])
 	{
-	case 'u':
+	case L'u':
 		// undefined
-		if (!strcmp(ltoken.buf+1, "ndefined"))
+		if (!wcscmp(ltoken.buf+1, L"ndefined"))
 		{
 			outputArch.arch      = htole16(MIO_ARCH_ARCH_UNDEFINED);
 			outputArch.uarch     = 0;
@@ -43,9 +43,9 @@ parse_arch (void)
 			break;
 		}
 		goto _unknown;
-	case 'x':
+	case L'x':
 		// x86 16
-		if (!strcmp(ltoken.buf+1, "86_16"))
+		if (!wcscmp(ltoken.buf+1, L"86_16"))
 		{
 			outputArch.arch      = htole16(MIO_ARCH_ARCH_X86_16);
 			outputArch.uarch     = htole16(MIO_ARCH_ARCH_X86_UARCH_I8086);

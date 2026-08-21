@@ -95,7 +95,7 @@ extern void linker (void);
  * @param name The name to set it to
  * @file entry.c
  */
-extern void setEntry (const char *name);
+extern void setEntry (const wchar_t *name);
 
 /**
  * Emit data to the output file
@@ -141,7 +141,7 @@ extern void checkGlobalSymbols (void);
  * @param name The symbol to find
  * @returns NULL or a pointer to the symbol
  */
-extern struct MiO_Symbol *findSymbol (const char *name);
+extern struct MiO_Symbol *findSymbol (const wchar_t *name);
 
 /**
  * The output symbols
@@ -159,7 +159,7 @@ extern size_t             outputSymbolcp;
  * @param name The name of the symbol
  * @file newSymbol.c
  */
-extern void newSymbol (int64_t val, long size, int type, const char *name);
+extern void newSymbol (int64_t val, long size, int type, const wchar_t *name);
 
 /**
  * Free the symbols buffer
@@ -206,7 +206,7 @@ extern void freeMaps (void);
  * @param section The section name
  * @param map The current map for the section
  */
-extern void dumpSection (const char *file, const char *section,
+extern void dumpSection (const wchar_t *file, const wchar_t *section,
 	struct MiO_Map *map);
 
 /**

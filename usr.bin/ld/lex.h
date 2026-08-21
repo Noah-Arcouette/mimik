@@ -1,21 +1,22 @@
 #ifndef __LEX_H__
 #define __LEX_H__
 #include <stdio.h>
+#include <wchar.h>
 
 enum ltype
 {
 	// symbols
-	LTYPE_OPEN_CURLY  = '{',
-	LTYPE_CLOSE_CURLY = '}',
-	LTYPE_EQUAL       = '=',
-	LTYPE_SEMICOLON   = ';',
-	LTYPE_COLON       = ':',
-	LTYPE_OPEN_PAREN  = '(',
-	LTYPE_CLOSE_PAREN = ')',
-	LTYPE_PLUS        = '+',
-	LTYPE_SUBTRACT    = '-',
-	LTYPE_DIVIDE      = '/',
-	LTYPE_MULTIPLY    = '*',
+	LTYPE_OPEN_CURLY  = L'{',
+	LTYPE_CLOSE_CURLY = L'}',
+	LTYPE_EQUAL       = L'=',
+	LTYPE_SEMICOLON   = L';',
+	LTYPE_COLON       = L':',
+	LTYPE_OPEN_PAREN  = L'(',
+	LTYPE_CLOSE_PAREN = L')',
+	LTYPE_PLUS        = L'+',
+	LTYPE_SUBTRACT    = L'-',
+	LTYPE_DIVIDE      = L'/',
+	LTYPE_MULTIPLY    = L'*',
 	// others
 	LTYPE_EOF = 0xff,
 	LTYPE_UNKNOWN,
@@ -47,8 +48,8 @@ struct ltoken
 	long offset; // character offset
 	long length; // length of the token
 
-	long bufcp; // capacity of the buffer
-	char *buf;  // le buffer
+	long     bufcp; // capacity of the buffer
+	wchar_t *buf;  // le buffer
 };
 
 /**

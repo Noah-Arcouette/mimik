@@ -36,36 +36,36 @@ _val (int64_t *val)
 	if (ltoken.type == LTYPE_INTEGER)
 	{
 		int64_t a = 0;
-		char *s   = ltoken.buf;
+		wchar_t *s   = ltoken.buf;
 		int negative = 0;
-		if (*s == '+') s++;
-		if (*s == '-')
+		if (*s == L'+') s++;
+		if (*s == L'-')
 		{
 			s++;
 			negative = 1;
 		}
 
-		if (*s == '0')
+		if (*s == L'0')
 		{
 			s++;
 			// hex
-			if (*s == 'X' || *s == 'x')
+			if (*s == L'X' || *s == L'x')
 			{
 				s++;
 				while (*s)
 				{
 					a *= 16;
-					if (*s >= '0' && *s <= '9')
+					if (*s >= L'0' && *s <= L'9')
 					{
 						a += *s-'0';
 					}
-					else if (*s >= 'a' && *s <= 'f')
+					else if (*s >= L'a' && *s <= L'f')
 					{
 						a += *s-'a'+10;
 					}
-					else if (*s >= 'A' && *s <= 'F')
+					else if (*s >= L'A' && *s <= L'F')
 					{
-						a += *s-'A'+10;
+						a += *s-L'A'+10;
 					}
 					else
 					{
@@ -83,9 +83,9 @@ _val (int64_t *val)
 				while (*s)
 				{
 					a *= 8;
-					if (*s >= '0' && *s <= '7')
+					if (*s >= L'0' && *s <= L'7')
 					{
-						a += *s-'0';
+						a += *s-L'0';
 					}
 					else
 					{
@@ -104,9 +104,9 @@ _val (int64_t *val)
 			while (*s)
 			{
 				a *= 10;
-				if (*s >= '0' && *s <= '9')
+				if (*s >= L'0' && *s <= L'9')
 				{
-					a += *s-'0';
+					a += *s-L'0';
 				}
 				else
 				{
@@ -128,7 +128,7 @@ _val (int64_t *val)
 	if (ltoken.type == LTYPE_SYMBOL)
 	{
 		// period
-		if (!strcmp(ltoken.buf, "."))
+		if (!wcscmp(ltoken.buf, L"."))
 		{
 			lex();
 			if (period >= 0)
@@ -146,7 +146,7 @@ _val (int64_t *val)
 		struct MiO_Symbol *sym = findSymbol(ltoken.buf);
 		if (!sym)
 		{
-			prettyprint(gettext("Symbol `%s' does not exist\n"), ltoken.buf);
+			prettyprint(gettext("Symbol `%S' does not exist\n"), ltoken.buf);
 			errors++;
 			if (val) *val = 0;
 			lex();
@@ -160,7 +160,7 @@ _val (int64_t *val)
 			lex();
 			return 1;
 		}
-		prettyprint(gettext("Symbol `%s' is not a literal\n"), ltoken.buf);
+		prettyprint(gettext("Symbol `%S' is not a literal\n"), ltoken.buf);
 		errors++;
 		if (val) *val = 0;
 		lex();

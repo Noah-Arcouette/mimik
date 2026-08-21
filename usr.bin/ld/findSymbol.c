@@ -3,11 +3,21 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <errno.h>
 #include "main.h"
 
 struct MiO_Symbol *
-findSymbol (const char *name)
+findSymbol (const wchar_t *w_name)
 {
+	char name[256];
+	if (wcstombs(name, w_name, 256) < 0)
+	{
+		fprintf(stderr, gettext("%s: Failure converting `%S', %s\n"),
+			self, w_name, strerror(errno));
+		errors++;
+		return NULL;
+	}
+
 	// check the output symbols fist
 	for (size_t i = 0; i<outputSymbolsz; i++)
 	{

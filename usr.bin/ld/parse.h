@@ -1,6 +1,7 @@
 #ifndef __PARSE_H__
 #define __PARSE_H__
 #include <stdint.h>
+#include <wchar.h>
 
 /**
  * The entry set macro
@@ -79,7 +80,7 @@ extern int64_t period;
  * @returns True if consumed
  * @file parse/sectionCopy.c
  */
-extern int parse_sectionCopy (const char *sym);
+extern int parse_sectionCopy (const wchar_t *sym);
 
 /**
  * The current section we're emitting in, or -1

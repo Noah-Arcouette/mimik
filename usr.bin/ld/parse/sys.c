@@ -33,9 +33,9 @@ parse_sys (void)
 
 	switch (ltoken.buf[0])
 	{
-	case 'u':
+	case L'u':
 		// undefined
-		if (!strcmp(ltoken.buf+1, "ndefined"))
+		if (!wcscmp(ltoken.buf+1, L"ndefined"))
 		{
 			outputArch.sys      = htole16(MIO_ARCH_SYS_UNDEFINED);
 			outputArch.usys     = 0;
